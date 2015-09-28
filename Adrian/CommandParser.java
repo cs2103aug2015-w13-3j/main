@@ -1,4 +1,5 @@
 public class CommandParser {
+
 	String NOT_FOUND = "invalid input";
 	public String input;
 	public String[] inputArr;
