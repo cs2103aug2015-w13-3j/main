@@ -4,6 +4,7 @@ import java.util.Date;
 
 //this is another conflict
 
+//This is a conflict
 public class CommandPackage {
 	private String command;
 	private DatePackage dates;
