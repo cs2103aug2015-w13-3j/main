@@ -3,6 +3,7 @@ import java.util.Date;
 
 //This program is the output class from the parsing program for Daxuan to use to execute CRUD
 
+//this is a conflict
 public class CommandPackage {
 	private String command;
 	private DatePackage dates;
