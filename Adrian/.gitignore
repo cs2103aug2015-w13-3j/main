@@ -4,3 +4,7 @@
 /CommandParser.class
 /ActionLibrary.class
 /TimeLibrary.class
+/bin/
+/DateUtil.class
+/CalendarUtil.class
+/DateUtil$1.class
