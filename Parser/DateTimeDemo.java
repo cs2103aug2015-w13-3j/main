@@ -1,12 +1,11 @@
-
-import org.joda.time.DateTime;
-
 import java.util.Calendar;
 import java.util.Date;
 
+import org.joda.time.DateTime;
+
 public class DateTimeDemo {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
         DateTime dateTime = null;
 
         //
@@ -14,34 +13,34 @@ public class DateTimeDemo {
         // give you the current system date.
         //
         dateTime = new DateTime();
-        System.out.println("1 dateTime = " + dateTime);
+        System.out.println("dateTime = " + dateTime);
 
         //
         // Creates DateTime object with information like year, month,
         // day, hour, minute, second and milliseconds
         //
         dateTime = new DateTime(2012, 2, 3, 0, 0, 0, 0);
-        System.out.println("2 dateTime = " + dateTime);
+        System.out.println("dateTime = " + dateTime);
         //
         // Create DateTime object from JDK's Date milliseconds.
         //
         Date date = new Date();
         dateTime = new DateTime(date.getTime());
-        System.out.println("3 dateTime = " + dateTime);
+        System.out.println("dateTime = " + dateTime);
 
         //
         // Create DateTime object from JDK's Date object.
         //
         date = new Date();
         dateTime = new DateTime(date);
-        System.out.println("4 dateTime = " + dateTime);
+        System.out.println("dateTime = " + dateTime);
 
         //
         // Create DateTime object from JDK's Calendar object.
         //
         Calendar calendar = Calendar.getInstance();
         dateTime = new DateTime(calendar);
-        System.out.println("5 dateTime = " + dateTime);
+        System.out.println("dateTime = " + dateTime);
 
         //
         // Create DateTime object from string. The format of the
