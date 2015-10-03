@@ -1,4 +1,4 @@
-import java.util.Date;
+import org.joda.time.DateTime;
 
 //This program is the output class from the parsing program for Daxuan to use to execute CRUD
 
@@ -19,7 +19,7 @@ public class CommandPackage {
 		priority = null;
 	}
 
-	public void setDates(Date[] time) {
+	public void setDates(DateTime[] time) {
 		dates.setDate(time[0]);
 		if (time.length == 2) {
 			dates.setDate(time[1]);
@@ -28,11 +28,11 @@ public class CommandPackage {
 	}
 
 	// Accessors
-	public Date startingTime() {
+	public DateTime startingTime() {
 		return dates.getStart();
 	}
 
-	public Date endingTime() {
+	public DateTime endingTime() {
 		return dates.getEnd();
 	}
 
@@ -50,34 +50,4 @@ public class CommandPackage {
 
 }
 
-class DatePackage {
-	private Date start;
-	private Date end;
 
-	// Constructor
-	public DatePackage() {
-		start = null;
-		end = null;
-	}
-
-	// Set Dates
-	public void setDate(Date front) {
-		start = front;
-		end = null;
-	}
-
-	public void setDate(Date front, Date back) {
-		start = front;
-		end = back;
-	}
-
-	// Accessors
-	public Date getStart() {
-		return start;
-	}
-
-	public Date getEnd() {
-		return end;
-	}
-
-}

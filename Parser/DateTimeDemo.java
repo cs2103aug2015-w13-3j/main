@@ -50,5 +50,14 @@ public class DateTimeDemo {
         System.out.println("dateTime = " + dateTime);
         dateTime = new DateTime("2012-02-03");
         System.out.println("dateTime = " + dateTime);
+        
+        DateTime today = new DateTime();
+        DateTime tomorrow = today.plusMonths(-1);
+
+        System.out.println(today.toString("yyyy-MM-dd"));
+        System.out.println(tomorrow.toString("yyyy-MMM-dd"));
+        System.out.println(tomorrow.toString("yyyy-MMMM-dd"));
+        System.out.println(tomorrow.getYear() - 2000);
+
     }
 }
