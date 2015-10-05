@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TaskViewController">
+   <children>
+      <TextField fx:id="txtCommandInput" layoutX="99.0" layoutY="31.0" onKeyPressed="#passCommand" prefHeight="27.0" prefWidth="474.0" promptText="Enter Your Cammand" />
+      <ScrollPane layoutX="29.0" layoutY="69.0" prefHeight="415.0" prefWidth="270.0">
+         <content>
+            <TableView fx:id="todayTask" prefHeight="414.0" prefWidth="262.0">
+              <columns>
+                <TableColumn prefWidth="179.0" text="Today's Task" />
+              </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+      <ScrollPane fx:id="taskList" layoutX="311.0" layoutY="69.0" prefHeight="415.0" prefWidth="264.0">
+         <content>
+            <TableView prefHeight="414.0" prefWidth="262.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="Task Lists" />
+              </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+      <Label fx:id="commandLabel" layoutX="29.0" layoutY="37.0" text="Command:" />
+   </children>
+</AnchorPane>
