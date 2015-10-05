@@ -2,7 +2,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.joda.time.DateTime;
-
+// Example at 
+// http://blog.smartbear.com/programming/date-and-time-manipulation-in-java-using-jodatime/
 public class DateTimeDemo {
 
 	public static void main(String[] args) {
@@ -23,7 +24,7 @@ public class DateTimeDemo {
         System.out.println("dateTime = " + dateTime);
         //
         // Create DateTime object from JDK's Date milliseconds.
-        //
+        // 
         Date date = new Date();
         dateTime = new DateTime(date.getTime());
         System.out.println("dateTime = " + dateTime);
@@ -61,3 +62,4 @@ public class DateTimeDemo {
 
     }
 }
+
