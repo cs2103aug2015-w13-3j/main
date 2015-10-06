@@ -1,8 +1,5 @@
-import org.joda.time.DateTime;
 
-import TaskBomber.logic.*;
-import java.net.URL;
-import java.util.ResourceBundle;
+import org.joda.time.DateTime;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -60,3 +57,4 @@ public class TaskViewController implements Initializable {
 	}
 
 }
+
