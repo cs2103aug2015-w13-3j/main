@@ -1,25 +1,29 @@
-import org.joda.time.DateTime;
+import java.util.Date;
 
 
 
 public class Task implements Comparable<Task>{
-	private String name;
-	private DateTime startTime;
-	private DateTime deadline;
-	private String location;
-    private String description;
-    private int priority;
+    public String name;
+    public Date startTime;
+    public Date endTime;
+    public Date deadline;
+    public String location;
+    public String description;
     
     
     public Task(String name){
     	this.name=name;
     }
     
-    public void setStartTime(DateTime startTime){
+    public void setStartTime(Date startTime){
     	this.startTime=startTime;
     }
     
-    public void setDeadline(DateTime deadline){
+    public void setEndTime(Date endTime){
+    	this.endTime=endTime;
+    }
+    
+    public void setDeadline(Date deadline){
     	this.deadline=deadline;
     }
     
@@ -31,36 +35,12 @@ public class Task implements Comparable<Task>{
 		this.description=description;
 	}
 	
-	public void setPriority(int priority){
-		this.priority=priority;
-	}
-	
-	public String getName(){
-		return name;
-	}
-	
-	public DateTime getStartTime(){
-		return startTime;
-	}
-	
-	public DateTime getDeadline(){
-		return deadline;
-	}
-	
-	public int getPriority(){
-		return priority;
-	}
-	
-	public String getLocation(){
-		return location;
-	}
-	
-	
-	
 	public boolean containKeyword(String keyword){
 		if(name.matches(".*\\b"+keyword+"\\b.*")){
 			return true;
 		}else if(startTime.toString().matches(".*\\b"+keyword+"\\b.*")){
+			return true;
+		}else if(endTime.toString().matches(".*\\b"+keyword+"\\b.*")){
 			return true;
 		}else if(deadline.toString().matches(".*\\b"+keyword+"\\b.*")){
 			return true;
@@ -83,6 +63,7 @@ public class Task implements Comparable<Task>{
 			return 0;
 		else 
 			return 1;
+
 	}
 	
 	@Override
