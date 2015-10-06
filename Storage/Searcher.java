@@ -21,10 +21,10 @@ public class Searcher {
 			if(target.getName() != null){
 				result = searchKeyword(target.getName(), result);
 			}
-	/*	}else{
+		}else{
 			if(target.getName() != null){
-				result = searchKeyword(target.getName(), TaskBomber.getTaskList());
-			}*/
+				result = searchKeyword(target.getName(), Logic.getTaskList());
+			}
 		}
 		return result;
 
