@@ -6,18 +6,17 @@ import org.joda.time.DateTime;
 public class TimeLine {
 	private static ArrayList<Task> startTimeLine = new ArrayList<Task>();
 	private static ArrayList<Task> endTimeLine = new ArrayList<Task>();
-	private static int startTotalSize = startTimeLine.size();
-	private static int endTotalSize = endTimeLine.size();
 	
 	public static void addToTL(Task t){
 		if(t.getStartTime() != null){
-			DateTime time = t.getStartTime();
-			int index = findPosition(startTimeLine, time, 0, startTotalSize);
+			DateTime time = t.getStartTime();		
+			int index = findPosition(startTimeLine, time, 0, startTimeLine.size());
 			startTimeLine.add(index, t);
+			
 		}
 		if(t.getDeadline() != null){
 			DateTime time = t.getDeadline();
-			int index = findPosition(endTimeLine, time, 0, endTotalSize);
+			int index = findPosition(endTimeLine, time, 0, endTimeLine.size());
 			endTimeLine.add(index, t);
 		}
 	}
@@ -27,8 +26,11 @@ public class TimeLine {
 			return 0;
 		}
 		int mid = (left + right)/2;
+		
 	    if(timeLine.get(mid).getStartTime().compareTo(time) < 0){
+	    	
 	    	if(mid == left){
+	    		
 	    		return left + 1;
 	    	}else{
 	    		return findPosition(timeLine, time, (mid + right)/2, right);

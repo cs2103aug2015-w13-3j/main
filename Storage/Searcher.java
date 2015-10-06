@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.Date;
-
 import org.joda.time.DateTime;
 
 public class Searcher {
@@ -23,10 +21,10 @@ public class Searcher {
 			if(target.getName() != null){
 				result = searchKeyword(target.getName(), result);
 			}
-		}else{
+	/*	}else{
 			if(target.getName() != null){
 				result = searchKeyword(target.getName(), TaskBomber.getTaskList());
-			}
+			}*/
 		}
 		return result;
 
@@ -85,11 +83,10 @@ public class Searcher {
 	
 	private static void searchFrom(ArrayList<Task> timeLine, DateTime time, ArrayList<Task> result){
 		int index1 = TimeLine.findPosition(timeLine, time, 0, timeLine.size());
+		
 		if(index1 == 0){
 		}else{
-			if(index1 == timeLine.size()){
-				index1--;
-			}
+			index1 --;
 			int index2 = index1 + 1;
 			while((index1 >= 0)&&(timeLine.get(index1).getStartTime().compareTo(time) == 0)){
 				result.add(timeLine.get(index1));
@@ -101,4 +98,5 @@ public class Searcher {
 			}
 		}
 	}
+	
 }
