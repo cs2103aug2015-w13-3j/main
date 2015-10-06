@@ -1,14 +1,15 @@
 /ActionLibrary.class
 /CalendarUtil.class
+/CommandPackage.class
 /CommandPackageLogic.class
 /CommandParser.class
 /CommandParserLogic.class
 /DatePackage.class
+/DatePackagelogic.class
 /DateTimeDemo.class
 /DateTree.class
 /DateUtil$1.class
 /DateUtil.class
-/I am Bai Chuan.txt
 /ParseTest.class
 /PriorityTaskList.class
 /Search.class
@@ -16,9 +17,8 @@
 /Task.class
 /TaskBomber$COMMAND_TYPE.class
 /TaskBomber.class
+/TaskViewController.class
 /TimeLibrary.class
+/UI.class
 /UndoRedoOp.class
-/asdsa.class
 /lib/
-/CommandPackage.class
-/DatePackagelogic.class

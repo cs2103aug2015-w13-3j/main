@@ -16,7 +16,7 @@ public class TaskViewController implements Initializable {
 	private void passCommand(KeyEvent event){
 		if(event.getCode() == KeyCode.ENTER){
 			System.out.println(txtCommandInput.getText());
-			TaskBomber.setUserCommand(txtCommandInput.getText());
+			//TaskBomber.setUserCommand(txtCommandInput.getText());
 			//CommandParser cmdParser = CommandParser.getInstance();
 			//Command cmd = cmdParser.getCommand(txtCommandInput.getText());
 			//cmd.execute();
