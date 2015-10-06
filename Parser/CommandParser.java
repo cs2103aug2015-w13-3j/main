@@ -42,19 +42,42 @@ public class CommandParser {
 			return null;
 
 		}
-		System.out.println(getPhrase());
+		if (commandName.equals("update")) {
+			return updateInput();
+		} else {
+				
+			System.out.println("Phrase : " + getPhrase());
+	
+			String priority = findPriority();
+			inputData.setPriority(priority);
+			System.out.println("Priority : " + priority);
+	
+			setDate();
+			System.out.println(inputArr);
+			inputData.setPhrase(getPhrase());
+			System.out.println();
+	
+	
+			return inputData;
+		}
+	}
 
-		String priority = findPriority();
-		inputData.setPriority(priority);
-		System.out.println(priority);
-
-		System.out.println(inputArr);
-		setDate();
-		System.out.println(inputArr);
-		inputData.setPhrase(getPhrase());
-		System.out.println();
-
-
+	private CommandPackage updateInput() {
+		String sequence = "";
+		String word;
+		for (int i =0; i < inputArr.size() ; i ++) {
+			word = inputArr.get(i);
+			if (word.startsWith("~")) {
+				System.out.println(sequence);
+				inputData.addUpdateSequence(sequence);
+				sequence = "";
+				sequence = word.substring(1);
+			} else {
+				sequence = sequence + " " + word;
+			}
+		}
+		System.out.println(sequence);
+		inputData.addUpdateSequence(sequence);
 		return inputData;
 	}
 

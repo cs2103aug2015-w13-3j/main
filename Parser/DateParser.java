@@ -172,7 +172,7 @@ public class DateParser {
 			tokens = date.split("-");
 		}
 
-		System.out.println(tokens.length);
+		//System.out.println(tokens.length);
 		int[] intTokens = new int[tokens.length];
 		for (int i = 0; i < tokens.length; i++) {
 			try {

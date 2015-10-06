@@ -24,6 +24,7 @@ public class CommandPackage {
 		phrase = "";
 		dates = new DatePackage();
 		priority = null;
+		updateSequence = new ArrayList<String>();
 	}
 
 	public void setCommand(String cmd) {
@@ -72,6 +73,15 @@ public class CommandPackage {
 
 	public String getPriority() {
 		return priority;
+	}
+
+	public ArrayList<String> addUpdateSequence(String sequence) {
+		updateSequence.add(sequence);
+		return updateSequence;
+		
+	}
+	public ArrayList<String>  getUpdateSequence() {
+		return updateSequence;
 	}
 
 }
