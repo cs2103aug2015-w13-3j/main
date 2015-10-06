@@ -3,7 +3,6 @@ import org.joda.time.DateTime;
 public class DatePackage {
 	private DateTime start;
 	private DateTime end;
-	private DateTime deadline; //class not initiated yet
 
 	// Constructor
 	public DatePackage() {
@@ -28,6 +27,10 @@ public class DatePackage {
 	}
 
 	public DateTime getEnd() {
+		return end;
+	}
+	
+	public DateTime getDeadline() {
 		return end;
 	}
 

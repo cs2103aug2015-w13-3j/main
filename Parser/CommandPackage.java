@@ -1,29 +1,55 @@
+import java.util.ArrayList;
+
 import org.joda.time.DateTime;
 
 //This program is the output class from the parsing program for Daxuan to use to execute CRUD
 
-//this is another conflict
-
-//This is a conflict
 public class CommandPackage {
 	private String command;
 	private DatePackage dates;
-	private String task;
+	private String phrase;
 	private String priority;
+	private ArrayList<String> updateSequence;
 
 	// Constructors
 	public CommandPackage(String cmd, String taskName) {
 		command = cmd;
-		task = taskName;
-		DatePackage dates = new DatePackage();
+		phrase = taskName;
+		dates = new DatePackage();
 		priority = null;
 	}
 
-	public void setDates(DateTime[] time) {
-		dates.setDate(time[0]);
-		if (time.length == 2) {
-			dates.setDate(time[1]);
+	public CommandPackage() {
+		command = "";
+		phrase = "";
+		dates = new DatePackage();
+		priority = null;
+	}
+
+	public void setCommand(String cmd) {
+		command = cmd;
+	}
+
+	public void setPhrase(String text) {
+		phrase = text;
+	}
+
+	public void setDates(ArrayList<DateTime> time, String condition) {
+		if (condition.equalsIgnoreCase("start")) {
+			dates.setDate(time.get(0), null);
+		} else {
+			dates.setDate(null, time.get(0));
 		}
+
+	}
+
+	public void setDates(ArrayList<DateTime> time) {
+		dates.setDate(time.get(0), time.get(1));
+
+	}
+
+	public void setPriority(String priority2) {
+		priority = priority2;
 
 	}
 
@@ -36,12 +62,12 @@ public class CommandPackage {
 		return dates.getEnd();
 	}
 
-	public String getCommand() {
-		return command;
+	public String getPhrase() {
+		return phrase;
 	}
 
-	public String getTaskName() {
-		return task;
+	public String getCommand() {
+		return command;
 	}
 
 	public String getPriority() {
@@ -49,5 +75,3 @@ public class CommandPackage {
 	}
 
 }
-
-
