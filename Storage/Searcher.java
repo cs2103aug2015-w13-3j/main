@@ -3,8 +3,7 @@ import org.joda.time.DateTime;
 
 public class Searcher {
 	
-	
-	//public static ArrayList<Task> result = new ArrayList<Task>();
+
 	
 	public static ArrayList<Task> search(Task target){
 		ArrayList<Task> result = new ArrayList<Task>();
