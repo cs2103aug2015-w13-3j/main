@@ -8,7 +8,7 @@ public class CommandPackage {
 	private String command;
 	private DatePackage dates;
 	private String phrase;
-	private int priority;
+	private String priority;
 	private ArrayList<String> updateSequence;
 
 	// Constructors
@@ -16,14 +16,14 @@ public class CommandPackage {
 		command = cmd;
 		phrase = taskName;
 		dates = new DatePackage();
-		priority = 3;
+		priority = null;
 	}
 
 	public CommandPackage() {
 		command = "";
 		phrase = "";
 		dates = new DatePackage();
-		priority = 3;
+		priority = null;
 		updateSequence = new ArrayList<String>();
 	}
 
@@ -45,11 +45,16 @@ public class CommandPackage {
 	}
 
 	public void setDates(ArrayList<DateTime> time) {
-		dates.setDate(time.get(0), time.get(1));
+		if (time.get(0).compareTo(time.get(1)) < 0) {
+			dates.setDate(time.get(0), time.get(1));
+		} else {
+			dates.setDate(time.get(1), time.get(0));
+		}
+
 
 	}
 
-	public void setPriority(int priority2) {
+	public void setPriority(String priority2) {
 		priority = priority2;
 
 	}
@@ -71,7 +76,7 @@ public class CommandPackage {
 		return command;
 	}
 
-	public int getPriority() {
+	public String getPriority() {
 		return priority;
 	}
 

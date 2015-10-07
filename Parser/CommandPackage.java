@@ -45,7 +45,12 @@ public class CommandPackage {
 	}
 
 	public void setDates(ArrayList<DateTime> time) {
-		dates.setDate(time.get(0), time.get(1));
+		if (time.get(0).compareTo(time.get(1)) < 0) {
+			dates.setDate(time.get(0), time.get(1));
+		} else {
+			dates.setDate(time.get(1), time.get(0));
+		}
+
 
 	}
 

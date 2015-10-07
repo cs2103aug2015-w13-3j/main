@@ -48,7 +48,8 @@ public class CommandParser {
 				
 			System.out.println("Phrase : " + getPhrase());
 	
-			String priority = findPriority();
+			int priority = Integer.parseInt(findPriority());
+			
 			inputData.setPriority(priority);
 			System.out.println("Priority : " + priority);
 	

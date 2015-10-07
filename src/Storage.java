@@ -11,7 +11,7 @@ import org.joda.time.format.ISODateTimeFormat;
 
 public class Storage {
 
-	private static String fileName = "textBomb";
+	private static String fileName = "textBomb.txt";
 	private static File userFile;
 	
 	public static ArrayList<Task> Read(){
@@ -19,9 +19,6 @@ public class Storage {
 		try{
 			userFile = new File(fileName);
 			userFile.createNewFile();
-			
-			System.out.println("Created userfile.");
-			
 			FileReader fr = new FileReader(userFile);
 			BufferedReader buff = new BufferedReader(fr);
 			String content;
@@ -30,8 +27,8 @@ public class Storage {
 			while((content = buff.readLine())!=null){
 					String[] taskInfo = content.split("|");
 					Task taskToRead = new Task(taskInfo[0]);
-					System.out.println("Reading file.");
-					if(taskInfo[1].equals("")){
+					
+					if(taskInfo[1].equals(" ")){
 						taskToRead.setStartTime(null);
 					}else{
 						taskToRead.setStartTime(ISODateTimeFormat.dateTime().parseDateTime(taskInfo[1]));
@@ -87,7 +84,7 @@ public class Storage {
 		    	if(i != (taskList.size() - 1)){
 		    		content += "\n";
 		    	}
-		    	System.out.println("Writing into file.");
+		 
 			    buff.write(content);
 		    }
 		    buff.close();
@@ -97,6 +94,7 @@ public class Storage {
 			e.printStackTrace();
 		}
 	}
-
+	
+	
 
 }

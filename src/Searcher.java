@@ -5,8 +5,7 @@ public class Searcher {
 	
 
 	
-	public static ArrayList<Task> search(Task target, ArrayList<Task> taskList){
-		
+	public static ArrayList<Task> search(Task target){
 		ArrayList<Task> result = new ArrayList<Task>();
 		if(target.getStartTime() != null){
 			result = searchDate(target.getStartTime());
@@ -23,7 +22,7 @@ public class Searcher {
 			}
 		}else{
 			if(target.getName() != null){
-				result = searchKeyword(target.getName(), taskList);
+				result = searchKeyword(target.getName(), Logic.getTaskList());
 			}
 		}
 		return result;

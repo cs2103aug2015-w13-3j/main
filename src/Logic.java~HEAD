@@ -2,48 +2,37 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import com.sun.org.apache.xml.internal.security.keys.storage.StorageResolver;
-
 
 public class Logic {
 	// This array will be used to store the messages
 	private ArrayList<Task> taskList = new ArrayList<Task>();
 	
 	//constructor
-	public Logic(String ){
-		Storage storage = new Storage();
-		taskList
+	public Logic(){
+		taskList = Storage.Read();
 	}
 	
 	public ArrayList<Task> getTaskList() {
 		return taskList;
 	}
-
-
-
+	
 	// These are the possible command types
 	enum COMMAND_TYPE {
 		ADD, DISPLAY, DELETE, CLEAR, EXIT, INVALID, SORTBYNAME, SEARCH, EDIT, REDO, UNDO,
 		SORTBYSTARTTIME,SORTBYDEADLINE;
 	};
-
-	private String fileName="taskBomber0.1";
-
-	// This method is to pass the file name from terminal to the string fileName
-	public void setFileName(String filename) {
-		fileName = filename;
-	}
-
-
-	private void executeCommand(CommandPackage commandInfo) {
+	
+	public void executeCommand(CommandPackage commandInfo) {
 		int taskIndex;
 		String commandTypeString = commandInfo.getCommand();
-
+		System.out.println("Get the command type string: " + commandTypeString);
 		COMMAND_TYPE commandType = determineCommandType(commandTypeString);
 
 		switch (commandType) {
 			case ADD:
 				addTask(commandInfo);
+				System.out.println("Adding task.");
+				Storage.write(taskList);
 				break;
 			case SORTBYSTARTTIME:
 			    sortByStartTime();
@@ -53,18 +42,22 @@ public class Logic {
 			    break;
 			case EDIT:
 				edit(commandInfo);
+				Storage.write(taskList);
 				break;
 			case DELETE:
-				delete(taskIndex);
+				delete(commandInfo.getPhrase());
+				Storage.write(taskList);
 				break;
 			case CLEAR:
 				clear();
+				Storage.write(taskList);
 				break;
 			case SORTBYNAME:
 				sortByName();
+				Storage.write(taskList);
 				break;
 			case SEARCH:
-				search(commandInfo.getKeywordForSearch());
+				search(commandInfo.getPhrase());
 				break;
 			case EXIT:
 				// Write to file only when the program exits.
@@ -85,10 +78,19 @@ public class Logic {
 	}
 
 	public Task edit(CommandPackage commandInfo) {
-		Task task = taskList.get(commandInfo.getIndex);
-		task
-		
-		
+		String target = commandInfo.getPhrase();
+		for (Task task : taskList){
+			if(task.getName().equals(target)){
+				
+				if(commandInfo.startingTime()!=null){
+					task.setStartTime(commandInfo.startingTime());
+				}
+				if(commandInfo.endingTime()!=null){
+					task.setDeadline(commandInfo.endingTime());
+				}
+			    task.setPriority(commandInfo.getPriority());
+			}
+		}
 		return null;
 		
 	}
@@ -100,21 +102,26 @@ public class Logic {
 	}
 
 	// To delete certain message
-	public Task delete(int taskIndex) {
-		return taskList.remove(taskIndex);
+	public Task delete(String string) {
+		for (Task task : taskList){
+			if(task.getName().equals(string)){
+				taskList.remove(task);
+			}
+		}
+		return null;
 	}
 
 	// To add message to ArrayList text
 	public Task addTask(CommandPackage commandInfo) {
 			
-		Task task= new Task(commandInfo.getTaskName());
+		Task task= new Task(commandInfo.getPhrase());
 		if(commandInfo.startingTime()!=null){
 			task.setStartTime(commandInfo.startingTime());
-		}else if(commandInfo.endingTime()!=null){
-			task.setDeadline(commandInfo.endingTime());
-		}else if(commandInfo.getPriority()!=null){
-			task.setPriority(commandInfo.getPriority());
 		}
+		if(commandInfo.endingTime()!=null){
+			task.setDeadline(commandInfo.endingTime());
+		}
+	    task.setPriority(commandInfo.getPriority());
 					
 		taskList.add(task);
 		
@@ -146,7 +153,7 @@ public class Logic {
 		if (commandTypeString == null)
 			throw new Error("command type string cannot be null!");
 
-		if (commandTypeString.equalsIgnoreCase("add")) {
+		if (commandTypeString.equalsIgnoreCase("create")) {
 			return COMMAND_TYPE.ADD;
 		} else if (commandTypeString.equalsIgnoreCase("delete")) {
 			return COMMAND_TYPE.DELETE;

@@ -48,12 +48,19 @@ public class CommandParser {
 				
 			System.out.println("Phrase : " + getPhrase());
 	
-			int priority = Integer.parseInt(findPriority());
-			
+			String priority = findPriority();
 			inputData.setPriority(priority);
+			if (inputArr.size() == 0) {
+				return null;
+
+			}
 			System.out.println("Priority : " + priority);
 	
 			setDate();
+			if (inputArr.size() == 0) {
+				return null;
+
+			}
 			System.out.println(inputArr);
 			inputData.setPhrase(getPhrase());
 			System.out.println();
@@ -88,7 +95,17 @@ public class CommandParser {
 			return 0;
 		} else if (numberOfDates == 1) {
 			//TODO add start OR end condition
-			inputData.setDates(extractDate(), "end");
+			for (int i = 0; i < inputArr.size(); i++) {
+				if (inputArr.get(i).equalsIgnoreCase("start")) {
+					inputData.setDates(extractDate(), "start");
+					remove("start");
+				} else if (inputArr.get(i).equalsIgnoreCase("end")) {
+					inputData.setDates(extractDate(), "end");
+					remove("end");
+				} else {
+					inputData.setDates(extractDate(), "end");
+				}
+			}
 			return 1;
 		} else if (numberOfDates == 2) {
 			inputData.setDates(extractDate());
@@ -162,7 +179,11 @@ public class CommandParser {
 	}
 
 	public void remove(String word) {
-		inputArr.remove(word);
+		for (int i = 0; i < inputArr.size(); i ++) {
+			if (inputArr.get(i).equalsIgnoreCase(word)) {
+				remove(i);
+			}
+		}
 	}
 
 	public void remove(int index) {
