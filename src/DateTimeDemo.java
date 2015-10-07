@@ -54,7 +54,7 @@ public class DateTimeDemo {
         
         DateTime today = new DateTime();
         DateTime tomorrow = today.plusMonths(-1);
-
+        System.out.println(today.compareTo(tomorrow));
         System.out.println(today.toString("yyyy-MM-dd"));
         System.out.println(today.toString("yyyy-MMM-dd"));
         System.out.println(tomorrow.toString("yyyy-MMMM-dd"));
