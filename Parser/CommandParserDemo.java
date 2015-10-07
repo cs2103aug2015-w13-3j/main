@@ -1,3 +1,5 @@
+package parser;
+
 public class CommandParserDemo {
 
 	public static void main(String[] args) throws Exception {
