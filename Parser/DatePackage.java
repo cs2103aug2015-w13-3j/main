@@ -24,11 +24,11 @@ public class DatePackage {
 	}
 
 	// Accessors
-	public DateTime getStart() {
+	public DateTime startingTime() {
 		return start;
 	}
 
-	public DateTime getEnd() {
+	public DateTime endingTime() {
 		return end;
 	}
 	

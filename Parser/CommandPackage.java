@@ -53,7 +53,6 @@ public class CommandPackage {
 			dates.setDate(time.get(1), time.get(0));
 		}
 
-
 	}
 
 	public void setPriority(String priority2) {
@@ -61,13 +60,23 @@ public class CommandPackage {
 
 	}
 
+	public ArrayList<String> addUpdateSequence(String sequence) {
+		updateSequence.add(sequence);
+		return updateSequence;
+
+	}
+
 	// Accessors
+	public DatePackage getDate() {
+		return dates;
+	}
+
 	public DateTime startingTime() {
-		return dates.getStart();
+		return dates.startingTime();
 	}
 
 	public DateTime endingTime() {
-		return dates.getEnd();
+		return dates.endingTime();
 	}
 
 	public String getPhrase() {
@@ -82,12 +91,7 @@ public class CommandPackage {
 		return priority;
 	}
 
-	public ArrayList<String> addUpdateSequence(String sequence) {
-		updateSequence.add(sequence);
-		return updateSequence;
-		
-	}
-	public ArrayList<String>  getUpdateSequence() {
+	public ArrayList<String> getUpdateSequence() {
 		return updateSequence;
 	}
 

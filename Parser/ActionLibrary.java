@@ -9,7 +9,7 @@ public class ActionLibrary {
 	String[] updateList = { "update", "~e", "edit", "~u", "update" };
 	String[] deleteList = { "delete", "~del", "delete", "~rmv", "remove" };
 	String[] searchList = { "search", "~s", "search", "~f", "find" };
-	String[] sortList = { "st", "sort", "~st" };
+	String[] sortList = { "sort", "sort", "~st" };
 	String[][] actionArr = { createList, readList, updateList, deleteList, searchList, sortList };
 	TreeMap<String, String> actionTree;
 
