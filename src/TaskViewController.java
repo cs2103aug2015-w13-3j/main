@@ -1,60 +1,93 @@
+package GUI;
 
 import org.joda.time.DateTime;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.util.Callback;
 
-public class TaskViewController implements Initializable {
-	
-	@FXML 
-	private TextField txtCommandInput;
-	
+public class TaskViewController {
+
 	@FXML
-    private TableView<Task> taskTableView;
-    @FXML
-    private TableColumn<Task, Integer> taskNumberColumn;
-    @FXML
-    private TableColumn<Task, String> taskNameColumn;
-    @FXML
-    private TableColumn<Task, DateTime> startTimeColumn;
-    @FXML
-    private TableColumn<Task, DateTime> endTimeColumn;
-    @FXML
-    private TableColumn<Task, Integer> priorityColumn;
-    
-    @FXML
-    private TextField textField;
+	private TextField txtCommandInput;
 
-    // Reference to the main application.
-    private MainApp mainApp;
+	@FXML
+	private TableView<TempoTask> taskTableView;
+	@FXML
+	private TableColumn<TempoTask, Integer> taskNumberColumn;
+	@FXML
+	private TableColumn<TempoTask, String> taskNameColumn;
+	@FXML
+	private TableColumn<TempoTask, String> startTimeColumn;
+	@FXML
+	private TableColumn<TempoTask, String> endTimeColumn;
+	@FXML
+	private TableColumn<TempoTask, Integer> priority;
 
-	@FXML 
+	// Reference to the main application.
+	private MainApp mainApp;
+	
+	private Storage storage= new Storage();
+
+	private Logic logic = new Logic(storage);
+
+	@FXML
 	private void initialize() {
-		taskNumberColumn.setCellValueFactory(cellData -> cellData.getValue().taskIdProperty());
-        taskNameColumn.setCellValueFactory(cellData -> cellData.getValue().taskNameProperty());
-        startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
-        endTimeColumn.setCellValueFactory(cellData -> cellData.getValue().endTimeProperty());
-        dueDateColumn.setCellValueFactory(cellData -> cellData.getValue().dueDateProperty());
-    }
-	private void passCommand(KeyEvent event){
-		if(event.getCode() == KeyCode.ENTER){
-			System.out.println(txtCommandInput.getText());
-			//TaskBomber.setUserCommand(txtCommandInput.getText());
-			//CommandParser cmdParser = CommandParser.getInstance();
-			//Command cmd = cmdParser.getCommand(txtCommandInput.getText());
-			//cmd.execute();
+
+//		taskNameColumn.setCellValueFactory(new Callback<CellDataFeatures<String, String>, ObservableValue<String>>() {
+//			public ObservableValue<String> call(CellDataFeatures<String, String> p) {
+//				return new SimpleStringProperty(p.getValue());
+//			}
+//		});
+//
+//		startTimeColumn.setCellValueFactory(new Callback<CellDataFeatures<String, String>, ObservableValue<String>>() {
+//			public ObservableValue<String> call(CellDataFeatures<String, String> p) {
+//				return new SimpleStringProperty(p.getValue());
+//			}
+//		});
+//
+//		endTimeColumn.setCellValueFactory(new Callback<CellDataFeatures<String, String>, ObservableValue<String>>() {
+//			public ObservableValue<String> call(CellDataFeatures<String, String> p) {
+//				return new SimpleStringProperty(p.getValue());
+//			}
+//		});
+//
+//		priority.setCellValueFactory(new Callback<CellDataFeatures<TempoTask, Integer>, ObservableValue<Integer>>() {
+//		     public int call(CellDataFeatures<TempoTask, String> p) {
+//		         return p.getValue().getPri();
+//		     }
+//		  });
+	}
+
+	public void enterCommand(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			String input = txtCommandInput.getText();
+			System.out.println(input);
+			if (input != null) {
+				CommandParser cmdParser = new CommandParser();
+				CommandPackage cmdPack = cmdParser.getCommandPackage(input);
+				logic.executeCommand(cmdPack);
+				txtCommandInput.clear();
+			}
 		}
 	}
-	
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		// TODO
+
+	/**
+	 * Is called by the main application to give a reference back to itself.
+	 * 
+	 * @param mainApp
+	 */
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
+		taskTableView.setItems(mainApp.getTaskData());
 	}
-
 }
-
