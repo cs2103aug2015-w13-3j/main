@@ -1,4 +1,5 @@
-package parser.CommandPackage;
+package parser;
+
 
 import java.util.ArrayList;
 
@@ -39,7 +40,7 @@ public class CommandPackage {
 		return phrase;
 	}
 
-	public ArrayList<DateTime> setDates(ArrayList<DateTime> time, String condition) {
+	public DatePackage setDates(ArrayList<DateTime> time, String condition) {
 		if (condition.equalsIgnoreCase("start")) {
 			dates.setDate(time.get(0), null);
 		} else {
@@ -49,7 +50,7 @@ public class CommandPackage {
 
 	}
 
-	public ArrayList<DateTime> setDates(ArrayList<DateTime> time) {
+	public DatePackage setDates(ArrayList<DateTime> time) {
 		if (time.get(0).compareTo(time.get(1)) < 0) {
 			dates.setDate(time.get(0), time.get(1));
 		} else {
@@ -60,7 +61,7 @@ public class CommandPackage {
 
 	public String setPriority(String priority2) {
 		priority = priority2;
-		return priority
+		return priority;
 	}
 
 	public ArrayList<String> addUpdateSequence(String sequence) {
