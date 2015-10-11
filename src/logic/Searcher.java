@@ -1,9 +1,9 @@
+package logic;
+
 import java.util.ArrayList;
 import org.joda.time.DateTime;
 
 public class Searcher {
-	
-
 	
 	public static ArrayList<Task> search(Task target){
 		ArrayList<Task> result = new ArrayList<Task>();
