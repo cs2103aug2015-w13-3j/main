@@ -8,7 +8,7 @@ import parser.CommandPackage;
 
 public class Logic {
 	// This array will be used to store the messages
-	private ArrayList<Task> taskList = new ArrayList<Task>();
+	private static ArrayList<Task> taskList = new ArrayList<Task>();
 	Storage storage = new Storage();
 
 	// constructor
@@ -17,7 +17,7 @@ public class Logic {
 		taskList = storage.Read();
 	}
 
-	public ArrayList<Task> getTaskList() {
+	public static ArrayList<Task> getTaskList() {
 		return taskList;
 	}
 

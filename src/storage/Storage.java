@@ -49,7 +49,7 @@ public class Storage {
                     taskToRead.setEndTime(ISODateTimeFormat.dateTime().parseDateTime(taskInfo[2]));
                 }
                 
-                taskToRead.setPriority(Integer.parseInt(taskInfo[3]));
+                taskToRead.setPriority(taskInfo[3]);
                 
                 taskList.add(taskToRead);
             }

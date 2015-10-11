@@ -53,8 +53,8 @@ public class Task implements Comparable<Task> {
 //		this.description = description;
 //	}
 
-	public void setPriority(int priority) {
-		this.priority = priority;
+	public void setPriority(String priority) {
+		this.priority = Integer.parseInt(priority);
 	}
 
 	public boolean containKeyword(String keyword) {
