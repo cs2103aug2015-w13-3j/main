@@ -1,5 +1,7 @@
 package gui;
 
+import logic.*; 
+
 import javafx.collections.ObservableList;
 import java.io.IOException;
 import javafx.application.Application;

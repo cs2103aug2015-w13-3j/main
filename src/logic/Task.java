@@ -1,7 +1,5 @@
 package logic;
 
-import java.util.Date;
-
 import org.joda.time.DateTime;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -12,33 +10,48 @@ public class Task implements Comparable<Task> {
 	private DateTime startTime;
 	private DateTime endTime;
 	// public DateTime deadline;
-	private String location;
-	private String description;
-	private int priority;
+	// private String location;
+	// private String description;
+	private Integer priority;
 
 	public Task(String name) {
 		this.name = name;
 	}
 
-	public void setStartTime(DateTime startTime) {
-		this.startTime = startTime;
+	public String getName() {
+		return this.name;
 	}
 
-	public void setEndTime(DateTime endTime) {
-		this.endTime = endTime;
+	public DateTime getStartTime() {
+		return this.startTime;
 	}
 
-	// public void setDeadline(DateTime deadline) {
-	// this.deadline = deadline;
-	// }
-
-	public void setLocation(String location) {
-		this.location = location;
+	public DateTime getEndTime() {
+		return this.endTime;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public Integer getPriority(){
+		return this.priority;
 	}
+	public void setStartTime(DateTime start) {
+		this.startTime = start;
+	}
+
+	public void setEndTime(DateTime end) {
+		this.endTime = end;
+	}
+
+//	 public void setDeadline(DateTime deadline) {
+//	 this.deadline = deadline;
+//	 }
+
+//	public void setLocation(String location) {
+//		this.location = location;
+//	}
+
+//	public void setDescription(String description) {
+//		this.description = description;
+//	}
 
 	public void setPriority(int priority) {
 		this.priority = priority;
@@ -51,13 +64,12 @@ public class Task implements Comparable<Task> {
 			return true;
 		} else if (endTime.toString().matches(".*\\b" + keyword + "\\b.*")) {
 			return true;
-			// } else if (deadline.toString().matches(".*\\b" + keyword +
-			// "\\b.*")) {
-			// return true;
-		} else if (location.matches(".*\\b" + keyword + "\\b.*")) {
-			return true;
-		} else if (description.matches(".*\\b" + keyword + "\\b.*")) {
-			return true;
+//		} else if (deadline.toString().matches(".*\\b" + keyword + "\\b.*")) {
+//			return true;
+//		} else if (location.matches(".*\\b" + keyword + "\\b.*")) {
+//			return true;
+//		} else if (description.matches(".*\\b" + keyword + "\\b.*")) {
+//			return true;
 		} else {
 			return false;
 		}
@@ -85,8 +97,7 @@ public class Task implements Comparable<Task> {
 	}
 
 	public StringProperty startTimeProperty() {
-		//return new SimpleStringProperty(startTime.toString("yyyy-MMM-dd"));
-		return new SimpleStringProperty("9-oct 2015");
+		return new SimpleStringProperty(startTime.toString("yyyy-MMM-dd"));
 	}
 
 	public StringProperty endTimeProperty() {
@@ -94,7 +105,6 @@ public class Task implements Comparable<Task> {
 	}
 
 	public StringProperty priorityProperty() {
-		return new SimpleStringProperty(Integer.toString(priority));
+		return new SimpleStringProperty(Integer.toString(this.priority));
 	}
-
 }
