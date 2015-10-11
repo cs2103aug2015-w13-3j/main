@@ -1,7 +1,9 @@
 package gui;
 
 import logic.*;
-
+import parser.CommandPackage;
+import parser.CommandParser;
+import storage.Storage;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -30,31 +32,43 @@ public class TaskViewController {
 	// Reference to the main application.
 	private MainApp mainApp;
 
-	//private Storage storage = new Storage();
+	private Storage storage = new Storage();
 
-	//private Logic logic = new Logic();
+	private Logic logic = new Logic(storage);
 
+	
+	 /**
+     * The constructor.
+     * The constructor is called before the initialize() method.
+     */
+	public TaskViewController(){
+		
+	}
+	
 	@FXML
 	private void initialize() {
 
-		//taskNumberColumn.setCellValueFactory(cellData -> cellData.getValue().taskNumberProperty());
+		// Initialize the task table with the five columns.
+		
+		// taskNumberColumn.setCellValueFactory(cellData ->
+		// cellData.getValue().taskNumberProperty());
 		taskNameColumn.setCellValueFactory(cellData -> cellData.getValue().taskNameProperty());
 		startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
 		endTimeColumn.setCellValueFactory(cellData -> cellData.getValue().endTimeProperty());
 		priority.setCellValueFactory(cellData -> cellData.getValue().priorityProperty());
-		
+
 	}
 
 	public void enterCommand(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			String input = txtCommandInput.getText();
 			System.out.println(input);
-			// if (input != null) {
-			// CommandParser cmdParser = new CommandParser();
-			// CommandPackage cmdPack = cmdParser.getCommandPackage(input);
-			// logic.executeCommand(cmdPack);
-			// txtCommandInput.clear();
-			// }
+			if (input != null) {
+				CommandParser cmdParser = new CommandParser();
+				CommandPackage cmdPack = cmdParser.getCommandPackage(input);
+				logic.executeCommand(cmdPack);
+				txtCommandInput.clear();
+			}
 		}
 	}
 
@@ -65,6 +79,8 @@ public class TaskViewController {
 	 */
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
-		// taskTableView.setItems(mainApp.getTaskData());
+
+		// Add observable list data to the table
+		taskTableView.setItems(mainApp.getTaskData());
 	}
 }

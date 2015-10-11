@@ -18,12 +18,16 @@ public class MainApp extends Application {
 
 	public static ObservableList<Task> taskList = FXCollections.observableArrayList();
 	
+	public MainApp(){
+		taskList.add(new Task("meeting", "9-Oct", "24-Oct", 2));
+		taskList.add(new Task("SEP", "11-Oct", "23-Oct", 1));
+		taskList.add(new Task("Singtel Workshop", "12-Oct", "", 3));
+	}
+
 	public ObservableList<Task> getTaskData() {
 		return taskList;
 	}
 	
-	public MainApp(){};
-
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.primaryStage = primaryStage;
@@ -68,6 +72,7 @@ public class MainApp extends Application {
             
             TaskViewController controller = loader.getController();
             controller.setMainApp(this);
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
