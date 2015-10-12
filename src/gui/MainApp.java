@@ -4,6 +4,9 @@ import logic.*;
 
 import javafx.collections.ObservableList;
 import java.io.IOException;
+
+import org.joda.time.DateTime;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
@@ -19,9 +22,14 @@ public class MainApp extends Application {
 	public static ObservableList<Task> taskList = FXCollections.observableArrayList();
 	
 	public MainApp(){
-		taskList.add(new Task("meeting", "9-Oct", "24-Oct", 2));
-		taskList.add(new Task("SEP", "11-Oct", "23-Oct", 1));
-		taskList.add(new Task("Singtel Workshop", "12-Oct", "", 3));
+		DateTime time1 = new DateTime(2015, 10, 12, 10, 00);
+		DateTime time2 = new DateTime(2015, 10, 12, 12, 00);
+		DateTime time3 = new DateTime(2015, 10, 03, 00, 00);
+		DateTime time4 = new DateTime(2015, 10, 23, 23,59);
+		DateTime time5 = new DateTime(2015, 10, 12, 14, 00);
+		taskList.add(new Task("meeting", time1, time2, 2));
+		taskList.add(new Task("SEP", time3, time4, 1));
+		taskList.add(new Task("Singtel Workshop", time5, null, 3));
 	}
 
 	public ObservableList<Task> getTaskData() {

@@ -12,16 +12,17 @@ public class Task implements Comparable<Task> {
 	// public DateTime deadline;
 	// private String location;
 	// private String description;
-	private Integer priority;
+	private Integer priority = null;
+	private Integer taskNum = null;
 
 	public Task(String name) {
 		this.name = name;
 	}
-	
-	public Task(String name, String start, String end, int pri){
+
+	public Task(String name, DateTime start, DateTime end, int pri) {
 		this.name = name;
-		this.startTime = new DateTime(start);
-		this.endTime = new DateTime(end);
+		this.startTime = start;
+		this.endTime = end;
 		this.priority = pri;
 	}
 
@@ -37,9 +38,10 @@ public class Task implements Comparable<Task> {
 		return this.endTime;
 	}
 
-	public Integer getPriority(){
+	public Integer getPriority() {
 		return this.priority;
 	}
+
 	public void setStartTime(DateTime start) {
 		this.startTime = start;
 	}
@@ -48,20 +50,30 @@ public class Task implements Comparable<Task> {
 		this.endTime = end;
 	}
 
-//	 public void setDeadline(DateTime deadline) {
-//	 this.deadline = deadline;
-//	 }
+	// public void setDeadline(DateTime deadline) {
+	// this.deadline = deadline;
+	// }
 
-//	public void setLocation(String location) {
-//		this.location = location;
-//	}
+	// public void setLocation(String location) {
+	// this.location = location;
+	// }
 
-//	public void setDescription(String description) {
-//		this.description = description;
-//	}
+	// public void setDescription(String description) {
+	// this.description = description;
+	// }
 
-	public void setPriority(String priority) {
-		this.priority = Integer.parseInt(priority);
+	public void setPriority(String pri) {
+		if (pri == null) {
+			System.out.println("Oh no the priority is null");
+		}
+		if (pri != null && pri != "") {
+			System.out.println("The priority should not be null here");
+			this.priority = Integer.parseInt(pri);
+		}
+	}
+	
+	public void setTaskNumer(Integer taskNumber){
+		this.taskNum = taskNumber;
 	}
 
 	public boolean containKeyword(String keyword) {
@@ -71,12 +83,13 @@ public class Task implements Comparable<Task> {
 			return true;
 		} else if (endTime.toString().matches(".*\\b" + keyword + "\\b.*")) {
 			return true;
-//		} else if (deadline.toString().matches(".*\\b" + keyword + "\\b.*")) {
-//			return true;
-//		} else if (location.matches(".*\\b" + keyword + "\\b.*")) {
-//			return true;
-//		} else if (description.matches(".*\\b" + keyword + "\\b.*")) {
-//			return true;
+			// } else if (deadline.toString().matches(".*\\b" + keyword +
+			// "\\b.*")) {
+			// return true;
+			// } else if (location.matches(".*\\b" + keyword + "\\b.*")) {
+			// return true;
+			// } else if (description.matches(".*\\b" + keyword + "\\b.*")) {
+			// return true;
 		} else {
 			return false;
 		}
@@ -104,14 +117,32 @@ public class Task implements Comparable<Task> {
 	}
 
 	public StringProperty startTimeProperty() {
-		return new SimpleStringProperty(startTime.toString("yyyy-MMM-dd"));
+		// System.out.println("startTime: " + startTime);
+		if (this.startTime == null) {
+			return new SimpleStringProperty("");
+		}
+		return new SimpleStringProperty(startTime.toString("yyyy-MM-dd"));
 	}
 
 	public StringProperty endTimeProperty() {
-		return new SimpleStringProperty(endTime.toString("yyyy-MMM-dd"));
+		// System.out.println("endTime: " + endTime);
+		if (this.endTime == null) {
+			return new SimpleStringProperty("");
+		}
+		return new SimpleStringProperty(endTime.toString("yyyy-MM-dd"));
 	}
 
 	public StringProperty priorityProperty() {
+		if (this.priority == null) {
+			return new SimpleStringProperty("");
+		}
 		return new SimpleStringProperty(Integer.toString(this.priority));
+	}
+
+	public SimpleStringProperty taskNumberProperty() {
+		if (this.taskNum == null) {
+			return new SimpleStringProperty("");
+		}
+		return new SimpleStringProperty(Integer.toString(this.taskNum));
 	}
 }

@@ -36,22 +36,20 @@ public class TaskViewController {
 
 	private Logic logic = new Logic(storage);
 
-	
-	 /**
-     * The constructor.
-     * The constructor is called before the initialize() method.
-     */
-	public TaskViewController(){
-		
+	/**
+	 * The constructor. The constructor is called before the initialize()
+	 * method.
+	 */
+	public TaskViewController() {
+
 	}
-	
+
 	@FXML
 	private void initialize() {
 
 		// Initialize the task table with the five columns.
-		
-		// taskNumberColumn.setCellValueFactory(cellData ->
-		// cellData.getValue().taskNumberProperty());
+
+		taskNumberColumn.setCellValueFactory(cellData -> cellData.getValue().taskNumberProperty());
 		taskNameColumn.setCellValueFactory(cellData -> cellData.getValue().taskNameProperty());
 		startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
 		endTimeColumn.setCellValueFactory(cellData -> cellData.getValue().endTimeProperty());
