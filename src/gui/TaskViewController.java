@@ -4,6 +4,8 @@ import logic.*;
 import parser.CommandPackage;
 import parser.CommandParser;
 import storage.Storage;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -35,6 +37,8 @@ public class TaskViewController {
 	private Storage storage = new Storage();
 
 	private Logic logic = new Logic(storage);
+	
+	//private static ObservableList<Task> taskList;
 
 	/**
 	 * The constructor. The constructor is called before the initialize()
@@ -49,6 +53,7 @@ public class TaskViewController {
 
 		// Initialize the task table with the five columns.
 
+		System.out.println("initiate the table.");
 		taskNumberColumn.setCellValueFactory(cellData -> cellData.getValue().taskNumberProperty());
 		taskNameColumn.setCellValueFactory(cellData -> cellData.getValue().taskNameProperty());
 		startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
@@ -58,6 +63,7 @@ public class TaskViewController {
 	}
 
 	public void enterCommand(KeyEvent event) {
+		System.out.println("Enter command.");
 		if (event.getCode() == KeyCode.ENTER) {
 			String input = txtCommandInput.getText();
 			System.out.println(input);
@@ -66,6 +72,8 @@ public class TaskViewController {
 				CommandPackage cmdPack = cmdParser.getCommandPackage(input);
 				logic.executeCommand(cmdPack);
 				txtCommandInput.clear();
+				//taskList = FXCollections.observableArrayList(Logic.getTaskList());
+				taskTableView.setItems(mainApp.getTaskData());
 			}
 		}
 	}
@@ -75,9 +83,10 @@ public class TaskViewController {
 	 * 
 	 * @param mainApp
 	 */
+	
 	public void setMainApp(MainApp mainApp) {
+		System.out.println("set Main app.");
 		this.mainApp = mainApp;
-
 		// Add observable list data to the table
 		taskTableView.setItems(mainApp.getTaskData());
 	}

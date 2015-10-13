@@ -4,6 +4,8 @@ import logic.*;
 
 import javafx.collections.ObservableList;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.joda.time.DateTime;
 
@@ -19,20 +21,27 @@ public class MainApp extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 
-	public static ObservableList<Task> taskList = FXCollections.observableArrayList();
+	private static ObservableList<Task> taskList;
 	
 	public MainApp(){
-		DateTime time1 = new DateTime(2015, 10, 12, 10, 00);
-		DateTime time2 = new DateTime(2015, 10, 12, 12, 00);
-		DateTime time3 = new DateTime(2015, 10, 03, 00, 00);
-		DateTime time4 = new DateTime(2015, 10, 23, 23,59);
-		DateTime time5 = new DateTime(2015, 10, 12, 14, 00);
-		taskList.add(new Task("meeting", time1, time2, 2));
-		taskList.add(new Task("SEP", time3, time4, 1));
-		taskList.add(new Task("Singtel Workshop", time5, null, 3));
+//		DateTime time1 = new DateTime(2015, 10, 12, 10, 00);
+//		DateTime time2 = new DateTime(2015, 10, 12, 12, 00);
+//		DateTime time3 = new DateTime(2015, 10, 03, 00, 00);
+//		DateTime time4 = new DateTime(2015, 10, 23, 23,59);
+//		DateTime time5 = new DateTime(2015, 10, 12, 14, 00);
+//		taskList.add(new Task("meeting", time1, time2, 2));
+//		taskList.add(new Task("SEP", time3, time4, 1));
+//		taskList.add(new Task("Singtel Workshop", time5, null, 3));
+		System.out.println("MainApp init");
+		//taskList = FXCollections.observableArrayList(Logic.getTaskList());
 	}
 
 	public ObservableList<Task> getTaskData() {
+		ArrayList<Task> tasks = Logic.getTaskList();
+		for(int i = 0; i < tasks.size(); i++){
+			tasks.get(i).setTaskNumber(i+1);
+		}
+		taskList = FXCollections.observableArrayList(tasks);
 		return taskList;
 	}
 	
@@ -51,6 +60,7 @@ public class MainApp extends Application {
      */
     public void initRootLayout() {
         try {
+        	System.out.println("init Root Layout.");
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("RootLayout.fxml"));
@@ -70,6 +80,7 @@ public class MainApp extends Application {
      */
     public void showTaskBomberOverview() {
         try {
+        	System.out.println("Show Task Overview.");
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("TaskView.fxml"));
@@ -81,6 +92,7 @@ public class MainApp extends Application {
             TaskViewController controller = loader.getController();
             controller.setMainApp(this);
             
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -91,10 +103,12 @@ public class MainApp extends Application {
      * @return
      */
     public Stage getPrimaryStage() {
+    	System.out.println("get Primary Stage.");
         return primaryStage;
     }
     
 	public static void main(String[] args) {
+		System.out.println("Launch main.");
         launch(args);
     }
 

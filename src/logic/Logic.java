@@ -137,7 +137,7 @@ public class Logic {
 			task.setEndTime(commandInfo.endingTime());
 		}
 		String pri = commandInfo.getPriority().trim();
-		System.out.println("priority: " + pri);
+		//System.out.println("priority: " + pri);
 		if (pri != null && pri != "") {
 			task.setPriority(pri);
 		}

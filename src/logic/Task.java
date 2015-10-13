@@ -41,6 +41,10 @@ public class Task implements Comparable<Task> {
 	public Integer getPriority() {
 		return this.priority;
 	}
+	
+	public Integer getTaskNum(){
+		return this.taskNum;
+	}
 
 	public void setStartTime(DateTime start) {
 		this.startTime = start;
@@ -67,12 +71,12 @@ public class Task implements Comparable<Task> {
 			System.out.println("Oh no the priority is null");
 		}
 		if (pri != null && pri != "") {
-			System.out.println("The priority should not be null here");
+			//System.out.println("The priority should not be null here");
 			this.priority = Integer.parseInt(pri);
 		}
 	}
 	
-	public void setTaskNumer(Integer taskNumber){
+	public void setTaskNumber(Integer taskNumber){
 		this.taskNum = taskNumber;
 	}
 

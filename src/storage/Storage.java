@@ -48,11 +48,11 @@ public class Storage {
 				}
 				
 				if(taskInfo[3].equals("null")){
-					System.out.println("taskInfo 3 is null");
+					//System.out.println("taskInfo 3 is null");
 					taskInfo[3] = null;
 				}
 
-				System.out.println("priority in storage: " + taskInfo[3]);
+				//System.out.println("priority in storage: " + taskInfo[3]);
 
 				if (taskInfo[3] != null && taskInfo[3] != "") {
 					taskToRead.setPriority(taskInfo[3]);
