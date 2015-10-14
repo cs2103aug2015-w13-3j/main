@@ -6,6 +6,8 @@ import logic.Task;
 import javafx.collections.ObservableList;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -21,6 +23,8 @@ public class MainApp extends Application {
 
 	private static ObservableList<Task> taskList;
 
+	private static Logger logger = Logger.getLogger("MainApp");
+
 	public MainApp() {
 	}
 
@@ -34,13 +38,19 @@ public class MainApp extends Application {
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
-		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("TaskBomber");
+	public void start(Stage primaryStage) {
+		try {
+			this.primaryStage = primaryStage;
+			this.primaryStage.setTitle("TaskBomber");
 
-		initRootLayout();
+			initRootLayout();
+			logger.log(Level.INFO, "RootLayout is initiated.");
 
-		showTaskBomberOverview();
+			showTaskBomberOverview();
+			logger.log(Level.INFO, "The view is generated.");
+		} catch (Exception e) {
+			System.out.println("cannot initiate the view.");
+		}
 	}
 
 	/**
@@ -89,12 +99,11 @@ public class MainApp extends Application {
 	 * @return
 	 */
 	public Stage getPrimaryStage() {
-		System.out.println("get Primary Stage.");
+		assert (primaryStage != null);
 		return primaryStage;
 	}
 
 	public static void main(String[] args) {
-		System.out.println("Launch main.");
 		launch(args);
 	}
 

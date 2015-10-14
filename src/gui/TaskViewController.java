@@ -4,6 +4,10 @@ import logic.*;
 import parser.CommandPackage;
 import parser.CommandParser;
 import storage.Storage;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -35,6 +39,8 @@ public class TaskViewController {
 	private Storage storage = new Storage();
 
 	private Logic logic = new Logic(storage);
+	
+	private static Logger logger = Logger.getLogger("TaskViewController");
 
 	/**
 	 * The constructor. The constructor is called before the initialize()
@@ -57,15 +63,20 @@ public class TaskViewController {
 
 	public void enterCommand(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
-			String input = txtCommandInput.getText();
-			System.out.println(input);
-			if (input != null) {
+			String input = txtCommandInput.getText().trim();
+			System.out.println("input: " + input);
+			if (input != null && input != "") {
+				logger.log(Level.INFO, "Here comes a command.");
 				CommandParser cmdParser = new CommandParser();
 				CommandPackage cmdPack = cmdParser.getCommandPackage(input);
+				logger.log(Level.INFO, "CommandParser parses the command.");
+				assert (cmdPack != null);
 				logic.executeCommand(cmdPack);
+				logger.log(Level.INFO, "Logic executes the command.");
 				txtCommandInput.clear();
-				//every time when user click "enter", redisplay the task list
+				// every time when user click "enter", redisplay the task list
 				taskTableView.setItems(mainApp.getTaskData());
+				logger.log(Level.INFO, "Update the table view.");
 			}
 		}
 	}
@@ -75,10 +86,11 @@ public class TaskViewController {
 	 * 
 	 * @param mainApp
 	 */
-	
+
 	public void setMainApp(MainApp mainApp) {
 		System.out.println("set Main app.");
 		this.mainApp = mainApp;
+		logger.log(Level.INFO, "Set MainApp.");
 		// Add observable list data to the table
 		taskTableView.setItems(mainApp.getTaskData());
 	}
