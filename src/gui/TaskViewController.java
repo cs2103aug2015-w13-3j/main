@@ -40,6 +40,8 @@ public class TaskViewController {
 
 	private Logic logic = new Logic(storage);
 	
+	CommandParser cmdParser = new CommandParser();
+	
 	private static Logger logger = Logger.getLogger("TaskViewController");
 
 	/**
@@ -67,7 +69,6 @@ public class TaskViewController {
 			System.out.println("input: " + input);
 			if (input != null && input != "") {
 				logger.log(Level.INFO, "Here comes a command.");
-				CommandParser cmdParser = new CommandParser();
 				CommandPackage cmdPack = cmdParser.getCommandPackage(input);
 				logger.log(Level.INFO, "CommandParser parses the command.");
 				assert (cmdPack != null);
