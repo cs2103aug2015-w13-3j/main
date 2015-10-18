@@ -55,8 +55,8 @@ public class DateTimeDemo {
         System.out.println("dateTime = " + dateTime);
         
         DateTime today = new DateTime();
-        DateTime tomorrow = today.plusMonths(-1);
-        //System.out.println(today.compareTo(tomorrow));
+        DateTime tomorrow = today.plusDays(-1);
+        System.out.println(today.compareTo(tomorrow));
         //System.out.println(today.toString("yyyy-MM-dd"));
         for (int i = 0; i < 12; i++) {
         	 today = today.plusMonths(1);
