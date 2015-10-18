@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.TaskViewController">
+   <children>
+      <TextField fx:id="txtCommandInput" layoutX="99.0" layoutY="31.0" onKeyPressed="#enterCommand" prefHeight="27.0" prefWidth="614.0" promptText="Enter Your Cammand" />
+      <Label fx:id="commandLabel" layoutX="29.0" layoutY="37.0" text="Command:" />
+      <ScrollPane layoutX="30.0" layoutY="73.0" prefHeight="400.0" prefWidth="684.0">
+         <content>
+            <TableView fx:id="taskTableView" prefHeight="400.0" prefWidth="668.0">
+              <columns>
+                <TableColumn fx:id="taskNumberColumn" prefWidth="63.0" text="Task#" />
+                <TableColumn fx:id="taskNameColumn" prefWidth="261.0" text="Task Name" />
+                  <TableColumn fx:id="startTimeColumn" prefWidth="125.0" text="Start Time" />
+                  <TableColumn fx:id="endTimeColumn" prefWidth="119.0" text="End Time" />
+                  <TableColumn fx:id="priority" prefWidth="99.0" text="Priority" />
+              </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+      <TextArea layoutX="31.0" layoutY="498.0" prefHeight="49.0" prefWidth="684.0" />
+   </children>
+</AnchorPane>

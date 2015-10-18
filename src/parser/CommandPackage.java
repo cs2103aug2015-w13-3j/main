@@ -59,8 +59,8 @@ public class CommandPackage {
 		return dates;
 	}
 
-	public String setPriority(String priority2) {
-		priority = priority2;
+	public String setPriority(String priority) {
+		this.priority = priority;
 		return priority;
 	}
 
