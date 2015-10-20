@@ -188,4 +188,9 @@ public class DateParser {
 
 		return intTokens;
 	}
+	public static ArrayList<DatePackage> searchDates(ArrayList<DateTime> input) {
+		ArrayList<DatePackage> dates = new ArrayList<DatePackage>();
+		
+		return dates;
+	}
 }
