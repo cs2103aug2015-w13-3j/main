@@ -109,7 +109,7 @@ public class CommandParser {
 		System.out.println("Adding datetime");
 		int numberOfDates = countDate();
 		int numberOfTime = countTime();
-		System.out.println("number of dates = " + numberOfDates);
+		System.out.println("number of dates = " + numberOfTime);
 		ArrayList<DateTime> dateArr;
 		if (numberOfDates == 1) {
 			dateArr = extractDate();
@@ -127,18 +127,19 @@ public class CommandParser {
 			}
 			return 1;
 
-		} else if (numberOfDates == 1 && numberOfTime == 1) {
+		} else if (numberOfTime == 1) {
 			System.out.println("theres 1!");
+			dateArr = extractTime();
 			for (int i = 0; i < inputArr.size(); i++) {
-				dateArr = extractDate();
+				System.out.println("date is  " + dateArr.get(0));
 				if (inputArr.get(i).equalsIgnoreCase("start")) {
-					inputData.setDates(extractTime(dateArr), "start");
+					inputData.setDates(dateArr, "start");
 					remove("start");
 				} else if (inputArr.get(i).equalsIgnoreCase("end")) {
-					inputData.setDates(extractTime(dateArr), "end");
+					inputData.setDates(dateArr, "end");
 					remove("end");
 				} else {
-					inputData.setDates(extractTime(dateArr), "end");
+					inputData.setDates(dateArr, "end");
 				}
 			}
 			return 1;
@@ -165,7 +166,7 @@ public class CommandParser {
 	private ArrayList<DateTime> extractDate() {
 		ArrayList<DateTime> dateArr = new ArrayList<DateTime>();
 		for (int i = 0; i < inputArr.size(); i++) {
-			System.out.println("Testing" + inputArr.get(i));
+			System.out.println("Testing " + inputArr.get(i));
 			if (DateParser.isDate(inputArr.get(i))) {
 				String date = inputArr.remove(i);
 				System.out.println("DATE IS " + date);
@@ -186,6 +187,8 @@ public class CommandParser {
 		}
 		return dateArr;
 	}
+	
+
 
 	private ArrayList<DateTime> extractTime() {
 		ArrayList<DateTime> dateArr = new ArrayList<DateTime>();
@@ -193,7 +196,7 @@ public class CommandParser {
 		for (int i = 0; i < inputArr.size(); i++) {
 			if (TimeParser.isTime(inputArr.get(i))) {
 				String time = inputArr.remove(i);
-				dateArr.add(TimeParser.setTime(dateArr.get(count), time));
+				dateArr.add(TimeParser.setTime(null, time));
 				count++;
 			}
 		}
