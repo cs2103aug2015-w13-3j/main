@@ -79,6 +79,10 @@ public class Task implements Comparable<Task> {
 	public void setTaskNumber(Integer taskNumber){
 		this.taskNum = taskNumber;
 	}
+	
+	public void setTaskName(String name){
+		this.name = name;
+	}
 
 	public boolean containKeyword(String keyword) {
 		if (name.matches(".*\\b" + keyword + "\\b.*")) {

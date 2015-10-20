@@ -22,7 +22,7 @@ public class Searcher {
 			}
 		}else{
 			if(target.getName() != null){
-				result = searchKeyword(target.getName(), Logic.getTaskList());
+				result = searchKeyword(target.getName(), LogicClass.getTaskList());
 			}
 		}
 		return result;

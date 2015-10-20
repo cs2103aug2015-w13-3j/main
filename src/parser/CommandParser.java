@@ -99,8 +99,9 @@ public class CommandParser {
 			} else {
 				sequence = sequence + " " + word;
 			}
+			//System.out.println(i+". "+word);
 		}
-		System.out.println(sequence);
+		System.out.println("sequence is: "+sequence);
 		inputData.addUpdateSequence(sequence);
 		return inputData;
 	}

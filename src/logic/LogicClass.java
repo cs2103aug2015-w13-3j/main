@@ -6,25 +6,25 @@ import java.util.Collections;
 
 import parser.CommandPackage;
 
-public class Logic {
+public class LogicClass {
 	// This array will be used to store the messages
 	private static ArrayList<Task> taskList = new ArrayList<Task>();
 	private static ArrayList<Task> todayTasks = new ArrayList<Task>();
 	Storage storage = new Storage();
-    Logic theOne== null;
 
+    static LogicClass theOne =null;
 	// constructor
-	private Logic(Storage storage) {
+	private LogicClass(Storage storage) {
 		this.storage = storage;
 		taskList = storage.Read();
 	}
     
-    public static Logic getInstance(Storage storage){
+    public static LogicClass getInstance(Storage storage){
         assert storage!=null;
         if(theOne==null){
-            theOne= NEW Logic(storage);
+            theOne= new LogicClass(storage);
         }
-        RETURN theOne;
+        return theOne;
     }
 
 	public static ArrayList<Task> getTaskList() {
@@ -38,34 +38,29 @@ public class Logic {
 
 	// These are the possible command types
 	enum COMMAND_TYPE {
-		ADD, DISPLAY, DELETE, CLEAR, EXIT, INVALID, SORTBYNAME, SEARCH, EDIT, REDO, UNDO, SORTBYSTARTTIME, SORTBYDEADLINE
+		ADD, DISPLAY, DELETE, CLEAR, EXIT, INVALID, SORTBYNAME, SEARCH, EDIT, REDO, UNDO
 	};
 
-	public void executeCommand(CommandPackage commandInfo) {
+	public void executeCommand(CommandPackage commandPackage) {
 		// int taskIndex;
-		String commandTypeString = commandInfo.getCommand();
+		String commandTypeString = commandPackage.getCommand();
 		System.out.println("Get the command type string: " + commandTypeString);
+		
 		COMMAND_TYPE commandType = determineCommandType(commandTypeString);
 
 		switch (commandType) {
 		case ADD:
-			addTask(commandInfo);
+			addTask(commandPackage);
 			System.out.println("Adding task.");
 			Storage.write(taskList);
 			break;
-		case SORTBYSTARTTIME:
-			sortByStartTime();
-			break;
-		case SORTBYDEADLINE:
-			sortByDeadline();
-			break;
 		case EDIT:
-			edit(commandInfo);
+			edit(commandPackage);
 			Storage.write(taskList);
 			break;
 		case DELETE:
 			// System.out.print("here"+commandInfo.getPhrase());
-			delete(commandInfo.getPhrase());
+			delete(commandPackage.getPhrase());
 			Storage.write(taskList);
 			break;
 		case CLEAR:
@@ -77,7 +72,7 @@ public class Logic {
 			Storage.write(taskList);
 			break;
 		case SEARCH:
-			search(commandInfo.getPhrase());
+			search(commandPackage.getPhrase());
 			break;
 		case EXIT:
 			// Write to file only when the program exits.
@@ -106,9 +101,14 @@ public class Logic {
 
 	public Task edit(CommandPackage commandInfo) {
 		String target = commandInfo.getPhrase();
+		
 		commandInfo.getUpdateSequence();
+		
 		for (Task task : taskList) {
 			if (task.getName().equals(target)) {
+				if (commandInfo.getPhrase() != null) {
+					task.setTaskName(commandInfo.getPhrase());
+				}
 
 				if (commandInfo.startingTime() != null) {
 					task.setStartTime(commandInfo.startingTime());
@@ -130,15 +130,32 @@ public class Logic {
 
 	// To delete certain message
 	public Task delete(String string) {
-
-		for (int i = 0; i < taskList.size(); i++) {
-			Task task = taskList.get(i);
-			if (task.getName().equals(string)) {
-				taskList.remove(i);
-				break;
+		Task task =null;
+		if(isInteger(string, 10)){ //delete by index
+			int index = Integer.parseInt(string);
+			task=taskList.remove(index);
+		}else{//delete by name
+			for (int i = 0; i < taskList.size(); i++) {
+				task = taskList.get(i);
+				if (task.getName().equals(string)) {
+					taskList.remove(i);
+					break;
+				}
 			}
 		}
-		return null;
+		return task;
+	}
+	
+	private boolean isInteger(String s, int radix){
+		if(s.isEmpty()) return false;
+	    for(int i = 0; i < s.length(); i++) {
+	        if(i == 0 && s.charAt(i) == '-') {
+	            if(s.length() == 1) return false;
+	            else continue;
+	        }
+	        if(Character.digit(s.charAt(i),radix) < 0) return false;
+	    }
+	    return true;
 	}
 
 	// To add message to ArrayList text
