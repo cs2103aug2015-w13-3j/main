@@ -73,12 +73,35 @@ public class TimeParser{
 		for (int i = 0; i < FORMAT_SIZE; i++) {
 			try {
 				time = timeFormats.get(i).parseDateTime(input);
+				System.out.println(time);
 			} catch (IllegalArgumentException e) {
 				continue;
 			}
 		}
+		if (date == null) {
+			date = new DateTime();
+			
+		}
+		time = new DateTime(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth(), time.getHourOfDay(), time.getMinuteOfHour());
+		if (date.isBefore(time)) {
+			return time;
+		} else {
+			return time.plusDays(1);
+		} 
+	}
+
+
+	public static ArrayList<DateTime> searchTime(ArrayList<DateTime> date, String input) {
+		if (isValidFormat(input)) {
+			DateTime start = date.get(0);
+			DateTime end = date.get(1);
+			start = parseTimeFormat(start, input);
+			end = parseTimeFormat(end, input);
+			return date;
+		} else {
+			return date;
+		}
 		
-		return new DateTime(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth(), time.getHourOfDay(), time.getMinuteOfHour());
 	}
 	
 }
