@@ -11,7 +11,7 @@ public class Logic {
 	private static ArrayList<Task> taskList = new ArrayList<Task>();
 	private static ArrayList<Task> todayTasks = new ArrayList<Task>();
 	Storage storage = new Storage();
-    Logic theOne== null;
+    Logic theOne == null;
 
 	// constructor
 	private Logic(Storage storage) {
