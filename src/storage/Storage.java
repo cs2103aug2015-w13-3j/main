@@ -16,7 +16,7 @@ public class Storage {
 	private static String fileName = "textBomb";
 	private static File userFile;
 
-	public ArrayList<Task> Read() {
+	public static ArrayList<Task> Read() {
 		ArrayList<Task> taskList = new ArrayList<Task>();
 		try {
 			userFile = new File(fileName);
