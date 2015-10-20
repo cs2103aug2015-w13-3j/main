@@ -11,12 +11,21 @@ public class Logic {
 	private static ArrayList<Task> taskList = new ArrayList<Task>();
 	private static ArrayList<Task> todayTasks = new ArrayList<Task>();
 	Storage storage = new Storage();
+    Logic theOne== null;
 
 	// constructor
-	public Logic(Storage storage) {
+	private Logic(Storage storage) {
 		this.storage = storage;
 		taskList = storage.Read();
 	}
+    
+    public static Logic getInstance(Storage storage){
+        assert storage!=null;
+        if(theOne==null){
+            theOne= NEW Logic(storage);
+        }
+        RETURN theOne;
+    }
 
 	public static ArrayList<Task> getTaskList() {
 		return (ArrayList<Task>) taskList.clone();

@@ -47,35 +47,50 @@ public class CommandParser {
 		if (commandName.equals("update")) {
 			return updateInput();
 		} else {
-				
+
 			System.out.println("Phrase : " + getPhrase());
-	
+
 			String priority = findPriority();
 			inputData.setPriority(priority);
-			if (inputArr.size() == 0) {
-				return null;
-
-			}
-			System.out.println("Priority : " + priority);
-	
-			setDate();
-			if (inputArr.size() == 0) {
-				return null;
-
-			}
-			System.out.println(inputArr);
-			inputData.setPhrase(getPhrase());
-			System.out.println();
-	
-	
-			return inputData;
 		}
+
+		if (commandName.equals("add")) {
+			addDateTime();
+			if (inputArr.size() == 0) {
+				return null;
+			}
+		}
+		if (commandName.equals("search")) {
+			searchDates();
+		}
+		System.out.println(inputArr);
+		inputData.setPhrase(getPhrase());
+		System.out.println();
+
+		return inputData;
+	}
+
+	private int searchDates() {
+		int numberOfDates = countDate();
+		int numberOfTime = countTime();
+		if (numberOfDates == 1) {
+			ArrayList<DateTime> dateArr = extractDate();
+			DateParser.searchDates(dateArr);
+			inputData.setDates(dateArr);
+		}
+		if (numberOfTime == 1) {
+			//TODO
+			
+		}
+
+		return 0;
+
 	}
 
 	private CommandPackage updateInput() {
 		String sequence = "";
 		String word;
-		for (int i =0; i < inputArr.size() ; i ++) {
+		for (int i = 0; i < inputArr.size(); i++) {
 			word = inputArr.get(i);
 			if (word.startsWith("~")) {
 				System.out.println(sequence);
@@ -91,21 +106,35 @@ public class CommandParser {
 		return inputData;
 	}
 
-	private int setDate() {
+	private int addDateTime() {
 		int numberOfDates = countDate();
+		int numberOfTime = countTime();
 		if (numberOfDates == 0) {
-			return 0;
-		} else if (numberOfDates == 1) {
-			//TODO add start OR end condition
+
 			for (int i = 0; i < inputArr.size(); i++) {
 				if (inputArr.get(i).equalsIgnoreCase("start")) {
-					inputData.setDates(extractDate(), "start");
+					inputData.setDates(extractTime(), "start");
 					remove("start");
 				} else if (inputArr.get(i).equalsIgnoreCase("end")) {
-					inputData.setDates(extractDate(), "end");
+					inputData.setDates(extractTime(), "end");
 					remove("end");
 				} else {
-					inputData.setDates(extractDate(), "end");
+					inputData.setDates(extractTime(), "end");
+				}
+			}
+			return 1;
+
+		} else if (numberOfDates == 1 || numberOfTime == 1) {
+			for (int i = 0; i < inputArr.size(); i++) {
+				ArrayList<DateTime> dateArr = extractDate();
+				if (inputArr.get(i).equalsIgnoreCase("start")) {
+					inputData.setDates(extractTime(dateArr), "start");
+					remove("start");
+				} else if (inputArr.get(i).equalsIgnoreCase("end")) {
+					inputData.setDates(extractTime(dateArr), "end");
+					remove("end");
+				} else {
+					inputData.setDates(extractTime(dateArr), "end");
 				}
 			}
 			return 1;
@@ -120,7 +149,7 @@ public class CommandParser {
 
 	private ArrayList<DateTime> extractDate() {
 		ArrayList<DateTime> dateArr = new ArrayList<DateTime>();
-		for (int i = 0; i< inputArr.size(); i++) {
+		for (int i = 0; i < inputArr.size(); i++) {
 			if (DateParser.isDate(inputArr.get(i))) {
 				String date = inputArr.remove(i);
 				dateArr.add(DateParser.setDate(date));
@@ -129,10 +158,45 @@ public class CommandParser {
 		return dateArr;
 	}
 
+	private ArrayList<DateTime> extractTime(ArrayList<DateTime> dateArr) {
+		int count = 0;
+		for (int i = 0; i < inputArr.size(); i++) {
+			if (TimeParser.isTime(inputArr.get(i))) {
+				String time = inputArr.remove(i);
+				dateArr.add(TimeParser.setTime(dateArr.get(count), time));
+				count++;
+			}
+		}
+		return dateArr;
+	}
+
+	private ArrayList<DateTime> extractTime() {
+		ArrayList<DateTime> dateArr = new ArrayList<DateTime>();
+		int count = 0;
+		for (int i = 0; i < inputArr.size(); i++) {
+			if (TimeParser.isTime(inputArr.get(i))) {
+				String time = inputArr.remove(i);
+				dateArr.add(TimeParser.setTime(dateArr.get(count), time));
+				count++;
+			}
+		}
+		return dateArr;
+	}
+
 	private int countDate() {
 		int count = 0;
-		for (int i = 0; i< inputArr.size(); i++) {
+		for (int i = 0; i < inputArr.size(); i++) {
 			if (DateParser.isDate(inputArr.get(i))) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	private int countTime() {
+		int count = 0;
+		for (int i = 0; i < inputArr.size(); i++) {
+			if (TimeParser.isTime(inputArr.get(i))) {
 				count++;
 			}
 		}
@@ -181,7 +245,7 @@ public class CommandParser {
 	}
 
 	public boolean remove(String word) {
-		for (int i = 0; i < inputArr.size(); i ++) {
+		for (int i = 0; i < inputArr.size(); i++) {
 			if (inputArr.get(i).equalsIgnoreCase(word)) {
 				remove(i);
 			}
