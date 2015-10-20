@@ -9,6 +9,7 @@ import parser.CommandPackage;
 public class Logic {
 	// This array will be used to store the messages
 	private static ArrayList<Task> taskList = new ArrayList<Task>();
+	private static ArrayList<Task> todayTasks = new ArrayList<Task>();
 	Storage storage = new Storage();
 
 	// constructor
@@ -18,8 +19,13 @@ public class Logic {
 	}
 
 	public static ArrayList<Task> getTaskList() {
-		return taskList;
+		return (ArrayList<Task>) taskList.clone();
 	}
+	
+	public static ArrayList<Task> getTodayTasks(){
+		return (ArrayList<Task>) todayTasks.clone();
+	}
+	
 
 	// These are the possible command types
 	enum COMMAND_TYPE {
