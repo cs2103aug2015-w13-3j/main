@@ -12,6 +12,7 @@ public class LogicClass {
 	private static ArrayList<Task> todayTasks = new ArrayList<Task>();
 	Storage storage = new Storage();
 
+
     static LogicClass theOne =null;
 	// constructor
 	private LogicClass(Storage storage) {
