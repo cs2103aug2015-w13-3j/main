@@ -80,5 +80,19 @@ public class TimeParser{
 		
 		return new DateTime(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth(), time.getHourOfDay(), time.getMinuteOfHour());
 	}
+
+
+	public static ArrayList<DateTime> searchTime(ArrayList<DateTime> date, String input) {
+		if (isValidFormat(input)) {
+			DateTime start = date.get(0);
+			DateTime end = date.get(1);
+			start = parseTimeFormat(start, input);
+			end = parseTimeFormat(end, input);
+			return date;
+		} else {
+			return date;
+		}
+		
+	}
 	
 }

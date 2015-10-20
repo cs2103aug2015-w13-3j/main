@@ -188,9 +188,23 @@ public class DateParser {
 
 		return intTokens;
 	}
-	public static ArrayList<DatePackage> searchDates(ArrayList<DateTime> input) {
-		ArrayList<DatePackage> dates = new ArrayList<DatePackage>();
-		
-		return dates;
+	protected static ArrayList<DateTime> searchDate(String input) {
+		ArrayList<DateTime> searchArea = new ArrayList<DateTime>();
+		int formatType = getDateFormatType(input);
+		DateTime date = new DateTime();
+
+		if (formatType == 0) {
+			date = parseDateFormat0(input);
+		} else if (formatType == 1) {
+			date = parseDateFormat1(input, date);
+		} else if (formatType == 2) {
+			date = parseDateFormat2(input, date);
+		} else if (formatType == 3) {
+			date = parseDateFormat3(input);
+		}
+
+		searchArea.add(date.withTime(0,0,0,0));
+		searchArea.add(date.withTime(23,59,59,999));
+		return searchArea;
 	}
 }

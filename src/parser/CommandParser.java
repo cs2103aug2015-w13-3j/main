@@ -54,14 +54,15 @@ public class CommandParser {
 			inputData.setPriority(priority);
 		}
 
-		if (commandName.equals("add")) {
+		if (commandName.equals("create")) {
+			System.out.println("creating now");
 			addDateTime();
 			if (inputArr.size() == 0) {
 				return null;
 			}
 		}
 		if (commandName.equals("search")) {
-			searchDates();
+			//searchDates();
 		}
 		System.out.println(inputArr);
 		inputData.setPhrase(getPhrase());
@@ -69,24 +70,22 @@ public class CommandParser {
 
 		return inputData;
 	}
-
+/*
 	private int searchDates() {
 		int numberOfDates = countDate();
 		int numberOfTime = countTime();
 		if (numberOfDates == 1) {
-			ArrayList<DateTime> dateArr = extractDate();
-			DateParser.searchDates(dateArr);
-			inputData.setDates(dateArr);
+			ArrayList<DateTime> dateArr = extractSearchDate();
 		}
 		if (numberOfTime == 1) {
-			//TODO
+			TimeParser.searchTime();
 			
 		}
 
 		return 0;
 
 	}
-
+*/
 	private CommandPackage updateInput() {
 		String sequence = "";
 		String word;
@@ -107,26 +106,31 @@ public class CommandParser {
 	}
 
 	private int addDateTime() {
+		System.out.println("Adding datetime");
 		int numberOfDates = countDate();
 		int numberOfTime = countTime();
-		if (numberOfDates == 0) {
-
+		System.out.println("number of dates = " + numberOfDates);
+		ArrayList<DateTime> dateArr;
+		if (numberOfDates == 1) {
+			dateArr = extractDate();
+			System.out.println(dateArr.size() + "<<<");
 			for (int i = 0; i < inputArr.size(); i++) {
 				if (inputArr.get(i).equalsIgnoreCase("start")) {
-					inputData.setDates(extractTime(), "start");
+					inputData.setDates(dateArr, "start");
 					remove("start");
 				} else if (inputArr.get(i).equalsIgnoreCase("end")) {
-					inputData.setDates(extractTime(), "end");
+					inputData.setDates(dateArr, "end");
 					remove("end");
 				} else {
-					inputData.setDates(extractTime(), "end");
+					inputData.setDates(dateArr, "end");
 				}
 			}
 			return 1;
 
-		} else if (numberOfDates == 1 || numberOfTime == 1) {
+		} else if (numberOfDates == 1 && numberOfTime == 1) {
+			System.out.println("theres 1!");
 			for (int i = 0; i < inputArr.size(); i++) {
-				ArrayList<DateTime> dateArr = extractDate();
+				dateArr = extractDate();
 				if (inputArr.get(i).equalsIgnoreCase("start")) {
 					inputData.setDates(extractTime(dateArr), "start");
 					remove("start");
@@ -147,11 +151,24 @@ public class CommandParser {
 
 	}
 
-	private ArrayList<DateTime> extractDate() {
-		ArrayList<DateTime> dateArr = new ArrayList<DateTime>();
+	private ArrayList<DateTime> extractSearchDate() {
 		for (int i = 0; i < inputArr.size(); i++) {
 			if (DateParser.isDate(inputArr.get(i))) {
 				String date = inputArr.remove(i);
+				return DateParser.searchDate(date);
+			}
+		}
+		return null;
+	}
+
+
+	private ArrayList<DateTime> extractDate() {
+		ArrayList<DateTime> dateArr = new ArrayList<DateTime>();
+		for (int i = 0; i < inputArr.size(); i++) {
+			System.out.println("Testing" + inputArr.get(i));
+			if (DateParser.isDate(inputArr.get(i))) {
+				String date = inputArr.remove(i);
+				System.out.println("DATE IS " + date);
 				dateArr.add(DateParser.setDate(date));
 			}
 		}
