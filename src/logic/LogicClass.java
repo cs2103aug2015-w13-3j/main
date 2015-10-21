@@ -105,15 +105,27 @@ public class LogicClass {
 
 
 	public Task edit(CommandPackage commandInfo) {
-		String target = commandInfo.getPhrase();
-
-		commandInfo.getUpdateSequence();
+		
+		 
+		ArrayList<String> update = commandInfo.getUpdateSequence();
+		System.out.println("getupdatesequence 0="+ update.get(3));
+		String target = update.get(1);
 
 		for (Task task : taskList) {
+			
 			if (task.getName().equals(target)) {
-				if (commandInfo.getPhrase() != null) {
-					task.setTaskName(commandInfo.getPhrase());
+				
+				if(update.get(2).equals("task name")){
+					if (update.get(3) != null) {
+						task.setTaskName(update.get(3));
+						System.out.println(task.getName());
+					}
+					
+				}else if(update.get(2).equals("priority")){
+					task.setPriority(update.get(3));
 				}
+				
+				
 
 				if (commandInfo.startingTime() != null) {
 					task.setStartTime(commandInfo.startingTime());
@@ -121,7 +133,7 @@ public class LogicClass {
 				if (commandInfo.endingTime() != null) {
 					task.setEndTime(commandInfo.endingTime());
 				}
-				task.setPriority(commandInfo.getPriority());
+				
 			}
 		}
 		return null;
@@ -145,12 +157,12 @@ public class LogicClass {
 				task = taskList.get(i);
 				if (task.getName().equals(string)) {
 					taskList.remove(i);
-					break;
+					//break;
 				}
 			}
 		}
-		PriorityTaskList.deleteFromPL(task);
-		TimeLine.deleteFromTL(task);
+		//PriorityTaskList.deleteFromPL(task);
+		//TimeLine.deleteFromTL(task);
 		return task;
 	}
 
