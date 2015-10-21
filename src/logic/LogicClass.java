@@ -199,6 +199,7 @@ public class LogicClass {
 		if (commandInfo.endingTime() != null) {
 			task.setEndTime(commandInfo.endingTime());
 		}
+		
 		if (commandInfo.getPriority() != null) {
 			String pri = commandInfo.getPriority().trim();
 			if (pri != null && pri != "") {
