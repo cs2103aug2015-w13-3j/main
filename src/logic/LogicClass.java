@@ -123,7 +123,7 @@ public class LogicClass {
 		Task task =null;
 		if(isInteger(string, 10)){ //delete by index
 			int index = Integer.parseInt(string);
-			task=taskList.remove(index);
+			task=taskList.remove(index-1);
 			
 		}else{//delete by name
 			for (int i = 0; i < taskList.size(); i++) {
@@ -187,7 +187,9 @@ public class LogicClass {
 			
 			return "sorted by date";
 		}else if(commandPackage.getPhrase()=="priority"){
-			taskList=PriorityTaskList.getP1()
+			taskList= new ArrayList<Task>(PriorityTaskList.getP1());
+			taskList.
+			
 			return "sorted by priority";
 		}else{
 			return "invalid sorting type";
