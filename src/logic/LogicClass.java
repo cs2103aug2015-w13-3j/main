@@ -37,7 +37,12 @@ public class LogicClass {
 			return searchTaskList;
 		}
 		
-		return (ArrayList<Task>) taskList.clone();
+		return new ArrayList<Task>(taskList);
+	}
+	
+	public static ArrayList<Task> getTaskListForSearcher() {
+		
+		return new ArrayList<Task>(taskList);
 	}
 
 	public static ArrayList<Task> getTodayTasks() {
@@ -52,8 +57,10 @@ public class LogicClass {
 	public void executeCommand(CommandPackage commandPackage) {
 		// int taskIndex;
 		isSearchOp=false;
+		
+		System.out.println("Get the command type string: " + commandPackage.getCommand());
 		String commandTypeString = commandPackage.getCommand();
-		System.out.println("Get the command type string: " + commandTypeString);
+		
 
 		COMMAND_TYPE commandType = determineCommandType(commandTypeString);
 
@@ -161,7 +168,7 @@ public class LogicClass {
 				}
 			}
 		}
-		//PriorityTaskList.deleteFromPL(task);
+		PriorityTaskList.deleteFromPL(task);
 		//TimeLine.deleteFromTL(task);
 		return task;
 	}
@@ -183,7 +190,7 @@ public class LogicClass {
 	}
 
 	
-	public Task addTask(CommandPackage commandInfo) {
+	public static Task addTask(CommandPackage commandInfo) {
 
 		Task task = new Task(commandInfo.getPhrase());
 		if (commandInfo.startingTime() != null) {
@@ -192,15 +199,19 @@ public class LogicClass {
 		if (commandInfo.endingTime() != null) {
 			task.setEndTime(commandInfo.endingTime());
 		}
-		String pri = commandInfo.getPriority().trim();
-		// System.out.println("priority: " + pri);
-		if (pri != null && pri != "") {
-			task.setPriority(pri);
+		if (commandInfo.getPriority() != null) {
+			String pri = commandInfo.getPriority().trim();
+			if (pri != null && pri != "") {
+				task.setPriority(pri);
+			}
 		}
+		
+		// System.out.println("priority: " + pri);
+		
 
 		taskList.add(task);
 		PriorityTaskList.addToPL(task);
-		TimeLine.addToTL(task);
+		//TimeLine.addToTL(task);
 
 		for (Task task1 : taskList) {
 			System.out.println("sdfadfsdf" + task1.toString());
@@ -211,7 +222,7 @@ public class LogicClass {
 	}
 
 	public String sort(CommandPackage commandPackage) {
-		if(commandPackage.getPhrase()=="name"){
+		if(commandPackage.getPhrase().equals("name")){
 			Collections.sort(taskList);
 			return "sorted by name";
 		}else if(commandPackage.getPhrase()=="date"){
@@ -235,17 +246,20 @@ public class LogicClass {
 		if (commandInfo.startingTime() != null) {
 			task.setStartTime(commandInfo.startingTime());
 		}
+		
 		if (commandInfo.endingTime() != null) {
 			task.setEndTime(commandInfo.endingTime());
 		}
+		
 		String pri = commandInfo.getPriority().trim();
-		//System.out.println("priority: " + pri);
+		
 		if (pri != null && pri != "") {
 			task.setPriority(pri);
 		}
 		
-		Searcher searcher = new Searcher();
-		searchTaskList = new ArrayList<Task>(searcher.search(task) );
+		//System.out.println("task name searcher" + task.getName());
+		
+		searchTaskList = new ArrayList<Task>(Searcher.search(task) );
 		return searchTaskList;
 		
 		/**

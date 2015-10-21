@@ -12,7 +12,7 @@ public class Task implements Comparable<Task> {
 	// public DateTime deadline;
 	// private String location;
 	// private String description;
-	private Integer priority = -1;
+	private Integer priority = null;
 	private Integer taskNum = null;
 
 	public Task(String name) {

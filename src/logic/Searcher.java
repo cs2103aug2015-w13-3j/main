@@ -15,14 +15,14 @@ public class Searcher {
 			if(target.getName() != null){
 				result = searchKeyword(target.getName(), result);
 			}
-		}else if(target.getPriority() < 4){
+		}else if(target.getPriority()!=null){
 			result = searchPriority(target.getPriority());
 			if(target.getName() != null){
 				result = searchKeyword(target.getName(), result);
 			}
 		}else{
 			if(target.getName() != null){
-				result = searchKeyword(target.getName(), LogicClass.getTaskList());
+				result = searchKeyword(target.getName(), LogicClass.getTaskListForSearcher());
 			}
 		}
 		return result;

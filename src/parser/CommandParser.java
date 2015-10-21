@@ -37,10 +37,12 @@ public class CommandParser {
 		}
 		String commandName = findAction();
 
-		System.out.println(commandName);
+		System.out.println("command name "+ commandName);
 
 		inputData.setCommand(commandName);
-		if (!!isValidCommand(commandName) && (inputArr.size() == 0)) {
+		
+		if (!isValidCommand(commandName) && (inputArr.size() == 0)) {
+			
 			return null;
 
 		}
@@ -48,7 +50,7 @@ public class CommandParser {
 			return updateInput();
 		} else {
 
-			System.out.println("Phrase : " + getPhrase());
+			//System.out.println("Phrase : " + getPhrase());
 
 			String priority = findPriority();
 			inputData.setPriority(priority);
