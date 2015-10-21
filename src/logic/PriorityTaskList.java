@@ -14,7 +14,8 @@ public class PriorityTaskList {
 	}
 	
 	public static void addToPL(Task t){
-		if(t.getPriority() == 1){
+		if(t.getPriority() == null){
+		}else if(t.getPriority() == 1){
 			p1.add(t);
 		}else if(t.getPriority() == 2){
 			p2.add(t);

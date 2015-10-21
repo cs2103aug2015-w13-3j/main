@@ -54,16 +54,16 @@ public class TimeLine {
 		if(t.getStartTime() != null){
 			DateTime time = t.getStartTime();
 			String name = t.getName();	
-			remove(startTimeLine, time, name);
+			removeStart(startTimeLine, time, name);
 		}
 		
 		if(t.getEndTime() != null){
 			DateTime time = t.getEndTime();
 			String name = t.getName();	
-			remove(endTimeLine, time, name);
+			removeEnd(endTimeLine, time, name);
 		}	
 	}
-	public static void remove(ArrayList<Task> timeLine, DateTime time, String name){
+	public static void removeStart(ArrayList<Task> timeLine, DateTime time, String name){
 		int index1 = findPosition(timeLine, time, 0, timeLine.size());
 		int index2 = index1;
 		while((index1 >= 0)&&(timeLine.get(index1).getStartTime().compareTo(time) == 0)
@@ -74,6 +74,23 @@ public class TimeLine {
 			timeLine.remove(index1);
 		}else{
 			while((index1 < timeLine.size())&&(timeLine.get(index2).getStartTime().compareTo(time) == 0)
+					&&(!name.equals(timeLine.get(index2).getName()))){
+				index1 = index1 - 1;
+			}
+			timeLine.remove(index2);
+		}
+	}
+	public static void removeEnd(ArrayList<Task> timeLine, DateTime time, String name){
+		int index1 = findPosition(timeLine, time, 0, timeLine.size());
+		int index2 = index1;
+		while((index1 >= 0)&&(timeLine.get(index1).getEndTime().compareTo(time) == 0)
+				&&(!name.equals(timeLine.get(index1).getName()))){
+			index1 = index1 - 1;
+		}
+		if(index1 >= 0){
+			timeLine.remove(index1);
+		}else{
+			while((index1 < timeLine.size())&&(timeLine.get(index2).getEndTime().compareTo(time) == 0)
 					&&(!name.equals(timeLine.get(index2).getName()))){
 				index1 = index1 - 1;
 			}
