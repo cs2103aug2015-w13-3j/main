@@ -12,7 +12,6 @@ public class LogicClass {
 	private static ArrayList<Task> todayTasks = new ArrayList<Task>();
 	Storage storage = new Storage();
 
-
     static LogicClass theOne =null;
 	// constructor
 	private LogicClass(Storage storage) {
@@ -39,7 +38,7 @@ public class LogicClass {
 
 	// These are the possible command types
 	enum COMMAND_TYPE {
-		ADD, DISPLAY, DELETE, CLEAR, EXIT, INVALID, SORTBYNAME, SEARCH, EDIT, REDO, UNDO
+		ADD, DISPLAY, DELETE, CLEAR, EXIT, INVALID, SORT, SEARCH, EDIT, REDO, UNDO
 	};
 
 	public void executeCommand(CommandPackage commandPackage) {
@@ -68,15 +67,15 @@ public class LogicClass {
 			clear();
 			Storage.write(taskList);
 			break;
-		case SORTBYNAME:
-			sortByName();
+		case SORT:
+			sort(commandPackage);
 			Storage.write(taskList);
 			break;
 		case SEARCH:
-			search(commandPackage.getPhrase());
+			search(commandPackage);
 			break;
 		case EXIT:
-			// Write to file only when the program exits.
+			
 
 			System.exit(0);
 		default:
@@ -89,16 +88,6 @@ public class LogicClass {
 		return "The command is invalid, please key in the valid command.";
 	}
 
-	public void sortByStartTime() {
-		// TODO Auto-generated method stub
-
-	}
-
-	// assume edit by index
-	public void sortByDeadline() {
-		// TODO Auto-generated method stub
-
-	}
 
 	public Task edit(CommandPackage commandInfo) {
 		String target = commandInfo.getPhrase();
@@ -135,6 +124,7 @@ public class LogicClass {
 		if(isInteger(string, 10)){ //delete by index
 			int index = Integer.parseInt(string);
 			task=taskList.remove(index);
+			
 		}else{//delete by name
 			for (int i = 0; i < taskList.size(); i++) {
 				task = taskList.get(i);
@@ -144,6 +134,8 @@ public class LogicClass {
 				}
 			}
 		}
+		PriorityTaskList.deleteFromPL(task);
+		TimeLine.deleteFromTL(task);
 		return task;
 	}
 	
@@ -159,7 +151,7 @@ public class LogicClass {
 	    return true;
 	}
 
-	// To add message to ArrayList text
+	
 	public Task addTask(CommandPackage commandInfo) {
 
 		Task task = new Task(commandInfo.getPhrase());
@@ -176,6 +168,8 @@ public class LogicClass {
 		}
 
 		taskList.add(task);
+		PriorityTaskList.addToPL(task);
+		TimeLine.addToTL(task);
 
 		for (Task task1 : taskList) {
 			System.out.println("sdfadfsdf" + task1.toString());
@@ -185,11 +179,41 @@ public class LogicClass {
 
 	}
 
-	public void sortByName() {
-		Collections.sort(taskList);
+	public String sort(CommandPackage commandPackage) {
+		if(commandPackage.getPhrase()=="name"){
+			Collections.sort(taskList);
+			return "sorted by name";
+		}else if(commandPackage.getPhrase()=="date"){
+			
+			return "sorted by date";
+		}else if(commandPackage.getPhrase()=="priority"){
+			taskList=PriorityTaskList.getP1()
+			return "sorted by priority";
+		}else{
+			return "invalid sorting type";
+		}
+		
+		
 	}
 
-	public String search(String keyword) {
+	public ArrayList<Task> search(CommandPackage commandInfo) {
+		Task task = new Task(commandInfo.getPhrase());
+		if (commandInfo.startingTime() != null) {
+			task.setStartTime(commandInfo.startingTime());
+		}
+		if (commandInfo.endingTime() != null) {
+			task.setEndTime(commandInfo.endingTime());
+		}
+		String pri = commandInfo.getPriority().trim();
+		//System.out.println("priority: " + pri);
+		if (pri != null && pri != "") {
+			task.setPriority(pri);
+		}
+		
+		Searcher searcher = new Searcher();
+		return searcher.search(task);
+		
+		/**
 		String taskWithKeyword = "";
 		ArrayList<Task> taskContainKeyword = new ArrayList<Task>();
 		for (Task task : taskList) {
@@ -198,6 +222,7 @@ public class LogicClass {
 			}
 		}
 		return taskWithKeyword.toString();
+		*/
 	}
 
 	/**
@@ -220,14 +245,11 @@ public class LogicClass {
 			return COMMAND_TYPE.CLEAR;
 		} else if (commandTypeString.equalsIgnoreCase("exit")) {
 			return COMMAND_TYPE.EXIT;
-		} else if (commandTypeString.equalsIgnoreCase("sort by name")) {
-			return COMMAND_TYPE.SORTBYNAME;
+		} else if (commandTypeString.equalsIgnoreCase("sort")) {
+			return COMMAND_TYPE.SORT;
 		} else if (commandTypeString.equalsIgnoreCase("search")) {
 			return COMMAND_TYPE.SEARCH;
-		} else if (commandTypeString.equalsIgnoreCase("sort by start time")) {
-			return COMMAND_TYPE.SORTBYSTARTTIME;
-		} else if (commandTypeString.equalsIgnoreCase("sort by deadline")) {
-			return COMMAND_TYPE.SORTBYDEADLINE;
+
 		} else {
 			return COMMAND_TYPE.INVALID;
 		}

@@ -1,6 +1,6 @@
 package gui;
 
-import logic.Logic;
+import logic.LogicClass;
 import logic.Task;
 
 import javafx.collections.ObservableList;
