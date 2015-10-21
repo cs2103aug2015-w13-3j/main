@@ -1,6 +1,6 @@
 package gui;
 
-import logic.Logic;
+import logic.LogicClass;
 import logic.Task;
 
 import javafx.collections.ObservableList;
@@ -29,7 +29,7 @@ public class MainApp extends Application {
 	}
 
 	public ObservableList<Task> getTaskData() {
-		ArrayList<Task> tasks = Logic.getTaskList();
+		ArrayList<Task> tasks = LogicClass.getTaskList();
 		for (int i = 0; i < tasks.size(); i++) {
 			tasks.get(i).setTaskNumber(i + 1);
 		}

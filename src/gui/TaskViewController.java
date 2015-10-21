@@ -38,7 +38,7 @@ public class TaskViewController {
 
 	private Storage storage = new Storage();
 
-	private Logic logic = Logic.getInstance(storage);
+	private LogicClass logic = LogicClass.getInstance(storage);
 	
 	CommandParser cmdParser = new CommandParser();
 	
