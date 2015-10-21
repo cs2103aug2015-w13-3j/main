@@ -168,7 +168,7 @@ public class LogicClass {
 				}
 			}
 		}
-		PriorityTaskList.deleteFromPL(task);
+		//PriorityTaskList.deleteFromPL(task);
 		//TimeLine.deleteFromTL(task);
 		return task;
 	}
@@ -211,7 +211,7 @@ public class LogicClass {
 		
 
 		taskList.add(task);
-		PriorityTaskList.addToPL(task);
+		//PriorityTaskList.addToPL(task);
 		//TimeLine.addToTL(task);
 
 		for (Task task1 : taskList) {
