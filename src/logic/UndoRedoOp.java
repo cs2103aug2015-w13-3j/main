@@ -34,7 +34,8 @@ public class UndoRedoOp {
 		return (ArrayList<Task>) undoStack.peek().clone();
 	}
 	
-	public void addStateToUndo(ArrayList<Task> recentState){
+	public ArrayList<Task> addStateToUndo(ArrayList<Task> recentState){
 		undoStack.push(recentState);
+		return recentState;
 	}
 }
