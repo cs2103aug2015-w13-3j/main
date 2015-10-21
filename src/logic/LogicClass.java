@@ -10,6 +10,8 @@ public class LogicClass {
 	// This array will be used to store the messages
 	private static ArrayList<Task> taskList = new ArrayList<Task>();
 	private static ArrayList<Task> todayTasks = new ArrayList<Task>();
+	private static ArrayList<Task> searchTaskList = new ArrayList<Task>();
+	private static boolean isSearchOp = false;
 	Storage storage = new Storage();
 	UndoRedoOp undoRedo = null;
 
@@ -31,6 +33,10 @@ public class LogicClass {
 	}
 
 	public static ArrayList<Task> getTaskList() {
+		if(isSearchOp == true){
+			return searchTaskList;
+		}
+		
 		return (ArrayList<Task>) taskList.clone();
 	}
 
@@ -40,11 +46,12 @@ public class LogicClass {
 
 	// These are the possible command types
 	enum COMMAND_TYPE {
-		ADD, DISPLAY, DELETE, CLEAR, EXIT, INVALID, SORTBYNAME, SEARCH, EDIT, REDO, UNDO, SORTBYSTARTTIME, SORTBYDEADLINE
+		ADD, DISPLAY, DELETE, CLEAR, EXIT, INVALID, SORT, SEARCH, EDIT, REDO, UNDO, SORTBYSTARTTIME, SORTBYDEADLINE
 	};
 
 	public void executeCommand(CommandPackage commandPackage) {
 		// int taskIndex;
+		isSearchOp=false;
 		String commandTypeString = commandPackage.getCommand();
 		System.out.println("Get the command type string: " + commandTypeString);
 
@@ -74,6 +81,7 @@ public class LogicClass {
 			Storage.write(taskList);
 			break;
 		case SEARCH:
+			isSearchOp=true;
 			search(commandPackage);
 			break;
 		case REDO:
@@ -131,6 +139,7 @@ public class LogicClass {
 		if (isInteger(string, 10)) { // delete by index
 			int index = Integer.parseInt(string);
 			task=taskList.remove(index-1);
+			
 		}else{//delete by name
 			for (int i = 0; i < taskList.size(); i++) {
 				task = taskList.get(i);
@@ -198,7 +207,8 @@ public class LogicClass {
 			return "sorted by date";
 		}else if(commandPackage.getPhrase()=="priority"){
 			taskList= new ArrayList<Task>(PriorityTaskList.getP1());
-			taskList.
+			taskList.addAll(PriorityTaskList.getP2());
+			taskList.addAll(PriorityTaskList.getP3());
 			
 			return "sorted by priority";
 		}else{
@@ -223,7 +233,8 @@ public class LogicClass {
 		}
 		
 		Searcher searcher = new Searcher();
-		return searcher.search(task);
+		searchTaskList = new ArrayList<Task>(searcher.search(task) );
+		return searchTaskList;
 		
 		/**
 		String taskWithKeyword = "";
