@@ -1,5 +1,3 @@
-package logic;
-
 import java.util.ArrayList;
 
 
@@ -25,21 +23,24 @@ public class PriorityTaskList {
 	
 	public static void deleteFromPL(Task t){
 		if(t.getPriority() == 1){
-			for (Task task : p1){
-				if(task.getName().equalsIgnoreCase(t.getName())){
-					p1.remove(task);
+			for (int i = 0; i<p1.size(); i++){
+				if(p1.get(i).getName().equalsIgnoreCase(t.getName())){
+					p1.remove(i);
+					break;
 				}
 			}
 		}else if(t.getPriority() == 2){
-			for (Task task : p2){
-				if(task.getName().equalsIgnoreCase(t.getName())){
-					p2.remove(task);
+			for (int i = 0; i<p2.size(); i++){
+				if(p2.get(i).getName().equalsIgnoreCase(t.getName())){
+					p2.remove(i);
+					break;
 				}
 			}
 		}else{
-			for (Task task : p3){
-				if(task.getName().equalsIgnoreCase(t.getName())){
-					p3.remove(task);
+			for (int i = 0; i<p3.size(); i++){
+				if(p3.get(i).getName().equalsIgnoreCase(t.getName())){
+					p3.remove(i);
+					break;
 				}
 			}
 		}
