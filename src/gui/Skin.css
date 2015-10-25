@@ -33,7 +33,6 @@
 
 .table-view .column-header {
 	-fx-border-color: #FFDEAD;
-	-fx-cell-color: #FFDEAD;
 }
 
 .table-view .column-header-background {
