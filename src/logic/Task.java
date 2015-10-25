@@ -7,8 +7,8 @@ import javafx.beans.property.StringProperty;
 
 public class Task implements Comparable<Task> {
 	private String name;
-	private DateTime startTime;
-	private DateTime endTime;
+	private DateTime startTime = null;
+	private DateTime endTime = null;
 	// public DateTime deadline;
 	// private String location;
 	// private String description;

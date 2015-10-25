@@ -12,18 +12,18 @@ public class TimeLine {
 	public static void addToTL(Task t){
 		if(t.getStartTime() != null){
 			DateTime time = t.getStartTime();		
-			int index = findPosition(startTimeLine, time, 0, startTimeLine.size());
+			int index = findPositionStart(startTimeLine, time, 0, startTimeLine.size());
 			startTimeLine.add(index, t);
 			
 		}
 		if(t.getEndTime() != null){
 			DateTime time = t.getEndTime();
-			int index = findPosition(endTimeLine, time, 0, endTimeLine.size());
+			int index = findPositionEnd(endTimeLine, time, 0, endTimeLine.size());
 			endTimeLine.add(index, t);
 		}
 	}
 	
-	public static int findPosition(ArrayList<Task> timeLine, DateTime time, int left, int right){
+	public static int findPositionStart(ArrayList<Task> timeLine, DateTime time, int left, int right){
 		if(right == 0){
 			return 0;
 		}
@@ -35,18 +35,44 @@ public class TimeLine {
 	    		
 	    		return left + 1;
 	    	}else{
-	    		return findPosition(timeLine, time, (mid + right)/2, right);
+	    		return findPositionStart(timeLine, time, mid, right);
 	    	}	
 		}else if(timeLine.get(mid).getStartTime().compareTo(time) > 0){
 		    if(mid == 0){
 		    	return 0;
 		    }else{
-		    	return findPosition(timeLine, time, (left + mid)/2, mid);
+		    	return findPositionStart(timeLine, time, left, mid);
 		    }	
 		}else{
 			return mid + 1;
 		}
 	}
+	
+	public static int findPositionEnd(ArrayList<Task> timeLine, DateTime time, int left, int right){
+		if(right == 0){
+			return 0;
+		}
+		int mid = (left + right)/2;
+		
+	    if(timeLine.get(mid).getEndTime().compareTo(time) < 0){
+	    	
+	    	if(mid == left){
+	    		
+	    		return left + 1;
+	    	}else{
+	    		return findPositionEnd(timeLine, time, mid, right);
+	    	}	
+		}else if(timeLine.get(mid).getEndTime().compareTo(time) > 0){
+		    if(mid == 0){
+		    	return 0;
+		    }else{
+		    	return findPositionEnd(timeLine, time, left, mid);
+		    }	
+		}else{
+			return mid + 1;
+		}
+	}
+	
 	
 
 	
@@ -64,8 +90,8 @@ public class TimeLine {
 		}	
 	}
 	public static void removeStart(ArrayList<Task> timeLine, DateTime time, String name){
-		int index1 = findPosition(timeLine, time, 0, timeLine.size());
-		int index2 = index1;
+		int index1 = findPositionStart(timeLine, time, 0, timeLine.size()) - 1;
+		int index2 = index1 + 1;
 		while((index1 >= 0)&&(timeLine.get(index1).getStartTime().compareTo(time) == 0)
 				&&(!name.equals(timeLine.get(index1).getName()))){
 			index1 = index1 - 1;
@@ -73,16 +99,16 @@ public class TimeLine {
 		if(index1 >= 0){
 			timeLine.remove(index1);
 		}else{
-			while((index1 < timeLine.size())&&(timeLine.get(index2).getStartTime().compareTo(time) == 0)
+			while((index2 < timeLine.size())&&(timeLine.get(index2).getStartTime().compareTo(time) == 0)
 					&&(!name.equals(timeLine.get(index2).getName()))){
-				index1 = index1 - 1;
+				index2 = index2 + 1;
 			}
 			timeLine.remove(index2);
 		}
 	}
 	public static void removeEnd(ArrayList<Task> timeLine, DateTime time, String name){
-		int index1 = findPosition(timeLine, time, 0, timeLine.size());
-		int index2 = index1;
+		int index1 = findPositionEnd(timeLine, time, 0, timeLine.size()) - 1;
+		int index2 = index1 + 1;
 		while((index1 >= 0)&&(timeLine.get(index1).getEndTime().compareTo(time) == 0)
 				&&(!name.equals(timeLine.get(index1).getName()))){
 			index1 = index1 - 1;
@@ -90,9 +116,9 @@ public class TimeLine {
 		if(index1 >= 0){
 			timeLine.remove(index1);
 		}else{
-			while((index1 < timeLine.size())&&(timeLine.get(index2).getEndTime().compareTo(time) == 0)
+			while((index2 < timeLine.size())&&(timeLine.get(index2).getEndTime().compareTo(time) == 0)
 					&&(!name.equals(timeLine.get(index2).getName()))){
-				index1 = index1 - 1;
+				index2 = index2 - 1;
 			}
 			timeLine.remove(index2);
 		}
