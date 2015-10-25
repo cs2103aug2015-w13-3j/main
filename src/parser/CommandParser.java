@@ -282,12 +282,17 @@ public class CommandParser {
 	}
 
 	public String getPhrase() {
-		String phrase = inputArr.get(0);
-		;
-		for (int i = 1; i < inputArr.size(); i++) {
-			phrase = phrase + " " + inputArr.get(i);
+		if (inputArr.isEmpty()) {
+			return "";
+		} else {
+			String phrase = inputArr.get(0);
+			;
+			for (int i = 1; i < inputArr.size(); i++) {
+				phrase = phrase + " " + inputArr.get(i);
+			}
+			return phrase;
 		}
-		return phrase;
+
 	}
 
 }
