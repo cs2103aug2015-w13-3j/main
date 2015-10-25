@@ -20,7 +20,7 @@ public class UndoRedoOp {
 		if(!undoStack.isEmpty()){
 			ArrayList<Task> currentState = undoStack.pop();
 			redoStack.push(currentState);
-			return (ArrayList<Task>) undoStack.peek().clone();
+			return undoStack.peek();
 		}
 		return initialState;
 	}
@@ -29,9 +29,9 @@ public class UndoRedoOp {
 		if(!redoStack.isEmpty()){
 			ArrayList<Task> previousState = redoStack.pop();
 			undoStack.push(previousState);
-			return previousState;
+			return redoStack.peek();
 		}
-		return (ArrayList<Task>) undoStack.peek().clone();
+		return initialState;
 	}
 	
 	public ArrayList<Task> addStateToUndo(ArrayList<Task> recentState){
