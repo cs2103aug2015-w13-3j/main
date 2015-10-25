@@ -17,11 +17,11 @@
          </font></Label>
       <TableView fx:id="taskTableView" layoutX="264.0" layoutY="89.0" prefHeight="422.0" prefWidth="448.0">
         <columns>
-          <TableColumn fx:id="taskNumberColumn" prefWidth="59.0" text="Task#" />
-          <TableColumn fx:id="taskNameColumn" prefWidth="139.0" text="Task Name" />
+          <TableColumn fx:id="taskNumberColumn" prefWidth="74.51931762695312" text="Task#" />
+          <TableColumn fx:id="taskNameColumn" prefWidth="123.48068237304688" text="Task Name" />
             <TableColumn fx:id="startTimeColumn" prefWidth="88.03018188476562" text="Start Time" />
             <TableColumn fx:id="endTimeColumn" minWidth="0.0" prefWidth="80.85418701171875" text="End Time" />
-            <TableColumn fx:id="priority" prefWidth="67.0" text="Priority" />
+            <TableColumn fx:id="priority" prefWidth="67.64337158203125" text="Priority" />
         </columns>
       </TableView>
       <Label layoutX="33.0" layoutY="547.0" prefHeight="16.0" prefWidth="683.0" text="This is the feedback for an operation. " />
