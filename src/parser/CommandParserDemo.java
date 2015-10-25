@@ -4,7 +4,7 @@ public class CommandParserDemo {
 
 	public static void main(String[] args) throws Exception {
 		CommandParser cmd = new CommandParser();
-		cmd.getCommandPackage("add i love teemo 25-Oct 9pm");
+		cmd.getCommandPackage("add i love teemo 8am 9pm");
 		System.out.println(cmd.getCommandPackage("").endingTime());
 		cmd.getCommandPackage("teemo loves chicken #1 search");
 		cmd.getCommandPackage("delete 1");

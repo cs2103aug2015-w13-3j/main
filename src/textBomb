@@ -10,3 +10,5 @@ watch movie| |2015-10-22T00:00:00.000+08:00|null
 watch movie 10pm| |2016-10-10T00:00:00.000+08:00|null
 meeting| |2016-10-09T00:00:00.000+08:00|null
 meet 6pm| |2015-10-25T00:00:00.000+08:00|null
+dinner| |2015-10-25T21:00:00.000+08:00|null
+meeting| | |null
