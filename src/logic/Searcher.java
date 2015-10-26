@@ -75,13 +75,31 @@ public class Searcher {
 	
 	public static ArrayList<Task> searchDate(DateTime date){
 		ArrayList<Task> result = new ArrayList<Task>();
-		searchFrom(TimeLine.getStarttimeLine(), date, result);
-		searchFrom(TimeLine.getEndtimeLine(), date, result);
+		searchFromStart(TimeLine.getStarttimeLine(), date, result);
+		searchFromEnd(TimeLine.getEndtimeLine(), date, result);
 		return result;
 	}
 	
-	private static void searchFrom(ArrayList<Task> timeLine, DateTime time, ArrayList<Task> result){
-		int index1 = TimeLine.findPosition(timeLine, time, 0, timeLine.size());
+	private static void searchFromStart(ArrayList<Task> timeLine, DateTime time, ArrayList<Task> result){
+		int index1 = TimeLine.findPositionStart(timeLine, time, 0, timeLine.size());
+		
+		if(index1 == 0){
+		}else{
+			index1 --;
+			int index2 = index1 + 1;
+			while((index1 >= 0)&&(timeLine.get(index1).getStartTime().compareTo(time) == 0)){
+				result.add(timeLine.get(index1));
+				index1--;
+			}
+			while((index2 < timeLine.size())&&(timeLine.get(index2).getStartTime().compareTo(time) == 0)){
+				result.add(timeLine.get(index2));
+				index2++;
+			}
+		}
+	}
+	
+	private static void searchFromEnd(ArrayList<Task> timeLine, DateTime time, ArrayList<Task> result){
+		int index1 = TimeLine.findPositionEnd(timeLine, time, 0, timeLine.size());
 		
 		if(index1 == 0){
 		}else{

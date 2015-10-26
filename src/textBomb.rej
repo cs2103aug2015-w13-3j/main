@@ -1,0 +1,8 @@
+diff a/src/textBomb b/src/textBomb	(rejected hunks)
+@@ -11,3 +11,4 @@
+ meeting| |2016-10-09T00:00:00.000+08:00|null
+\ No newline at end of file
+ meet 6pm| |2015-10-25T00:00:00.000+08:00|null
++dinner| |2015-10-25T21:00:00.000+08:00|null
+ meeting| | |null
+\ No newline at end of file

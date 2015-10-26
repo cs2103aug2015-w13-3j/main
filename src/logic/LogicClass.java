@@ -20,8 +20,13 @@ public class LogicClass {
 	// constructor
 	private LogicClass(Storage storage) {
 		this.storage = storage;
-		taskList = storage.Read();
-		undoRedo = new UndoRedoOp((ArrayList<Task>) taskList.clone());
+		taskList = Storage.Read();
+		for (int i = 0; i < taskList.size(); i++) {
+			Task task = taskList.get(i);
+			PriorityTaskList.addToPL(task);
+			TimeLine.addToTL(task);
+		}
+		undoRedo = new UndoRedoOp(new ArrayList<Task>(taskList));
 	}
 
 	public static LogicClass getInstance(Storage storage) {
@@ -46,7 +51,7 @@ public class LogicClass {
 	}
 
 	public static ArrayList<Task> getTodayTasks() {
-		return (ArrayList<Task>) todayTasks.clone();
+		return new ArrayList<Task>(todayTasks);
 	}
 
 	// These are the possible command types
@@ -115,14 +120,14 @@ public class LogicClass {
 		
 		 
 		ArrayList<String> update = commandInfo.getUpdateSequence();
-		System.out.println("getupdatesequence 0="+ update.get(3));
+		System.out.println("getupdatesequence 0="+ update.get(2));
 		String target = update.get(1);
 
 		for (Task task : taskList) {
 			
 			if (task.getName().equals(target)) {
 				
-				if(update.get(2).equals("task name")){
+				if(update.get(2).equals("name")){
 					if (update.get(3) != null) {
 						task.setTaskName(update.get(3));
 						System.out.println(task.getName());
@@ -164,12 +169,12 @@ public class LogicClass {
 				task = taskList.get(i);
 				if (task.getName().equals(string)) {
 					taskList.remove(i);
-					//break;
+					break;
 				}
 			}
 		}
-		//PriorityTaskList.deleteFromPL(task);
-		//TimeLine.deleteFromTL(task);
+		PriorityTaskList.deleteFromPL(task);
+		TimeLine.deleteFromTL(task);
 		return task;
 	}
 
@@ -211,8 +216,8 @@ public class LogicClass {
 		
 
 		taskList.add(task);
-		//PriorityTaskList.addToPL(task);
-		//TimeLine.addToTL(task);
+		PriorityTaskList.addToPL(task);
+		TimeLine.addToTL(task);
 
 		for (Task task1 : taskList) {
 			System.out.println("sdfadfsdf" + task1.toString());
@@ -229,10 +234,11 @@ public class LogicClass {
 		}else if(commandPackage.getPhrase()=="date"){
 			
 			return "sorted by date";
-		}else if(commandPackage.getPhrase()=="priority"){
+		}else if(commandPackage.getPhrase().equals("priority")){
 			taskList= new ArrayList<Task>(PriorityTaskList.getP1());
 			taskList.addAll(PriorityTaskList.getP2());
 			taskList.addAll(PriorityTaskList.getP3());
+			taskList.addAll(PriorityTaskList.getP4());
 			
 			return "sorted by priority";
 		}else{

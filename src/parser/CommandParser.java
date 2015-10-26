@@ -93,8 +93,8 @@ public class CommandParser {
 		String word;
 		for (int i = 0; i < inputArr.size(); i++) {
 			word = inputArr.get(i);
-			if (word.startsWith("~")) {
-				System.out.println(sequence);
+			if (word.startsWith("`")) {
+				System.out.println(sequence + "+1");
 				inputData.addUpdateSequence(sequence);
 				sequence = "";
 				sequence = word.substring(1);
