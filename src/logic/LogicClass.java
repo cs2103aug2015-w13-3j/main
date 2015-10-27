@@ -153,7 +153,7 @@ public class LogicClass {
 	}
 
 	// To delete certain message
-	public Task delete(String string) {
+	public static Task delete(String string) {
 		Task task = null;
 		if (isInteger(string, 10)) { // delete by index
 			int index = Integer.parseInt(string);
@@ -173,7 +173,7 @@ public class LogicClass {
 		return task;
 	}
 
-	private boolean isInteger(String s, int radix) {
+	private static boolean isInteger(String s, int radix) {
 		if (s.isEmpty())
 			return false;
 		for (int i = 0; i < s.length(); i++) {
