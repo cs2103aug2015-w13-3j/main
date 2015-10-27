@@ -4,13 +4,13 @@ import java.util.TreeMap;
 
 public class ActionLibrary {
 	String NOT_FOUND = "invalid input";
-	String[] createList = { "create", "add", "~a", "~c", "create", "~n", "new", "plus", "~p" };
-	String[] undoList = { "undo", "undo", "~un" };
-	String[] redoList = { "redo", "redo", "~re" };
-	String[] updateList = { "update", "~c", "change", "~e", "edit", "~u", "update" };
-	String[] deleteList = { "delete", "~del", "delete", "~rmv", "remove" };
-	String[] searchList = { "search", "~s", "search", "~f", "find", "~dis", "display", "~rd", "read", "~s", "show" };
-	String[] sortList = { "sort", "sort", "~st" };
+	String[] createList = { "create", "add", "`a", "`c", "create", "`n", "new", "plus", "`p" };
+	String[] undoList = { "undo", "undo", "`un" };
+	String[] redoList = { "redo", "redo", "`re" };
+	String[] updateList = { "update", "`c", "change", "`e", "edit", "`u", "update" };
+	String[] deleteList = { "delete", "`del", "delete", "`rmv", "remove" };
+	String[] searchList = { "search", "`s", "search", "`f", "find", "`dis", "display", "`rd", "read", "`s", "show" };
+	String[] sortList = { "sort", "sort", "`st" };
 	String[][] actionArr = { createList, redoList, undoList, updateList, deleteList, searchList, sortList };
 	TreeMap<String, String> actionTree;
 

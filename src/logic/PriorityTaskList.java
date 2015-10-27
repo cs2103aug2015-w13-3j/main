@@ -8,6 +8,7 @@ public class PriorityTaskList {
 	private static ArrayList<Task> p1 = new ArrayList<Task>();
 	private static ArrayList<Task> p2 = new ArrayList<Task>();
 	private static ArrayList<Task> p3 = new ArrayList<Task>();
+	private static ArrayList<Task> p4 = new ArrayList<Task>();
 	
 	public PriorityTaskList() {
 		// TODO Auto-generated constructor stub
@@ -15,6 +16,7 @@ public class PriorityTaskList {
 	
 	public static void addToPL(Task t){
 		if(t.getPriority() == null){
+			p4.add(t);
 		}else if(t.getPriority() == 1){
 			p1.add(t);
 		}else if(t.getPriority() == 2){
@@ -25,7 +27,14 @@ public class PriorityTaskList {
 	}
 	
 	public static void deleteFromPL(Task t){
-		if(t.getPriority() == 1){
+	    if(t.getPriority() == null){
+	    	for (int i = 0; i<p4.size(); i++){
+				if(p4.get(i).getName().equalsIgnoreCase(t.getName())){
+					p4.remove(i);
+					break;
+				}
+			}
+	    }else if(t.getPriority() == 1){
 			for (int i = 0; i<p1.size(); i++){
 				if(p1.get(i).getName().equalsIgnoreCase(t.getName())){
 					p1.remove(i);
@@ -57,6 +66,9 @@ public class PriorityTaskList {
 	}
 	public static ArrayList<Task> getP3() {
 		return p3;
+	}
+	public static ArrayList<Task> getP4() {
+		return p4;
 	}
 
 }

@@ -93,8 +93,8 @@ public class CommandParser {
 		String word;
 		for (int i = 0; i < inputArr.size(); i++) {
 			word = inputArr.get(i);
-			if (word.startsWith("~")) {
-				System.out.println(sequence);
+			if (word.startsWith("`")) {
+				System.out.println(sequence + "+1");
 				inputData.addUpdateSequence(sequence);
 				sequence = "";
 				sequence = word.substring(1);
@@ -112,7 +112,7 @@ public class CommandParser {
 		System.out.println("Adding datetime");
 		int numberOfDates = countDate();
 		int numberOfTime = countTime();
-		System.out.println("number of dates = " + numberOfTime);
+		System.out.println("number of Time = " + numberOfTime);
 		ArrayList<DateTime> dateArr;
 		if (numberOfDates == 1) {
 			dateArr = extractDate();
@@ -149,6 +149,11 @@ public class CommandParser {
 		} else if (numberOfDates == 2) {
 			inputData.setDates(extractDate());
 			return 2;
+		} else if (numberOfTime == 2) {
+			ArrayList<DateTime> timeArr = extractTime();
+			System.out.println(timeArr.size());
+			inputData.setDates(timeArr);
+			return 2;
 		} else {
 			return -1;
 		}
@@ -168,14 +173,23 @@ public class CommandParser {
 
 	private ArrayList<DateTime> extractDate() {
 		ArrayList<DateTime> dateArr = new ArrayList<DateTime>();
+		ArrayList<Integer> index = new ArrayList<Integer>();
 		for (int i = 0; i < inputArr.size(); i++) {
 			System.out.println("Testing " + inputArr.get(i));
 			if (DateParser.isDate(inputArr.get(i))) {
-				String date = inputArr.remove(i);
+				String date = inputArr.get(i);
+				index.add(i);
 				System.out.println("DATE IS " + date);
 				dateArr.add(DateParser.setDate(date));
 			}
 		}
+		System.out.println("index to remove " + index.get(0));
+		for (int i = index.size()-1; 0 <= i; i--) {
+			System.out.println("index " + index.get(i));
+			int indexToRemove = index.get(0);
+			inputArr.remove(indexToRemove);
+		}
+		System.out.println(dateArr.size());
 		return dateArr;
 	}
 
@@ -195,13 +209,20 @@ public class CommandParser {
 
 	private ArrayList<DateTime> extractTime() {
 		ArrayList<DateTime> dateArr = new ArrayList<DateTime>();
+		ArrayList<Integer> index = new ArrayList<Integer>();
 		int count = 0;
 		for (int i = 0; i < inputArr.size(); i++) {
 			if (TimeParser.isTime(inputArr.get(i))) {
-				String time = inputArr.remove(i);
+				String time = inputArr.get(i);
+				index.add(i);
 				dateArr.add(TimeParser.setTime(null, time));
 				count++;
 			}
+		}
+		for (int i = index.size()-1; 0 <= i; i--) {
+			System.out.println("index " + index.get(i));
+			int indexToRemove = index.get(0);
+			inputArr.remove(indexToRemove);
 		}
 		return dateArr;
 	}
@@ -282,12 +303,17 @@ public class CommandParser {
 	}
 
 	public String getPhrase() {
-		String phrase = inputArr.get(0);
-		;
-		for (int i = 1; i < inputArr.size(); i++) {
-			phrase = phrase + " " + inputArr.get(i);
+		if (inputArr.isEmpty()) {
+			return "";
+		} else {
+			String phrase = inputArr.get(0);
+			;
+			for (int i = 1; i < inputArr.size(); i++) {
+				phrase = phrase + " " + inputArr.get(i);
+			}
+			return phrase;
 		}
-		return phrase;
+
 	}
 
 }

@@ -9,8 +9,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import sun.java2d.x11.X11SurfaceDataProxy.Opaque;
-
 public class UndoRedoOpTest {
 
 	static ArrayList<Task> expected = new ArrayList<Task>();

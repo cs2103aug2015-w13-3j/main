@@ -7,8 +7,8 @@ import javafx.beans.property.StringProperty;
 
 public class Task implements Comparable<Task> {
 	private String name;
-	private DateTime startTime;
-	private DateTime endTime;
+	private DateTime startTime = null;
+	private DateTime endTime = null;
 	// public DateTime deadline;
 	// private String location;
 	// private String description;
@@ -129,7 +129,7 @@ public class Task implements Comparable<Task> {
 		if (this.startTime == null) {
 			return new SimpleStringProperty("");
 		}
-		return new SimpleStringProperty(startTime.toString("yyyy-MM-dd"));
+		return new SimpleStringProperty(startTime.toString("yyyy-MM-dd-hh:mmaa"));
 	}
 
 	public StringProperty endTimeProperty() {
@@ -137,7 +137,7 @@ public class Task implements Comparable<Task> {
 		if (this.endTime == null) {
 			return new SimpleStringProperty("");
 		}
-		return new SimpleStringProperty(endTime.toString("yyyy-MM-dd"));
+		return new SimpleStringProperty(endTime.toString("yyyy-MM-dd-hh:mmaa"));
 	}
 
 	public StringProperty priorityProperty() {
