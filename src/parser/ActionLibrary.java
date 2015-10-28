@@ -12,7 +12,7 @@ public class ActionLibrary {
 	String[] searchList = { "search", "`s", "search", "`f", "find", "`dis", "display", "`rd", "read", "`s", "show" };
 	String[] sortList = { "sort", "sort", "`st" };
 	String[] markList = { "mark", "m" };
-	String[] clearList = { "clear" };
+	String[] clearList = { "clear", "clear", "`clr", "reset" , "`rst"};
 	String[] exitList = { "exit" };
 	String[][] actionArr = { createList, redoList, undoList, updateList, 
 			deleteList, searchList, sortList,markList, clearList,exitList };

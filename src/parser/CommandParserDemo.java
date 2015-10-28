@@ -10,7 +10,7 @@ public class CommandParserDemo {
 		cmd.getCommandPackage("delete 1");
 		cmd.getCommandPackage("update ~eat bread ~task name ~eat chicken");
 		System.out.println();
-		cmd.getCommandPackage("undo");
+		cmd.getCommandPackage("clear");
 		System.out.println();
 		System.out.println(cmd.getCommandPackage("").getPhrase().equals(""));
 	}

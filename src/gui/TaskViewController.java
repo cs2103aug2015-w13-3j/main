@@ -89,7 +89,7 @@ public class TaskViewController {
 
 				// every time when user click "enter", redisplay the task list
 				taskTableView.setItems(mainApp.getTaskData());
-				todayTaskList.setItems(MainApp.getTodayTasks());
+				todayTaskList.setItems(mainApp.getTodayTasks());
 				logger.log(Level.INFO, "Update the table view.");
 				txtCommandInput.clear();
 			}
