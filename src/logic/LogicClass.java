@@ -55,7 +55,7 @@ public class LogicClass {
 		return new ArrayList<Task>(taskList);
 	}
 
-	public ArrayList<String> getTodayTasks() {
+	public static ArrayList<String> getTodayTasks() {
 		ArrayList<String> todayTasks = new ArrayList<String>();
 		Task task = null;
 		String taskString="";
@@ -291,7 +291,7 @@ public class LogicClass {
 
 	}
 	
-	public boolean isTodayTask(Task t){
+	public static boolean isTodayTask(Task t){
 		if(t.getEndTime()==null && t.getStartTime()==null){
 			return false;
 		}
