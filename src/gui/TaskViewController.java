@@ -74,6 +74,7 @@ public class TaskViewController {
 				assert (cmdPack != null);
 				logic.executeCommand(cmdPack);
 				logger.log(Level.INFO, "Logic executes the command.");
+				
 				// every time when user click "enter", redisplay the task list
 				taskTableView.setItems(mainApp.getTaskData());
 				logger.log(Level.INFO, "Update the table view.");
