@@ -108,7 +108,7 @@ public class CommandParser {
 		return inputData;
 	}
 
-	private int addDateTime() {
+	private void addDateTime() {
 		System.out.println("Adding datetime");
 		int numberOfDates = countDate();
 		int numberOfTime = countTime();
@@ -128,9 +128,9 @@ public class CommandParser {
 					inputData.setDates(dateArr, "end");
 				}
 			}
-			return 1;
 
-		} else if (numberOfTime == 1) {
+		} 
+		if (numberOfTime == 1) {
 			System.out.println("theres 1!");
 			dateArr = extractTime();
 			for (int i = 0; i < inputArr.size(); i++) {
@@ -145,17 +145,15 @@ public class CommandParser {
 					inputData.setDates(dateArr, "end");
 				}
 			}
-			return 1;
-		} else if (numberOfDates == 2) {
+		} 
+		if (numberOfDates == 2) {
 			inputData.setDates(extractDate());
-			return 2;
-		} else if (numberOfTime == 2) {
+		} 
+		if (numberOfTime == 2) {
 			ArrayList<DateTime> timeArr = extractTime();
 			System.out.println(timeArr.size());
 			inputData.setDates(timeArr);
-			return 2;
-		} else {
-			return -1;
+
 		}
 
 	}
