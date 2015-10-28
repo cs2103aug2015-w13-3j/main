@@ -36,16 +36,7 @@ public class CommandPackage {
 		command = cmd;
 		return command;
 	}
-<<<<<<< HEAD
-	/*
-	public String setCommandt(String cmd) {
-		commandt = CommandType;
-		return command;
-	}*/
-=======
-	
-	
->>>>>>> e2814f893b6ad60bcc70fd32a7e01a893af2110f
+
 
 	public String setPhrase(String text) {
 		phrase = text;
