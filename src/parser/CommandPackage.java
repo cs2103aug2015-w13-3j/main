@@ -2,6 +2,8 @@ package parser;
 
 import java.util.ArrayList;
 
+import logic.CommandType;
+
 import org.joda.time.DateTime;
 
 //This program is the output class from the parsing program for Daxuan to use to execute CRUD
@@ -12,6 +14,7 @@ public class CommandPackage {
 	private String phrase;
 	private String priority;
 	private ArrayList<String> updateSequence;
+	private CommandType commandt;
 
 	// Constructors
 	public CommandPackage(String cmd, String taskName) {
@@ -33,6 +36,8 @@ public class CommandPackage {
 		command = cmd;
 		return command;
 	}
+	
+	
 
 	public String setPhrase(String text) {
 		phrase = text;

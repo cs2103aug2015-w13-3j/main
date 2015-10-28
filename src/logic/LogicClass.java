@@ -13,8 +13,9 @@ import parser.CommandPackage;
 public class LogicClass {
 	// This array will be used to store the messages
 	private static ArrayList<Task> taskList = new ArrayList<Task>();
-	private static ArrayList<Task> todayTasks = new ArrayList<Task>();
+
 	private static ArrayList<Task> searchTaskList = new ArrayList<Task>();
+	private static ArrayList<Task> archivedList = new ArrayList<Task>();
 	private static boolean isSearchOp = false;
 	Storage storage = new Storage();
 	UndoRedoOp undoRedo = null;
@@ -54,14 +55,34 @@ public class LogicClass {
 		return new ArrayList<Task>(taskList);
 	}
 
-	public static ArrayList<Task> getTodayTasks() {
-		return new ArrayList<Task>(todayTasks);
+	public static ArrayList<String> getTodayTasks() {
+		ArrayList<String> todayTasks = new ArrayList<String>();
+		Task task = null;
+		String taskString="";
+		
+		for (int i = 0; i < taskList.size(); i++) {
+			task=taskList.get(i);
+			if(isTodayTask(task)==true){
+				taskString += task.getName()+" ";
+				
+				
+				if (task.getStartTime() != null) {
+					taskString += "from "+ task.getStartTime();
+				}
+				if (task.getEndTime() != null) {
+					taskString += "to "+ task.getEndTime();
+				}
+                todayTasks.add(taskString);
+                System.out.println("taskString"+taskString);
+			}
+		}
+		return todayTasks;
 	}
 
 	// These are the possible command types
 	enum COMMAND_TYPE {
-		ADD, DISPLAY, DELETE, CLEAR, EXIT, INVALID, SORT, SEARCH, EDIT, REDO, 
-		UNDO, SORTBYSTARTTIME, SORTBYDEADLINE
+		CREATE, DELETE, CLEAR, EXIT, INVALID, SORT, SEARCH, UPDATE, REDO, 
+		UNDO, MARK 
 	};
 
 	public void executeCommand(CommandPackage commandPackage) {
@@ -71,16 +92,19 @@ public class LogicClass {
 		System.out.println("Get the command type string: " + commandPackage.getCommand());
 		String commandTypeString = commandPackage.getCommand();
 		
-
-		COMMAND_TYPE commandType = determineCommandType(commandTypeString);
+		commandTypeString= commandTypeString.toUpperCase();
+		
+		
+		COMMAND_TYPE commandType = COMMAND_TYPE.valueOf(commandTypeString);
+		//COMMAND_TYPE commandType = determineCommandType(commandTypeString);
 
 		switch (commandType) {
-		case ADD:
+		case CREATE:
 			addTask(commandPackage);
 			System.out.println("Adding task.");
 			Storage.write(taskList);
 			break;
-		case EDIT:
+		case UPDATE:
 			edit(commandPackage);
 			Storage.write(taskList);
 			break;
@@ -91,7 +115,7 @@ public class LogicClass {
 			break;
 		case CLEAR:
 			clear();
-			Storage.write(taskList);
+			//Storage.write(taskList);
 			break;
 		case SORT:
 			sort(commandPackage);
@@ -106,6 +130,9 @@ public class LogicClass {
 			break;
 		case UNDO:
 			taskList = undoRedo.undo();
+			break;
+		case MARK:
+			mark(commandPackage.getPhrase());
 			break;
 		case EXIT:
 			System.exit(0);
@@ -160,13 +187,16 @@ public class LogicClass {
 	// To clear all content
 	public void clear() {
 		taskList.clear();
+
+		Storage.write(taskList);
 	}
 
 	// To delete certain message
 	public Task delete(String string) {
 		Task task = null;
-		Task todayTask=null;
-		if (isInteger(string, 10)) { // delete by index
+        String	todayTaskString;
+        
+        if (isInteger(string, 10)) { // delete by index
 			int index = Integer.parseInt(string);
 			task=taskList.remove(index-1);
 			
@@ -179,20 +209,37 @@ public class LogicClass {
 				}
 			}
 		}
-		for (int i = 0; i < todayTasks.size(); i++) {
-			todayTask=todayTasks.get(i);
-			
-			if (todayTask.getName().equals(task.getName())) {
-				todayTasks.remove(i);
-				break;
-			}
-		}
-		
+
 		PriorityTaskList.deleteFromPL(task);
 		TimeLine.deleteFromTL(task);
 		return task;
 	}
 
+	public Task mark(String string) {
+		Task task = null;
+		Task todayTask=null;
+		if (isInteger(string, 10)) { // delete by index
+			int index = Integer.parseInt(string);
+			task=taskList.remove(index-1);
+			archivedList.add(task);
+			
+		}else{//delete by name
+			for (int i = 0; i < taskList.size(); i++) {
+				task = taskList.get(i);
+				if (task.getName().equals(string)) {
+					taskList.remove(i);
+					break;
+				}
+			}
+			archivedList.add(task);
+		}
+
+		
+		PriorityTaskList.deleteFromPL(task);
+		TimeLine.deleteFromTL(task);
+		return task;
+	}
+	
 	private boolean isInteger(String s, int radix) {
 		if (s.isEmpty())
 			return false;
@@ -231,9 +278,7 @@ public class LogicClass {
 		
 
 		taskList.add(task);
-		if(isTodayTask(task)==true){
-			todayTasks.add(task);
-		}
+
 		
 		PriorityTaskList.addToPL(task);
 		TimeLine.addToTL(task);
@@ -247,12 +292,32 @@ public class LogicClass {
 	}
 	
 	public boolean isTodayTask(Task t){
+		if(t.getEndTime()==null && t.getStartTime()==null){
+			return false;
+		}
+		
 		DateTime now = new DateTime();
 		LocalDate today = now.toLocalDate();
 		LocalDate tomorrow = today.plusDays(1);
 
 		DateTime startOfToday = today.toDateTimeAtStartOfDay(now.getZone());
 		DateTime startOfTomorrow = tomorrow.toDateTimeAtStartOfDay(now.getZone());
+		
+		if(t.getEndTime()==null && t.getStartTime()==null){
+			return false;
+		}
+		
+		if(t.getEndTime() !=null ){
+			if( t.getEndTime().isBefore(startOfToday)){
+				return false;		
+			}
+		}
+		
+		if(t.getStartTime() !=null ){
+			if( t.getEndTime().isBefore(startOfToday)){
+				return false;		
+			}
+		}
 		
 		if( t.getStartTime().isAfter(startOfToday) && 
 				t.getEndTime().isBefore(startOfTomorrow)){
@@ -321,6 +386,8 @@ public class LogicClass {
 	 * @param commandTypeString
 	 *            is the first word of the user command
 	 */
+	
+	/**
 	private static COMMAND_TYPE determineCommandType(String commandTypeString) {
 		if (commandTypeString == null)
 			throw new Error("command type string cannot be null!");
@@ -351,5 +418,6 @@ public class LogicClass {
 			return COMMAND_TYPE.INVALID;
 		}
 	}
+	*/
 
 }
