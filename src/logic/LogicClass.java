@@ -291,7 +291,7 @@ public class LogicClass {
 
 	}
 	
-	public boolean isTodayTask(Task t){
+	public static boolean isTodayTask(Task t){
 		if(t.getEndTime()==null && t.getStartTime()==null){
 			return false;
 		}
