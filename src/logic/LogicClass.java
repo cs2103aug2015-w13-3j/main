@@ -1,8 +1,12 @@
 package logic;
 
 import storage.Storage;
+
 import java.util.ArrayList;
 import java.util.Collections;
+
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import parser.CommandPackage;
 
@@ -15,7 +19,7 @@ public class LogicClass {
 	Storage storage = new Storage();
 	UndoRedoOp undoRedo = null;
 
-    static LogicClass theOne =null;
+	static LogicClass theOne =null;
     
 	// constructor
 	private LogicClass(Storage storage) {
@@ -50,13 +54,14 @@ public class LogicClass {
 		return new ArrayList<Task>(taskList);
 	}
 
-	public static ArrayList<Task> getTodayTasks() {
+	public ArrayList<Task> getTodayTasks() {
 		return new ArrayList<Task>(todayTasks);
 	}
 
 	// These are the possible command types
 	enum COMMAND_TYPE {
-		ADD, DISPLAY, DELETE, CLEAR, EXIT, INVALID, SORT, SEARCH, EDIT, REDO, UNDO, SORTBYSTARTTIME, SORTBYDEADLINE
+		ADD, DISPLAY, DELETE, CLEAR, EXIT, INVALID, SORT, SEARCH, EDIT, REDO, 
+		UNDO, SORTBYSTARTTIME, SORTBYDEADLINE
 	};
 
 	public void executeCommand(CommandPackage commandPackage) {
@@ -160,6 +165,7 @@ public class LogicClass {
 	// To delete certain message
 	public Task delete(String string) {
 		Task task = null;
+		Task todayTask=null;
 		if (isInteger(string, 10)) { // delete by index
 			int index = Integer.parseInt(string);
 			task=taskList.remove(index-1);
@@ -173,6 +179,15 @@ public class LogicClass {
 				}
 			}
 		}
+		for (int i = 0; i < todayTasks.size(); i++) {
+			todayTask=todayTasks.get(i);
+			
+			if (todayTask.getName().equals(task.getName())) {
+				todayTasks.remove(i);
+				break;
+			}
+		}
+		
 		PriorityTaskList.deleteFromPL(task);
 		TimeLine.deleteFromTL(task);
 		return task;
@@ -195,7 +210,7 @@ public class LogicClass {
 	}
 
 	
-	public static Task addTask(CommandPackage commandInfo) {
+	public Task addTask(CommandPackage commandInfo) {
 
 		Task task = new Task(commandInfo.getPhrase());
 		if (commandInfo.startingTime() != null) {
@@ -216,6 +231,10 @@ public class LogicClass {
 		
 
 		taskList.add(task);
+		if(isTodayTask(task)==true){
+			todayTasks.add(task);
+		}
+		
 		PriorityTaskList.addToPL(task);
 		TimeLine.addToTL(task);
 
@@ -225,6 +244,21 @@ public class LogicClass {
 
 		return task;
 
+	}
+	
+	public boolean isTodayTask(Task t){
+		DateTime now = new DateTime();
+		LocalDate today = now.toLocalDate();
+		LocalDate tomorrow = today.plusDays(1);
+
+		DateTime startOfToday = today.toDateTimeAtStartOfDay(now.getZone());
+		DateTime startOfTomorrow = tomorrow.toDateTimeAtStartOfDay(now.getZone());
+		
+		if( t.getStartTime().isAfter(startOfToday) && 
+				t.getEndTime().isBefore(startOfTomorrow)){
+			return true;		
+		}
+		return false;
 	}
 
 	public String sort(CommandPackage commandPackage) {

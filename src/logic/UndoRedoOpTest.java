@@ -15,6 +15,9 @@ public class UndoRedoOpTest {
 
 	static ArrayList<Task> initial = new ArrayList<Task>();
 
+	
+	//scripted testing & white-box
+	
 	@BeforeClass
 	public static void oneTimeSetUp() {
 		
