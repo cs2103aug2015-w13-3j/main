@@ -36,11 +36,11 @@ public class CommandPackage {
 		command = cmd;
 		return command;
 	}
-	
+	/*
 	public String setCommandt(String cmd) {
-		commandt = CommandType.;
+		commandt = CommandType;
 		return command;
-	}
+	}*/
 
 	public String setPhrase(String text) {
 		phrase = text;

@@ -18,7 +18,7 @@ public class LogicTestCases {
         
 		
 		assertEquals(t.getName(),
-				LogicClass.addTask(commandPackage).getName());
+				LogicClass.getInstance(null).addTask(commandPackage).getName());
 
 	}
 	
@@ -31,7 +31,7 @@ public class LogicTestCases {
         
 		
 		assertEquals(t.getName(),
-				LogicClass.delete( commandPackage.getPhrase() );
+				LogicClass.getInstance(null).delete( commandPackage.getPhrase()));
 
 	}
 }
