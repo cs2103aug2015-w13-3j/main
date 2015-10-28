@@ -54,7 +54,7 @@ public class LogicClass {
 		return new ArrayList<Task>(taskList);
 	}
 
-	public ArrayList<Task> getTodayTasks() {
+	public static ArrayList<Task> getTodayTasks() {
 		return new ArrayList<Task>(todayTasks);
 	}
 

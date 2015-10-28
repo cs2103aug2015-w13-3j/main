@@ -15,7 +15,7 @@
          <font>
             <Font name="Apple SD Gothic Neo Regular" size="18.0" />
          </font></Label>
-      <TableView fx:id="taskTableView" layoutX="316.0" layoutY="89.0" prefHeight="531.0" prefWidth="610.0">
+      <TableView fx:id="taskTableView" layoutX="316.0" layoutY="89.0" prefHeight="518.0" prefWidth="604.0">
         <columns>
           <TableColumn fx:id="taskNumberColumn" prefWidth="63.28009033203125" text="Task#" />
           <TableColumn fx:id="taskNameColumn" prefWidth="196.18011474609375" text="Task Name" />
@@ -24,10 +24,10 @@
             <TableColumn fx:id="priority" prefWidth="58.0" text="Priority" />
         </columns>
       </TableView>
-      <Label layoutX="20.0" layoutY="628.0" prefHeight="32.0" prefWidth="683.0" text="This is the feedback for an operation. " />
-      <TableView fx:id="todayTasksView" layoutX="14.0" layoutY="88.0" prefHeight="525.0" prefWidth="294.0">
+      <Label layoutX="20.0" layoutY="628.0" prefHeight="32.0" prefWidth="900.0" text="This is the feedback for an operation. " />
+      <TableView fx:id="todayTaskList" layoutX="14.0" layoutY="88.0" prefHeight="525.0" prefWidth="294.0">
         <columns>
-          <TableColumn prefWidth="278.99996757507324" text="Today's Tasks: " />
+          <TableColumn fx:id="todayTasks" prefWidth="278.99996757507324" text="Today's Tasks: " />
         </columns>
       </TableView>
    </children>
