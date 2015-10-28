@@ -73,6 +73,7 @@ public class LogicClass {
 					taskString += "to "+ task.getEndTime();
 				}
                 todayTasks.add(taskString);
+                System.out.println("taskString"+taskString);
 			}
 		}
 		return todayTasks;
@@ -291,7 +292,7 @@ public class LogicClass {
 	}
 	
 	public boolean isTodayTask(Task t){
-		if(t.getEndTime()==null || t.getStartTime()==null){
+		if(t.getEndTime()==null && t.getStartTime()==null){
 			return false;
 		}
 		
@@ -301,6 +302,22 @@ public class LogicClass {
 
 		DateTime startOfToday = today.toDateTimeAtStartOfDay(now.getZone());
 		DateTime startOfTomorrow = tomorrow.toDateTimeAtStartOfDay(now.getZone());
+		
+		if(t.getEndTime()==null && t.getStartTime()==null){
+			return false;
+		}
+		
+		if(t.getEndTime() !=null ){
+			if( t.getEndTime().isBefore(startOfToday)){
+				return false;		
+			}
+		}
+		
+		if(t.getStartTime() !=null ){
+			if( t.getEndTime().isBefore(startOfToday)){
+				return false;		
+			}
+		}
 		
 		if( t.getStartTime().isAfter(startOfToday) && 
 				t.getEndTime().isBefore(startOfTomorrow)){
