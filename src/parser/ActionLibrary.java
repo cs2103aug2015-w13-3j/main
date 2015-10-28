@@ -11,7 +11,11 @@ public class ActionLibrary {
 	String[] deleteList = { "delete", "`del", "delete", "`rmv", "remove" };
 	String[] searchList = { "search", "`s", "search", "`f", "find", "`dis", "display", "`rd", "read", "`s", "show" };
 	String[] sortList = { "sort", "sort", "`st" };
-	String[][] actionArr = { createList, redoList, undoList, updateList, deleteList, searchList, sortList };
+	String[] markList = { "mark", "m" };
+	String[] clearList = { "clear" };
+	String[] exitList = { "exit" };
+	String[][] actionArr = { createList, redoList, undoList, updateList, 
+			deleteList, searchList, sortList,markList, clearList,exitList };
 	TreeMap<String, String> actionTree;
 
 	public ActionLibrary() {

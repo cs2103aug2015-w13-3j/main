@@ -21,4 +21,17 @@ public class LogicTestCases {
 				LogicClass.addTask(commandPackage).getName());
 
 	}
+	
+	@Test
+	public void deleteTest() {
+        CommandPackage commandPackage = new CommandPackage();
+        commandPackage.setCommand("delete");
+        commandPackage.setPhrase("meeting");
+        Task t = new Task("meeting");
+        
+		
+		assertEquals(t.getName(),
+				LogicClass.delete( commandPackage.getPhrase() );
+
+	}
 }
