@@ -15,13 +15,13 @@
          <font>
             <Font name="Apple SD Gothic Neo Regular" size="18.0" />
          </font></Label>
-      <TableView fx:id="taskTableView" layoutX="316.0" layoutY="89.0" prefHeight="718.0" prefWidth="1354.0">
+      <TableView fx:id="taskTableView" layoutX="316.0" layoutY="129.0" prefHeight="658.0" prefWidth="1354.0">
         <columns>
           <TableColumn fx:id="taskNumberColumn" prefWidth="48.0" text="#" />
           <TableColumn fx:id="taskNameColumn" prefWidth="345.0" text="Task Name" />
             <TableColumn fx:id="startTimeColumn" prefWidth="343.0" text="Start Time" />
-            <TableColumn fx:id="endTimeColumn" minWidth="0.0" prefWidth="325.0" text="End Time" />
-            <TableColumn fx:id="priority" prefWidth="191.0" text="Priority" />
+            <TableColumn fx:id="endTimeColumn" minWidth="0.0" prefWidth="400.0" text="End Time" />
+            <TableColumn fx:id="priority" prefWidth="180.0" text="Priority" />
         </columns>
       </TableView>
       <Label layoutX="20.0" layoutY="828.0" prefHeight="32.0" prefWidth="900.0" text="This is the feedback for an operation. " />
