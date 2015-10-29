@@ -62,7 +62,7 @@ public class LogicClass {
 		String taskString="";
 		
 		for (int i = 0; i < taskList.size(); i++) {
-			task=taskList.get(i);
+			task = taskList.get(i);
 			if(isTodayTask(task)==true){
 				taskString += task.getName()+" ";
 				
@@ -330,7 +330,10 @@ public class LogicClass {
 			}
 		}
 		
-		if( t.getStartTime().isAfter(startOfToday) && 
+		System.out.println(startOfToday);
+		System.out.println(startOfTomorrow);
+		
+		if(t.getStartTime().isAfter(startOfToday) && 
 				t.getEndTime().isBefore(startOfTomorrow)){
 			return true;		
 		}
