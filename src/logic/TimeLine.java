@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 public class TimeLine {
 	private static ArrayList<Task> startTimeLine = new ArrayList<Task>();
 	private static ArrayList<Task> endTimeLine = new ArrayList<Task>();
+	private static ArrayList<Task> floatTimeLine = new ArrayList<Task>();
 	
 	public static void addToTL(Task t){
 		if(t.getStartTime() != null){
@@ -16,10 +17,12 @@ public class TimeLine {
 			startTimeLine.add(index, t);
 			
 		}
-		if(t.getEndTime() != null){
+		else if(t.getEndTime() != null){
 			DateTime time = t.getEndTime();
 			int index = findPositionEnd(endTimeLine, time, 0, endTimeLine.size());
 			endTimeLine.add(index, t);
+		}else{
+			floatTimeLine.add(t);
 		}
 	}
 	
@@ -83,11 +86,13 @@ public class TimeLine {
 			removeStart(startTimeLine, time, name);
 		}
 		
-		if(t.getEndTime() != null){
+		else if(t.getEndTime() != null){
 			DateTime time = t.getEndTime();
 			String name = t.getName();	
 			removeEnd(endTimeLine, time, name);
-		}	
+		}else{
+			floatTimeLine.remove(t);
+		}
 	}
 	public static void removeStart(ArrayList<Task> timeLine, DateTime time, String name){
 		int index1 = findPositionStart(timeLine, time, 0, timeLine.size()) - 1;
@@ -130,6 +135,10 @@ public class TimeLine {
 
 	public static ArrayList<Task> getEndtimeLine() {
 		return endTimeLine;
+	}
+	
+	public static ArrayList<Task> getFloattimeLine() {
+		return floatTimeLine;
 	}
     
 }
