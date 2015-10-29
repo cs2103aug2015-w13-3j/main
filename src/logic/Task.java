@@ -1,4 +1,4 @@
-package logic;
+ package logic;
 
 import org.joda.time.DateTime;
 
@@ -130,6 +130,7 @@ public class Task implements Comparable<Task> {
 		if (this.startTime == null) {
 			return new SimpleStringProperty("");
 		}
+
 		if (startTime.getYear() == 2015) {
 			result = new SimpleStringProperty(startTime.toString("dd/MMM  hh:mmaa"));
 		} else {

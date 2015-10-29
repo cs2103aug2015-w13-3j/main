@@ -17,18 +17,15 @@
          </font></Label>
       <TableView fx:id="taskTableView" layoutX="316.0" layoutY="89.0" prefHeight="518.0" prefWidth="604.0">
         <columns>
-          <TableColumn fx:id="taskNumberColumn" prefWidth="63.28009033203125" text="Task#" />
-          <TableColumn fx:id="taskNameColumn" prefWidth="196.18011474609375" text="Task Name" />
-            <TableColumn fx:id="startTimeColumn" prefWidth="142.720703125" text="Start Time" />
-            <TableColumn fx:id="endTimeColumn" minWidth="0.0" prefWidth="142.0" text="End Time" />
-            <TableColumn fx:id="priority" prefWidth="58.0" text="Priority" />
+          <TableColumn fx:id="taskNumberColumn" prefWidth="78.0" text="Task#" />
+          <TableColumn fx:id="taskNameColumn" prefWidth="165.0" text="Task Name" />
+            <TableColumn fx:id="startTimeColumn" prefWidth="143.0" text="Start Time" />
+            <TableColumn fx:id="endTimeColumn" minWidth="0.0" prefWidth="125.0" text="End Time" />
+            <TableColumn fx:id="priority" prefWidth="91.0" text="Priority" />
         </columns>
       </TableView>
       <Label layoutX="20.0" layoutY="628.0" prefHeight="32.0" prefWidth="900.0" text="This is the feedback for an operation. " />
-      <TableView fx:id="todayTaskList" layoutX="14.0" layoutY="88.0" prefHeight="525.0" prefWidth="294.0">
-        <columns>
-          <TableColumn fx:id="todayTasks" prefWidth="278.99996757507324" text="Today's Tasks: " />
-        </columns>
-      </TableView>
+      <ListView fx:id="todayTasksView" layoutX="28.0" layoutY="120.0" prefHeight="487.0" prefWidth="276.0" />
+      <Label layoutX="28.0" layoutY="89.0" prefHeight="21.0" prefWidth="160.0" text="Today's Tasks" />
    </children>
 </AnchorPane>

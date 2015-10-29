@@ -96,6 +96,7 @@ public class MainApp extends Application {
 			rootLayout.setCenter(taskBomberOverview);
 
 			TaskViewController controller = loader.getController();
+			
 			controller.setMainApp(this);
 
 		} catch (IOException e) {
