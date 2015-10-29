@@ -5,19 +5,19 @@ import parser.CommandPackage;
 import parser.CommandParser;
 import storage.Storage;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.util.Callback;
 
 public class TaskViewController {
 
@@ -36,11 +36,12 @@ public class TaskViewController {
 	private TableColumn<Task, String> endTimeColumn;
 	@FXML
 	private TableColumn<Task, String> priority;
-	@FXML
-	private TableView<String> todayTaskList;
-	@FXML
-	private TableColumn<String, String> todayTasks;
 
+	@FXML
+    private ListView todayTasksView;
+
+	ArrayList<String> todayTasks = new ArrayList<String>();
+	
 	// Reference to the main application.
 	private MainApp mainApp;
 
@@ -68,11 +69,7 @@ public class TaskViewController {
 		startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
 		endTimeColumn.setCellValueFactory(cellData -> cellData.getValue().endTimeProperty());
 		priority.setCellValueFactory(cellData -> cellData.getValue().priorityProperty());
-		todayTasks.setCellValueFactory(new Callback<CellDataFeatures<String, String>, ObservableValue<String>>() {
-		     public ObservableValue<String> call(CellDataFeatures<String, String> p) {
-		         return new ReadOnlyObjectWrapper(p.getValue());
-		     }
-		});
+		todayTasksView.setItems(FXCollections.observableList(todayTasks));
 	}
 
 	public void enterCommand(KeyEvent event) {
@@ -89,7 +86,6 @@ public class TaskViewController {
 
 				// every time when user click "enter", redisplay the task list
 				taskTableView.setItems(mainApp.getTaskData());
-				todayTaskList.setItems(mainApp.getTodayTasks());
 				logger.log(Level.INFO, "Update the table view.");
 				txtCommandInput.clear();
 			}
@@ -108,5 +104,6 @@ public class TaskViewController {
 		logger.log(Level.INFO, "Set MainApp.");
 		// Add observable list data to the table
 		taskTableView.setItems(mainApp.getTaskData());
+		todayTasksView.setItems(mainApp.getTodayTasks());
 	}
 }
