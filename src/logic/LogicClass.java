@@ -32,7 +32,7 @@ public class LogicClass {
 			PriorityTaskList.addToPL(task);
 			TimeLine.addToTL(task);
 		}
-		undoRedo = new UndoRedoOp(taskList);
+		undoRedo = new UndoRedoOp(new ArrayList<Task>(taskList));
 	}
 
 	public static LogicClass getInstance(Storage storage) {
@@ -90,7 +90,7 @@ public class LogicClass {
 		// int taskIndex;
 		isSearchOp=false;
 		
-		System.out.println("Get the command type string: " + commandPackage.getCommand());
+		//System.out.println("Get the command type string: " + commandPackage.getCommand());
 		String commandTypeString = commandPackage.getCommand();
 		
 		commandTypeString= commandTypeString.toUpperCase();
@@ -189,7 +189,7 @@ public class LogicClass {
 			}
 			break;
 		}
-		undoRedo.addStateToUndo(taskList);
+		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 		return null;
 
 	}
@@ -197,7 +197,7 @@ public class LogicClass {
 	// To clear all content
 	public void clear() {
 		taskList.clear();
-		undoRedo.addStateToUndo(taskList);
+		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 		Storage.write(taskList);
 	}
 
@@ -219,7 +219,7 @@ public class LogicClass {
 				}
 			}
 		}
-        undoRedo.addStateToUndo(taskList);
+        undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 		PriorityTaskList.deleteFromPL(task);
 		TimeLine.deleteFromTL(task);
 		return task;
@@ -244,7 +244,7 @@ public class LogicClass {
 			archivedList.add(task);
 		}
 
-		undoRedo.addStateToUndo(taskList);
+		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 		PriorityTaskList.deleteFromPL(task);
 		TimeLine.deleteFromTL(task);
 		return task;
@@ -289,7 +289,7 @@ public class LogicClass {
 
 		taskList.add(task);
 
-		undoRedo.addStateToUndo(taskList);
+		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 		PriorityTaskList.addToPL(task);
 		TimeLine.addToTL(task);
 
@@ -342,14 +342,14 @@ public class LogicClass {
 	public String sort(CommandPackage commandPackage) {
 		if(commandPackage.getPhrase().equals("name")){
 			Collections.sort(taskList);
-			undoRedo.addStateToUndo(taskList);
+			undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 			return "sorted by name";
-		}else if(commandPackage.getPhrase()=="date"){
+		}else if(commandPackage.getPhrase().equals("date")){
 			taskList= new ArrayList<Task>(TimeLine.getStarttimeLine());
 			taskList.addAll(TimeLine.getEndtimeLine());
 			taskList.addAll(TimeLine.getFloattimeLine());
 			
-			undoRedo.addStateToUndo(taskList);
+			undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 			return "sorted by date";
 		}else if(commandPackage.getPhrase().equals("priority")){
 			taskList= new ArrayList<Task>(PriorityTaskList.getP1());
@@ -357,7 +357,7 @@ public class LogicClass {
 			taskList.addAll(PriorityTaskList.getP3());
 			taskList.addAll(PriorityTaskList.getP4());
 			
-			undoRedo.addStateToUndo(taskList);
+			undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 			return "sorted by priority";
 		}else{
 			return "invalid sorting type";
