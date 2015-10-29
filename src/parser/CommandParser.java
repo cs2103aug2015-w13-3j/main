@@ -238,7 +238,7 @@ public class CommandParser {
 				index.add(i);
 				DateTime newDate = TimeParser.setTime(oldDate, time);
 				System.out.println("NEW DATE IS  " + newDate);
-				newDateArr.add(newDate);
+				newDateArr.add(newDate);	
 				count++;
 			}
 		}
