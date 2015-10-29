@@ -12,11 +12,12 @@ public class TimeSearchTest {
 	public void test() {
 		Task a = new Task("A");
 		a.setStartTime(new DateTime(2014, 1, 1, 1, 1));
+		a.setEndTime(new DateTime(2014, 1, 2, 1, 1));
 		Task b = new Task("B");
 		b.setStartTime(new DateTime(2014, 2, 1, 1, 1));
 		TimeLine.addToTL(a);
 		TimeLine.addToTL(b);
-		assertEquals(Searcher.searchDate(new DateTime(2014,1,1,1,1)).get(0).getName(), "A");
+		assertEquals(Searcher.searchDate(new DateTime(2014,1,1,1,1), new DateTime(2014,1,1,2,1)).get(0).getName(), "A");
 	}
 
 }
