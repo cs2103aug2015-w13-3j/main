@@ -132,9 +132,17 @@ public class Task implements Comparable<Task> {
 		}
 
 		if (startTime.getYear() == 2015) {
-			result = new SimpleStringProperty(startTime.toString("dd/MMM  hh:mmaa"));
+			if(startTime.getMinuteOfHour() == 00) {
+				result = new SimpleStringProperty(startTime.toString("dd/MMM  hhaa"));
+			} else {
+				result = new SimpleStringProperty(startTime.toString("dd/MMM  hh:mmaa"));
+			}
 		} else {
-			result = new SimpleStringProperty(startTime.toString("dd/MMM/yyyy  hh:mmaa"));
+			if(startTime.getMinuteOfHour() == 00) {
+				result = new SimpleStringProperty(startTime.toString("dd/MMM/yyyy  hhaa"));
+			} else {
+				result = new SimpleStringProperty(startTime.toString("dd/MMM/yyyy  hh:mmaa"));
+			}
 		}
 		return result;
 	}
