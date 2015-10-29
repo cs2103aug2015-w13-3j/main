@@ -13,19 +13,25 @@ import org.joda.time.format.ISODateTimeFormat;
 
 public class Storage {
 
-	private static String fileName = "textBomb";
+	private static File filePath = new File("filePath");
 	private static File userFile;
 
-	public static ArrayList<Task> Read() {
+	public static ArrayList<Task> read() {
 		ArrayList<Task> taskList = new ArrayList<Task>();
 		try {
-			userFile = new File(fileName);
-			userFile.createNewFile();
+			
+			filePath.createNewFile();
 
-			System.out.println("Created userfile.");
-
-			FileReader fr = new FileReader(userFile);
+			FileReader fr = new FileReader(filePath);
 			BufferedReader buff = new BufferedReader(fr);
+			String path = buff.readLine();
+			if(path == null){
+				path = "taskBomber.txt";
+			}
+			userFile = new File(path);
+			userFile.createNewFile();
+			fr = new FileReader(userFile);
+			buff = new BufferedReader(fr);
 			String content;
 
 			// read in original content in the file
@@ -108,6 +114,25 @@ public class Storage {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	public static Boolean setPath(String path){
+		try{
+			File newPath = new File(path);
+			newPath.createNewFile();
+			write(read());
+			userFile.delete();
+			userFile = newPath;
+			FileWriter fw = new FileWriter(filePath, false);
+			BufferedWriter buff = new BufferedWriter(fw);
+			buff.write(path);
+			buff.close();
+			fw.close();
+			return true;
+		}catch(Exception e){
+			System.out.println("invalid path");
+			return false;
 		}
 	}
 

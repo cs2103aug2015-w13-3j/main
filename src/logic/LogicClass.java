@@ -25,7 +25,7 @@ public class LogicClass {
 	// constructor
 	private LogicClass(Storage storage) {
 		this.storage = storage;
-		taskList = Storage.Read();
+		taskList = Storage.read();
 		for (int i = 0; i < taskList.size(); i++) {
 			Task task = taskList.get(i);
 			PriorityTaskList.addToPL(task);

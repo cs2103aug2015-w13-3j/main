@@ -8,11 +8,11 @@ public class ActionLibrary {
 	String[] undoList = { "undo", "undo", "`un" };
 	String[] redoList = { "redo", "redo", "`re" };
 	String[] updateList = { "update", "`c", "change", "`e", "edit", "`u", "update" };
-	String[] deleteList = { "delete", "`del", "delete", "`rmv", "remove" };
+	String[] deleteList = { "delete", "bomb", "`b", "`del", "delete", "`rmv", "remove" };
 	String[] searchList = { "search", "`s", "search", "`f", "find", "`dis", "display", "`rd", "read", "`s", "show" };
 	String[] sortList = { "sort", "sort", "`st" };
 	String[] markList = { "mark", "m" };
-	String[] clearList = { "clear" };
+	String[] clearList = { "clear", "clear", "`clr", "reset" , "`rst"};
 	String[] exitList = { "exit" };
 	String[][] actionArr = { createList, redoList, undoList, updateList, 
 			deleteList, searchList, sortList,markList, clearList,exitList };
