@@ -7,6 +7,7 @@ import java.util.Collections;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.omg.CORBA.INTERNAL;
 
 import parser.CommandPackage;
 
@@ -31,7 +32,7 @@ public class LogicClass {
 			PriorityTaskList.addToPL(task);
 			TimeLine.addToTL(task);
 		}
-		undoRedo = new UndoRedoOp(new ArrayList<Task>(taskList));
+		undoRedo = new UndoRedoOp(taskList);
 	}
 
 	public static LogicClass getInstance(Storage storage) {
@@ -82,7 +83,7 @@ public class LogicClass {
 	// These are the possible command types
 	enum COMMAND_TYPE {
 		CREATE, DELETE, CLEAR, EXIT, INVALID, SORT, SEARCH, UPDATE, REDO, 
-		UNDO, MARK 
+		UNDO, MARK, SETPATH;
 	};
 
 	public void executeCommand(CommandPackage commandPackage) {
@@ -134,6 +135,9 @@ public class LogicClass {
 		case MARK:
 			mark(commandPackage.getPhrase());
 			break;
+		case SETPATH:
+			setPath();
+			break;
 		case EXIT:
 			System.exit(0);
 		default:
@@ -146,7 +150,11 @@ public class LogicClass {
 	private String invalid() {
 		return "The command is invalid, please key in the valid command.";
 	}
-
+	
+	private setPath() {
+		st
+		return "The command is invalid, please key in the valid command.";
+	}
 
 	public Task edit(CommandPackage commandInfo) {
 		
@@ -154,9 +162,10 @@ public class LogicClass {
 		ArrayList<String> update = commandInfo.getUpdateSequence();
 		System.out.println("getupdatesequence 0="+ update.get(2));
 		String target = update.get(1);
+		Task task ;
 
-		for (Task task : taskList) {
-			
+		for (int i=0;i<taskList.size();i++) {
+			task= taskList.get(i);
 			if (task.getName().equals(target)) {
 				
 				if(update.get(2).equals("name")){
@@ -179,7 +188,9 @@ public class LogicClass {
 				}
 				
 			}
+			break;
 		}
+		undoRedo.addStateToUndo(taskList);
 		return null;
 
 	}
@@ -187,7 +198,7 @@ public class LogicClass {
 	// To clear all content
 	public void clear() {
 		taskList.clear();
-
+		undoRedo.addStateToUndo(taskList);
 		Storage.write(taskList);
 	}
 
@@ -209,7 +220,7 @@ public class LogicClass {
 				}
 			}
 		}
-
+        undoRedo.addStateToUndo(taskList);
 		PriorityTaskList.deleteFromPL(task);
 		TimeLine.deleteFromTL(task);
 		return task;
@@ -234,7 +245,7 @@ public class LogicClass {
 			archivedList.add(task);
 		}
 
-		
+		undoRedo.addStateToUndo(taskList);
 		PriorityTaskList.deleteFromPL(task);
 		TimeLine.deleteFromTL(task);
 		return task;
@@ -279,7 +290,7 @@ public class LogicClass {
 
 		taskList.add(task);
 
-		
+		undoRedo.addStateToUndo(taskList);
 		PriorityTaskList.addToPL(task);
 		TimeLine.addToTL(task);
 
@@ -332,9 +343,11 @@ public class LogicClass {
 	public String sort(CommandPackage commandPackage) {
 		if(commandPackage.getPhrase().equals("name")){
 			Collections.sort(taskList);
+			undoRedo.addStateToUndo(taskList);
 			return "sorted by name";
 		}else if(commandPackage.getPhrase()=="date"){
 			
+			undoRedo.addStateToUndo(taskList);
 			return "sorted by date";
 		}else if(commandPackage.getPhrase().equals("priority")){
 			taskList= new ArrayList<Task>(PriorityTaskList.getP1());
@@ -342,6 +355,7 @@ public class LogicClass {
 			taskList.addAll(PriorityTaskList.getP3());
 			taskList.addAll(PriorityTaskList.getP4());
 			
+			undoRedo.addStateToUndo(taskList);
 			return "sorted by priority";
 		}else{
 			return "invalid sorting type";
