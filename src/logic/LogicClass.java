@@ -83,7 +83,7 @@ public class LogicClass {
 	// These are the possible command types
 	enum COMMAND_TYPE {
 		CREATE, DELETE, CLEAR, EXIT, INVALID, SORT, SEARCH, UPDATE, REDO, 
-		UNDO, MARK, SETPATH;
+		UNDO, MARK, SET;
 	};
 
 	public void executeCommand(CommandPackage commandPackage) {
@@ -135,8 +135,8 @@ public class LogicClass {
 		case MARK:
 			mark(commandPackage.getPhrase());
 			break;
-		case SETPATH:
-			setPath();
+		case SET:
+			setPath(commandPackage.getPhrase());
 			break;
 		case EXIT:
 			System.exit(0);
@@ -151,9 +151,8 @@ public class LogicClass {
 		return "The command is invalid, please key in the valid command.";
 	}
 	
-	private setPath() {
-		st
-		return "The command is invalid, please key in the valid command.";
+	public boolean setPath(String path) {		
+		return storage.setPath(path);
 	}
 
 	public Task edit(CommandPackage commandInfo) {
@@ -346,6 +345,9 @@ public class LogicClass {
 			undoRedo.addStateToUndo(taskList);
 			return "sorted by name";
 		}else if(commandPackage.getPhrase()=="date"){
+			taskList= new ArrayList<Task>(TimeLine.getStarttimeLine());
+			taskList.addAll(TimeLine.getEndtimeLine());
+			taskList.addAll(TimeLine.getFloattimeLine());
 			
 			undoRedo.addStateToUndo(taskList);
 			return "sorted by date";

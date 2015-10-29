@@ -132,9 +132,17 @@ public class Task implements Comparable<Task> {
 		}
 
 		if (startTime.getYear() == 2015) {
-			result = new SimpleStringProperty(startTime.toString("dd/MMM  hh:mmaa"));
+			if(startTime.getMinuteOfHour() == 00) {
+				result = new SimpleStringProperty(startTime.toString("d/MMM  haa"));
+			} else {
+				result = new SimpleStringProperty(startTime.toString("d/MMM  h:mmaa"));
+			}
 		} else {
-			result = new SimpleStringProperty(startTime.toString("dd/MMM/yyyy  hh:mmaa"));
+			if(startTime.getMinuteOfHour() == 00) {
+				result = new SimpleStringProperty(startTime.toString("d/MMM/yy  haa"));
+			} else {
+				result = new SimpleStringProperty(startTime.toString("d/MMM/yy  h:mmaa"));
+			}
 		}
 		return result;
 	}
@@ -147,15 +155,15 @@ public class Task implements Comparable<Task> {
 		}
 		if (endTime.getYear() == 2015) {
 			if(endTime.getMinuteOfHour() == 00) {
-				result = new SimpleStringProperty(endTime.toString("dd/MMM  hhaa"));
+				result = new SimpleStringProperty(endTime.toString("d/MMM  haa"));
 			} else {
-				result = new SimpleStringProperty(endTime.toString("dd/MMM  hh:mmaa"));
+				result = new SimpleStringProperty(endTime.toString("d/MMM  h:mmaa"));
 			}
 		} else {
 			if(endTime.getMinuteOfHour() == 00) {
-				result = new SimpleStringProperty(endTime.toString("dd/MMM/yyyy  hhaa"));
+				result = new SimpleStringProperty(endTime.toString("d/MMM/yy  haa"));
 			} else {
-				result = new SimpleStringProperty(endTime.toString("dd/MMM/yyyy  hh:mmaa"));
+				result = new SimpleStringProperty(endTime.toString("d/MMM/yy  h:mmaa"));
 			}
 		}
 		return result;
