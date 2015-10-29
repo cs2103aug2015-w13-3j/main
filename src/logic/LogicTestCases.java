@@ -3,15 +3,19 @@ package logic;
 
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import parser.CommandPackage;
+import parser.CommandParser;
 
 public class LogicTestCases {
 
 	
 	@Test
-	public void addTest() {
+	public void TestAdd() {
+		CommandParser parser = new CommandParser("add party tomorrow");
+		
         CommandPackage commandPackage = new CommandPackage();
         commandPackage.setCommand("add");
         commandPackage.setPhrase("meeting");

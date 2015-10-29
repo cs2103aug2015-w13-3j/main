@@ -212,8 +212,6 @@ public class CommandParser {
 				dateArr.add(DateParser.setDate(date));
 			}
 		}
-		System.out.println("index to remove " + index.get(0));
-		System.out.println("index to remove " + index.get(1));
 		for (int i = index.size()-1; 0 <= i; i--) {
 			System.out.println("index at " + i);
 			System.out.println("index " + index.get(i));

@@ -68,7 +68,7 @@ public class DateParser {
 		return new DateTime();
 	}
 
-	private static int getDateFormatType(String input) {
+	protected static int getDateFormatType(String input) {
 		DateTime date;
 		int i = 0;
 		for (; i < dateFormats.size(); i++) {
