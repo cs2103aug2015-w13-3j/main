@@ -29,7 +29,7 @@ public class UndoRedoOp {
 		if(!redoStack.isEmpty()){
 			ArrayList<Task> previousState = redoStack.pop();
 			undoStack.push(previousState);
-			return redoStack.peek();
+			return undoStack.peek();
 		}
 		return initialState;
 	}
