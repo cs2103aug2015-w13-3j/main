@@ -151,8 +151,7 @@ public class LogicClass {
 		return "The command is invalid, please key in the valid command.";
 	}
 	
-	public boolean setPath(String path) {
-		
+	public boolean setPath(String path) {		
 		return storage.setPath(path);
 	}
 
@@ -346,6 +345,9 @@ public class LogicClass {
 			undoRedo.addStateToUndo(taskList);
 			return "sorted by name";
 		}else if(commandPackage.getPhrase()=="date"){
+			taskList= new ArrayList<Task>(TimeLine.getStarttimeLine());
+			taskList.addAll(TimeLine.getEndtimeLine());
+			taskList.addAll(TimeLine.getFloattimeLine());
 			
 			undoRedo.addStateToUndo(taskList);
 			return "sorted by date";
