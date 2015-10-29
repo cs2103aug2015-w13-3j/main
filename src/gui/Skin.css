@@ -4,7 +4,7 @@
 
 .label {
 	-fx-background-color: #FFFAF0;
-    -fx-font-size: 13.0pt;
+    -fx-font-size: 20.0pt;
     -fx-font-weight: bold;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: black;
@@ -17,7 +17,7 @@
     -fx-control-inner-background:#FFFAF0;
     -fx-background-color: #FFFAF0;
     -fx-border-color: #FFDEAD;
-    -fx-font-size: 15.0pt;
+    -fx-font-size: 30.0pt;
     -fx-table-cell-border-color: #FFDEAD;
     -fx-table-header-border-color: #FFDEAD;
     -fx-padding: 5.0;
@@ -25,7 +25,7 @@
 
 .table-view .label{
 	-fx-background-color: #FFFAF0;
-    -fx-font-size: 15.0pt;
+    -fx-font-size: 30.0pt;
     -fx-font-weight: bold;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: black;
@@ -41,7 +41,7 @@
 }
 
 .table-view .column-header, .table-view .filler {
-    -fx-size: 30.0;
+    -fx-size: 20.0;
     -fx-border-width: 0.0 0.0 0.0 0.0;
     -fx-background-color: transparent;
     -fx-border-color: 
