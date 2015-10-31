@@ -10,12 +10,12 @@
 
 <AnchorPane prefHeight="880.0" prefWidth="1700.0" styleClass="background" stylesheets="@Skin.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.TaskViewController">
    <children>
-      <TextField fx:id="txtCommandInput" layoutX="256.0" layoutY="33.0" onKeyPressed="#enterCommand" prefHeight="34.0" prefWidth="1414.0" promptText="Enter Your Command" />
-      <Label layoutX="28.0" layoutY="40.0" prefHeight="38.0" prefWidth="199.0" text="Command:" textFill="#ef4136">
+      <TextField fx:id="txtCommandInput" layoutX="256.0" layoutY="23.0" onKeyPressed="#enterCommand" prefHeight="34.0" prefWidth="1414.0" promptText="Enter Your Command" />
+      <Label layoutX="28.0" layoutY="40.0" prefHeight="38.0" prefWidth="199.0" text="Command:">
          <font>
             <Font name="Apple SD Gothic Neo Regular" size="18.0" />
          </font></Label>
-      <TableView fx:id="taskTableView" layoutX="316.0" layoutY="129.0" prefHeight="658.0" prefWidth="1354.0">
+      <TableView fx:id="taskTableView" layoutX="316.0" layoutY="139.0" prefHeight="658.0" prefWidth="1354.0">
         <columns>
           <TableColumn fx:id="taskNumberColumn" prefWidth="48.0" text="#" />
           <TableColumn fx:id="taskNameColumn" prefWidth="345.0" text="Task Name" />
@@ -25,7 +25,7 @@
         </columns>
       </TableView>
       <Label layoutX="28.0" layoutY="808.0" prefHeight="32.0" prefWidth="900.0" text="This is the feedback for an operation. " />
-      <ListView fx:id="todayTasksView" layoutX="28.0" layoutY="200.0" prefHeight="585.0" prefWidth="276.0" />
-      <Label layoutX="28.0" layoutY="129.0" prefHeight="21.0" prefWidth="270.0" text="Today's Tasks" textFill="#ef4136" />
+      <ListView fx:id="todayTasksView" layoutX="28.0" layoutY="210.0" prefHeight="585.0" prefWidth="276.0" />
+      <Label layoutX="28.0" layoutY="139.0" prefHeight="21.0" prefWidth="270.0" text="Today's Tasks" />
    </children>
 </AnchorPane>

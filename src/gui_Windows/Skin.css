@@ -1,25 +1,30 @@
+@font-face {
+    src: url(BreeSerif-Regular.otf);
+}
+
 .background {
-    -fx-background-color: #FFFAFA;
+    -fx-background-color: #feb914;
 }
 
 .label {
-	-fx-background-color: #FFFAF0;
-    -fx-font-size: 20.0pt;
+	-fx-background-color: #feb914;
+    -fx-font-size: 30.0pt;
     -fx-font-weight: bold;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Bree Serif";
     -fx-text-fill: black;
-    -fx-opacity:0.6;
+    -fx-opacity:1;
 }
 
 
 .table-view {
     -fx-base: #FFFAF0;
-    -fx-control-inner-background:#FFFAF0;
+    -fx-control-inner-background:#FFFFFF;
     -fx-background-color: #FFFAF0;
-    -fx-border-color: #FFDEAD;
+    -fx-border-color: #feb914;
+    -fx-font-family: "Bree Serif";
     -fx-font-size: 30.0pt;
-    -fx-table-cell-border-color: #FFDEAD;
-    -fx-table-header-border-color: #FFDEAD;
+    -fx-table-cell-border-color: #feb914;
+    -fx-table-header-border-color: #feb914;
     -fx-padding: 5.0;
 }
 
@@ -27,13 +32,14 @@
 	-fx-background-color: #FFFAF0;
     -fx-font-size: 30.0pt;
     -fx-font-weight: bold;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #ef4136 ;
+    -fx-font-family: "Bree Serif";
     -fx-text-fill: black;
     -fx-opacity:0.6;
 }
 
 .table-view .column-header {
-	-fx-border-color: #FFDEAD;
+	-fx-border-color: #feb914;
 }
 
 .table-view .column-header-background {
@@ -50,19 +56,21 @@
         derive(-fx-base, 80.0%) 
         transparent;
     -fx-border-insets: 0.0 10.0 1.0 0.0;
+    -fx-text-fill: #ef4136;
 }
 
 .table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: #FFDAB9;
+    -fx-background-color: #FFDAB9 ;
 }
 
 .table-view:focused .table-row-cell:filled:hover {
-    -fx-background-color: #FFDAB9;
+    -fx-background-color: #ef4136;
 }
 
 .text-field {
     -fx-font-size: 30.0pt;
     -fx-border-color: #FFDEAD;
-    -fx-background-color: #FFFAF0;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #ef4136 ;
+    -fx-font-family: "Bree Serif";
 }
