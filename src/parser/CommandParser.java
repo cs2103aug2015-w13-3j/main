@@ -100,8 +100,11 @@ public class CommandParser {
 			}
 			// System.out.println(i+". "+word);
 		}
-		System.out.println("sequence is: " + sequence);
+		System.out.println(sequence + "+1");
 		inputData.addUpdateSequence(sequence);
+		System.out.println("sequence is: " + inputData.getUpdateSequence().get(1) + ", "
+				+ inputData.getUpdateSequence().get(2) + ", " +
+				inputData.getUpdateSequence().get(3));
 		return inputData;
 	}
 
