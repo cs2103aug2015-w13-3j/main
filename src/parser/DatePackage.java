@@ -4,8 +4,10 @@ import org.joda.time.DateTime;
 
 public class DatePackage {
 	private DateTime start;
-	private int startDateFormat;
-	private int endDateFormat;
+	boolean hasStartTime = false, hasStartMinute = false;
+	boolean hasEndTime = false, hasEndMinute = false;
+	boolean[] startTimeFormat = {hasStartTime, hasStartMinute};
+	boolean[] endTimeFormat = {hasEndTime, hasEndMinute};
 	private DateTime end;
 
 	// Constructor
@@ -25,22 +27,13 @@ public class DatePackage {
 		end = back;
 	}
 	
-	public void setDate(String front, String back) {
-		setStartFormat(front);
-		setEndFormat(back);
-		start = DateParser.setDate(front);
-		end = DateParser.setDate(back);
+	public void setTimeFormat(boolean[] startFmt) {
+		startTimeFormat = startFmt;
 	}
-
-
-	private void setEndFormat(String front) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void setStartFormat(String front) {
-		// TODO Auto-generated method stub
-		
+	
+	public void setTimeFormat(boolean[] startFmt, boolean[] endFmt) {
+		startTimeFormat = startFmt;
+		endTimeFormat = endFmt;
 	}
 
 	// Accessors
