@@ -329,10 +329,7 @@ public class LogicClass {
 			}
 		}
 		
-		System.out.println(startOfToday);
-		System.out.println(startOfTomorrow);
-		
-		if(t.getStartTime().isAfter(startOfToday) && 
+		if(t.getStartTime() != null && t.getEndTime() != null && t.getStartTime().isAfter(startOfToday) && 
 				t.getEndTime().isBefore(startOfTomorrow)){
 			return true;		
 		}
