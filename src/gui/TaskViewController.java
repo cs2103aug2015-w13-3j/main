@@ -36,11 +36,6 @@ public class TaskViewController {
 	@FXML
 	private TableColumn<Task, String> priority;
 
-	@FXML
-    private ListView<String> todayTasksView;
-
-	ArrayList<String> todayTasks = new ArrayList<String>();
-	
 	// Reference to the main application.
 	private MainApp mainApp;
 
@@ -68,7 +63,6 @@ public class TaskViewController {
 		startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
 		endTimeColumn.setCellValueFactory(cellData -> cellData.getValue().endTimeProperty());
 		priority.setCellValueFactory(cellData -> cellData.getValue().priorityProperty());
-		todayTasksView.setItems(FXCollections.observableList(todayTasks));
 	}
 
 	public void enterCommand(KeyEvent event) {
@@ -85,7 +79,6 @@ public class TaskViewController {
 
 				// every time when user click "enter", redisplay the task list
 				taskTableView.setItems(mainApp.getTaskData());
-				todayTasksView.setItems(mainApp.getTodayTasks());
 				logger.log(Level.INFO, "Update the table view.");
 				txtCommandInput.clear();
 			}
@@ -104,6 +97,5 @@ public class TaskViewController {
 		logger.log(Level.INFO, "Set MainApp.");
 		// Add observable list data to the table
 		taskTableView.setItems(mainApp.getTaskData());
-		todayTasksView.setItems(mainApp.getTodayTasks());
 	}
 }
