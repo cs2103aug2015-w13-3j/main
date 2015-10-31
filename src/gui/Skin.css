@@ -11,8 +11,8 @@
 	-fx-background-color: #feb914;
     -fx-font-size: 30.0pt;
     -fx-font-weight: bold;
+    -fx-text-fill: #ef4136;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: black;
     -fx-opacity:1;
 }
 
@@ -32,9 +32,8 @@
 	-fx-background-color: #FFFAF0;
     -fx-font-size: 30.0pt;
     -fx-font-weight: bold;
-    -fx-text-fill: #ef4136 ;
+    -fx-text-fill: #ef4136;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: black;
     -fx-opacity:0.6;
 }
 
