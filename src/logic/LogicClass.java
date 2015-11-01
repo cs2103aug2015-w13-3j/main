@@ -368,7 +368,7 @@ public class LogicClass {
 			Collections.sort(taskList);
 			undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 			return "sorted by name";
-		}else if(commandPackage.getPhrase().equals("date")){
+		}else if(commandPackage.getPhrase().equals("time")){
 			taskList= new ArrayList<Task>(TimeLine.getStarttimeLine());
 			taskList.addAll(TimeLine.getEndtimeLine());
 			taskList.addAll(TimeLine.getFloattimeLine());
