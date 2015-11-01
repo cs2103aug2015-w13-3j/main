@@ -1,6 +1,5 @@
 @font-face {
     src: url(BreeSerif-Regular.otf);
-    src: url(BRLNSR.TTF);
 }
 
 .background {
@@ -33,6 +32,7 @@
 	-fx-background-color: #FFFAF0;
     -fx-font-size: 30.0pt;
     -fx-font-weight: bold;
+    -fx-text-fill: #ef4136 ;
     -fx-font-family: "Bree Serif";
     -fx-text-fill: black;
     -fx-opacity:0.6;

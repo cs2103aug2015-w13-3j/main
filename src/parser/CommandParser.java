@@ -16,7 +16,6 @@ public class CommandParser {
 
 	public CommandParser() {
 		actionLib = new ActionLibrary();
-		inputData = new CommandPackage();
 	}
 
 	public CommandParser(String command) {
@@ -30,6 +29,7 @@ public class CommandParser {
 
 	public CommandPackage getCommandPackage(String command) {
 		input = command;
+		inputData = new CommandPackage();
 		String[] arr = input.split(" ");
 		inputArr = new ArrayList<String>();
 		for (int i = 0; i < arr.length; i++) {
@@ -100,8 +100,11 @@ public class CommandParser {
 			}
 			// System.out.println(i+". "+word);
 		}
-		System.out.println("sequence is: " + sequence);
+		System.out.println(sequence + "+1");
 		inputData.addUpdateSequence(sequence);
+		System.out.println("sequence is: " + inputData.getUpdateSequence().get(1) + ", "
+				+ inputData.getUpdateSequence().get(2) + ", " +
+				inputData.getUpdateSequence().get(3));
 		return inputData;
 	}
 

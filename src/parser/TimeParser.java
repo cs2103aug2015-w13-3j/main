@@ -62,6 +62,32 @@ public class TimeParser{
 		}
 	}
 	
+	protected static int getTimeFormat(String input) {
+		DateTime date;
+		int i = 0;
+		for ( ; i < timeFormats.size(); i++) {
+			try {
+				date = timeFormats.get(i).parseDateTime(input);
+				break;
+			} catch (IllegalArgumentException e) {
+				continue;
+			} catch (NullPointerException e) {
+				continue;
+			}
+		}
+		
+		if (i < 6) {
+			return 0;
+		} else if (i < FORMAT_SIZE) {
+			return 1;
+		} else {
+			return -1;
+		}
+	}
+	
+	protected static boolean getTimeFormatArr(String input) {
+		return true;
+	}
 
 	protected static boolean isTime(String input) {
 		return isValidFormat(input);

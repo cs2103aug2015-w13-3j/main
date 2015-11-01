@@ -159,9 +159,12 @@ public class LogicClass {
 		
 		 
 		ArrayList<String> update = commandInfo.getUpdateSequence();
-		System.out.println("getupdatesequence 0="+ update.get(2));
+		System.out.println("getupdatesequence 1="+ update.get(1));
+		System.out.println("getupdatesequence 2="+ update.get(2));
+		System.out.println("getupdatesequence 3="+ update.get(3));
 		String target = update.get(1);
-		Task task ;
+		Task task;
+		Task newTask;
 
 		for (int i=0;i<taskList.size();i++) {
 			task= taskList.get(i);
@@ -177,15 +180,8 @@ public class LogicClass {
 					task.setPriority(update.get(3));
 				}
 				
-				
-
-				if (commandInfo.startingTime() != null) {
-					task.setStartTime(commandInfo.startingTime());
-				}
-				if (commandInfo.endingTime() != null) {
-					task.setEndTime(commandInfo.endingTime());
-				}
-				
+				newTask=taskList.remove(i);
+				taskList.add(i, newTask);
 			}
 			break;
 		}
@@ -329,10 +325,7 @@ public class LogicClass {
 			}
 		}
 		
-		System.out.println(startOfToday);
-		System.out.println(startOfTomorrow);
-		
-		if(t.getStartTime().isAfter(startOfToday) && 
+		if(t.getStartTime() != null && t.getEndTime() != null && t.getStartTime().isAfter(startOfToday) && 
 				t.getEndTime().isBefore(startOfTomorrow)){
 			return true;		
 		}

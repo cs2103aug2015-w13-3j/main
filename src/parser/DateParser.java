@@ -39,6 +39,7 @@ public class DateParser {
 	private static final String DATE_TOMORROW = "tomorrow";
 	private static final String DATE_YESTERDAY = "yesterday";
 
+
 	private static ArrayList<DateTimeFormatter> dateFormats = new ArrayList<DateTimeFormatter>(
 			Arrays.asList(DateTimeFormat.forPattern(DATE_FORMAT_0), DateTimeFormat.forPattern(DATE_FORMAT_1),
 					DateTimeFormat.forPattern(DATE_FORMAT_2), DateTimeFormat.forPattern(DATE_FORMAT_3),
