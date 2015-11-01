@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="703.0" prefWidth="1253.0" styleClass="background" stylesheets="@Skin.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.TaskViewController">
+<AnchorPane prefHeight="700.0" prefWidth="1250.0" styleClass="background" stylesheets="@Skin.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.TaskViewController">
    <children>
       <TextField fx:id="txtCommandInput" layoutX="239.0" layoutY="22.0" onKeyPressed="#enterCommand" prefHeight="89.0" prefWidth="986.0" promptText="Enter Your Command" />
       <Label layoutX="28.0" layoutY="40.0" prefHeight="38.0" prefWidth="199.0" text="Command:">
