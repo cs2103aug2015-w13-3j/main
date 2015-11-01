@@ -22,6 +22,7 @@ public class MainApp extends Application {
 	private BorderPane rootLayout;
 
 	private static ObservableList<Task> taskList;
+	private static ObservableList<String> todayTaskList;
 
 	private static Logger logger = Logger.getLogger("MainApp");
 
@@ -40,6 +41,11 @@ public class MainApp extends Application {
 		return taskList;
 	}
 
+	public ObservableList<String> getTodayTasks(){
+		ArrayList<String> todayTasks = LogicClass.getTodayTasks();
+		todayTaskList = FXCollections.observableArrayList(todayTasks);
+		return todayTaskList;
+	}
 	
 	@Override
 	public void start(Stage primaryStage) {
