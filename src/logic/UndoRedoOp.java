@@ -14,7 +14,7 @@ public class UndoRedoOp {
 	
 	public UndoRedoOp(ArrayList<Task> initialState){
 		undoStack = new Stack<ArrayList<Task>>();
-		undoStack.push(initialState);
+		//undoStack.push(initialState);
 		redoStack = new Stack<ArrayList<Task>>();
 		this.initialState = initialState;
 	}
@@ -26,7 +26,7 @@ public class UndoRedoOp {
 			System.out.println("after pop: "+ undoStack.toString());
 			redoStack.push(currentState);
 			System.out.println("current state: "+ currentState);
-			System.out.println("return state: "+ undoStack.peek());
+			
 			if(!undoStack.isEmpty()){
 				return undoStack.peek();
 			}else{
@@ -40,7 +40,7 @@ public class UndoRedoOp {
 		if(!redoStack.isEmpty()){
 			ArrayList<Task> previousState = redoStack.pop();
 			undoStack.push(previousState);
-			return undoStack.peek();
+			return previousState;
 		}
 		return initialState;
 	}
