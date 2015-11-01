@@ -75,7 +75,7 @@ public class LogicClass {
 					taskString += "to "+ task.getEndTime();
 				}
                 todayTasks.add(taskString);
-                System.out.println("taskString"+taskString);
+                //System.out.println("taskString"+taskString);
 			}
 		}
 		return todayTasks;
@@ -103,7 +103,7 @@ public class LogicClass {
 		switch (commandType) {
 		case CREATE:
 			addTask(commandPackage);
-			System.out.println("Adding task.");
+			//System.out.println("Adding task.");
 			Storage.write(taskList);
 			break;
 		case UPDATE:
@@ -143,13 +143,16 @@ public class LogicClass {
 			
 			PriorityTaskList.clear();
 			TimeLine.clear();
+			
 			for (int i = 0; i < taskList.size(); i++) {
 				Task task = taskList.get(i);
 				PriorityTaskList.addToPL(task);
 				TimeLine.addToTL(task);
 			}
+			
 			Storage.write(taskList);
 			break;
+			
 		case MARK:
 			mark(commandPackage.getPhrase());
 			break;
@@ -177,9 +180,6 @@ public class LogicClass {
 		
 		 
 		ArrayList<String> update = commandInfo.getUpdateSequence();
-		System.out.println("getupdatesequence 1="+ update.get(1));
-		System.out.println("getupdatesequence 2="+ update.get(2));
-		System.out.println("getupdatesequence 3="+ update.get(3));
 		String target = update.get(1);
 		Task task;
 		Task newTask;
@@ -191,13 +191,12 @@ public class LogicClass {
 				if(update.get(2).equals("name")){
 					if (update.get(3) != null) {
 						task.setTaskName(update.get(3));
-						System.out.println(task.getName());
 					}
 					
 				}else if(update.get(2).equals("priority")){
 					task.setPriority(update.get(3));
 				}else if(update.get(2).equals("time")){
-					System.out.println("parsedate" + DateParser.setDate(update.get(3)));
+					//System.out.println("parsedate" + DateParser.setDate(update.get(3)));
 					task.setEndTime(DateParser.setDate(update.get(3)));
 				}
 				
@@ -319,11 +318,6 @@ public class LogicClass {
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 		PriorityTaskList.addToPL(task);
 		TimeLine.addToTL(task);
-
-		for (Task task1 : taskList) {
-			System.out.println("sdfadfsdf" + task1.toString());
-		}
-
 		return task;
 
 	}

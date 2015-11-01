@@ -45,7 +45,7 @@ public class TaskViewController {
 
 	CommandParser cmdParser = new CommandParser();
 
-	private static Logger logger = Logger.getLogger("TaskViewController");
+	//private static Logger logger = Logger.getLogger("TaskViewController");
 
 	/**
 	 * The constructor. The constructor is called before the initialize()
@@ -70,16 +70,16 @@ public class TaskViewController {
 			String input = txtCommandInput.getText().trim();
 			System.out.println("input: " + input);
 			if (input != null && input != "") {
-				logger.log(Level.INFO, "Here comes a command.");
+				//logger.log(Level.INFO, "Here comes a command.");
 				CommandPackage cmdPack = cmdParser.getCommandPackage(input);
-				logger.log(Level.INFO, "CommandParser parses the command.");
+				//logger.log(Level.INFO, "CommandParser parses the command.");
 				assert (cmdPack != null);
 				logic.executeCommand(cmdPack);
-				logger.log(Level.INFO, "Logic executes the command.");
+				//logger.log(Level.INFO, "Logic executes the command.");
 
 				// every time when user click "enter", redisplay the task list
 				taskTableView.setItems(mainApp.getTaskData());
-				logger.log(Level.INFO, "Update the table view.");
+				//logger.log(Level.INFO, "Update the table view.");
 				txtCommandInput.clear();
 			}
 		}
@@ -92,9 +92,9 @@ public class TaskViewController {
 	 */
 
 	public void setMainApp(MainApp mainApp) {
-		System.out.println("set Main app.");
+		//System.out.println("set Main app.");
 		this.mainApp = mainApp;
-		logger.log(Level.INFO, "Set MainApp.");
+		//logger.log(Level.INFO, "Set MainApp.");
 		// Add observable list data to the table
 		taskTableView.setItems(mainApp.getTaskData());
 	}
