@@ -128,6 +128,12 @@ public class TimeLine {
 			timeLine.remove(index2);
 		}
 	}
+	
+	public static void clear(){
+		startTimeLine.clear();
+		endTimeLine.clear();
+		floatTimeLine.clear();
+	}
 
 	public static ArrayList<Task> getStarttimeLine(){
 		return startTimeLine;

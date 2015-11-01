@@ -10,6 +10,7 @@ import org.joda.time.LocalDate;
 import org.omg.CORBA.INTERNAL;
 
 import parser.CommandPackage;
+import parser.DateParser;
 
 public class LogicClass {
 	// This array will be used to store the messages
@@ -128,9 +129,26 @@ public class LogicClass {
 			break;
 		case REDO:
 			taskList = undoRedo.redo();
+			PriorityTaskList.clear();
+			TimeLine.clear();
+			for (int i = 0; i < taskList.size(); i++) {
+				Task task = taskList.get(i);
+				PriorityTaskList.addToPL(task);
+				TimeLine.addToTL(task);
+			}
+			Storage.write(taskList);
 			break;
 		case UNDO:
 			taskList = undoRedo.undo();
+			
+			PriorityTaskList.clear();
+			TimeLine.clear();
+			for (int i = 0; i < taskList.size(); i++) {
+				Task task = taskList.get(i);
+				PriorityTaskList.addToPL(task);
+				TimeLine.addToTL(task);
+			}
+			Storage.write(taskList);
 			break;
 		case MARK:
 			mark(commandPackage.getPhrase());
@@ -178,12 +196,23 @@ public class LogicClass {
 					
 				}else if(update.get(2).equals("priority")){
 					task.setPriority(update.get(3));
+				}else if(update.get(2).equals("time")){
+					System.out.println("parsedate" + DateParser.setDate(update.get(3)));
+					task.setEndTime(DateParser.setDate(update.get(3)));
 				}
 				
-				newTask=taskList.remove(i);
+				newTask= new Task(task.getName());
+				newTask.setStartTime(task.getStartTime());
+				newTask.setEndTime(task.getEndTime());
+				if(task.getPriority()!=null){
+					newTask.setPriority(task.getPriority().toString());
+				}
+				
+			    taskList.remove(i);
 				taskList.add(i, newTask);
+				break;
 			}
-			break;
+			
 		}
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 		return null;
@@ -193,6 +222,8 @@ public class LogicClass {
 	// To clear all content
 	public void clear() {
 		taskList.clear();
+		PriorityTaskList.clear();
+		TimeLine.clear();
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 		Storage.write(taskList);
 	}
@@ -337,7 +368,7 @@ public class LogicClass {
 			Collections.sort(taskList);
 			undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 			return "sorted by name";
-		}else if(commandPackage.getPhrase().equals("date")){
+		}else if(commandPackage.getPhrase().equals("time")){
 			taskList= new ArrayList<Task>(TimeLine.getStarttimeLine());
 			taskList.addAll(TimeLine.getEndtimeLine());
 			taskList.addAll(TimeLine.getFloattimeLine());

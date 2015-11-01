@@ -48,7 +48,7 @@ public class DateParser {
 					DateTimeFormat.forPattern(DATE_FORMAT_8), DateTimeFormat.forPattern(DATE_FORMAT_9),
 					DateTimeFormat.forPattern(DATE_FORMAT_10), DateTimeFormat.forPattern(DATE_FORMAT_11)));
 
-	protected static DateTime setDate(String input) {
+	public static DateTime setDate(String input) {
 		int formatType = getDateFormatType(input);
 		DateTime date = new DateTime();
 

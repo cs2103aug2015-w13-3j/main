@@ -57,6 +57,13 @@ public class PriorityTaskList {
 			}
 		}
 	}
+	
+	public static void clear(){
+		p1.clear();
+		p2.clear();
+		p3.clear();
+		p4.clear();
+	}
 
 	public static ArrayList<Task> getP1() {
 		return p1;
