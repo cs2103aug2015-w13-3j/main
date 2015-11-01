@@ -22,9 +22,8 @@ public class MainApp extends Application {
 	private BorderPane rootLayout;
 
 	private static ObservableList<Task> taskList;
-	private static ObservableList<String> todayTaskList;
 
-	private static Logger logger = Logger.getLogger("MainApp");
+	//private static Logger logger = Logger.getLogger("MainApp");
 
 	public MainApp() {
 	}
@@ -41,11 +40,6 @@ public class MainApp extends Application {
 		return taskList;
 	}
 
-	public ObservableList<String> getTodayTasks(){
-		ArrayList<String> todayTasks = LogicClass.getTodayTasks();
-		todayTaskList = FXCollections.observableArrayList(todayTasks);
-		return todayTaskList;
-	}
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -54,10 +48,10 @@ public class MainApp extends Application {
 			this.primaryStage.setTitle("TaskBomber");
 
 			initRootLayout();
-			logger.log(Level.INFO, "RootLayout is initiated.");
+			//logger.log(Level.INFO, "RootLayout is initiated.");
 
 			showTaskBomberOverview();
-			logger.log(Level.INFO, "The view is generated.");
+			//logger.log(Level.INFO, "The view is generated.");
 		} catch (Exception e) {
 			System.out.println("cannot initiate the view.");
 		}

@@ -1,4 +1,4 @@
-package gui_Windows;
+package gui;
 
 import logic.*;
 import parser.CommandPackage;
@@ -68,7 +68,6 @@ public class TaskViewController {
 		startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
 		endTimeColumn.setCellValueFactory(cellData -> cellData.getValue().endTimeProperty());
 		priority.setCellValueFactory(cellData -> cellData.getValue().priorityProperty());
-		todayTasksView.setItems(FXCollections.observableList(todayTasks));
 	}
 
 	public void enterCommand(KeyEvent event) {
@@ -85,7 +84,6 @@ public class TaskViewController {
 
 				// every time when user click "enter", redisplay the task list
 				taskTableView.setItems(mainApp.getTaskData());
-				todayTasksView.setItems(mainApp.getTodayTasks());
 				logger.log(Level.INFO, "Update the table view.");
 				txtCommandInput.clear();
 			}

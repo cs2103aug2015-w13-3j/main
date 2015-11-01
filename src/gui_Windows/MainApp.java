@@ -1,4 +1,4 @@
-package gui_Windows;
+package gui;
 
 import logic.LogicClass;
 import logic.Task;
