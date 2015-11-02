@@ -29,7 +29,6 @@ public class UndoRedoOp {
 			System.out.println("after push: redoStack-- "+ redoStack.toString());
 			
 			if(!undoStack.isEmpty()){
-				System.out.println(undoStack.peek());
 				return undoStack.peek();
 			}else{
 				return initialState;

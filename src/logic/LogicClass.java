@@ -91,7 +91,7 @@ public class LogicClass {
 		// int taskIndex;
 		isSearchOp=false;
 		
-		//System.out.println("Get the command type string: " + commandPackage.getCommand());
+		//System.out.("Get the command type string: " + commandPackage.getCommand());
 		String commandTypeString = commandPackage.getCommand();
 		
 		commandTypeString= commandTypeString.toUpperCase();
