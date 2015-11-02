@@ -15,17 +15,15 @@
          <font>
             <Font name="Apple SD Gothic Neo Regular" size="18.0" />
          </font></Label>
-      <TableView fx:id="taskTableView" layoutX="316.0" layoutY="139.0" prefHeight="658.0" prefWidth="1354.0">
+      <TableView fx:id="taskTableView" layoutX="28.0" layoutY="139.0" prefHeight="658.0" prefWidth="1642.0">
         <columns>
-          <TableColumn fx:id="taskNumberColumn" prefWidth="48.0" text="#" />
-          <TableColumn fx:id="taskNameColumn" prefWidth="345.0" text="Task Name" />
-            <TableColumn fx:id="startTimeColumn" prefWidth="343.0" text="Start Time" />
-            <TableColumn fx:id="endTimeColumn" minWidth="0.0" prefWidth="400.0" text="End Time" />
+          <TableColumn fx:id="taskNumberColumn" prefWidth="68.0" text="#" />
+          <TableColumn fx:id="taskNameColumn" prefWidth="685.0" text="Task Name" />
+            <TableColumn fx:id="startTimeColumn" prefWidth="323.0" text="Start Time" />
+            <TableColumn fx:id="endTimeColumn" minWidth="0.0" prefWidth="323.0" text="End Time" />
             <TableColumn fx:id="priority" prefWidth="180.0" text="Priority" />
         </columns>
       </TableView>
       <Label layoutX="28.0" layoutY="808.0" prefHeight="32.0" prefWidth="900.0" text="This is the feedback for an operation. " />
-      <ListView fx:id="todayTasksView" layoutX="28.0" layoutY="210.0" prefHeight="585.0" prefWidth="276.0" />
-      <Label layoutX="28.0" layoutY="139.0" prefHeight="21.0" prefWidth="270.0" text="Today's Tasks" />
    </children>
 </AnchorPane>

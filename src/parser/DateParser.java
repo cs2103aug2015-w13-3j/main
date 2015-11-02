@@ -37,6 +37,7 @@ public class DateParser {
 
 	private static final String DATE_TODAY = "today";
 	private static final String DATE_TOMORROW = "tomorrow";
+	private static final String DATE_TMRW = "tmrw";
 	private static final String DATE_YESTERDAY = "yesterday";
 
 
@@ -96,7 +97,7 @@ public class DateParser {
 
 	private static boolean isFormat3(String input) {
 		return input.equalsIgnoreCase(DATE_TODAY) || input.equalsIgnoreCase(DATE_TOMORROW)
-				|| input.equalsIgnoreCase(DATE_YESTERDAY);
+				|| input.equalsIgnoreCase(DATE_YESTERDAY) || input.equalsIgnoreCase(DATE_TMRW);
 	}
 
 	protected static boolean isDate(String input) {
