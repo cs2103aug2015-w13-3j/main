@@ -35,7 +35,7 @@ public class Storage {
 			String content;
 
 			// read in original content in the file
-			System.out.println("Reading file.");
+			//System.out.println("Reading file.");
 			while ((content = buff.readLine()) != null) {
 
 				String[] taskInfo = content.split("\\|");

@@ -13,20 +13,16 @@ public class UndoRedoOp {
 	
 	public UndoRedoOp(ArrayList<Task> initialState){
 		undoStack = new Stack<ArrayList<Task>>();
-		//undoStack.push(initialState);
 		redoStack = new Stack<ArrayList<Task>>();
 		this.initialState = new ArrayList<Task>(initialState);
 		this.currentState = new ArrayList<Task>(initialState);
+		//undoStack.push(this.initialState);
 	}
 	
 	public ArrayList<Task> undo(){
 		if(!undoStack.isEmpty()){
-			System.out.println("Before pop: undoStack-- "+ undoStack.toString());
 			ArrayList<Task> current = undoStack.pop();
-			System.out.println("after pop: undoStack-- "+ undoStack.toString());
 			redoStack.push(new ArrayList<Task>(current));
-			System.out.println("current state: "+ current.toString());
-			System.out.println("after push: redoStack-- "+ redoStack.toString());
 			
 			if(!undoStack.isEmpty()){
 				return undoStack.peek();
@@ -39,22 +35,16 @@ public class UndoRedoOp {
 	
 	public ArrayList<Task> redo(){
 		if(!redoStack.isEmpty()){
-			System.out.println("before pop: redoStack-- "+ redoStack.toString());
 			ArrayList<Task> previousState = redoStack.pop();
-			System.out.println("after pop: redoStack-- "+ redoStack.toString());
 			undoStack.push(new ArrayList<Task>(previousState));
-			System.out.println("previous state: "+ previousState.toString());
-			System.out.println("after push: undoStack-- "+ undoStack.toString());
 			return previousState;
 		}
 		return currentState;
 	}
 	
 	public ArrayList<Task> addStateToUndo(ArrayList<Task> recentState){
-		System.out.println(recentState.toString());
-		System.out.println("BEFORE adding state: "+ undoStack.toString());
 		undoStack.push(new ArrayList<Task>(recentState));
-		System.out.println("after adding state: "+ undoStack.toString());
+		redoStack.clear();
 		currentState = new ArrayList<Task>(recentState);
 		return currentState;
 	}

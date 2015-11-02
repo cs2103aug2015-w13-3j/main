@@ -139,7 +139,7 @@ public class LogicClass {
 			Storage.write(taskList);
 			break;
 		case UNDO:
-			taskList = undoRedo.undo();
+			taskList = new ArrayList<Task>(undoRedo.undo());
 			
 			PriorityTaskList.clear();
 			TimeLine.clear();
