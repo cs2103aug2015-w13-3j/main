@@ -1,8 +1,0 @@
-captain meeting| | |1
-meeting| | |1
-wash deck| |2015-10-03T21:00:00.000+08:00|null
-wash deck tmrw| |2015-11-02T21:00:00.000+08:00|null
-meeting| |2015-11-03T00:07:46.723+08:00|null
-meeting| |2015-11-02T00:09:02.662+08:00|null
-meet back at submarine| |2015-11-02T17:00:00.000+08:00|null
-meet back at submarine|2015-11-02T17:00:00.000+08:00| |null
