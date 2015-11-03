@@ -122,10 +122,10 @@ public class CommandParser {
 				for (int i = 0; i < inputArr.size(); i++) {
 					if (inputArr.get(i).equalsIgnoreCase("start")) {
 						inputData.setDates(dateArr, "start");
-						remove("start");
+						inputArr.remove(i);
 					} else if (inputArr.get(i).equalsIgnoreCase("end")) {
 						inputData.setDates(dateArr, "end");
-						remove("end");
+						inputArr.remove(i);
 					} else {
 						inputData.setDates(dateArr, "end");
 					}
@@ -134,12 +134,12 @@ public class CommandParser {
 				dateArr = extractTime(dateArr);
 				System.out.println(dateArr.size() + "<<<");
 				for (int i = 0; i < inputArr.size(); i++) {
-					if (inputArr.get(i).equalsIgnoreCase("start")) {
+					if (TimeLibrary.isStart(inputArr.get(i))) {
 						inputData.setDates(dateArr, "start");
-						remove("start");
-					} else if (inputArr.get(i).equalsIgnoreCase("end")) {
+						inputArr.remove(i);
+					} else if (TimeLibrary.isEnd(inputArr.get(i))) {
 						inputData.setDates(dateArr, "end");
-						remove("end");
+						inputArr.remove(i);
 					} else {
 						inputData.setDates(dateArr, "end");
 					}
@@ -152,12 +152,12 @@ public class CommandParser {
 				dateArr = extractTime();
 				for (int i = 0; i < inputArr.size(); i++) {
 					System.out.println("date is  " + dateArr.get(0));
-					if (inputArr.get(i).equalsIgnoreCase("start")) {
+					if (TimeLibrary.isStart(inputArr.get(i))) {
 						inputData.setDates(dateArr, "start");
-						remove("start");
-					} else if (inputArr.get(i).equalsIgnoreCase("end")) {
+						inputArr.remove(i);
+					} else if (TimeLibrary.isEnd(inputArr.get(i))) {
 						inputData.setDates(dateArr, "end");
-						remove("end");
+						inputArr.remove(i);
 					} else {
 						inputData.setDates(dateArr, "end");
 					}
