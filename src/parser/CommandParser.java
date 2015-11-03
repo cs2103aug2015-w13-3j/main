@@ -64,7 +64,7 @@ public class CommandParser {
 			}
 		}
 		if (commandName.equals("search")) {
-			// searchDates();
+			inputData.setDates(extractSearchDate());
 		}
 		System.out.println(inputArr);
 		inputData.setPhrase(getPhrase());
