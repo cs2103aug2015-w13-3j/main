@@ -46,6 +46,7 @@ public class LogicClass {
 
 	public static ArrayList<Task> getTaskList() {
 		if(isSearchOp == true){
+			isSearchOp = false;
 			return searchTaskList;
 		}
 		
@@ -91,7 +92,7 @@ public class LogicClass {
 		// int taskIndex;
 		isSearchOp=false;
 		
-		//System.out.println("Get the command type string: " + commandPackage.getCommand());
+		//System.out.("Get the command type string: " + commandPackage.getCommand());
 		String commandTypeString = commandPackage.getCommand();
 		
 		commandTypeString= commandTypeString.toUpperCase();
@@ -139,7 +140,7 @@ public class LogicClass {
 			Storage.write(taskList);
 			break;
 		case UNDO:
-			taskList = undoRedo.undo();
+			taskList = new ArrayList<Task>(undoRedo.undo());
 			
 			PriorityTaskList.clear();
 			TimeLine.clear();

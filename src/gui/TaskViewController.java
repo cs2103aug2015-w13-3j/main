@@ -37,10 +37,10 @@ public class TaskViewController {
 	private TableColumn<Task, String> priority;
 
 	@FXML
-    private ListView<String> todayTasksView;
+	private ListView<String> todayTasksView;
 
 	ArrayList<String> todayTasks = new ArrayList<String>();
-	
+
 	// Reference to the main application.
 	private MainApp mainApp;
 
@@ -72,16 +72,16 @@ public class TaskViewController {
 
 	public void enterCommand(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
-			String input = txtCommandInput.getText().trim();
-			System.out.println("input: " + input);
-			if (input != null && input != "") {
-				logger.log(Level.INFO, "Here comes a command.");
+			if (txtCommandInput.getText() == null || txtCommandInput.getText().isEmpty()) {
+				taskTableView.setItems(mainApp.getTaskData());
+			} else {
+				String input = txtCommandInput.getText().trim();
+				// logger.log(Level.INFO, "Here comes a command.");
 				CommandPackage cmdPack = cmdParser.getCommandPackage(input);
-				logger.log(Level.INFO, "CommandParser parses the command.");
+				// logger.log(Level.INFO, "CommandParser parses the command.");
 				assert (cmdPack != null);
 				logic.executeCommand(cmdPack);
-				logger.log(Level.INFO, "Logic executes the command.");
-
+				// logger.log(Level.INFO, "Logic executes the command.");
 				// every time when user click "enter", redisplay the task list
 				taskTableView.setItems(mainApp.getTaskData());
 				logger.log(Level.INFO, "Update the table view.");

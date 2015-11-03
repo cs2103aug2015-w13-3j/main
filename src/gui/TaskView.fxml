@@ -8,22 +8,22 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="880.0" prefWidth="1700.0" styleClass="background" stylesheets="@Skin.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.TaskViewController">
+<AnchorPane prefHeight="650.0" prefWidth="1250.0" styleClass="background" stylesheets="@Skin.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.TaskViewController">
    <children>
-      <TextField fx:id="txtCommandInput" layoutX="256.0" layoutY="23.0" onKeyPressed="#enterCommand" prefHeight="34.0" prefWidth="1414.0" promptText="Enter Your Command" />
-      <Label layoutX="28.0" layoutY="40.0" prefHeight="38.0" prefWidth="199.0" text="Command:">
+      <TextField fx:id="txtCommandInput" layoutX="199.0" layoutY="34.0" onKeyPressed="#enterCommand" prefHeight="60.0" prefWidth="1030.0" promptText="Enter Your Command" />
+      <Label layoutX="30.0" layoutY="40.0" prefHeight="50.0" prefWidth="163.0" text="Command:">
          <font>
             <Font name="Apple SD Gothic Neo Regular" size="18.0" />
          </font></Label>
-      <TableView fx:id="taskTableView" layoutX="28.0" layoutY="139.0" prefHeight="658.0" prefWidth="1642.0">
+      <TableView fx:id="taskTableView" layoutX="28.0" layoutY="117.0" prefHeight="465.0" prefWidth="1199.0">
         <columns>
           <TableColumn fx:id="taskNumberColumn" prefWidth="68.0" text="#" />
-          <TableColumn fx:id="taskNameColumn" prefWidth="685.0" text="Task Name" />
-            <TableColumn fx:id="startTimeColumn" prefWidth="323.0" text="Start Time" />
-            <TableColumn fx:id="endTimeColumn" minWidth="0.0" prefWidth="323.0" text="End Time" />
-            <TableColumn fx:id="priority" prefWidth="180.0" text="Priority" />
+          <TableColumn fx:id="taskNameColumn" prefWidth="508.6002655029297" text="Task Name" />
+            <TableColumn fx:id="startTimeColumn" prefWidth="216.2001953125" text="Start Time" />
+            <TableColumn fx:id="endTimeColumn" minWidth="0.0" prefWidth="204.35992431640625" text="End Time" />
+            <TableColumn fx:id="priority" prefWidth="187.73876953125" text="Priority" />
         </columns>
       </TableView>
-      <Label layoutX="28.0" layoutY="808.0" prefHeight="32.0" prefWidth="900.0" text="This is the feedback for an operation. " />
+      <Label layoutX="27.0" layoutY="592.0" prefHeight="32.0" prefWidth="900.0" text="This is the feedback for an operation. " />
    </children>
 </AnchorPane>

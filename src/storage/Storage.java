@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.joda.time.format.ISODateTimeFormat;
-
+//@author A0133948W
 public class Storage {
 
 	private static File filePath = new File("filePath");
@@ -35,7 +35,7 @@ public class Storage {
 			String content;
 
 			// read in original content in the file
-			System.out.println("Reading file.");
+			//System.out.println("Reading file.");
 			while ((content = buff.readLine()) != null) {
 
 				String[] taskInfo = content.split("\\|");
