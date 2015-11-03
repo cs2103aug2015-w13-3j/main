@@ -194,10 +194,14 @@ public class CommandParser {
 	}
 
 	private ArrayList<DateTime> extractSearchDate() {
+		String date;
 		for (int i = 0; i < inputArr.size(); i++) {
 			if (DateParser.isDate(inputArr.get(i))) {
-				String date = inputArr.remove(i);
+				date = inputArr.remove(i);
 				return DateParser.searchDate(date);
+			} else if (TimeParser.isValidSearchFormat(inputArr.get(i))) {
+				date = inputArr.remove(i);
+				return TimeParser.searchTime(date);
 			}
 		}
 		return null;

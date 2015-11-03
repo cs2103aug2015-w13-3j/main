@@ -6,8 +6,8 @@ public class CommandParserDemo {
 		CommandParser cmd = new CommandParser();
 		CommandPackage CPK;
 		System.out.println(cmd.getCommandPackage("").endingTime());
-		CPK = cmd.getCommandPackage("search 12-");
-		System.out.println(CPK.startingTime());
+		CPK = cmd.getCommandPackage("search 12pm");
+		System.out.println(CPK.endingTime());
 		System.out.println();
 		System.out.println(cmd.getCommandPackage("").getPhrase().equals(""));
 		String test = "11/22";
