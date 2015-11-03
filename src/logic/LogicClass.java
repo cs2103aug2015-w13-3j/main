@@ -46,6 +46,7 @@ public class LogicClass {
 
 	public static ArrayList<Task> getTaskList() {
 		if(isSearchOp == true){
+			isSearchOp = false;
 			return searchTaskList;
 		}
 		

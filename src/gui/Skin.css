@@ -14,7 +14,7 @@
 
 .label {
 	-fx-background-color: #feb914;
-    -fx-font-size: 30.0pt;
+    -fx-font-size: 25.0pt;
     -fx-font-weight: bold;
     -fx-font-family: "Bree Serif", BreeSerif;
     -fx-text-fill: black;
@@ -28,7 +28,7 @@
     -fx-background-color: #FFFAF0;
     -fx-border-color: #feb914;
     -fx-font-family: "Berlin Sans FB", Berlnsr;
-    -fx-font-size: 30.0pt;
+    -fx-font-size: 20.0pt;
     -fx-table-cell-border-color: #feb914;
     -fx-table-header-border-color: #feb914;
     -fx-padding: 5.0;
@@ -36,7 +36,7 @@
 
 .table-view .label{
 	-fx-background-color: #FFFAF0;
-    -fx-font-size: 30.0pt;
+    -fx-font-size: 20.0pt;
     -fx-font-weight: bold;
     -fx-font-family: "Bree Serif", BreeSerif;
     -fx-text-fill: #ef4136 ;
@@ -75,7 +75,7 @@
 }
 
 .text-field {
-    -fx-font-size: 25.0pt;
+    -fx-font-size: 20.0pt;
     -fx-border-color: #FFDEAD;
     -fx-text-fill: #FFFFFF;
     -fx-background-color: #ef4136 ;
