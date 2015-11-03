@@ -162,7 +162,7 @@ public class DateParser {
 
 		if (input.equalsIgnoreCase(DATE_YESTERDAY)) {
 			return today.minusDays(1);
-		} else if (input.equalsIgnoreCase(DATE_TOMORROW)) {
+		} else if (input.equalsIgnoreCase(DATE_TOMORROW) || (input.equalsIgnoreCase(DATE_TMRW))) {
 			return today.plusDays(1);
 		}
 
