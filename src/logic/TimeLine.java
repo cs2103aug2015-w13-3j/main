@@ -11,7 +11,7 @@ public class TimeLine {
 	private ArrayList<Task> floatTimeLine;
 	private static TimeLine timeline = null;
 	
-	public TimeLine(){
+	private TimeLine(){
 		this.startTimeLine = new ArrayList<Task>();
 		this.endTimeLine = new ArrayList<Task>();
 		this.floatTimeLine = new ArrayList<Task>();

@@ -7,7 +7,6 @@ import java.util.Collections;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.omg.CORBA.INTERNAL;
 
 import parser.CommandPackage;
 import parser.DateParser;
@@ -19,30 +18,30 @@ public class LogicClass {
 	private static ArrayList<Task> searchTaskList = new ArrayList<Task>();
 	private static ArrayList<Task> archivedList = new ArrayList<Task>();
 	private static boolean isSearchOp = false;
-	Storage storage = new Storage();
+	Storage storage = Storage.getInstance();
+	TimeLine timeline = TimeLine.getInstance();
+	Searcher seacher = Searcher.getInstance();
 	UndoRedoOp undoRedo = null;
 	
-	private static String path = "";
+	private String path = "";
 
 	static LogicClass theOne = null;
 
 	// constructor
-	private LogicClass(Storage storage) {
-		this.storage = storage;
-		taskList = Storage.read();
+	private LogicClass() {
+		taskList = storage.read();
 		for (int i = 0; i < taskList.size(); i++) {
 			Task task = taskList.get(i);
 			PriorityTaskList.addToPL(task);
-			TimeLine.addToTL(task);
+			timeline.addToTL(task);
 		}
 		undoRedo = new UndoRedoOp(new ArrayList<Task>(taskList));
 		
 	}
 
-	public static LogicClass getInstance(Storage storage) {
-		assert storage != null;
+	public static LogicClass getInstance() {
 		if (theOne == null) {
-			theOne = new LogicClass(storage);
+			theOne = new LogicClass();
 		}
 		return theOne;
 	}
@@ -106,24 +105,24 @@ public class LogicClass {
 		case CREATE:
 			addTask(commandPackage);
 			// System.out.println("Adding task.");
-			Storage.write(taskList);
+			storage.write(taskList);
 			break;
 		case UPDATE:
 			edit(commandPackage);
-			Storage.write(taskList);
+			storage.write(taskList);
 			break;
 		case DELETE:
 			// System.out.print("here"+commandInfo.getPhrase());
 			delete(commandPackage.getPhrase());
-			Storage.write(taskList);
+			storage.write(taskList);
 			break;
 		case CLEAR:
 			clear();
-			// Storage.write(taskList);
+			// storage.write(taskList);
 			break;
 		case SORT:
 			sort(commandPackage);
-			Storage.write(taskList);
+			storage.write(taskList);
 			break;
 		case SEARCH:
 			isSearchOp = true;
@@ -132,27 +131,27 @@ public class LogicClass {
 		case REDO:
 			taskList = undoRedo.redo();
 			PriorityTaskList.clear();
-			TimeLine.clear();
+			timeline.clear();
 			for (int i = 0; i < taskList.size(); i++) {
 				Task task = taskList.get(i);
 				PriorityTaskList.addToPL(task);
-				TimeLine.addToTL(task);
+				timeline.addToTL(task);
 			}
-			Storage.write(taskList);
+			storage.write(taskList);
 			break;
 		case UNDO:
 			taskList = new ArrayList<Task>(undoRedo.undo());
 
 			PriorityTaskList.clear();
-			TimeLine.clear();
+			timeline.clear();
 
 			for (int i = 0; i < taskList.size(); i++) {
 				Task task = taskList.get(i);
 				PriorityTaskList.addToPL(task);
-				TimeLine.addToTL(task);
+				timeline.addToTL(task);
 			}
 
-			Storage.write(taskList);
+			storage.write(taskList);
 			break;
 
 		case MARK:
@@ -175,11 +174,11 @@ public class LogicClass {
 	}
 
 	public boolean setPath(String path) {
-		return Storage.setPath(path);
+		return storage.setPath(path);
 	}
 
 	public boolean setPathFirstTime(){
-		return Storage.setPath(this.path);
+		return storage.setPath(this.path);
 	}
 	
 	public Task edit(CommandPackage commandInfo) {
@@ -201,8 +200,7 @@ public class LogicClass {
 				} else if (update.get(2).equals("priority")) {
 					task.setPriority(update.get(3));
 				} else if (update.get(2).equals("time")) {
-					// System.out.println("parsedate" +
-					// DateParser.setDate(update.get(3)));
+					// System.out.println("parse date" + DateParser.setDate(update.get(3)));
 					task.setEndTime(DateParser.setDate(update.get(3)));
 				}
 
@@ -228,15 +226,14 @@ public class LogicClass {
 	public void clear() {
 		taskList.clear();
 		PriorityTaskList.clear();
-		TimeLine.clear();
+		timeline.clear();
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
-		Storage.write(taskList);
+		storage.write(taskList);
 	}
 
 	// To delete certain message
 	public Task delete(String string) {
 		Task task = null;
-		String todayTaskString;
 
 		if (isInteger(string, 10)) { // delete by index
 			int index = Integer.parseInt(string);
@@ -253,13 +250,12 @@ public class LogicClass {
 		}
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 		PriorityTaskList.deleteFromPL(task);
-		TimeLine.deleteFromTL(task);
+		timeline.deleteFromTL(task);
 		return task;
 	}
 
 	public Task mark(String string) {
 		Task task = null;
-		Task todayTask = null;
 		if (isInteger(string, 10)) { // delete by index
 			int index = Integer.parseInt(string);
 			task = taskList.remove(index - 1);
@@ -278,7 +274,7 @@ public class LogicClass {
 
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 		PriorityTaskList.deleteFromPL(task);
-		TimeLine.deleteFromTL(task);
+		timeline.deleteFromTL(task);
 		return task;
 	}
 
@@ -321,7 +317,7 @@ public class LogicClass {
 
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 		PriorityTaskList.addToPL(task);
-		TimeLine.addToTL(task);
+		timeline.addToTL(task);
 		return task;
 
 	}
@@ -367,9 +363,9 @@ public class LogicClass {
 			undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 			return "sorted by name";
 		} else if (commandPackage.getPhrase().equals("time")) {
-			taskList = new ArrayList<Task>(TimeLine.getStarttimeLine());
-			taskList.addAll(TimeLine.getEndtimeLine());
-			taskList.addAll(TimeLine.getFloattimeLine());
+			taskList = new ArrayList<Task>(timeline.getStarttimeLine());
+			taskList.addAll(timeline.getEndtimeLine());
+			taskList.addAll(timeline.getFloattimeLine());
 
 			undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 			return "sorted by date";
@@ -405,7 +401,7 @@ public class LogicClass {
 
 		// System.out.println("task name searcher" + task.getName());
 
-		searchTaskList = new ArrayList<Task>(Searcher.search(task));
+		searchTaskList = new ArrayList<Task>(seacher.search(task));
 		return searchTaskList;
 
 		/**

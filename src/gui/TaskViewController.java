@@ -3,7 +3,6 @@ package gui;
 import logic.*;
 import parser.CommandPackage;
 import parser.CommandParser;
-import storage.Storage;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -44,9 +43,7 @@ public class TaskViewController {
 	// Reference to the main application.
 	private MainApp mainApp;
 
-	private Storage storage = new Storage();
-
-	private LogicClass logic = LogicClass.getInstance(storage);
+	private LogicClass logic = LogicClass.getInstance();
 
 	CommandParser cmdParser = new CommandParser();
 
@@ -59,7 +56,6 @@ public class TaskViewController {
 	public TaskViewController() {
 	}
 
-	 
 	@FXML
 	private void initialize() {
 		// Initialize the task table with the five columns.
@@ -70,7 +66,6 @@ public class TaskViewController {
 		priority.setCellValueFactory(cellData -> cellData.getValue().priorityProperty());
 	}
 
-	 
 	public void enterCommand(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			if (txtCommandInput.getText() == null || txtCommandInput.getText().isEmpty()) {
@@ -81,9 +76,10 @@ public class TaskViewController {
 				CommandPackage cmdPack = cmdParser.getCommandPackage(input);
 				// logger.log(Level.INFO, "CommandParser parses the command.");
 				assert (cmdPack != null);
-//				String feedback = logic.executeCommand(cmdPack);
-//				if (feedback.compareToIgnoreCase("help") == 0){
-//					
+				// String feedback =
+				logic.executeCommand(cmdPack);
+//				if (feedback.compareToIgnoreCase("help") == 0) {
+//
 //				}
 				// logger.log(Level.INFO, "Logic executes the command.");
 				// every time when user click "enter", redisplay the task list

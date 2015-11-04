@@ -6,7 +6,7 @@ import org.joda.time.DateTime;
 public class Searcher {
 	
 	private static Searcher searcher = null;
-	public Searcher(){
+	private Searcher(){
 	}
 	
 	public static Searcher getInstance(){

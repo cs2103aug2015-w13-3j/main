@@ -17,8 +17,9 @@ public class Storage {
 	private static File userFile;
 	private static Storage storage = null;
 	
-	public Storage(){
+	private Storage(){
 	}
+	
 	public static Storage getInstance(){
 		if(storage == null){
 			storage = new Storage();
