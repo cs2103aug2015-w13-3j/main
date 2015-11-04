@@ -2,6 +2,9 @@ package parser;
 
 import org.joda.time.DateTime;
 
+//@author A0122061B
+
+
 public class DatePackage {
 	private DateTime start;
 	boolean hasStartTime = false, hasStartMinute = false;
