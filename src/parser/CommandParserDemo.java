@@ -1,7 +1,7 @@
 package parser;
 
 
-//@author A0122061B
+//@@author A0122061B
 
 
 public class CommandParserDemo {
