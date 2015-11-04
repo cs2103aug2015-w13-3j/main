@@ -17,7 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-//import org.controlsfx.control.Notifications;
+import org.controlsfx.control.Notifications;
 
 public class TaskViewController {
 
