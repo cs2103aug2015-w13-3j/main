@@ -6,6 +6,8 @@ import java.util.Arrays;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+//@author A0122061B
+
 
 public class TimeParser {
 	private static final String TIME_FORMAT_0 = "HH:mm";
