@@ -7,23 +7,20 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import parser.CommandPackage;
-import parser.CommandParser;
 
 public class LogicTestCases {
 
 	
 	@Test
 	public void TestAdd() {
-		CommandParser parser = new CommandParser("add party tomorrow");
 		
         CommandPackage commandPackage = new CommandPackage();
         commandPackage.setCommand("add");
         commandPackage.setPhrase("meeting");
         Task t = new Task("meeting");
-        
 		
 		assertEquals(t.getName(),
-				LogicClass.getInstance(null).addTask(commandPackage).getName());
+				LogicClass.getInstance().addTask(commandPackage).getName());
 
 	}
 	
@@ -36,7 +33,7 @@ public class LogicTestCases {
         
 		
 		assertEquals(t.getName(),
-				LogicClass.getInstance(null).delete( commandPackage.getPhrase()));
+				LogicClass.getInstance().delete( commandPackage.getPhrase()));
 
 	}
 }

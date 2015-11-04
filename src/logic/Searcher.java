@@ -2,10 +2,21 @@ package logic;
 
 import java.util.ArrayList;
 import org.joda.time.DateTime;
-//@author A0133948W
+//@@author A0133948W
 public class Searcher {
 	
-	public static ArrayList<Task> search(Task target){
+	private static Searcher searcher = null;
+	private Searcher(){
+	}
+	
+	public static Searcher getInstance(){
+		if(searcher == null){
+			searcher = new Searcher();
+		}
+		return searcher;
+		
+	}
+	public ArrayList<Task> search(Task target){
 		ArrayList<Task> result = new ArrayList<Task>();
 		if(target.getStartTime() != null){
 			result = searchDate(target.getStartTime(), target.getEndTime());
@@ -29,7 +40,7 @@ public class Searcher {
 
 	}
 	
-	public static ArrayList<Task> searchKeyword(String key, ArrayList<Task> sample){
+	public ArrayList<Task> searchKeyword(String key, ArrayList<Task> sample){
 		int i, j;
 		String[] keywords = key.split(" ");
 		String keyword;
@@ -48,7 +59,7 @@ public class Searcher {
 		return sampleCopy;		
 	}
 
-	public static ArrayList<Task> searchPriority(int priority){
+	public ArrayList<Task> searchPriority(int priority){
 		ArrayList<Task> result = new ArrayList<Task>();
 		if(priority == 1){
 			result.addAll(PriorityTaskList.getP1());
@@ -60,12 +71,12 @@ public class Searcher {
 		return result;
 	}
 	
-	public static ArrayList<Task> searchPriorityFrom(int priority, ArrayList<Task> sample){
+	public ArrayList<Task> searchPriorityFrom(int priority, ArrayList<Task> sample){
 		int i;
 		Task target;
 		for(i = 0; i < sample.size(); i++){
 		    target = sample.get(i);
-			if(target.getPriority() != priority){
+			if((target.getPriority() == null) || (target.getPriority() != priority)){
 		    	sample.remove(i);
 		    	i--;
 		    }					
@@ -79,9 +90,9 @@ public class Searcher {
 		searchFromEnd(TimeLine.getEndtimeLine(), date, result);
 		return result;
 	}*/
-	public static ArrayList<Task> searchDate(DateTime start, DateTime end){
-		ArrayList<Task> result1 = new ArrayList<Task>(TimeLine.getStarttimeLine());
-		ArrayList<Task> result2 = new ArrayList<Task>(TimeLine.getEndtimeLine());
+	public ArrayList<Task> searchDate(DateTime start, DateTime end){
+		ArrayList<Task> result1 = new ArrayList<Task>(TimeLine.getInstance().getStarttimeLine());
+		ArrayList<Task> result2 = new ArrayList<Task>(TimeLine.getInstance().getEndtimeLine());
 		Task t;
 		for(int i = 0; i < result1.size(); i++){
 			t = result1.get(i);

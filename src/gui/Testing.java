@@ -12,8 +12,7 @@ import storage.Storage;
 public class Testing {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		Storage storage = new Storage();
-		LogicClass logic = LogicClass.getInstance(storage);
+		LogicClass logic = LogicClass.getInstance();
 		CommandParser cmdParser = new CommandParser();
 		while (true) {
 			System.out.println("Plz key in your command: ");

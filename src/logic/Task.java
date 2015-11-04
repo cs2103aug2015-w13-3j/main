@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+//@@author A0133915H
 public class Task implements Comparable<Task> {
 	private String name;
 	private DateTime startTime = null;
@@ -51,7 +52,7 @@ public class Task implements Comparable<Task> {
 		this.endTime = end;
 	}
 
-	//@author A0133915H
+	//@@author A0133915H
 	public void setPriority(String pri) {
 		if (pri == null) {
 			System.out.println("Oh no the priority is null");
@@ -106,12 +107,10 @@ public class Task implements Comparable<Task> {
 		return name;
 	}
 
-	//@author A0133915H
 	public StringProperty taskNameProperty() {
 		return new SimpleStringProperty(this.name);
 	}
 
-	//@author A0133915H
 	public StringProperty startTimeProperty() {
 		// System.out.println("startTime: " + startTime);
 		StringProperty result;
@@ -135,7 +134,6 @@ public class Task implements Comparable<Task> {
 		return result;
 	}
 
-	//@author A0133915
 	public StringProperty endTimeProperty() {
 		// System.out.println("endTime: " + endTime);
 		StringProperty result;
@@ -158,7 +156,6 @@ public class Task implements Comparable<Task> {
 		return result;
 	}
 
-	//@author A0133915H
 	public StringProperty priorityProperty() {
 		if (this.priority == null) {
 			return new SimpleStringProperty("");
@@ -166,7 +163,6 @@ public class Task implements Comparable<Task> {
 		return new SimpleStringProperty(Integer.toString(this.priority));
 	}
 
-	//@author A0133915H
 	public SimpleStringProperty taskNumberProperty() {
 		if (this.taskNum == null) {
 			return new SimpleStringProperty("");
