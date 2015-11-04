@@ -17,8 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-import org.controlsfx.control.Notifications;
-
+//@@author A0133915H
 public class TaskViewController {
 
 	@FXML
@@ -58,10 +57,9 @@ public class TaskViewController {
 	 * method.
 	 */
 	public TaskViewController() {
-
 	}
 
-	//@author A0133915H
+	 
 	@FXML
 	private void initialize() {
 		// Initialize the task table with the five columns.
@@ -72,7 +70,7 @@ public class TaskViewController {
 		priority.setCellValueFactory(cellData -> cellData.getValue().priorityProperty());
 	}
 
-	//@author A0133915H
+	 
 	public void enterCommand(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			if (txtCommandInput.getText() == null || txtCommandInput.getText().isEmpty()) {
@@ -83,7 +81,10 @@ public class TaskViewController {
 				CommandPackage cmdPack = cmdParser.getCommandPackage(input);
 				// logger.log(Level.INFO, "CommandParser parses the command.");
 				assert (cmdPack != null);
-				logic.executeCommand(cmdPack);
+//				String feedback = logic.executeCommand(cmdPack);
+//				if (feedback.compareToIgnoreCase("help") == 0){
+//					
+//				}
 				// logger.log(Level.INFO, "Logic executes the command.");
 				// every time when user click "enter", redisplay the task list
 				taskTableView.setItems(mainApp.getTaskData());
@@ -99,7 +100,6 @@ public class TaskViewController {
 	 * @param mainApp
 	 */
 
-	//@author A0133915H
 	public void setMainApp(MainApp mainApp) {
 		System.out.println("set Main app.");
 		this.mainApp = mainApp;

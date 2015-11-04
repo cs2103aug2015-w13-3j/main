@@ -21,6 +21,8 @@ public class LogicClass {
 	private static boolean isSearchOp = false;
 	Storage storage = new Storage();
 	UndoRedoOp undoRedo = null;
+	
+	private static String path = "";
 
 	static LogicClass theOne = null;
 
@@ -34,6 +36,7 @@ public class LogicClass {
 			TimeLine.addToTL(task);
 		}
 		undoRedo = new UndoRedoOp(new ArrayList<Task>(taskList));
+		
 	}
 
 	public static LogicClass getInstance(Storage storage) {
@@ -172,9 +175,13 @@ public class LogicClass {
 	}
 
 	public boolean setPath(String path) {
-		return storage.setPath(path);
+		return Storage.setPath(path);
 	}
 
+	public boolean setPathFirstTime(){
+		return Storage.setPath(this.path);
+	}
+	
 	public Task edit(CommandPackage commandInfo) {
 
 		ArrayList<String> update = commandInfo.getUpdateSequence();
