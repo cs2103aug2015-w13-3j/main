@@ -9,7 +9,7 @@ public class Searcher {
 		ArrayList<Task> result = new ArrayList<Task>();
 		if(target.getStartTime() != null){
 			result = searchDate(target.getStartTime(), target.getEndTime());
-			if(target.getPriority() < 4){
+			if(target.getPriority() !=null){
 				result = searchPriorityFrom(target.getPriority(), result);
 			}
 			if(target.getName() != null){
