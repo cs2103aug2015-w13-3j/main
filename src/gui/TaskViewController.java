@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
@@ -17,6 +16,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+
+//import org.controlsfx.control.Notifications;
 
 public class TaskViewController {
 
@@ -60,6 +61,7 @@ public class TaskViewController {
 
 	}
 
+	//@author A0133915H
 	@FXML
 	private void initialize() {
 		// Initialize the task table with the five columns.
@@ -70,6 +72,7 @@ public class TaskViewController {
 		priority.setCellValueFactory(cellData -> cellData.getValue().priorityProperty());
 	}
 
+	//@author A0133915H
 	public void enterCommand(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			if (txtCommandInput.getText() == null || txtCommandInput.getText().isEmpty()) {
@@ -96,6 +99,7 @@ public class TaskViewController {
 	 * @param mainApp
 	 */
 
+	//@author A0133915H
 	public void setMainApp(MainApp mainApp) {
 		System.out.println("set Main app.");
 		this.mainApp = mainApp;

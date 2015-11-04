@@ -11,7 +11,7 @@ public class Task implements Comparable<Task> {
 	private DateTime endTime = null;
 	private Integer priority = null;
 	private Integer taskNum = null;
-
+	
 	public Task(String name) {
 		this.name = name;
 	}
