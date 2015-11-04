@@ -10,13 +10,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.joda.time.format.ISODateTimeFormat;
-//@author A0133948W
+//@@author A0133948W
 public class Storage {
 
 	private static File filePath = new File("filePath");
 	private static File userFile;
+	private static Storage storage = null;
+	
+	public Storage(){
+	}
+	public static Storage getInstance(){
+		if(storage == null){
+			storage = new Storage();
+			return storage;
+		}else{
+			return storage;
+		}
+	}
 
-	public static ArrayList<Task> read() {
+	public ArrayList<Task> read() {
 		ArrayList<Task> taskList = new ArrayList<Task>();
 		try {
 			
@@ -75,7 +87,7 @@ public class Storage {
 		return taskList;
 	}
 
-	public static void write(ArrayList<Task> taskList) {
+	public void write(ArrayList<Task> taskList) {
 		try {
 			FileWriter fw = new FileWriter(userFile, false);
 			BufferedWriter buff = new BufferedWriter(fw);
@@ -117,7 +129,7 @@ public class Storage {
 		}
 	}
 	
-	public static Boolean setPath(String path){
+	public Boolean setPath(String path){
 		try{
 			File newPath = new File(path);
 			newPath.createNewFile();

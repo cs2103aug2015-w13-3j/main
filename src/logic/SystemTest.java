@@ -8,7 +8,7 @@ import parser.DatePackage;
 import parser.TimeParser;
 
 import org.junit.Test;
-//@author A0133948W
+//@@author A0133948W
 public class SystemTest {
 
 	@Test
