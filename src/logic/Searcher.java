@@ -76,7 +76,7 @@ public class Searcher {
 		Task target;
 		for(i = 0; i < sample.size(); i++){
 		    target = sample.get(i);
-			if(target.getPriority() != priority){
+			if((target.getPriority() == null) || (target.getPriority() != priority)){
 		    	sample.remove(i);
 		    	i--;
 		    }					
