@@ -29,6 +29,7 @@ public class MainApp extends Application {
 	public MainApp() {
 	}
 
+	//@author A0133915H
 	public ObservableList<Task> getTaskData() {
 		ArrayList<Task> tasks = LogicClass.getTaskList();
 		for (int i = 0; i < tasks.size(); i++) {
@@ -41,12 +42,14 @@ public class MainApp extends Application {
 		return taskList;
 	}
 
+	//@author A0133915H
 	public ObservableList<String> getTodayTasks(){
 		ArrayList<String> todayTasks = LogicClass.getTodayTasks();
 		todayTaskList = FXCollections.observableArrayList(todayTasks);
 		return todayTaskList;
 	}
 	
+	//@author A0133915H
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -63,6 +66,7 @@ public class MainApp extends Application {
 		}
 	}
 
+	//@author A0133915H
 	/**
 	 * Initializes the root layout.
 	 */
@@ -82,6 +86,7 @@ public class MainApp extends Application {
 		}
 	}
 
+	//@author A0133915H
 	/**
 	 * Shows the person overview inside the root layout.
 	 */
@@ -104,6 +109,7 @@ public class MainApp extends Application {
 		}
 	}
 
+	//@author A0133915H
 	/**
 	 * Returns the main stage.
 	 * 
@@ -114,6 +120,7 @@ public class MainApp extends Application {
 		return primaryStage;
 	}
 
+	//@author A0133915H
 	public static void main(String[] args) {
 		launch(args);
 	}

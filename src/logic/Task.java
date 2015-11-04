@@ -9,9 +9,6 @@ public class Task implements Comparable<Task> {
 	private String name;
 	private DateTime startTime = null;
 	private DateTime endTime = null;
-	// public DateTime deadline;
-	// private String location;
-	// private String description;
 	private Integer priority = null;
 	private Integer taskNum = null;
 
@@ -54,18 +51,7 @@ public class Task implements Comparable<Task> {
 		this.endTime = end;
 	}
 
-	// public void setDeadline(DateTime deadline) {
-	// this.deadline = deadline;
-	// }
-
-	// public void setLocation(String location) {
-	// this.location = location;
-	// }
-
-	// public void setDescription(String description) {
-	// this.description = description;
-	// }
-
+	//@author A0133915H
 	public void setPriority(String pri) {
 		if (pri == null) {
 			System.out.println("Oh no the priority is null");
@@ -120,10 +106,12 @@ public class Task implements Comparable<Task> {
 		return name;
 	}
 
+	//@author A0133915H
 	public StringProperty taskNameProperty() {
 		return new SimpleStringProperty(this.name);
 	}
 
+	//@author A0133915H
 	public StringProperty startTimeProperty() {
 		// System.out.println("startTime: " + startTime);
 		StringProperty result;
@@ -147,6 +135,7 @@ public class Task implements Comparable<Task> {
 		return result;
 	}
 
+	//@author A0133915
 	public StringProperty endTimeProperty() {
 		// System.out.println("endTime: " + endTime);
 		StringProperty result;
@@ -169,6 +158,7 @@ public class Task implements Comparable<Task> {
 		return result;
 	}
 
+	//@author A0133915H
 	public StringProperty priorityProperty() {
 		if (this.priority == null) {
 			return new SimpleStringProperty("");
@@ -176,6 +166,7 @@ public class Task implements Comparable<Task> {
 		return new SimpleStringProperty(Integer.toString(this.priority));
 	}
 
+	//@author A0133915H
 	public SimpleStringProperty taskNumberProperty() {
 		if (this.taskNum == null) {
 			return new SimpleStringProperty("");

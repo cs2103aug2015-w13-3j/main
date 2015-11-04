@@ -11,6 +11,7 @@ public class UndoRedoOp {
 	private ArrayList<Task> initialState = null;
 	private ArrayList<Task> currentState = null;
 	
+	//@author A0133915H
 	public UndoRedoOp(ArrayList<Task> initialState){
 		undoStack = new Stack<ArrayList<Task>>();
 		redoStack = new Stack<ArrayList<Task>>();
@@ -19,6 +20,7 @@ public class UndoRedoOp {
 		//undoStack.push(this.initialState);
 	}
 	
+	//@author A0133915H
 	public ArrayList<Task> undo(){
 		if(!undoStack.isEmpty()){
 			ArrayList<Task> current = undoStack.pop();
@@ -33,6 +35,7 @@ public class UndoRedoOp {
 		return initialState;
 	}
 	
+	//@author A0133915H
 	public ArrayList<Task> redo(){
 		if(!redoStack.isEmpty()){
 			ArrayList<Task> previousState = redoStack.pop();
@@ -42,6 +45,7 @@ public class UndoRedoOp {
 		return currentState;
 	}
 	
+	//@author A0133915H
 	public ArrayList<Task> addStateToUndo(ArrayList<Task> recentState){
 		undoStack.push(new ArrayList<Task>(recentState));
 		redoStack.clear();

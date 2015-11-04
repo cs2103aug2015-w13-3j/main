@@ -22,8 +22,8 @@ public class LogicClass {
 	Storage storage = new Storage();
 	UndoRedoOp undoRedo = null;
 
-	static LogicClass theOne =null;
-    
+	static LogicClass theOne = null;
+
 	// constructor
 	private LogicClass(Storage storage) {
 		this.storage = storage;
@@ -45,38 +45,37 @@ public class LogicClass {
 	}
 
 	public static ArrayList<Task> getTaskList() {
-		if(isSearchOp == true){
+		if (isSearchOp == true) {
 			isSearchOp = false;
 			return searchTaskList;
 		}
-		
+
 		return new ArrayList<Task>(taskList);
 	}
-	
+
 	public static ArrayList<Task> getTaskListForSearcher() {
-		
+
 		return new ArrayList<Task>(taskList);
 	}
 
 	public static ArrayList<String> getTodayTasks() {
 		ArrayList<String> todayTasks = new ArrayList<String>();
 		Task task = null;
-		String taskString="";
-		
+		String taskString = "";
+
 		for (int i = 0; i < taskList.size(); i++) {
 			task = taskList.get(i);
-			if(isTodayTask(task)==true){
-				taskString += task.getName()+" ";
-				
-				
+			if (isTodayTask(task) == true) {
+				taskString += task.getName() + " ";
+
 				if (task.getStartTime() != null) {
-					taskString += "from "+ task.getStartTime();
+					taskString += "from " + task.getStartTime();
 				}
 				if (task.getEndTime() != null) {
-					taskString += "to "+ task.getEndTime();
+					taskString += "to " + task.getEndTime();
 				}
-                todayTasks.add(taskString);
-                //System.out.println("taskString"+taskString);
+				todayTasks.add(taskString);
+				// System.out.println("taskString"+taskString);
 			}
 		}
 		return todayTasks;
@@ -84,27 +83,26 @@ public class LogicClass {
 
 	// These are the possible command types
 	enum COMMAND_TYPE {
-		CREATE, DELETE, CLEAR, EXIT, INVALID, SORT, SEARCH, UPDATE, REDO, 
-		UNDO, MARK, SET;
+		CREATE, DELETE, CLEAR, EXIT, INVALID, SORT, SEARCH, UPDATE, REDO, UNDO, MARK, SET;
 	};
 
 	public void executeCommand(CommandPackage commandPackage) {
 		// int taskIndex;
-		isSearchOp=false;
-		
-		//System.out.("Get the command type string: " + commandPackage.getCommand());
+		isSearchOp = false;
+
+		// System.out.("Get the command type string: " +
+		// commandPackage.getCommand());
 		String commandTypeString = commandPackage.getCommand();
-		
-		commandTypeString= commandTypeString.toUpperCase();
-		
-		
+
+		commandTypeString = commandTypeString.toUpperCase();
+
 		COMMAND_TYPE commandType = COMMAND_TYPE.valueOf(commandTypeString);
-		//COMMAND_TYPE commandType = determineCommandType(commandTypeString);
+		// COMMAND_TYPE commandType = determineCommandType(commandTypeString);
 
 		switch (commandType) {
 		case CREATE:
 			addTask(commandPackage);
-			//System.out.println("Adding task.");
+			// System.out.println("Adding task.");
 			Storage.write(taskList);
 			break;
 		case UPDATE:
@@ -118,14 +116,14 @@ public class LogicClass {
 			break;
 		case CLEAR:
 			clear();
-			//Storage.write(taskList);
+			// Storage.write(taskList);
 			break;
 		case SORT:
 			sort(commandPackage);
 			Storage.write(taskList);
 			break;
 		case SEARCH:
-			isSearchOp=true;
+			isSearchOp = true;
 			search(commandPackage);
 			break;
 		case REDO:
@@ -141,19 +139,19 @@ public class LogicClass {
 			break;
 		case UNDO:
 			taskList = new ArrayList<Task>(undoRedo.undo());
-			
+
 			PriorityTaskList.clear();
 			TimeLine.clear();
-			
+
 			for (int i = 0; i < taskList.size(); i++) {
 				Task task = taskList.get(i);
 				PriorityTaskList.addToPL(task);
 				TimeLine.addToTL(task);
 			}
-			
+
 			Storage.write(taskList);
 			break;
-			
+
 		case MARK:
 			mark(commandPackage.getPhrase());
 			break;
@@ -172,47 +170,47 @@ public class LogicClass {
 	private String invalid() {
 		return "The command is invalid, please key in the valid command.";
 	}
-	
-	public boolean setPath(String path) {		
+
+	public boolean setPath(String path) {
 		return storage.setPath(path);
 	}
 
 	public Task edit(CommandPackage commandInfo) {
-		
-		 
+
 		ArrayList<String> update = commandInfo.getUpdateSequence();
 		String target = update.get(1);
 		Task task;
 		Task newTask;
 
-		for (int i=0;i<taskList.size();i++) {
-			task= taskList.get(i);
+		for (int i = 0; i < taskList.size(); i++) {
+			task = taskList.get(i);
 			if (task.getName().equals(target)) {
-				
-				if(update.get(2).equals("name")){
+
+				if (update.get(2).equals("name")) {
 					if (update.get(3) != null) {
 						task.setTaskName(update.get(3));
 					}
-					
-				}else if(update.get(2).equals("priority")){
+
+				} else if (update.get(2).equals("priority")) {
 					task.setPriority(update.get(3));
-				}else if(update.get(2).equals("time")){
-					//System.out.println("parsedate" + DateParser.setDate(update.get(3)));
+				} else if (update.get(2).equals("time")) {
+					// System.out.println("parsedate" +
+					// DateParser.setDate(update.get(3)));
 					task.setEndTime(DateParser.setDate(update.get(3)));
 				}
-				
-				newTask= new Task(task.getName());
+
+				newTask = new Task(task.getName());
 				newTask.setStartTime(task.getStartTime());
 				newTask.setEndTime(task.getEndTime());
-				if(task.getPriority()!=null){
+				if (task.getPriority() != null) {
 					newTask.setPriority(task.getPriority().toString());
 				}
-				
-			    taskList.remove(i);
+
+				taskList.remove(i);
 				taskList.add(i, newTask);
 				break;
 			}
-			
+
 		}
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 		return null;
@@ -231,13 +229,13 @@ public class LogicClass {
 	// To delete certain message
 	public Task delete(String string) {
 		Task task = null;
-        String	todayTaskString;
-        
-        if (isInteger(string, 10)) { // delete by index
+		String todayTaskString;
+
+		if (isInteger(string, 10)) { // delete by index
 			int index = Integer.parseInt(string);
-			task=taskList.remove(index-1);
-			
-		}else{//delete by name
+			task = taskList.remove(index - 1);
+
+		} else {// delete by name
 			for (int i = 0; i < taskList.size(); i++) {
 				task = taskList.get(i);
 				if (task.getName().equals(string)) {
@@ -246,7 +244,7 @@ public class LogicClass {
 				}
 			}
 		}
-        undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
+		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 		PriorityTaskList.deleteFromPL(task);
 		TimeLine.deleteFromTL(task);
 		return task;
@@ -254,13 +252,13 @@ public class LogicClass {
 
 	public Task mark(String string) {
 		Task task = null;
-		Task todayTask=null;
+		Task todayTask = null;
 		if (isInteger(string, 10)) { // delete by index
 			int index = Integer.parseInt(string);
-			task=taskList.remove(index-1);
+			task = taskList.remove(index - 1);
 			archivedList.add(task);
-			
-		}else{//delete by name
+
+		} else {// delete by name
 			for (int i = 0; i < taskList.size(); i++) {
 				task = taskList.get(i);
 				if (task.getName().equals(string)) {
@@ -276,7 +274,7 @@ public class LogicClass {
 		TimeLine.deleteFromTL(task);
 		return task;
 	}
-	
+
 	private boolean isInteger(String s, int radix) {
 		if (s.isEmpty())
 			return false;
@@ -293,7 +291,6 @@ public class LogicClass {
 		return true;
 	}
 
-	
 	public Task addTask(CommandPackage commandInfo) {
 
 		Task task = new Task(commandInfo.getPhrase());
@@ -303,16 +300,15 @@ public class LogicClass {
 		if (commandInfo.endingTime() != null) {
 			task.setEndTime(commandInfo.endingTime());
 		}
-		
+
 		if (commandInfo.getPriority() != null) {
 			String pri = commandInfo.getPriority().trim();
 			if (pri != null && pri != "") {
 				task.setPriority(pri);
 			}
 		}
-		
+
 		// System.out.println("priority: " + pri);
-		
 
 		taskList.add(task);
 
@@ -322,67 +318,66 @@ public class LogicClass {
 		return task;
 
 	}
-	
-	public static boolean isTodayTask(Task t){
-		if(t.getEndTime()==null && t.getStartTime()==null){
+
+	public static boolean isTodayTask(Task t) {
+		if (t.getEndTime() == null && t.getStartTime() == null) {
 			return false;
 		}
-		
+
 		DateTime now = new DateTime();
 		LocalDate today = now.toLocalDate();
 		LocalDate tomorrow = today.plusDays(1);
 
 		DateTime startOfToday = today.toDateTimeAtStartOfDay(now.getZone());
 		DateTime startOfTomorrow = tomorrow.toDateTimeAtStartOfDay(now.getZone());
-		
-		if(t.getEndTime()==null && t.getStartTime()==null){
+
+		if (t.getEndTime() == null && t.getStartTime() == null) {
 			return false;
 		}
-		
-		if(t.getEndTime() !=null ){
-			if( t.getEndTime().isBefore(startOfToday)){
-				return false;		
+
+		if (t.getEndTime() != null) {
+			if (t.getEndTime().isBefore(startOfToday)) {
+				return false;
 			}
 		}
-		
-		if(t.getStartTime() !=null ){
-			if( t.getEndTime().isBefore(startOfToday)){
-				return false;		
+
+		if (t.getStartTime() != null) {
+			if (t.getEndTime().isBefore(startOfToday)) {
+				return false;
 			}
 		}
-		
-		if(t.getStartTime() != null && t.getEndTime() != null && t.getStartTime().isAfter(startOfToday) && 
-				t.getEndTime().isBefore(startOfTomorrow)){
-			return true;		
+
+		if (t.getStartTime() != null && t.getEndTime() != null && t.getStartTime().isAfter(startOfToday)
+				&& t.getEndTime().isBefore(startOfTomorrow)) {
+			return true;
 		}
 		return false;
 	}
 
 	public String sort(CommandPackage commandPackage) {
-		if(commandPackage.getPhrase().equals("name")){
+		if (commandPackage.getPhrase().equals("name")) {
 			Collections.sort(taskList);
 			undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 			return "sorted by name";
-		}else if(commandPackage.getPhrase().equals("time")){
-			taskList= new ArrayList<Task>(TimeLine.getStarttimeLine());
+		} else if (commandPackage.getPhrase().equals("time")) {
+			taskList = new ArrayList<Task>(TimeLine.getStarttimeLine());
 			taskList.addAll(TimeLine.getEndtimeLine());
 			taskList.addAll(TimeLine.getFloattimeLine());
-			
+
 			undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 			return "sorted by date";
-		}else if(commandPackage.getPhrase().equals("priority")){
-			taskList= new ArrayList<Task>(PriorityTaskList.getP1());
+		} else if (commandPackage.getPhrase().equals("priority")) {
+			taskList = new ArrayList<Task>(PriorityTaskList.getP1());
 			taskList.addAll(PriorityTaskList.getP2());
 			taskList.addAll(PriorityTaskList.getP3());
 			taskList.addAll(PriorityTaskList.getP4());
-			
+
 			undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 			return "sorted by priority";
-		}else{
+		} else {
 			return "invalid sorting type";
 		}
-		
-		
+
 	}
 
 	public ArrayList<Task> search(CommandPackage commandInfo) {
@@ -390,32 +385,28 @@ public class LogicClass {
 		if (commandInfo.startingTime() != null) {
 			task.setStartTime(commandInfo.startingTime());
 		}
-		
+
 		if (commandInfo.endingTime() != null) {
 			task.setEndTime(commandInfo.endingTime());
 		}
-		
+
 		String pri = commandInfo.getPriority().trim();
-		
+
 		if (pri != null && pri != "") {
 			task.setPriority(pri);
 		}
-		
-		//System.out.println("task name searcher" + task.getName());
-		
-		searchTaskList = new ArrayList<Task>(Searcher.search(task) );
+
+		// System.out.println("task name searcher" + task.getName());
+
+		searchTaskList = new ArrayList<Task>(Searcher.search(task));
 		return searchTaskList;
-		
+
 		/**
-		String taskWithKeyword = "";
-		ArrayList<Task> taskContainKeyword = new ArrayList<Task>();
-		for (Task task : taskList) {
-			if (task.containKeyword(taskWithKeyword)) {
-				taskContainKeyword.add(task);
-			}
-		}
-		return taskWithKeyword.toString();
-		*/
+		 * String taskWithKeyword = ""; ArrayList<Task> taskContainKeyword = new
+		 * ArrayList<Task>(); for (Task task : taskList) { if
+		 * (task.containKeyword(taskWithKeyword)) {
+		 * taskContainKeyword.add(task); } } return taskWithKeyword.toString();
+		 */
 	}
 
 	/**
@@ -424,38 +415,31 @@ public class LogicClass {
 	 * @param commandTypeString
 	 *            is the first word of the user command
 	 */
-	
-	/**
-	private static COMMAND_TYPE determineCommandType(String commandTypeString) {
-		if (commandTypeString == null)
-			throw new Error("command type string cannot be null!");
 
-		if (commandTypeString.equalsIgnoreCase("create")) {
-			return COMMAND_TYPE.ADD;
-		} else if (commandTypeString.equalsIgnoreCase("delete")) {
-			return COMMAND_TYPE.DELETE;
-		} else if (commandTypeString.equalsIgnoreCase("update")) {
-			return COMMAND_TYPE.EDIT;
-		} else if (commandTypeString.equalsIgnoreCase("clear")) {
-			return COMMAND_TYPE.CLEAR;
-		} else if (commandTypeString.equalsIgnoreCase("exit")) {
-			return COMMAND_TYPE.EXIT;
-		} else if (commandTypeString.equalsIgnoreCase("sort")) {
-			return COMMAND_TYPE.SORT;
-		} else if (commandTypeString.equalsIgnoreCase("search")) {
-			return COMMAND_TYPE.SEARCH;
-		} else if (commandTypeString.equalsIgnoreCase("sort by start time")) {
-			return COMMAND_TYPE.SORTBYSTARTTIME;
-		} else if (commandTypeString.equalsIgnoreCase("sort by deadline")) {
-			return COMMAND_TYPE.SORTBYDEADLINE;
-		} else if (commandTypeString.equalsIgnoreCase("undo")) {
-			return COMMAND_TYPE.UNDO;
-		} else if (commandTypeString.equalsIgnoreCase("redo")) {
-			return COMMAND_TYPE.REDO;
-		} else {
-			return COMMAND_TYPE.INVALID;
-		}
-	}
-	*/
+	/**
+	 * private static COMMAND_TYPE determineCommandType(String
+	 * commandTypeString) { if (commandTypeString == null) throw new Error(
+	 * "command type string cannot be null!");
+	 * 
+	 * if (commandTypeString.equalsIgnoreCase("create")) { return
+	 * COMMAND_TYPE.ADD; } else if
+	 * (commandTypeString.equalsIgnoreCase("delete")) { return
+	 * COMMAND_TYPE.DELETE; } else if
+	 * (commandTypeString.equalsIgnoreCase("update")) { return
+	 * COMMAND_TYPE.EDIT; } else if
+	 * (commandTypeString.equalsIgnoreCase("clear")) { return
+	 * COMMAND_TYPE.CLEAR; } else if
+	 * (commandTypeString.equalsIgnoreCase("exit")) { return COMMAND_TYPE.EXIT;
+	 * } else if (commandTypeString.equalsIgnoreCase("sort")) { return
+	 * COMMAND_TYPE.SORT; } else if
+	 * (commandTypeString.equalsIgnoreCase("search")) { return
+	 * COMMAND_TYPE.SEARCH; } else if (commandTypeString.equalsIgnoreCase(
+	 * "sort by start time")) { return COMMAND_TYPE.SORTBYSTARTTIME; } else if
+	 * (commandTypeString.equalsIgnoreCase("sort by deadline")) { return
+	 * COMMAND_TYPE.SORTBYDEADLINE; } else if
+	 * (commandTypeString.equalsIgnoreCase("undo")) { return COMMAND_TYPE.UNDO;
+	 * } else if (commandTypeString.equalsIgnoreCase("redo")) { return
+	 * COMMAND_TYPE.REDO; } else { return COMMAND_TYPE.INVALID; } }
+	 */
 
 }
