@@ -7,8 +7,6 @@ import org.joda.time.DateTime;
 
 //@author A0122061B
 
-
-
 public class CommandParser {
 
 	public String NOT_FOUND = "invalid input";
@@ -68,7 +66,10 @@ public class CommandParser {
 			}
 		}
 		if (commandName.equals("search")) {
-			inputData.setDates(extractSearchDate());
+			String sample = inputArr.get(0);
+			if (TimeParser.isValidSearchFormat(sample) || DateParser.isDate(sample)) {
+				inputData.setDates(extractSearchDate());
+			}
 		}
 		System.out.println(inputArr);
 		inputData.setPhrase(getPhrase());
@@ -107,8 +108,7 @@ public class CommandParser {
 		System.out.println(sequence + "+1");
 		inputData.addUpdateSequence(sequence);
 		System.out.println("sequence is: " + inputData.getUpdateSequence().get(1) + ", "
-				+ inputData.getUpdateSequence().get(2) + ", " +
-				inputData.getUpdateSequence().get(3));
+				+ inputData.getUpdateSequence().get(2) + ", " + inputData.getUpdateSequence().get(3));
 		return inputData;
 	}
 
@@ -223,7 +223,7 @@ public class CommandParser {
 				dateArr.add(DateParser.setDate(date));
 			}
 		}
-		for (int i = index.size()-1; 0 <= i; i--) {
+		for (int i = index.size() - 1; 0 <= i; i--) {
 			System.out.println("index at " + i);
 			System.out.println("index " + index.get(i));
 			int indexToRemove = index.get(i);

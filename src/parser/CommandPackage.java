@@ -16,7 +16,6 @@ public class CommandPackage {
 	private String phrase;
 	private String priority;
 	private ArrayList<String> updateSequence;
-	private CommandType commandt;
 
 	// Constructors
 	public CommandPackage(String cmd, String taskName) {
