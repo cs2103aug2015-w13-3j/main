@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import logic.Task;
-//@author A0133948W
+//@@author A0133948W
 public class SetPathTest {
 
 	@Test
 	public void test() {
-		ArrayList<Task> a = Storage.read();
-		Storage.setPath("Task_Bomber_.txt");
-		assertEquals(Storage.read(), a);
+		ArrayList<Task> a = Storage.getInstance().read();
+		Storage.getInstance().setPath("Task_Bomber_.txt");
+		assertEquals(Storage.getInstance().read(), a);
 		
 	}
 
