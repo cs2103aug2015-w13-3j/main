@@ -66,9 +66,12 @@ public class CommandParser {
 			}
 		}
 		if (commandName.equals("search")) {
-			String sample = inputArr.get(0);
-			if (TimeParser.isValidSearchFormat(sample) || DateParser.isDate(sample)) {
-				inputData.setDates(extractSearchDate());
+			String sample;
+			for (int i = 0; i < inputArr.size(); i ++) {
+				sample = inputArr.get(i);
+				if (TimeParser.isValidSearchFormat(sample) || DateParser.isDate(sample)) {
+					inputData.setDates(extractSearchDate());
+				}
 			}
 		}
 		System.out.println(inputArr);
@@ -200,6 +203,7 @@ public class CommandParser {
 	private ArrayList<DateTime> extractSearchDate() {
 		String date;
 		for (int i = 0; i < inputArr.size(); i++) {
+			System.out.println("searching index " + i);
 			if (DateParser.isDate(inputArr.get(i))) {
 				date = inputArr.remove(i);
 				return DateParser.searchDate(date);
@@ -235,17 +239,7 @@ public class CommandParser {
 		return dateArr;
 	}
 
-	private ArrayList<DateTime> extractTime2(ArrayList<DateTime> dateArr) {
-		int count = 0;
-		for (int i = 0; i < inputArr.size(); i++) {
-			if (TimeParser.isTime(inputArr.get(i))) {
-				String time = inputArr.remove(i);
-				dateArr.add(TimeParser.setTime(dateArr.get(count), time));
-				count++;
-			}
-		}
-		return dateArr;
-	}
+
 
 	private ArrayList<DateTime> extractTime(ArrayList<DateTime> dateArr) {
 		int count = 0;
