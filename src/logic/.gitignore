@@ -17,3 +17,11 @@
 /CommandType$Command.class
 /CommandType.class
 /SystemTest.class
+/LogicInterface.class
+/AddCommand.class
+/DeleteCommand.class
+/Command.class
+/ReturnPackage.class
+/ListManager.class
+/Manager.class
+/Action.class

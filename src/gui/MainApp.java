@@ -29,6 +29,7 @@ public class MainApp extends Application {
 
 	private static ObservableList<Task> taskList;
 	private static ObservableList<String> todayTaskList;
+	LogicClass lc = LogicClass.getInstance();
 
 	private static Logger logger = Logger.getLogger("MainApp");
 
@@ -36,7 +37,8 @@ public class MainApp extends Application {
 	}
 
 	public ObservableList<Task> getTaskData() {
-		ArrayList<Task> tasks = LogicClass.getTaskList();
+		
+		ArrayList<Task> tasks = lc.getTaskList();
 		for (int i = 0; i < tasks.size(); i++) {
 			System.out.println(tasks.get(i).getName());
 		}
@@ -47,11 +49,11 @@ public class MainApp extends Application {
 		return taskList;
 	}
 
-	public ObservableList<String> getTodayTasks() {
-		ArrayList<String> todayTasks = LogicClass.getTodayTasks();
-		todayTaskList = FXCollections.observableArrayList(todayTasks);
-		return todayTaskList;
-	}
+//	public ObservableList<String> getTodayTasks() {
+//		ArrayList<String> todayTasks = lc.getTodayTasks();
+//		todayTaskList = FXCollections.observableArrayList(todayTasks);
+//		return todayTaskList;
+//	}
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -95,7 +97,7 @@ public class MainApp extends Application {
 	}
 
 	public void indexHelp() {
-		Image image = new Image("gui/help/Index.PNG");
+		Image image = new Image("gui/help/Index.TIF");
 		ImageView imageView = new ImageView();
 		imageView.setImage(image);
 		imageView.setPreserveRatio(true);
@@ -117,7 +119,7 @@ public class MainApp extends Application {
 	}
 
 	public void sos() {
-		Image image = new Image("gui/help/SOS.PNG");
+		Image image = new Image("gui/help/SOS.TIF");
 		ImageView imageView = new ImageView();
 		imageView.setImage(image);
 		imageView.setPreserveRatio(true);
@@ -139,6 +141,103 @@ public class MainApp extends Application {
 		thirdStage.show();
 	}
 
+	public void basic() {
+		Image image = new Image("gui/help/Basic.TIF");
+		ImageView imageView = new ImageView();
+		imageView.setImage(image);
+		imageView.setPreserveRatio(true);
+
+		ScrollPane fourthLayout = new ScrollPane();
+		fourthLayout.setContent(imageView);
+
+		Scene fourthScene = new Scene(fourthLayout, 800, 450);
+		Stage fourthStage = new Stage();
+		fourthStage.setTitle("Help Basic");
+		fourthStage.setScene(fourthScene);
+
+		imageView.fitWidthProperty().bind(fourthStage.widthProperty());
+
+		// Set position of second window, related to primary window.
+		fourthStage.setX(primaryStage.getX() + 200);
+		fourthStage.setY(primaryStage.getY() + 150);
+
+		fourthStage.show();
+	}
+	
+	public void advance() {
+		Image image = new Image("gui/help/Advance.TIF");
+		ImageView imageView = new ImageView();
+		imageView.setImage(image);
+		imageView.setPreserveRatio(true);
+
+		ScrollPane fifthLayout = new ScrollPane();
+		fifthLayout.setContent(imageView);
+
+		Scene fifthScene = new Scene(fifthLayout, 800, 450);
+		Stage fifthStage = new Stage();
+		fifthStage.setTitle("Help Advance");
+		fifthStage.setScene(fifthScene);
+
+		imageView.fitWidthProperty().bind(fifthStage.widthProperty());
+
+		// Set position of second window, related to primary window.
+		fifthStage.setX(primaryStage.getX() + 200);
+		fifthStage.setY(primaryStage.getY() + 150);
+
+		fifthStage.show();
+	}
+
+	public void shortForm() {
+		Image image = new Image("gui/help/Shortcut.TIF");
+		ImageView imageView = new ImageView();
+		imageView.setImage(image);
+		imageView.setPreserveRatio(true);
+
+		ScrollPane sixthLayout = new ScrollPane();
+		sixthLayout.setContent(imageView);
+
+		Scene sixthScene = new Scene(sixthLayout, 900, 600);
+		Stage sixthStage = new Stage();
+		sixthStage.setTitle("Shortcuts");
+		sixthStage.setScene(sixthScene);
+
+		imageView.fitWidthProperty().bind(sixthStage.widthProperty());
+
+		// Set position of second window, related to primary window.
+		sixthStage.setX(primaryStage.getX() + 200);
+		sixthStage.setY(primaryStage.getY() + 100);
+
+		sixthStage.show();
+	}
+	
+	public void credit() {
+		Image image = new Image("gui/help/Credit.TIF");
+		ImageView imageView = new ImageView();
+		imageView.setImage(image);
+		imageView.setPreserveRatio(true);
+
+		ScrollPane seventhLayout = new ScrollPane();
+		seventhLayout.setContent(imageView);
+
+		Scene seventhScene = new Scene(seventhLayout, 900, 520);
+		Stage seventhStage = new Stage();
+		seventhStage.setTitle("Shortcuts");
+		seventhStage.setScene(seventhScene);
+
+		imageView.fitWidthProperty().bind(seventhStage.widthProperty());
+
+		// Set position of second window, related to primary window.
+		seventhStage.setX(primaryStage.getX() + 200);
+		seventhStage.setY(primaryStage.getY() + 150);
+
+		seventhStage.show();
+	}
+
+    public void exit() {
+        Stage stage = getPrimaryStage();
+        stage.close();
+    }
+    
 	/**
 	 * Returns the main stage.
 	 * 

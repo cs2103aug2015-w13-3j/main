@@ -47,6 +47,7 @@ public class UndoRedoOp {
 	
 	//@author A0133915H
 	public ArrayList<Task> addStateToUndo(ArrayList<Task> recentState){
+		assert(recentState != null);
 		undoStack.push(new ArrayList<Task>(recentState));
 		redoStack.clear();
 		currentState = new ArrayList<Task>(recentState);

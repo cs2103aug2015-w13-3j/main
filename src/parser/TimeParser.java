@@ -53,6 +53,9 @@ public class TimeParser {
 		}
 
 		if (i < FORMAT_SIZE) {
+		    if (i == 2 && input.length() == 3) {
+			return false;
+		    }
 			return true;
 		} else {
 			return false;
