@@ -24,8 +24,8 @@ public class TaskViewController {
 
 	private final KeyCombination crtlZ = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN);
 	private final KeyCombination crtlY = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN);
-	private static Stack<String> pastCommands;
-	private static Stack<String> poppedCommands;
+	private static Stack<String> pastCommands = new Stack<String>();
+	private static Stack<String> poppedCommands = new Stack<String>();
 
 	@FXML
 	private TextField txtCommandInput;
@@ -122,32 +122,33 @@ public class TaskViewController {
 		if (txtCommandInput.getText() == null || txtCommandInput.getText().isEmpty()) {
 			taskTableView.setItems(mainApp.getTaskData());
 		} else {
-			pastCommands.push(txtCommandInput.getText());
-			if (txtCommandInput.getText().equalsIgnoreCase("exit")) {
+			String input = txtCommandInput.getText();
+			pastCommands.push(input);
+			if (input.equalsIgnoreCase("exit")) {
 				mainApp.exit();
-			} else if (txtCommandInput.getText().equalsIgnoreCase("help")) {
+			} else if (input.equalsIgnoreCase("help")) {
 				mainApp.indexHelp();
-			} else if (txtCommandInput.getText().equalsIgnoreCase("sos")) {
+			} else if (input.equalsIgnoreCase("sos")) {
 				mainApp.sos();
-			} else if (txtCommandInput.getText().equalsIgnoreCase("basic")
-					|| txtCommandInput.getText().equalsIgnoreCase("`hb")) {
+			} else if (input.equalsIgnoreCase("basic")
+					|| input.equalsIgnoreCase("`hb")) {
 				mainApp.basic();
-			} else if (txtCommandInput.getText().equalsIgnoreCase("advance")
-					|| txtCommandInput.getText().equalsIgnoreCase("`ha")) {
+			} else if (input.equalsIgnoreCase("advance")
+					|| input.equalsIgnoreCase("`ha")) {
 				mainApp.advance();
-			} else if (txtCommandInput.getText().equalsIgnoreCase("shortcut")
-					|| txtCommandInput.getText().equalsIgnoreCase("shortcuts")
-					|| txtCommandInput.getText().equalsIgnoreCase("shortform")
-					|| txtCommandInput.getText().equalsIgnoreCase("shortforms")
-					|| txtCommandInput.getText().equalsIgnoreCase("`sc")) {
+			} else if (input.equalsIgnoreCase("shortcut")
+					|| input.equalsIgnoreCase("shortcuts")
+					|| input.equalsIgnoreCase("shortform")
+					|| input.equalsIgnoreCase("shortforms")
+					|| input.equalsIgnoreCase("`sc")) {
 				mainApp.shortForm();
-			} else if (txtCommandInput.getText().equalsIgnoreCase("credit")
-					|| txtCommandInput.getText().equalsIgnoreCase("`cd")) {
+			} else if (input.equalsIgnoreCase("credit")
+					|| input.equalsIgnoreCase("`cd")) {
 				mainApp.credit();
 			} else {
-				String input = txtCommandInput.getText().trim();
+				String inputCommand = txtCommandInput.getText().trim();
 				logger.log(Level.INFO, "Here comes a command.");
-				execute(input);
+				execute(inputCommand);
 			}
 			txtCommandInput.clear();
 		}
