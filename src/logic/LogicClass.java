@@ -30,9 +30,8 @@ public class LogicClass implements LogicInterface{
 
 	// constructor
 	private LogicClass() {
-
-		mgr.setTaskList(storage.read().get(0));
-		mgr.setArchivedList(storage.read().get(0));
+		mgr.setTaskList(storage.read().get(0));	
+		mgr.setArchivedList(storage.read().get(1));
 
 	}
 
@@ -57,16 +56,13 @@ public class LogicClass implements LogicInterface{
 		return mgr.getTaskList();
 	}
 	
-	
-
-	
-
-	//@author A0133949U
 	public void executeCommand(CommandPackage commandPackage) {
 		isSearchOp = false;
-		
-		CommandType commandType = CommandType.valueOf(commandPackage.getCommand());
-		
+		if(commandPackage==null){
+			System.out.println("cp is null");
+		}
+		System.out.print("getCommand"+commandPackage.getCommand());
+		CommandType commandType = CommandType.valueOf(commandPackage.getCommand().toUpperCase());	
 		Command cmd = null;
 
 		switch (commandType) {
