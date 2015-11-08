@@ -90,7 +90,7 @@ public class MainApp extends Application {
 	}
 
 	public void indexHelp() {
-		Image image = new Image("gui/help/Index.TIF");
+		Image image = new Image("gui/help/Index.PNG");
 		ImageView imageView = new ImageView();
 		imageView.setImage(image);
 		imageView.setPreserveRatio(true);
@@ -112,7 +112,7 @@ public class MainApp extends Application {
 	}
 
 	public void sos() {
-		Image image = new Image("gui/help/SOS.TIF");
+		Image image = new Image("gui/help/SOS.PNG");
 		ImageView imageView = new ImageView();
 		imageView.setImage(image);
 		imageView.setPreserveRatio(true);
@@ -135,7 +135,7 @@ public class MainApp extends Application {
 	}
 
 	public void basic() {
-		Image image = new Image("gui/help/Basic.TIF");
+		Image image = new Image("gui/help/Basic.PNG");
 		ImageView imageView = new ImageView();
 		imageView.setImage(image);
 		imageView.setPreserveRatio(true);
@@ -158,7 +158,7 @@ public class MainApp extends Application {
 	}
 	
 	public void advance() {
-		Image image = new Image("gui/help/Advance.TIF");
+		Image image = new Image("gui/help/Advance.PNG");
 		ImageView imageView = new ImageView();
 		imageView.setImage(image);
 		imageView.setPreserveRatio(true);
@@ -181,7 +181,7 @@ public class MainApp extends Application {
 	}
 
 	public void shortForm() {
-		Image image = new Image("gui/help/Shortcut.TIF");
+		Image image = new Image("gui/help/Shortcut.PNG");
 		ImageView imageView = new ImageView();
 		imageView.setImage(image);
 		imageView.setPreserveRatio(true);
@@ -204,7 +204,7 @@ public class MainApp extends Application {
 	}
 	
 	public void credit() {
-		Image image = new Image("gui/help/Credit.TIF");
+		Image image = new Image("gui/help/Credits.PNG");
 		ImageView imageView = new ImageView();
 		imageView.setImage(image);
 		imageView.setPreserveRatio(true);

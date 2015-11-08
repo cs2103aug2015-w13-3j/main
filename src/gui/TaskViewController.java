@@ -123,7 +123,7 @@ public class TaskViewController {
 			taskTableView.setItems(mainApp.getTaskData());
 		} else {
 			String input = txtCommandInput.getText();
-			//pastCommands.push(input);
+			pastCommands.push(input);
 			if (input.equalsIgnoreCase("exit")) {
 				mainApp.exit();
 			} else if (input.equalsIgnoreCase("help")) {
