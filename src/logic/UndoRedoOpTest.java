@@ -24,7 +24,7 @@ public class UndoRedoOpTest {
 
 	}
 
-	//@author A0133915H
+	//@@author A0133915H
 	@Before
 	public void setUp() {
 		initial.add(new Task("Meeting"));
@@ -35,7 +35,7 @@ public class UndoRedoOpTest {
 		expected.add(new Task("Movie with john"));
 	}
 
-	//@author A0133915H
+	//@@author A0133915H
 	@After
 	public void tearDown() {
 		// expected.clear();
@@ -44,7 +44,7 @@ public class UndoRedoOpTest {
 		// assertEquals(0, TextBuddy.getLineCount());
 	}
 
-	//@author A0133915H
+	//@@author A0133915H
 	@Test
 	public void undoTest() {
 
@@ -69,7 +69,7 @@ public class UndoRedoOpTest {
 		
 	}
 	
-	//@author A0133915H
+	//@@author A0133915H
 	@Test
 	public void redoTest() {
 		UndoRedoOp op = new UndoRedoOp(initial);

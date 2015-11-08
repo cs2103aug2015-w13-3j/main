@@ -4,13 +4,26 @@ import java.util.ArrayList;
 
 import org.joda.time.DateTime;
 
-//@author A0133948W
+//@@author A0133948W
 public class TimeLine {
-	private static ArrayList<Task> startTimeLine = new ArrayList<Task>();
-	private static ArrayList<Task> endTimeLine = new ArrayList<Task>();
-	private static ArrayList<Task> floatTimeLine = new ArrayList<Task>();
+	private ArrayList<Task> startTimeLine;
+	private ArrayList<Task> endTimeLine;
+	private ArrayList<Task> floatTimeLine;
+	private static TimeLine timeline = null;
 	
-	public static void addToTL(Task t){
+	private TimeLine(){
+		this.startTimeLine = new ArrayList<Task>();
+		this.endTimeLine = new ArrayList<Task>();
+		this.floatTimeLine = new ArrayList<Task>();
+	}
+	
+	public static TimeLine getInstance(){
+		if(timeline == null){
+			timeline = new TimeLine();
+		}
+		return timeline;
+	}
+	public void addToTL(Task t){
 		if(t.getStartTime() != null){
 			DateTime time = t.getStartTime();		
 			int index = findPositionStart(startTimeLine, time, 0, startTimeLine.size());
@@ -26,7 +39,7 @@ public class TimeLine {
 		}
 	}
 	
-	public static int findPositionStart(ArrayList<Task> timeLine, DateTime time, int left, int right){
+	public int findPositionStart(ArrayList<Task> timeLine, DateTime time, int left, int right){
 		if(right == 0){
 			return 0;
 		}
@@ -51,7 +64,7 @@ public class TimeLine {
 		}
 	}
 	
-	public static int findPositionEnd(ArrayList<Task> timeLine, DateTime time, int left, int right){
+	public int findPositionEnd(ArrayList<Task> timeLine, DateTime time, int left, int right){
 		if(right == 0){
 			return 0;
 		}
@@ -79,7 +92,7 @@ public class TimeLine {
 	
 
 	
-	public static void deleteFromTL(Task t){
+	public void deleteFromTL(Task t){
 		if(t.getStartTime() != null){
 			DateTime time = t.getStartTime();
 			String name = t.getName();	
@@ -94,7 +107,7 @@ public class TimeLine {
 			floatTimeLine.remove(t);
 		}
 	}
-	public static void removeStart(ArrayList<Task> timeLine, DateTime time, String name){
+	public void removeStart(ArrayList<Task> timeLine, DateTime time, String name){
 		int index1 = findPositionStart(timeLine, time, 0, timeLine.size()) - 1;
 		int index2 = index1 + 1;
 		while((index1 >= 0)&&(timeLine.get(index1).getStartTime().compareTo(time) == 0)
@@ -111,7 +124,7 @@ public class TimeLine {
 			timeLine.remove(index2);
 		}
 	}
-	public static void removeEnd(ArrayList<Task> timeLine, DateTime time, String name){
+	public void removeEnd(ArrayList<Task> timeLine, DateTime time, String name){
 		int index1 = findPositionEnd(timeLine, time, 0, timeLine.size()) - 1;
 		int index2 = index1 + 1;
 		while((index1 >= 0)&&(timeLine.get(index1).getEndTime().compareTo(time) == 0)
@@ -129,21 +142,21 @@ public class TimeLine {
 		}
 	}
 	
-	public static void clear(){
+	public void clear(){
 		startTimeLine.clear();
 		endTimeLine.clear();
 		floatTimeLine.clear();
 	}
 
-	public static ArrayList<Task> getStarttimeLine(){
+	public ArrayList<Task> getStarttimeLine(){
 		return startTimeLine;
 	}
 
-	public static ArrayList<Task> getEndtimeLine() {
+	public ArrayList<Task> getEndtimeLine() {
 		return endTimeLine;
 	}
 	
-	public static ArrayList<Task> getFloattimeLine() {
+	public ArrayList<Task> getFloattimeLine() {
 		return floatTimeLine;
 	}
     

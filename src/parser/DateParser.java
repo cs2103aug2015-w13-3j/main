@@ -7,7 +7,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-//@author A0122061B
+//@@author A0122061B
 
 
 
@@ -46,6 +46,7 @@ public class DateParser {
 	private static final String DATE_TODAY = "today";
 	private static final String DATE_TOMORROW = "tomorrow";
 	private static final String DATE_TMRW = "tmrw";
+	private static final String DATE_TMR = "tmr";
 	private static final String DATE_YESTERDAY = "yesterday";
 
 	private static ArrayList<DateTimeFormatter> dateFormats = new ArrayList<DateTimeFormatter>(
@@ -111,7 +112,8 @@ public class DateParser {
 
 	private static boolean isFormat4(String input) {
 		return input.equalsIgnoreCase(DATE_TODAY) || input.equalsIgnoreCase(DATE_TOMORROW)
-				|| input.equalsIgnoreCase(DATE_YESTERDAY) || input.equalsIgnoreCase(DATE_TMRW);
+				|| input.equalsIgnoreCase(DATE_YESTERDAY) || input.equalsIgnoreCase(DATE_TMRW)
+				|| input.equalsIgnoreCase(DATE_TMR);
 	}
 
 	protected static boolean isDate(String input) {
@@ -176,7 +178,8 @@ public class DateParser {
 
 		if (input.equalsIgnoreCase(DATE_YESTERDAY)) {
 			return today.minusDays(1);
-		} else if (input.equalsIgnoreCase(DATE_TOMORROW) || (input.equalsIgnoreCase(DATE_TMRW))) {
+		} else if (input.equalsIgnoreCase(DATE_TOMORROW) || (input.equalsIgnoreCase(DATE_TMRW))|| 
+				(input.equalsIgnoreCase(DATE_TMR))) {
 			return today.plusDays(1);
 		}
 

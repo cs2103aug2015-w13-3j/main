@@ -3,13 +3,11 @@ package gui;
 import logic.*;
 import parser.CommandPackage;
 import parser.CommandParser;
-import storage.Storage;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
@@ -18,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+//@@author A0133915H
 public class TaskViewController {
 
 	@FXML
@@ -44,9 +43,7 @@ public class TaskViewController {
 	// Reference to the main application.
 	private MainApp mainApp;
 
-	private Storage storage = new Storage();
-
-	private LogicClass logic = LogicClass.getInstance(storage);
+	private LogicClass logic = LogicClass.getInstance();
 
 	CommandParser cmdParser = new CommandParser();
 
@@ -57,7 +54,6 @@ public class TaskViewController {
 	 * method.
 	 */
 	public TaskViewController() {
-
 	}
 
 	@FXML
@@ -80,7 +76,11 @@ public class TaskViewController {
 				CommandPackage cmdPack = cmdParser.getCommandPackage(input);
 				// logger.log(Level.INFO, "CommandParser parses the command.");
 				assert (cmdPack != null);
+				// String feedback =
 				logic.executeCommand(cmdPack);
+//				if (feedback.compareToIgnoreCase("help") == 0) {
+//
+//				}
 				// logger.log(Level.INFO, "Logic executes the command.");
 				// every time when user click "enter", redisplay the task list
 				taskTableView.setItems(mainApp.getTaskData());

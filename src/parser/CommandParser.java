@@ -5,9 +5,7 @@ import java.util.Arrays;
 
 import org.joda.time.DateTime;
 
-//@author A0122061B
-
-
+//@@author A0122061B
 
 public class CommandParser {
 
@@ -68,7 +66,13 @@ public class CommandParser {
 			}
 		}
 		if (commandName.equals("search")) {
-			inputData.setDates(extractSearchDate());
+			String sample;
+			for (int i = 0; i < inputArr.size(); i ++) {
+				sample = inputArr.get(i);
+				if (TimeParser.isValidSearchFormat(sample) || DateParser.isDate(sample)) {
+					inputData.setDates(extractSearchDate());
+				}
+			}
 		}
 		System.out.println(inputArr);
 		inputData.setPhrase(getPhrase());
@@ -107,8 +111,7 @@ public class CommandParser {
 		System.out.println(sequence + "+1");
 		inputData.addUpdateSequence(sequence);
 		System.out.println("sequence is: " + inputData.getUpdateSequence().get(1) + ", "
-				+ inputData.getUpdateSequence().get(2) + ", " +
-				inputData.getUpdateSequence().get(3));
+				+ inputData.getUpdateSequence().get(2) + ", " + inputData.getUpdateSequence().get(3));
 		return inputData;
 	}
 
@@ -200,6 +203,7 @@ public class CommandParser {
 	private ArrayList<DateTime> extractSearchDate() {
 		String date;
 		for (int i = 0; i < inputArr.size(); i++) {
+			System.out.println("searching index " + i);
 			if (DateParser.isDate(inputArr.get(i))) {
 				date = inputArr.remove(i);
 				return DateParser.searchDate(date);
@@ -223,7 +227,7 @@ public class CommandParser {
 				dateArr.add(DateParser.setDate(date));
 			}
 		}
-		for (int i = index.size()-1; 0 <= i; i--) {
+		for (int i = index.size() - 1; 0 <= i; i--) {
 			System.out.println("index at " + i);
 			System.out.println("index " + index.get(i));
 			int indexToRemove = index.get(i);
@@ -235,17 +239,7 @@ public class CommandParser {
 		return dateArr;
 	}
 
-	private ArrayList<DateTime> extractTime2(ArrayList<DateTime> dateArr) {
-		int count = 0;
-		for (int i = 0; i < inputArr.size(); i++) {
-			if (TimeParser.isTime(inputArr.get(i))) {
-				String time = inputArr.remove(i);
-				dateArr.add(TimeParser.setTime(dateArr.get(count), time));
-				count++;
-			}
-		}
-		return dateArr;
-	}
+
 
 	private ArrayList<DateTime> extractTime(ArrayList<DateTime> dateArr) {
 		int count = 0;
