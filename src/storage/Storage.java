@@ -29,8 +29,9 @@ public class Storage {
 		}
 	}
 
-	public ArrayList<Task> read() {
+	public ArrayList<ArrayList<Task>> read() {
 		ArrayList<Task> taskList = new ArrayList<Task>();
+		ArrayList<Task> doneList = new ArrayList<Task>();
 		try {
 			
 			filePath.createNewFile();
@@ -46,11 +47,15 @@ public class Storage {
 			fr = new FileReader(userFile);
 			buff = new BufferedReader(fr);
 			String content;
+			boolean done = false;
 
 			// read in original content in the file
 			//System.out.println("Reading file.");
 			while ((content = buff.readLine()) != null) {
-
+                if(content.equals("done:")){
+                	done = true;
+                	continue;
+                }
 				String[] taskInfo = content.split("\\|");
 				Task taskToRead = new Task(taskInfo[0]);
 
@@ -76,7 +81,13 @@ public class Storage {
 				if (taskInfo[3] != null && taskInfo[3] != "") {
 					taskToRead.setPriority(taskInfo[3]);
 				}
-				taskList.add(taskToRead);
+				
+				if(done == false){
+					taskList.add(taskToRead);
+				}else{
+					doneList.add(taskToRead);
+				}
+				
 			}
 			buff.close();
 			fr.close();
@@ -85,10 +96,15 @@ public class Storage {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return taskList;
+		
+		
+		ArrayList<ArrayList<Task>> result = new ArrayList<ArrayList<Task>>();
+		result.add(taskList);
+		result.add(doneList);
+		return result;
 	}
 
-	public void write(ArrayList<Task> taskList) {
+	public void write(ArrayList<Task> taskList, ArrayList<Task> doneList) {
 		try {
 			FileWriter fw = new FileWriter(userFile, false);
 			BufferedWriter buff = new BufferedWriter(fw);
@@ -115,9 +131,38 @@ public class Storage {
 				content += "|";
 
 				content += taskToWrite.getPriority();
-				if (i != (taskList.size() - 1)) {
-					content += "\n";
+				
+				content += "\n";
+				
+				// System.out.println("Writing into file.");
+
+			}
+			content += "done:";
+			content += "\n";
+			for (int i = 0; i < doneList.size(); i++) {
+				taskToWrite = doneList.get(i);
+
+				content += taskToWrite.getName();
+				content += "|";
+
+				if (taskToWrite.getStartTime() == null) {
+					content += " ";
+				} else {
+					content += taskToWrite.getStartTime().toString();
 				}
+				content += "|";
+
+				if (taskToWrite.getEndTime() == null) {
+					content += " ";
+				} else {
+					content += taskToWrite.getEndTime().toString();
+				}
+				content += "|";
+
+				content += taskToWrite.getPriority();
+				
+				content += "\n";
+				
 				// System.out.println("Writing into file.");
 
 			}

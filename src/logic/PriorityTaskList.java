@@ -79,14 +79,16 @@ public class PriorityTaskList {
 	public ArrayList<Task> getP1() {
 		return p1;
 	}
+	
 	public ArrayList<Task> getP2() {
 		return p2;
 	}
+	
 	public ArrayList<Task> getP3() {
 		return p3;
 	}
+	
 	public ArrayList<Task> getP4() {
 		return p4;
 	}
-
 }
