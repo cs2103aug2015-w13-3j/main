@@ -33,7 +33,7 @@ public class ActionLibrary {
 
     private final String[] REDO_LIST = { "redo", "redo", "`re" };
 
-    private final String[] UPDATE_LIST = { "update", "`c", "change", "`e", "edit", "`u", "update" };
+    private final String[] UPDATE_LIST = { "update", "`ch", "change", "`e", "edit", "`u", "update" };
 
     private final String[] DELETE_LIST = { "delete", "bomb", "`b", "`del", "delete", "`rmv",
 						  "remove" };
@@ -41,11 +41,11 @@ public class ActionLibrary {
     private final String[] SEARCH_LIST = { "search", "`s", "search", "`f", "find", "`dis", "display",
 						  "`rd", "read", "`s", "show" };
 
-    private final String[] SORT_LIST = { "sort", "sort", "`st" };
+    private final String[] SORT_LIST = { "sort", "sort", "`st", "`o" , "order" };
 
     private final String[] SET_PATH_LIST = { "set", "set", "setPath", "`se" };
 
-    private final String[] MARK_LIST = { "mark", "`m" , "complete", "`cmp", "done", "`dn", "finished", "`fh"};
+    private final String[] MARK_LIST = { "mark","mark", "`m" , "complete", "`cp", "done", "`dn", "finished", "`fh"};
 
     private final String[] CLEAR_LIST = { "clear", "clear", "`clr", "reset", "`rst" };
 
