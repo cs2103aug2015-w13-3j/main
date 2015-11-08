@@ -179,10 +179,10 @@ public class Storage {
 		try{
 			File newPath = new File(path);
 			newPath.createNewFile();
-			ArrayList<Task> content = read();
+			ArrayList<ArrayList<Task>> content = read();
 			userFile.delete();
 			userFile = newPath;
-			write(content);
+			write(content.get(0), content.get(1));
 			FileWriter fw = new FileWriter(filePath, false);
 			BufferedWriter buff = new BufferedWriter(fw);
 			buff.write(path);
