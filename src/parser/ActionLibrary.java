@@ -26,8 +26,7 @@ public class ActionLibrary {
      */
     private final String NOT_FOUND = "invalid input";
 
-    private final String[] CREATE_LIST = { "create", "add", "`a", "`c", "create", "`n", "new", "plus",
-						  "`p" };
+    private final String[] CREATE_LIST = { "create", "add", "`a", "`c", "create", "`n", "new", "plus", "`p" };
 
     private final String[] UNDO_LIST = { "undo", "undo", "`un" };
 
@@ -35,25 +34,25 @@ public class ActionLibrary {
 
     private final String[] UPDATE_LIST = { "update", "`ch", "change", "`e", "edit", "`u", "update" };
 
-    private final String[] DELETE_LIST = { "delete", "bomb", "`b", "`del", "delete", "`rmv",
-						  "remove" };
+    private final String[] DELETE_LIST = { "delete", "bomb", "`b", "`del", "delete", "`rmv", "remove" };
 
-    private final String[] SEARCH_LIST = { "search", "`s", "search", "`f", "find", "`dis", "display",
-						  "`rd", "read", "`s", "show" };
+    private final String[] SEARCH_LIST = { "search", "`s", "search", "`f", "find", "`dis", "display", "`rd",
+					   "read", "`s", "show" };
 
-    private final String[] SORT_LIST = { "sort", "sort", "`st", "`o" , "order" };
+    private final String[] SORT_LIST = { "sort", "sort", "`st", "`o", "order" };
 
     private final String[] SET_PATH_LIST = { "set", "set", "setPath", "`se" };
 
-    private final String[] MARK_LIST = { "mark","mark", "`m" , "complete", "`cp", "done", "`dn", "finished", "`fh"};
+    private final String[] MARK_LIST = { "mark", "mark", "`m", "complete", "`cp", "done", "`dn", "finished",
+					 "`fh" };
 
     private final String[] CLEAR_LIST = { "clear", "clear", "`clr", "reset", "`rst" };
 
     private final String[] EXIT_LIST = { "exit", "exit" };
 
-    private final String[][] ACTION_ARRAY = { CREATE_LIST, REDO_LIST, UNDO_LIST, UPDATE_LIST,
-						     DELETE_LIST, SEARCH_LIST, SORT_LIST, SET_PATH_LIST,
-						     MARK_LIST, CLEAR_LIST, EXIT_LIST };
+    private final String[][] ACTION_ARRAY = { CREATE_LIST, REDO_LIST, UNDO_LIST, UPDATE_LIST, DELETE_LIST,
+					      SEARCH_LIST, SORT_LIST, SET_PATH_LIST, MARK_LIST, CLEAR_LIST,
+					      EXIT_LIST };
 
     /*
      * ====================================================================
@@ -89,6 +88,7 @@ public class ActionLibrary {
      *            the word to be tested with ActionLibrary
      * @return the compiled word for the action, if not found, return NOT_FOUND
      */
+
     protected String find(String input) {
 	preProcess();
 	String result = actionTree.get(input.toLowerCase());
