@@ -19,6 +19,7 @@ public class LogicClass {
 	private static ArrayList<Task> archivedList = new ArrayList<Task>();
 	private static boolean isSearchOp = false;
 	Storage storage = Storage.getInstance();
+	PriorityTaskList priorityList = PriorityTaskList.getInstance();
 	TimeLine timeline = TimeLine.getInstance();
 	Searcher seacher = Searcher.getInstance();
 	UndoRedoOp undoRedo = new UndoRedoOp(taskList);
@@ -35,7 +36,7 @@ public class LogicClass {
 
 		for (int i = 0; i < taskList.size(); i++) {
 			Task task = taskList.get(i);
-			PriorityTaskList.addToPL(task);
+			priorityList.addToPL(task);
 			timeline.addToTL(task);
 		}
 		undoRedo = new UndoRedoOp(new ArrayList<Task>(taskList));
@@ -133,11 +134,11 @@ public class LogicClass {
 			break;
 		case REDO:
 			taskList = undoRedo.redo();
-			PriorityTaskList.clear();
+			priorityList.clear();
 			timeline.clear();
 			for (int i = 0; i < taskList.size(); i++) {
 				Task task = taskList.get(i);
-				PriorityTaskList.addToPL(task);
+				priorityList.addToPL(task);
 				timeline.addToTL(task);
 			}
 			storage.write(taskList);
@@ -145,12 +146,12 @@ public class LogicClass {
 		case UNDO:
 			taskList = new ArrayList<Task>(undoRedo.undo());
 
-			PriorityTaskList.clear();
+			priorityList.clear();
 			timeline.clear();
 
 			for (int i = 0; i < taskList.size(); i++) {
 				Task task = taskList.get(i);
-				PriorityTaskList.addToPL(task);
+				priorityList.addToPL(task);
 				timeline.addToTL(task);
 			}
 
@@ -193,17 +194,20 @@ public class LogicClass {
 			task = taskList.get(i);
 			if (task.getName().equals(target)) {
 
-				if (update.get(2).equals("name")) {
+				if (update.get(2).equalsIgnoreCase("name")) {
 					if (update.get(3) != null) {
 						task.setTaskName(update.get(3));
 					}
 
-				} else if (update.get(2).equals("priority")) {
+				} else if (update.get(2).equals("#")) {
 					task.setPriority(update.get(3));
-				} else if (update.get(2).equals("time")) {
+				} else if (update.get(2).equalsIgnoreCase("startTime")) {
 					// System.out.println("parse date" +
 					// DateParser.setDate(update.get(3)));
-					task.setEndTime(DateParser.setDate(update.get(3)));
+
+					task.setStartTime(commandInfo.startingTime());
+				} else if (update.get(2).equalsIgnoreCase("endTime")) {
+					task.setEndTime(commandInfo.endingTime());
 				}
 
 				newTask = new Task(task.getName());
@@ -228,7 +232,7 @@ public class LogicClass {
 	//@author A0133949U
 	public void clear() {
 		taskList.clear();
-		PriorityTaskList.clear();
+		priorityList.clear();
 		timeline.clear();
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 		storage.write(taskList);
@@ -253,7 +257,7 @@ public class LogicClass {
 			}
 		}
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
-		PriorityTaskList.deleteFromPL(task);
+		priorityList.deleteFromPL(task);
 		timeline.deleteFromTL(task);
 		return task;
 	}
@@ -278,7 +282,7 @@ public class LogicClass {
 		}
 
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
-		PriorityTaskList.deleteFromPL(task);
+		priorityList.deleteFromPL(task);
 		timeline.deleteFromTL(task);
 		return task;
 	}
@@ -323,7 +327,7 @@ public class LogicClass {
 		taskList.add(task);
 
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
-		PriorityTaskList.addToPL(task);
+		priorityList.addToPL(task);
 		timeline.addToTL(task);
 		return task;
 
@@ -379,10 +383,10 @@ public class LogicClass {
 			undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 			return "sorted by date";
 		} else if (commandPackage.getPhrase().equals("priority")) {
-			taskList = new ArrayList<Task>(PriorityTaskList.getP1());
-			taskList.addAll(PriorityTaskList.getP2());
-			taskList.addAll(PriorityTaskList.getP3());
-			taskList.addAll(PriorityTaskList.getP4());
+			taskList = new ArrayList<Task>(priorityList.getP1());
+			taskList.addAll(priorityList.getP2());
+			taskList.addAll(priorityList.getP3());
+			taskList.addAll(priorityList.getP4());
 
 			undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 			return "sorted by priority";
