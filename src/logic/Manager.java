@@ -7,6 +7,7 @@ import java.util.Collections;
 import org.joda.time.DateTime;
 
 import parser.CommandPackage;
+import storage.Storage;
 
 public class Manager {
     ArrayList<Task> taskList;
@@ -17,15 +18,17 @@ public class Manager {
 	ArrayList<Task> searchTaskList;
 	static Manager manager = null;
 	ArrayList<Task> archivedList;
+	Storage storage;
     
 	//constructor
     public Manager(){
     	taskList = new ArrayList<Task>();
     	timeline = TimeLine.getInstance();
-    	 ptl = PriorityTaskList.getInstance();
+    	 ptl = ptl.getInstance();
     	 seacher = Searcher.getInstance();
     	 searchTaskList = new ArrayList<Task>();
     	 archivedList = new ArrayList<Task>();
+    	 storage = Storage.getInstance();
     }
     
     public static Manager getInstance(){
@@ -51,8 +54,10 @@ public class Manager {
     public Task addToTaskList(Task task) {   	
 		taskList.add(task);
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
-		PriorityTaskList.addToPL(task);
+		ptl.addToPL(task);
 		timeline.addToTL(task);
+		storage.write(taskList,archivedList);
+		
 		return task;
 
 	}
@@ -60,17 +65,19 @@ public class Manager {
     public Task delete(int index) { 
     	Task t = taskList.remove(index);    	
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
-		PriorityTaskList.deleteFromPL(t);;
+		ptl.deleteFromPL(t);;
 		timeline.deleteFromTL(t);
+		storage.write(taskList,archivedList);
 		return t;
 
 	}
     
     public void clear(){
     	taskList.clear();
-		PriorityTaskList.clear();
+		ptl.clear();
 		timeline.clear();
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
+		storage.write(taskList,archivedList);
 
     }
     
@@ -83,12 +90,13 @@ public class Manager {
 			taskList.addAll(timeline.getEndtimeLine());
 			taskList.addAll(timeline.getFloattimeLine());
     	case "priority":
-    		taskList = new ArrayList<Task>(PriorityTaskList.getP1());
-			taskList.addAll(PriorityTaskList.getP2());
-			taskList.addAll(PriorityTaskList.getP3());
-			taskList.addAll(PriorityTaskList.getP4());
+    		taskList = new ArrayList<Task>(ptl.getP1());
+			taskList.addAll(ptl.getP2());
+			taskList.addAll(ptl.getP3());
+			taskList.addAll(ptl.getP4());
     	}
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
+		storage.write(taskList,archivedList);
 
 	}
     
@@ -99,31 +107,34 @@ public class Manager {
     
     public void redo(){
     	taskList = undoRedo.redo();
-		PriorityTaskList.clear();
+		ptl.clear();
 		timeline.clear();
 		for (int i = 0; i < taskList.size(); i++) {
 			Task task = taskList.get(i);
-			PriorityTaskList.addToPL(task);
+			ptl.addToPL(task);
 			timeline.addToTL(task);
 		}
+		storage.write(taskList,archivedList);
   	
     }
     
     public void undo(){
     	taskList = new ArrayList<Task>(undoRedo.undo());
-		PriorityTaskList.clear();
+		ptl.clear();
 		timeline.clear();
-		setPriorityTaskListAndTimeLine(taskList);
-  	
+		setptlAndTimeLine(taskList);
+		storage.write(taskList,archivedList);
     }
     
     public Task mark(int index) { 
     	Task t = taskList.remove(index); 
     	archivedList.add(t);
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
-		PriorityTaskList.deleteFromPL(t);;
+		ptl.deleteFromPL(t);;
 		timeline.deleteFromTL(t);
+		storage.write(taskList,archivedList);
 		return t;
+		
 	}
     
     
@@ -132,21 +143,24 @@ public class Manager {
     public void setTaskList(ArrayList<Task> tl){
     	taskList = tl;
     	undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
+    	storage.write(taskList,archivedList);
     	
     }
     
     public void setArchivedList(ArrayList<Task> al){
     	archivedList = al;
     	undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
+    	storage.write(taskList,archivedList);
     	
     }
     
-    public void setPriorityTaskListAndTimeLine(ArrayList<Task> tl){
+    public void setptlAndTimeLine(ArrayList<Task> tl){
     	for (int i = 0; i < tl.size(); i++) {
 			Task task = tl.get(i);
-			PriorityTaskList.addToPL(task);
+			ptl.addToPL(task);
 			timeline.addToTL(task);
 		}
+    	storage.write(taskList,archivedList);
     	
     }
     

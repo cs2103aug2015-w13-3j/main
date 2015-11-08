@@ -20,7 +20,7 @@ public class Testing {
 			CommandPackage cmdPack = cmdParser.getCommandPackage(input);
 			logic.executeCommand(cmdPack);
 			ArrayList<Task> taskList = new ArrayList<Task>();
-			taskList = LogicClass.getTaskList();
+			taskList = LogicClass.getInstance().getTaskList();
 			for (int i = 0; i < taskList.size(); i++) {
 				System.out.println(i + ". " + taskList.get(i).getName());
 			}

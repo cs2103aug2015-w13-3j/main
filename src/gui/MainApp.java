@@ -29,6 +29,7 @@ public class MainApp extends Application {
 
 	private static ObservableList<Task> taskList;
 	private static ObservableList<String> todayTaskList;
+	LogicClass lc = LogicClass.getInstance();
 
 	private static Logger logger = Logger.getLogger("MainApp");
 
@@ -36,7 +37,8 @@ public class MainApp extends Application {
 	}
 
 	public ObservableList<Task> getTaskData() {
-		ArrayList<Task> tasks = LogicClass.getTaskList();
+		
+		ArrayList<Task> tasks = lc.getTaskList();
 		for (int i = 0; i < tasks.size(); i++) {
 			System.out.println(tasks.get(i).getName());
 		}
@@ -47,11 +49,11 @@ public class MainApp extends Application {
 		return taskList;
 	}
 
-	public ObservableList<String> getTodayTasks() {
-		ArrayList<String> todayTasks = LogicClass.getTodayTasks();
-		todayTaskList = FXCollections.observableArrayList(todayTasks);
-		return todayTaskList;
-	}
+//	public ObservableList<String> getTodayTasks() {
+//		ArrayList<String> todayTasks = lc.getTodayTasks();
+//		todayTaskList = FXCollections.observableArrayList(todayTasks);
+//		return todayTaskList;
+//	}
 
 	@Override
 	public void start(Stage primaryStage) {
