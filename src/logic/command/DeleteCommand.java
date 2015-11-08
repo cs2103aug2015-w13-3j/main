@@ -29,7 +29,9 @@ public class DeleteCommand extends Command{
 		Task t;
 		if (isInteger(deleteInfo, 10)) { // delete by index
 			index = Integer.parseInt(deleteInfo)-1;
-			
+			if(index>=taskList.size() || index<0){
+				return "invalid index";
+			}
 		} else {// delete by name
 			for (int i = 0; i < taskList.size(); i++) {
 				t = taskList.get(i);
