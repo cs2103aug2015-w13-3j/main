@@ -97,19 +97,32 @@ public class TaskViewController {
 	}
 
 	private void downKeyEvent() {
-		// TODO Auto-generated method stub
-
+		if (poppedCommands.isEmpty()) {
+			txtCommandInput.clear();
+		} else {
+			txtCommandInput.clear();
+			String pastCommand = poppedCommands.pop();
+			pastCommands.push(pastCommand);
+			txtCommandInput.setText(pastCommand);
+		}
 	}
 
 	private void upKeyEvent() {
-		// TODO Auto-generated method stub
-
+		if (pastCommands.isEmpty()) {
+			txtCommandInput.clear();
+		} else {
+			txtCommandInput.clear();
+			String pastCommand = pastCommands.pop();
+			poppedCommands.push(pastCommand);
+			txtCommandInput.setText(pastCommand);
+		}
 	}
 
 	private void enterKeyEvent() {
 		if (txtCommandInput.getText() == null || txtCommandInput.getText().isEmpty()) {
 			taskTableView.setItems(mainApp.getTaskData());
 		} else {
+			pastCommands.push(txtCommandInput.getText());
 			if (txtCommandInput.getText().equalsIgnoreCase("exit")) {
 				mainApp.exit();
 			} else if (txtCommandInput.getText().equalsIgnoreCase("help")) {
