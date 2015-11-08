@@ -26,42 +26,34 @@ public class ActionLibrary {
      */
     private static final String NOT_FOUND = "invalid input";
 
-    private static final String[] CREATE_LIST =
-	{ "create", "add", "`a", "`c", "create", "`n", "new", "plus", "`p" };
+    private static final String[] CREATE_LIST = { "create", "add", "`a", "`c", "create", "`n", "new", "plus",
+						  "`p" };
 
-    private static final String[] UNDO_LIST =
-	{ "undo", "undo", "`un" };
+    private static final String[] UNDO_LIST = { "undo", "undo", "`un" };
 
-    private static final String[] REDO_LIST =
-	{ "redo", "redo", "`re" };
+    private static final String[] REDO_LIST = { "redo", "redo", "`re" };
 
-    private static final String[] UPDATE_LIST =
-	{ "update", "`c", "change", "`e", "edit", "`u", "update" };
+    private static final String[] UPDATE_LIST = { "update", "`c", "change", "`e", "edit", "`u", "update" };
 
-    private static final String[] DELETE_LIST =
-	{ "delete", "bomb", "`b", "`del", "delete", "`rmv", "remove" };
+    private static final String[] DELETE_LIST = { "delete", "bomb", "`b", "`del", "delete", "`rmv",
+						  "remove" };
 
-    private static final String[] SEARCH_LIST =
-	{ "search", "`s", "search", "`f", "find", "`dis", "display", "`rd", "read", "`s", "show" };
+    private static final String[] SEARCH_LIST = { "search", "`s", "search", "`f", "find", "`dis", "display",
+						  "`rd", "read", "`s", "show" };
 
-    private static final String[] SORT_LIST =
-	{ "sort", "sort", "`st" };
+    private static final String[] SORT_LIST = { "sort", "sort", "`st" };
 
-    private static final String[] SET_PATH_LIST =
-	{ "set", "set", "setPath", "`se" };
+    private static final String[] SET_PATH_LIST = { "set", "set", "setPath", "`se" };
 
-    private static final String[] MARK_LIST =
-	{ "mark", "m" };
+    private static final String[] MARK_LIST = { "mark", "`m" , "complete", "`cmp", "done", "`dn", "finished", "`fh"};
 
-    private static final String[] CLEAR_LIST =
-	{ "clear", "clear", "`clr", "reset", "`rst" };
+    private static final String[] CLEAR_LIST = { "clear", "clear", "`clr", "reset", "`rst" };
 
-    private static final String[] EXIT_LIST =
-	{ "exit", "exit" };
+    private static final String[] EXIT_LIST = { "exit", "exit" };
 
-    private static final String[][] ACTION_ARRAY =
-	{ CREATE_LIST, REDO_LIST, UNDO_LIST, UPDATE_LIST, DELETE_LIST, SEARCH_LIST, SORT_LIST, SET_PATH_LIST,
-		MARK_LIST, CLEAR_LIST, EXIT_LIST };
+    private static final String[][] ACTION_ARRAY = { CREATE_LIST, REDO_LIST, UNDO_LIST, UPDATE_LIST,
+						     DELETE_LIST, SEARCH_LIST, SORT_LIST, SET_PATH_LIST,
+						     MARK_LIST, CLEAR_LIST, EXIT_LIST };
 
     /*
      * ====================================================================
