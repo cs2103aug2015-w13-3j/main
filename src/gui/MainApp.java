@@ -56,40 +56,22 @@ public class MainApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			
+
 			Button btn = new Button();
-	        btn.setText("Help");
-	        btn.setOnAction(new EventHandler<ActionEvent>() {
-	            @Override
-	            public void handle(ActionEvent event) {
-	                 
-			        Image image = new Image("Basic.PNG");
-			        ImageView imageView = new ImageView();
-			        imageView.setImage(image);
-	                imageView.setPreserveRatio(true);
-	                
-	                ScrollPane secondaryLayout = new ScrollPane();
-	                secondaryLayout.setContent(imageView);
-	                 
-	                Scene secondScene = new Scene(secondaryLayout, 750, 700);
-	                Stage secondStage = new Stage();
-	                secondStage.setTitle("Help");
-	                secondStage.setScene(secondScene);
-	                 
-	                //Set position of second window, related to primary window.
-	                secondStage.setX(primaryStage.getX() + 250);
-	                secondStage.setY(primaryStage.getY() + 100);
-	  
-	                secondStage.show();
-	            }
-	        });
-	        
-	        BorderPane rootLayout = new BorderPane();
-	        
-	        rootLayout.setTop(btn);
+			btn.setText("Help");
+			btn.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					indexHelp();
+				}
+			});
+
+			BorderPane rootLayout = new BorderPane();
+
+			rootLayout.setTop(btn);
 			this.primaryStage = primaryStage;
 			this.primaryStage.setTitle("TaskBomber");
-			
+
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("TaskView.fxml"));
 			AnchorPane taskBomberOverview = (AnchorPane) loader.load();
@@ -100,39 +82,63 @@ public class MainApp extends Application {
 
 			controller.setMainApp(this);
 			logger.log(Level.INFO, "RootLayout is initiated.");
-			
+
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			
+
 			logger.log(Level.INFO, "The view is generated.");
 
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, null, e);
 		}
 	}
-	
-	public void basicHelp(){
-		Image image = new Image("Basic.PNG");
-        ImageView imageView = new ImageView();
-        imageView.setImage(image);
-        imageView.setPreserveRatio(true);
-        
-        ScrollPane secondaryLayout = new ScrollPane();
-        secondaryLayout.setContent(imageView);
-         
-        Scene secondScene = new Scene(secondaryLayout, 750, 700);
-        Stage secondStage = new Stage();
-        secondStage.setTitle("Help");
-        secondStage.setScene(secondScene);
-         
-        //Set position of second window, related to primary window.
-        secondStage.setX(primaryStage.getX() + 250);
-        secondStage.setY(primaryStage.getY() + 100);
 
-        secondStage.show();
+	public void indexHelp() {
+		Image image = new Image("gui/help/Index.PNG");
+		ImageView imageView = new ImageView();
+		imageView.setImage(image);
+		imageView.setPreserveRatio(true);
+
+		ScrollPane secondaryLayout = new ScrollPane();
+		secondaryLayout.setContent(imageView);
+
+		Scene secondScene = new Scene(secondaryLayout, 800, 450);
+		Stage secondStage = new Stage();
+		secondStage.setTitle("Help");
+		secondStage.setScene(secondScene);
+
+		imageView.fitWidthProperty().bind(secondStage.widthProperty());
+		// Set position of second window, related to primary window.
+		secondStage.setX(primaryStage.getX() + 200);
+		secondStage.setY(primaryStage.getY() + 150);
+
+		secondStage.show();
 	}
-	
+
+	public void sos() {
+		Image image = new Image("gui/help/SOS.PNG");
+		ImageView imageView = new ImageView();
+		imageView.setImage(image);
+		imageView.setPreserveRatio(true);
+
+		ScrollPane thirdLayout = new ScrollPane();
+		thirdLayout.setContent(imageView);
+
+		Scene thirdScene = new Scene(thirdLayout, 800, 450);
+		Stage thirdStage = new Stage();
+		thirdStage.setTitle("SOS");
+		thirdStage.setScene(thirdScene);
+
+		imageView.fitWidthProperty().bind(thirdStage.widthProperty());
+
+		// Set position of second window, related to primary window.
+		thirdStage.setX(primaryStage.getX() + 200);
+		thirdStage.setY(primaryStage.getY() + 150);
+
+		thirdStage.show();
+	}
+
 	/**
 	 * Returns the main stage.
 	 * 
