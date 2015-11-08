@@ -207,7 +207,6 @@ public class LogicClass {
 					task.setStartTime(commandInfo.startingTime());
 				} else if (update.get(2).equalsIgnoreCase("endTime")) {
 					task.setEndTime(commandInfo.endingTime());
-					//task.setEndTime(DateParser.setDate(update.get(3)));
 				}
 
 				newTask = new Task(task.getName());
