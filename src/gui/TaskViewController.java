@@ -73,7 +73,6 @@ public class TaskViewController {
 
 	public void enterCommand(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
-			System.out.println("I am Here");
 			enterKeyEvent();
 		} else if (event.getCode() == KeyCode.UP) {
 			upKeyEvent();
@@ -85,7 +84,6 @@ public class TaskViewController {
 			controlYKeyEvent();
 		}
 	}
-
 
 	private void controlYKeyEvent() {
 		execute("redo");
@@ -110,23 +108,25 @@ public class TaskViewController {
 			taskTableView.setItems(mainApp.getTaskData());
 		} else {
 			if (txtCommandInput.getText().equalsIgnoreCase("help")) {
-				mainApp.basicHelp();
+				mainApp.indexHelp();
+			} else if (txtCommandInput.getText().equalsIgnoreCase("sos")) {
+				mainApp.sos();
 			} else {
 				String input = txtCommandInput.getText().trim();
 				logger.log(Level.INFO, "Here comes a command.");
 				execute(input);
 			}
+			txtCommandInput.clear();
 		}
 	}
-	
-	private void execute(String input){
+
+	private void execute(String input) {
 		CommandPackage cmdPack = cmdParser.getCommandPackage(input);
 		logger.log(Level.INFO, "CommandParser parses the command.");
 		assert (cmdPack != null);
 		logic.executeCommand(cmdPack);
 		taskTableView.setItems(mainApp.getTaskData());
 		logger.log(Level.INFO, "Update the table view.");
-		txtCommandInput.clear();
 	}
 
 	/**
@@ -136,7 +136,6 @@ public class TaskViewController {
 	 */
 
 	public void setMainApp(MainApp mainApp) {
-		System.out.println("set Main app.");
 		this.mainApp = mainApp;
 		logger.log(Level.INFO, "Set MainApp.");
 		// Add observable list data to the table
