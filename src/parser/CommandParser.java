@@ -14,10 +14,9 @@ public class CommandParser {
 	public String input;
 	public ArrayList<String> inputArr;
 	public CommandPackage inputData;
-	public ActionLibrary actionLib;
 
 	public CommandParser() {
-		actionLib = new ActionLibrary();
+		
 	}
 
 	public CommandParser(String command) {
@@ -30,6 +29,7 @@ public class CommandParser {
 	}
 
 	public CommandPackage getCommandPackage(String command) {
+
 		input = command;
 		inputData = new CommandPackage();
 		String[] arr = input.split(" ");
@@ -342,7 +342,7 @@ public class CommandParser {
 	}
 
 	private String callAction(String string) {
-		String result = actionLib.find(string);
+		String result = ActionLibrary.find(string);
 		return result;
 	}
 
