@@ -15,6 +15,7 @@ public class ReadAndWriteTest {
 	public void test() {
 		Storage storage = Storage.getInstance();
 		ArrayList<Task> a = new ArrayList<Task>();
+		ArrayList<Task> c = new ArrayList<Task>();
 		for(int i = 1; i < 10; i++){
 			Task t1 = new Task("test" + i);
 			t1.setStartTime(new DateTime(2016,i,1,1,1));
@@ -23,8 +24,8 @@ public class ReadAndWriteTest {
 			a.add(t1);
 		}
 		storage.read();
-		storage.write(a);
-		ArrayList<Task> b = storage.read();
+		storage.write(a,c);
+		ArrayList<Task> b = storage.read().get(0);
 		System.out.println(a);
 		System.out.println(b);
 		for(int i = 0; i < 9; i++){
