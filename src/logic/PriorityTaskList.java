@@ -5,16 +5,27 @@ import java.util.ArrayList;
 //@@author A0133948W
 public class PriorityTaskList {
     
-	private static ArrayList<Task> p1 = new ArrayList<Task>();
-	private static ArrayList<Task> p2 = new ArrayList<Task>();
-	private static ArrayList<Task> p3 = new ArrayList<Task>();
-	private static ArrayList<Task> p4 = new ArrayList<Task>();
+	private ArrayList<Task> p1 = new ArrayList<Task>();
+	private ArrayList<Task> p2 = new ArrayList<Task>();
+	private ArrayList<Task> p3 = new ArrayList<Task>();
+	private ArrayList<Task> p4 = new ArrayList<Task>();
+	private static PriorityTaskList priorityList = null;
 	
-	public PriorityTaskList() {
-		// TODO Auto-generated constructor stub
+	private PriorityTaskList(){
+		this.p1 = new ArrayList<Task>();
+		this.p2 = new ArrayList<Task>();
+		this.p3 = new ArrayList<Task>();
+		this.p4 = new ArrayList<Task>();
 	}
 	
-	public static void addToPL(Task t){
+	public static PriorityTaskList getInstance(){
+		if(priorityList == null){
+			priorityList = new PriorityTaskList();
+		}
+		return priorityList;
+	}
+	
+	public void addToPL(Task t){
 		if(t.getPriority() == null){
 			p4.add(t);
 		}else if(t.getPriority() == 1){
@@ -26,7 +37,7 @@ public class PriorityTaskList {
 		}
 	}
 	
-	public static void deleteFromPL(Task t){
+	public void deleteFromPL(Task t){
 	    if(t.getPriority() == null){
 	    	for (int i = 0; i<p4.size(); i++){
 				if(p4.get(i).getName().equalsIgnoreCase(t.getName())){
@@ -58,23 +69,23 @@ public class PriorityTaskList {
 		}
 	}
 	
-	public static void clear(){
+	public void clear(){
 		p1.clear();
 		p2.clear();
 		p3.clear();
 		p4.clear();
 	}
 
-	public static ArrayList<Task> getP1() {
+	public ArrayList<Task> getP1() {
 		return p1;
 	}
-	public static ArrayList<Task> getP2() {
+	public ArrayList<Task> getP2() {
 		return p2;
 	}
-	public static ArrayList<Task> getP3() {
+	public ArrayList<Task> getP3() {
 		return p3;
 	}
-	public static ArrayList<Task> getP4() {
+	public ArrayList<Task> getP4() {
 		return p4;
 	}
 

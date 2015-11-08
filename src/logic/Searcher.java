@@ -62,11 +62,11 @@ public class Searcher {
 	public ArrayList<Task> searchPriority(int priority){
 		ArrayList<Task> result = new ArrayList<Task>();
 		if(priority == 1){
-			result.addAll(PriorityTaskList.getP1());
+			result.addAll(PriorityTaskList.getInstance().getP1());
 		}else if(priority == 2){
-			result.addAll(PriorityTaskList.getP2());
+			result.addAll(PriorityTaskList.getInstance().getP2());
 		}else if(priority == 3){
-			result.addAll(PriorityTaskList.getP3());
+			result.addAll(PriorityTaskList.getInstance().getP3());
 		}
 		return result;
 	}
