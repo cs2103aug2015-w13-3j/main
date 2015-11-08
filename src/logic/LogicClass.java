@@ -58,10 +58,10 @@ public class LogicClass implements LogicInterface{
 	
 	public void executeCommand(CommandPackage commandPackage) {
 		isSearchOp = false;
-		if(commandPackage==null){
-			System.out.println("cp is null");
-		}
-		System.out.print("getCommand"+commandPackage.getCommand());
+//		if(commandPackage==null){
+//			System.out.println("cp is null");
+//		}
+//		System.out.print("getCommand"+commandPackage.getCommand());
 		CommandType commandType = CommandType.valueOf(commandPackage.getCommand().toUpperCase());	
 		Command cmd = null;
 

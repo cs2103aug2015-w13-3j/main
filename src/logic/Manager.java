@@ -91,15 +91,18 @@ public class Manager {
     	switch(type){
     	case "name":
     		Collections.sort(taskList);
+    		break;
     	case "time":
     		taskList = new ArrayList<Task>(timeline.getStarttimeLine());
 			taskList.addAll(timeline.getEndtimeLine());
 			taskList.addAll(timeline.getFloattimeLine());
+			break;
     	case "priority":
     		taskList = new ArrayList<Task>(ptl.getP1());
 			taskList.addAll(ptl.getP2());
 			taskList.addAll(ptl.getP3());
 			taskList.addAll(ptl.getP4());
+			break;
     	}
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 		storage.write(taskList,archivedList);
