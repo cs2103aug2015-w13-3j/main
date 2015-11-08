@@ -21,9 +21,9 @@ public class LogicClass {
 	Storage storage = Storage.getInstance();
 	TimeLine timeline = TimeLine.getInstance();
 	Searcher seacher = Searcher.getInstance();
-	UndoRedoOp undoRedo = null;
-	
-	private String path = "";
+	UndoRedoOp undoRedo = new UndoRedoOp(taskList);
+
+	private String path = null;
 
 	static LogicClass theOne = null;
 
@@ -39,7 +39,6 @@ public class LogicClass {
 			timeline.addToTL(task);
 		}
 		undoRedo = new UndoRedoOp(new ArrayList<Task>(taskList));
-		
 	}
 
 
@@ -182,15 +181,7 @@ public class LogicClass {
 	public boolean setPath(String path) {
 		return storage.setPath(path);
 	}
-
-
-	//@author A0133949U
-
-	public boolean setPathFirstTime(){
-		return storage.setPath(this.path);
-	}
-	
-
+    
 	public Task edit(CommandPackage commandInfo) {
 
 		ArrayList<String> update = commandInfo.getUpdateSequence();
@@ -210,7 +201,8 @@ public class LogicClass {
 				} else if (update.get(2).equals("priority")) {
 					task.setPriority(update.get(3));
 				} else if (update.get(2).equals("time")) {
-					// System.out.println("parse date" + DateParser.setDate(update.get(3)));
+					// System.out.println("parse date" +
+					// DateParser.setDate(update.get(3)));
 					task.setEndTime(DateParser.setDate(update.get(3)));
 				}
 
