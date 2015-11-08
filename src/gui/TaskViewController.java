@@ -14,10 +14,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 
 //@@author A0133915H
 public class TaskViewController {
+
+	private final KeyCombination crtlZ = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN);
+	private final KeyCombination crtlY = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN);
 
 	@FXML
 	private TextField txtCommandInput;
@@ -68,26 +73,60 @@ public class TaskViewController {
 
 	public void enterCommand(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
-			if (txtCommandInput.getText() == null || txtCommandInput.getText().isEmpty()) {
-				taskTableView.setItems(mainApp.getTaskData());
+			enterKeyEvent();
+		} else if (event.getCode() == KeyCode.UP) {
+			upKeyEvent();
+		} else if (event.getCode() == KeyCode.DOWN) {
+			downKeyEvent();
+		} else if (crtlZ.match(event)) {
+			controlZKeyEvent();
+		} else if (crtlY.match(event)) {
+			controlYKeyEvent();
+		}
+	}
+
+	private void controlYKeyEvent() {
+		execute("redo");
+	}
+
+	private void controlZKeyEvent() {
+		execute("undo");
+	}
+
+	private void downKeyEvent() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void upKeyEvent() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void enterKeyEvent() {
+		if (txtCommandInput.getText() == null || txtCommandInput.getText().isEmpty()) {
+			taskTableView.setItems(mainApp.getTaskData());
+		} else {
+			if (txtCommandInput.getText().equalsIgnoreCase("help")) {
+				mainApp.indexHelp();
+			} else if (txtCommandInput.getText().equalsIgnoreCase("sos")) {
+				mainApp.sos();
 			} else {
 				String input = txtCommandInput.getText().trim();
-				// logger.log(Level.INFO, "Here comes a command.");
-				CommandPackage cmdPack = cmdParser.getCommandPackage(input);
-				// logger.log(Level.INFO, "CommandParser parses the command.");
-				assert (cmdPack != null);
-				// String feedback =
-				logic.executeCommand(cmdPack);
-//				if (feedback.compareToIgnoreCase("help") == 0) {
-//
-//				}
-				// logger.log(Level.INFO, "Logic executes the command.");
-				// every time when user click "enter", redisplay the task list
-				taskTableView.setItems(mainApp.getTaskData());
-				logger.log(Level.INFO, "Update the table view.");
-				txtCommandInput.clear();
+				logger.log(Level.INFO, "Here comes a command.");
+				execute(input);
 			}
+			txtCommandInput.clear();
 		}
+	}
+
+	private void execute(String input) {
+		CommandPackage cmdPack = cmdParser.getCommandPackage(input);
+		logger.log(Level.INFO, "CommandParser parses the command.");
+		assert (cmdPack != null);
+		logic.executeCommand(cmdPack);
+		taskTableView.setItems(mainApp.getTaskData());
+		logger.log(Level.INFO, "Update the table view.");
 	}
 
 	/**
@@ -97,11 +136,9 @@ public class TaskViewController {
 	 */
 
 	public void setMainApp(MainApp mainApp) {
-		System.out.println("set Main app.");
 		this.mainApp = mainApp;
 		logger.log(Level.INFO, "Set MainApp.");
 		// Add observable list data to the table
 		taskTableView.setItems(mainApp.getTaskData());
-		todayTasksView.setItems(mainApp.getTodayTasks());
 	}
 }

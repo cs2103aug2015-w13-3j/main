@@ -26,6 +26,7 @@ public class LogicClass implements LogicInterface{
 	private static ArrayList<Task> archivedList = new ArrayList<Task>();
 	private static boolean isSearchOp = false;
 	Storage storage = Storage.getInstance();
+
 	
 	Manager mgr= Manager.getInstance();
 	
@@ -35,9 +36,10 @@ public class LogicClass implements LogicInterface{
 
 	// constructor
 	private LogicClass() {
+
 		mgr.setTaskList(storage.read().get(0));
 		mgr.setArchivedList(storage.read().get(0));
-		
+
 	}
 
 	public static LogicClass getInstance() {
@@ -192,6 +194,7 @@ public class LogicClass implements LogicInterface{
 		}
 		return false;
 	}
+
 
 
 

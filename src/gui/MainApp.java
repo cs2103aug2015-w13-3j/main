@@ -4,7 +4,9 @@ import logic.LogicClass;
 import logic.Task;
 
 import javafx.collections.ObservableList;
-import java.io.IOException;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,6 +15,10 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -20,7 +26,6 @@ import javafx.stage.Stage;
 //@@author A0133915H
 public class MainApp extends Application {
 	private Stage primaryStage;
-	private BorderPane rootLayout;
 
 	private static ObservableList<Task> taskList;
 	private static ObservableList<String> todayTaskList;
@@ -30,12 +35,11 @@ public class MainApp extends Application {
 	public MainApp() {
 	}
 
-	 
 	public ObservableList<Task> getTaskData() {
 		ArrayList<Task> tasks = LogicClass.getTaskList();
 		for (int i = 0; i < tasks.size(); i++) {
 			System.out.println(tasks.get(i).getName());
-		} 
+		}
 		for (int i = 0; i < tasks.size(); i++) {
 			tasks.get(i).setTaskNumber(i + 1);
 		}
@@ -43,73 +47,98 @@ public class MainApp extends Application {
 		return taskList;
 	}
 
-	 
-	public ObservableList<String> getTodayTasks(){
+	public ObservableList<String> getTodayTasks() {
 		ArrayList<String> todayTasks = LogicClass.getTodayTasks();
 		todayTaskList = FXCollections.observableArrayList(todayTasks);
 		return todayTaskList;
 	}
-	
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+
+			Button btn = new Button();
+			btn.setText("Help");
+			btn.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					indexHelp();
+				}
+			});
+
+			BorderPane rootLayout = new BorderPane();
+
+			rootLayout.setTop(btn);
 			this.primaryStage = primaryStage;
 			this.primaryStage.setTitle("TaskBomber");
 
-			initRootLayout();
-			logger.log(Level.INFO, "RootLayout is initiated.");
-
-			showTaskBomberOverview();
-			logger.log(Level.INFO, "The view is generated.");
-		} catch (Exception e) {
-			System.out.println("cannot initiate the view.");
-		}
-	}
-
-	 
-	/**
-	 * Initializes the root layout.
-	 */
-	public void initRootLayout() {
-		try {
-			// Load root layout from fxml file.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("RootLayout.fxml"));
-			rootLayout = (BorderPane) loader.load();
-
-			// Show the scene containing the root layout.
-			Scene scene = new Scene(rootLayout);
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	 
-	/**
-	 * Shows the person overview inside the root layout.
-	 */
-	public void showTaskBomberOverview() {
-		try {
-			// Load person overview.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("TaskView.fxml"));
 			AnchorPane taskBomberOverview = (AnchorPane) loader.load();
 
 			// Set person overview into the center of root layout.
 			rootLayout.setCenter(taskBomberOverview);
-
 			TaskViewController controller = loader.getController();
-			
-			controller.setMainApp(this);
 
-		} catch (IOException e) {
-			e.printStackTrace();
+			controller.setMainApp(this);
+			logger.log(Level.INFO, "RootLayout is initiated.");
+
+			Scene scene = new Scene(rootLayout);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+
+			logger.log(Level.INFO, "The view is generated.");
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, null, e);
 		}
 	}
 
-	 
+	public void indexHelp() {
+		Image image = new Image("gui/help/Index.PNG");
+		ImageView imageView = new ImageView();
+		imageView.setImage(image);
+		imageView.setPreserveRatio(true);
+
+		ScrollPane secondaryLayout = new ScrollPane();
+		secondaryLayout.setContent(imageView);
+
+		Scene secondScene = new Scene(secondaryLayout, 800, 450);
+		Stage secondStage = new Stage();
+		secondStage.setTitle("Help");
+		secondStage.setScene(secondScene);
+
+		imageView.fitWidthProperty().bind(secondStage.widthProperty());
+		// Set position of second window, related to primary window.
+		secondStage.setX(primaryStage.getX() + 200);
+		secondStage.setY(primaryStage.getY() + 150);
+
+		secondStage.show();
+	}
+
+	public void sos() {
+		Image image = new Image("gui/help/SOS.PNG");
+		ImageView imageView = new ImageView();
+		imageView.setImage(image);
+		imageView.setPreserveRatio(true);
+
+		ScrollPane thirdLayout = new ScrollPane();
+		thirdLayout.setContent(imageView);
+
+		Scene thirdScene = new Scene(thirdLayout, 800, 450);
+		Stage thirdStage = new Stage();
+		thirdStage.setTitle("SOS");
+		thirdStage.setScene(thirdScene);
+
+		imageView.fitWidthProperty().bind(thirdStage.widthProperty());
+
+		// Set position of second window, related to primary window.
+		thirdStage.setX(primaryStage.getX() + 200);
+		thirdStage.setY(primaryStage.getY() + 150);
+
+		thirdStage.show();
+	}
+
 	/**
 	 * Returns the main stage.
 	 * 
@@ -120,7 +149,6 @@ public class MainApp extends Application {
 		return primaryStage;
 	}
 
-	 
 	public static void main(String[] args) {
 		launch(args);
 	}

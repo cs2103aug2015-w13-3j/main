@@ -9,7 +9,8 @@ import org.junit.Test;
 public class SystemTest {
 
 	@Test
-	public void test() {
+	public void test1() {
+		//test: add, update, delete
 		CommandParser cmp = new CommandParser();
 		CommandPackage cmd = cmp.getCommandPackage("add meeting 9-Oct");
 		LogicClass lg = LogicClass.getInstance();
@@ -22,8 +23,56 @@ public class SystemTest {
 		cmd = cmp.getCommandPackage("delete party");
 		lg.executeCommand(cmd);
 		assertEquals(LogicClass.getTaskList().size(), size - 1);
-		/*assertEquals(LogicClass.getInstance(null).delete("meeting").getName(), "meeting");
-		cmd = cmp.getCommandPackage("")*/
+	}
+	
+	@Test
+	public void test2() {
+		//test: clear, undo, redo
+		CommandParser cmp = new CommandParser();
+		CommandPackage cmd = cmp.getCommandPackage("clear");
+		LogicClass lg = LogicClass.getInstance();
+		lg.executeCommand(cmd);
+		int size = LogicClass.getTaskList().size();
+		assertEquals(0, size);
+		cmd = cmp.getCommandPackage("add meeting 9-Oct");
+		lg.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("undo");
+		lg.executeCommand(cmd);
+		size = LogicClass.getTaskList().size();
+		assertEquals(0, size);
+		cmd = cmp.getCommandPackage("redo");
+		lg.executeCommand(cmd);
+		size = LogicClass.getTaskList().size();
+		assertEquals(1, size);
+	}
+	
+	@Test
+	public void test3() {
+		//test: sort, search
+		CommandParser cmp = new CommandParser();
+		CommandPackage cmd = cmp.getCommandPackage("add party 8-Oct #3");
+		LogicClass lg = LogicClass.getInstance();
+		lg.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting 9-Oct #2");
+		lg.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("sort name");
+		lg.executeCommand(cmd);
+		assertEquals("meeting", LogicClass.getTaskList().get(0).getName());
+		cmd = cmp.getCommandPackage("sort time");
+		lg.executeCommand(cmd);
+		assertEquals("party", LogicClass.getTaskList().get(0).getName());
+		cmd = cmp.getCommandPackage("sort priority");
+		lg.executeCommand(cmd);
+		assertEquals("meeting", LogicClass.getTaskList().get(0).getName());
+		cmd = cmp.getCommandPackage("search meeting");
+		lg.executeCommand(cmd);
+		assertEquals("meeting", LogicClass.getTaskList().get(0).getName());
+		cmd = cmp.getCommandPackage("search 8-Oct");
+		lg.executeCommand(cmd);
+		assertEquals("party", LogicClass.getTaskList().get(0).getName());
+		cmd = cmp.getCommandPackage("search #2");
+		lg.executeCommand(cmd);
+		assertEquals("meeting", LogicClass.getTaskList().get(0).getName());	
 	}
 
 }

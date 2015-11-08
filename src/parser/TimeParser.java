@@ -10,26 +10,26 @@ import org.joda.time.format.DateTimeFormatter;
 
 
 public class TimeParser {
-	private static final String TIME_FORMAT_0 = "HH:mm";
-	private static final String TIME_FORMAT_1 = "HH.mm";
-	private static final String TIME_FORMAT_2 = "HHmm";
-	private static final String TIME_FORMAT_3 = "hh:mmaa";
-	private static final String TIME_FORMAT_4 = "hh.mmaa";
-	private static final String TIME_FORMAT_5 = "hhmmaa";
-	private static final String TIME_FORMAT_6 = "hhaa";
-	private static final String TIME_FORMAT_7 = "haa";
-	private static final String TIME_FORMAT_8 = "HH:";
-	private static final String TIME_FORMAT_9 = "HH.";
-	private static final int FORMAT_SIZE = 10;
+	private final String TIME_FORMAT_0 = "HH:mm";
+	private final String TIME_FORMAT_1 = "HH.mm";
+	private final String TIME_FORMAT_2 = "HHmm";
+	private final String TIME_FORMAT_3 = "hh:mmaa";
+	private final String TIME_FORMAT_4 = "hh.mmaa";
+	private final String TIME_FORMAT_5 = "hhmmaa";
+	private final String TIME_FORMAT_6 = "hhaa";
+	private final String TIME_FORMAT_7 = "haa";
+	private final String TIME_FORMAT_8 = "HH:";
+	private final String TIME_FORMAT_9 = "HH.";
+	private final int FORMAT_SIZE = 10;
 
-	private static ArrayList<DateTimeFormatter> timeFormats = new ArrayList<DateTimeFormatter>(
+	private ArrayList<DateTimeFormatter> timeFormats = new ArrayList<DateTimeFormatter>(
 			Arrays.asList(DateTimeFormat.forPattern(TIME_FORMAT_0), DateTimeFormat.forPattern(TIME_FORMAT_1),
 					DateTimeFormat.forPattern(TIME_FORMAT_2), DateTimeFormat.forPattern(TIME_FORMAT_3),
 					DateTimeFormat.forPattern(TIME_FORMAT_4), DateTimeFormat.forPattern(TIME_FORMAT_5),
 					DateTimeFormat.forPattern(TIME_FORMAT_6), DateTimeFormat.forPattern(TIME_FORMAT_7),
 					DateTimeFormat.forPattern(TIME_FORMAT_8), DateTimeFormat.forPattern(TIME_FORMAT_9)));
 
-	protected static DateTime setTime(DateTime date, String input) {
+	protected DateTime setTime(DateTime date, String input) {
 		if (isValidFormat(input)) {
 			date = parseTimeFormat(date, input);
 			return date;
@@ -38,7 +38,7 @@ public class TimeParser {
 		}
 	}
 
-	private static boolean isValidFormat(String input) {
+	private boolean isValidFormat(String input) {
 		DateTime date;
 		int i = 0;
 		for (; i < timeFormats.size(); i++) {
@@ -59,7 +59,7 @@ public class TimeParser {
 		}
 	}
 
-	protected static boolean isValidSearchFormat(String input) {
+	protected boolean isValidSearchFormat(String input) {
 		DateTime date;
 		int i = 6;
 		for (; i < timeFormats.size(); i++) {
@@ -80,7 +80,7 @@ public class TimeParser {
 		}
 	}
 
-	protected static ArrayList<DateTime> searchTime(String input) {
+	protected ArrayList<DateTime> searchTime(String input) {
 		DateTime currentTime = new DateTime();
 		DateTime time = new DateTime();;
 		ArrayList<DateTime> searchArea = new ArrayList<DateTime>();
@@ -105,7 +105,7 @@ public class TimeParser {
 		return searchArea;
 	}
 
-	protected static int getTimeFormat(String input) {
+	protected int getTimeFormat(String input) {
 		DateTime date;
 		int i = 0;
 		for (; i < timeFormats.size(); i++) {
@@ -128,15 +128,15 @@ public class TimeParser {
 		}
 	}
 
-	protected static boolean getTimeFormatArr(String input) {
+	protected boolean getTimeFormatArr(String input) {
 		return true;
 	}
 
-	protected static boolean isTime(String input) {
+	protected boolean isTime(String input) {
 		return isValidFormat(input);
 	}
 
-	private static DateTime parseTimeFormat(DateTime date, String input) {
+	private DateTime parseTimeFormat(DateTime date, String input) {
 		DateTime time = null;
 
 		for (int i = 0; i < FORMAT_SIZE; i++) {
@@ -160,7 +160,7 @@ public class TimeParser {
 		}
 	}
 
-	public static ArrayList<DateTime> searchTime(ArrayList<DateTime> date, String input) {
+	public ArrayList<DateTime> searchTime(ArrayList<DateTime> date, String input) {
 		if (isValidFormat(input)) {
 			DateTime start = date.get(0);
 			DateTime end = date.get(1);
@@ -172,5 +172,7 @@ public class TimeParser {
 		}
 
 	}
+
+
 
 }

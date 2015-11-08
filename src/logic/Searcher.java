@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 public class Searcher {
 	
 	private static Searcher searcher = null;
+	
 	private Searcher(){
 	}
 	
@@ -13,9 +14,9 @@ public class Searcher {
 		if(searcher == null){
 			searcher = new Searcher();
 		}
-		return searcher;
-		
+		return searcher;	
 	}
+	
 	public ArrayList<Task> search(Task target){
 		ArrayList<Task> result = new ArrayList<Task>();
 		if(target.getStartTime() != null){
@@ -39,7 +40,6 @@ public class Searcher {
 		return result;
 
 	}
-	
 	public ArrayList<Task> searchKeyword(String key, ArrayList<Task> sample){
 		int i, j;
 		String[] keywords = key.split(" ");
@@ -62,11 +62,11 @@ public class Searcher {
 	public ArrayList<Task> searchPriority(int priority){
 		ArrayList<Task> result = new ArrayList<Task>();
 		if(priority == 1){
-			result.addAll(PriorityTaskList.getP1());
+			result.addAll(PriorityTaskList.getInstance().getP1());
 		}else if(priority == 2){
-			result.addAll(PriorityTaskList.getP2());
+			result.addAll(PriorityTaskList.getInstance().getP2());
 		}else if(priority == 3){
-			result.addAll(PriorityTaskList.getP3());
+			result.addAll(PriorityTaskList.getInstance().getP3());
 		}
 		return result;
 	}
@@ -83,13 +83,7 @@ public class Searcher {
 		}
 		return sample;		
 	}
-	/*
-	public static ArrayList<Task> searchDate(DateTime date){
-		ArrayList<Task> result = new ArrayList<Task>();
-		searchFromStart(TimeLine.getStarttimeLine(), date, result);
-		searchFromEnd(TimeLine.getEndtimeLine(), date, result);
-		return result;
-	}*/
+	
 	public ArrayList<Task> searchDate(DateTime start, DateTime end){
 		ArrayList<Task> result1 = new ArrayList<Task>(TimeLine.getInstance().getStarttimeLine());
 		ArrayList<Task> result2 = new ArrayList<Task>(TimeLine.getInstance().getEndtimeLine());
@@ -104,52 +98,14 @@ public class Searcher {
 					result1.remove(i);
 					i--;
 				}
-				
 			}
 		}
 		for(int j = 0; j < result2.size(); j++){
 		    t = result2.get(j);
-		    if((t.getEndTime().compareTo(start) > 0) && (t.getEndTime().compareTo(end) < 0)){
+		    if((t.getEndTime().compareTo(start) >= 0) && (t.getEndTime().compareTo(end) <= 0)){
 		    	result1.add(t);
 		    }
 		}
 		return result1;
 	}
-	/*
-	private static void searchFromStart(ArrayList<Task> timeLine, DateTime time, ArrayList<Task> result){
-		int index1 = TimeLine.findPositionStart(timeLine, time, 0, timeLine.size());
-		
-		if(index1 == 0){
-		}else{
-			index1 --;
-			int index2 = index1 + 1;
-			while((index1 >= 0)&&(timeLine.get(index1).getStartTime().compareTo(time) == 0)){
-				result.add(timeLine.get(index1));
-				index1--;
-			}
-			while((index2 < timeLine.size())&&(timeLine.get(index2).getStartTime().compareTo(time) == 0)){
-				result.add(timeLine.get(index2));
-				index2++;
-			}
-		}
-	}
-	
-	private static void searchFromEnd(ArrayList<Task> timeLine, DateTime time, ArrayList<Task> result){
-		int index1 = TimeLine.findPositionEnd(timeLine, time, 0, timeLine.size());
-		
-		if(index1 == 0){
-		}else{
-			index1 --;
-			int index2 = index1 + 1;
-			while((index1 >= 0)&&(timeLine.get(index1).getStartTime().compareTo(time) == 0)){
-				result.add(timeLine.get(index1));
-				index1--;
-			}
-			while((index2 < timeLine.size())&&(timeLine.get(index2).getStartTime().compareTo(time) == 0)){
-				result.add(timeLine.get(index2));
-				index2++;
-			}
-		}
-	}*/
-	
 }

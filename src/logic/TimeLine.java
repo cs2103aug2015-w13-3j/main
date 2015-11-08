@@ -23,12 +23,12 @@ public class TimeLine {
 		}
 		return timeline;
 	}
+	
 	public void addToTL(Task t){
 		if(t.getStartTime() != null){
 			DateTime time = t.getStartTime();		
 			int index = findPositionStart(startTimeLine, time, 0, startTimeLine.size());
-			startTimeLine.add(index, t);
-			
+			startTimeLine.add(index, t);			
 		}
 		else if(t.getEndTime() != null){
 			DateTime time = t.getEndTime();
@@ -43,12 +43,9 @@ public class TimeLine {
 		if(right == 0){
 			return 0;
 		}
-		int mid = (left + right)/2;
-		
+		int mid = (left + right)/2;	
 	    if(timeLine.get(mid).getStartTime().compareTo(time) < 0){
-	    	
 	    	if(mid == left){
-	    		
 	    		return left + 1;
 	    	}else{
 	    		return findPositionStart(timeLine, time, mid, right);
@@ -69,11 +66,8 @@ public class TimeLine {
 			return 0;
 		}
 		int mid = (left + right)/2;
-		
-	    if(timeLine.get(mid).getEndTime().compareTo(time) < 0){
-	    	
+	    if(timeLine.get(mid).getEndTime().compareTo(time) < 0){	
 	    	if(mid == left){
-	    		
 	    		return left + 1;
 	    	}else{
 	    		return findPositionEnd(timeLine, time, mid, right);
@@ -89,16 +83,12 @@ public class TimeLine {
 		}
 	}
 	
-	
-
-	
 	public void deleteFromTL(Task t){
 		if(t.getStartTime() != null){
 			DateTime time = t.getStartTime();
 			String name = t.getName();	
 			removeStart(startTimeLine, time, name);
 		}
-		
 		else if(t.getEndTime() != null){
 			DateTime time = t.getEndTime();
 			String name = t.getName();	
@@ -107,6 +97,7 @@ public class TimeLine {
 			floatTimeLine.remove(t);
 		}
 	}
+	
 	public void removeStart(ArrayList<Task> timeLine, DateTime time, String name){
 		int index1 = findPositionStart(timeLine, time, 0, timeLine.size()) - 1;
 		int index2 = index1 + 1;
@@ -124,6 +115,7 @@ public class TimeLine {
 			timeLine.remove(index2);
 		}
 	}
+	
 	public void removeEnd(ArrayList<Task> timeLine, DateTime time, String name){
 		int index1 = findPositionEnd(timeLine, time, 0, timeLine.size()) - 1;
 		int index2 = index1 + 1;
