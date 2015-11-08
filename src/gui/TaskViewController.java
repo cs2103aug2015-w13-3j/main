@@ -84,43 +84,15 @@ public class TaskViewController {
 		} else if (crtlY.match(event)) {
 			controlYKeyEvent();
 		}
-
-//		if (event.getCode() == KeyCode.ENTER) {
-//			System.out.println(txtCommandInput.getText());
-//
-//			if (txtCommandInput.getText() == null || txtCommandInput.getText().isEmpty()) {
-//				taskTableView.setItems(mainApp.getTaskData());
-//			} else {
-//				if (txtCommandInput.getText().equalsIgnoreCase("help")) {
-//					System.out.println("getting help");
-//				} else {
-//					String input = txtCommandInput.getText().trim();
-//					logger.log(Level.INFO, "Here comes a command.");
-//					CommandPackage cmdPack = cmdParser.getCommandPackage(input);
-//					logger.log(Level.INFO, "CommandParser parses the command.");
-//					assert (cmdPack != null);
-//					logic.executeCommand(cmdPack);
-//					taskTableView.setItems(mainApp.getTaskData());
-//					logger.log(Level.INFO, "Update the table view.");
-//					txtCommandInput.clear();
-//				}
-//			}
-//		}
 	}
 
 
 	private void controlYKeyEvent() {
-		CommandPackage cmdPack = cmdParser.getCommandPackage("redo");
-		assert (cmdPack != null);
-		logic.executeCommand(cmdPack);
-		taskTableView.setItems(mainApp.getTaskData());
+		execute("redo");
 	}
 
 	private void controlZKeyEvent() {
-		CommandPackage cmdPack = cmdParser.getCommandPackage("undo");
-		assert (cmdPack != null);
-		logic.executeCommand(cmdPack);
-		taskTableView.setItems(mainApp.getTaskData());
+		execute("undo");
 	}
 
 	private void downKeyEvent() {
@@ -142,15 +114,19 @@ public class TaskViewController {
 			} else {
 				String input = txtCommandInput.getText().trim();
 				logger.log(Level.INFO, "Here comes a command.");
-				CommandPackage cmdPack = cmdParser.getCommandPackage(input);
-				logger.log(Level.INFO, "CommandParser parses the command.");
-				assert (cmdPack != null);
-				logic.executeCommand(cmdPack);
-				taskTableView.setItems(mainApp.getTaskData());
-				logger.log(Level.INFO, "Update the table view.");
-				txtCommandInput.clear();
+				execute(input);
 			}
 		}
+	}
+	
+	private void execute(String input){
+		CommandPackage cmdPack = cmdParser.getCommandPackage(input);
+		logger.log(Level.INFO, "CommandParser parses the command.");
+		assert (cmdPack != null);
+		logic.executeCommand(cmdPack);
+		taskTableView.setItems(mainApp.getTaskData());
+		logger.log(Level.INFO, "Update the table view.");
+		txtCommandInput.clear();
 	}
 
 	/**
