@@ -14,6 +14,10 @@ public class CommandParser {
     public String input;
     public ArrayList<String> inputArr;
     public CommandPackage inputData;
+    private String START_TIME_LONG = "`startTime";
+    private String START_TIME_SHORT = "`st";
+    private String END_TIME_LONG = "`endTime";
+    private String END_TIME_SHORT = "`et";
 
     public CommandParser() {
 
@@ -100,12 +104,14 @@ public class CommandParser {
 	for (int i = 0; i < inputArr.size(); i++) {
 	    word = inputArr.get(i);
 	    if (word.startsWith("`")) {
-		if (word.equalsIgnoreCase("`startTime") || word.equalsIgnoreCase("`st")) {
+		if (word.equalsIgnoreCase(START_TIME_LONG) || word.equalsIgnoreCase(START_TIME_SHORT)) {
 		    dateArr = extractDate();
 		    inputData.setDates(dateArr, "start");
-		} else if (word.equalsIgnoreCase("`endTime") || word.equalsIgnoreCase("`et")) {
-		    dateArr = extractDate();
-		    inputData.setDates(dateArr, "end");
+		} else {
+		    if (word.equalsIgnoreCase(END_TIME_LONG) || word.equalsIgnoreCase(END_TIME_SHORT)) {
+			dateArr = extractDate();
+			inputData.setDates(dateArr, "end");
+		    }
 		}
 		System.out.println(sequence + "+1");
 		inputData.addUpdateSequence(sequence);
@@ -119,7 +125,7 @@ public class CommandParser {
 	System.out.println(sequence + "+1");
 	inputData.addUpdateSequence(sequence);
 	if (inputData.getUpdateSequence().size() < 4) {
-	    System.out.println("last sequence is " +inputData.getDate().toString());
+	    System.out.println("last sequence is " + inputData.getDate().toString());
 	    inputData.addUpdateSequence(inputData.getDate().toString());
 	}
 	System.out.println(inputData.getUpdateSequence().size());

@@ -4,26 +4,25 @@ import logic.*;
 import parser.CommandPackage;
 import parser.CommandParser;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.controlsfx.dialog.Dialogs;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 
 //@@author A0133915H
 public class TaskViewController {
+
+	private final KeyCombination crtlZ = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN);
+	private final KeyCombination crtlY = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN);
 
 	@FXML
 	private TextField txtCommandInput;
@@ -54,7 +53,6 @@ public class TaskViewController {
 	CommandParser cmdParser = new CommandParser();
 
 	private static Logger logger = Logger.getLogger("TaskViewController");
-	
 
 	/**
 	 * The constructor. The constructor is called before the initialize()
@@ -75,25 +73,79 @@ public class TaskViewController {
 
 	public void enterCommand(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
-			System.out.println(txtCommandInput.getText());
-			
-			if(txtCommandInput.getText().equalsIgnoreCase("help")){
-				File file = new File("src/Basic.PNG");
-		        Image image = new Image(file.toURI().toString());
-		        ImageView imageView = new ImageView(image);
-			}
-			
-			if (txtCommandInput.getText() == null || txtCommandInput.getText().isEmpty()) {
-				taskTableView.setItems(mainApp.getTaskData());
+			System.out.println("I am Here");
+			enterKeyEvent();
+		} else if (event.getCode() == KeyCode.UP) {
+			upKeyEvent();
+		} else if (event.getCode() == KeyCode.DOWN) {
+			downKeyEvent();
+		} else if (crtlZ.match(event)) {
+			controlZKeyEvent();
+		} else if (crtlY.match(event)) {
+			controlYKeyEvent();
+		}
+
+//		if (event.getCode() == KeyCode.ENTER) {
+//			System.out.println(txtCommandInput.getText());
+//
+//			if (txtCommandInput.getText() == null || txtCommandInput.getText().isEmpty()) {
+//				taskTableView.setItems(mainApp.getTaskData());
+//			} else {
+//				if (txtCommandInput.getText().equalsIgnoreCase("help")) {
+//					System.out.println("getting help");
+//				} else {
+//					String input = txtCommandInput.getText().trim();
+//					logger.log(Level.INFO, "Here comes a command.");
+//					CommandPackage cmdPack = cmdParser.getCommandPackage(input);
+//					logger.log(Level.INFO, "CommandParser parses the command.");
+//					assert (cmdPack != null);
+//					logic.executeCommand(cmdPack);
+//					taskTableView.setItems(mainApp.getTaskData());
+//					logger.log(Level.INFO, "Update the table view.");
+//					txtCommandInput.clear();
+//				}
+//			}
+//		}
+	}
+
+
+	private void controlYKeyEvent() {
+		CommandPackage cmdPack = cmdParser.getCommandPackage("redo");
+		assert (cmdPack != null);
+		logic.executeCommand(cmdPack);
+		taskTableView.setItems(mainApp.getTaskData());
+	}
+
+	private void controlZKeyEvent() {
+		CommandPackage cmdPack = cmdParser.getCommandPackage("undo");
+		assert (cmdPack != null);
+		logic.executeCommand(cmdPack);
+		taskTableView.setItems(mainApp.getTaskData());
+	}
+
+	private void downKeyEvent() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void upKeyEvent() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void enterKeyEvent() {
+		if (txtCommandInput.getText() == null || txtCommandInput.getText().isEmpty()) {
+			taskTableView.setItems(mainApp.getTaskData());
+		} else {
+			if (txtCommandInput.getText().equalsIgnoreCase("help")) {
+				mainApp.basicHelp();
 			} else {
 				String input = txtCommandInput.getText().trim();
-				// logger.log(Level.INFO, "Here comes a command.");
+				logger.log(Level.INFO, "Here comes a command.");
 				CommandPackage cmdPack = cmdParser.getCommandPackage(input);
-				// logger.log(Level.INFO, "CommandParser parses the command.");
+				logger.log(Level.INFO, "CommandParser parses the command.");
 				assert (cmdPack != null);
-				// String feedback =
 				logic.executeCommand(cmdPack);
-				// every time when user click "enter", redisplay the task list
 				taskTableView.setItems(mainApp.getTaskData());
 				logger.log(Level.INFO, "Update the table view.");
 				txtCommandInput.clear();

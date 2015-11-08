@@ -204,9 +204,13 @@ public class LogicClass {
 				} else if (update.get(2).equalsIgnoreCase("startTime")) {
 					// System.out.println("parse date" +
 					// DateParser.setDate(update.get(3)));
+<<<<<<< HEAD
 					task.setStartTime(commandInfo.startingTime());
 				} else if (update.get(2).equalsIgnoreCase("endTime")) {
 					task.setEndTime(commandInfo.endingTime());
+=======
+					//task.setEndTime(DateParser.setDate(update.get(3)));
+>>>>>>> 109c75bfcf379dab8d62504aaee12b30d5b639e9
 				}
 
 				newTask = new Task(task.getName());
