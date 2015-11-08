@@ -28,7 +28,6 @@ public class MainApp extends Application {
 	private Stage primaryStage;
 
 	private static ObservableList<Task> taskList;
-	private static ObservableList<String> todayTaskList;
 	LogicClass lc = LogicClass.getInstance();
 
 	private static Logger logger = Logger.getLogger("MainApp");
@@ -48,12 +47,6 @@ public class MainApp extends Application {
 		taskList = FXCollections.observableArrayList(tasks);
 		return taskList;
 	}
-
-//	public ObservableList<String> getTodayTasks() {
-//		ArrayList<String> todayTasks = lc.getTodayTasks();
-//		todayTaskList = FXCollections.observableArrayList(todayTasks);
-//		return todayTaskList;
-//	}
 
 	@Override
 	public void start(Stage primaryStage) {
