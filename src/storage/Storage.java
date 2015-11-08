@@ -14,7 +14,7 @@ import org.joda.time.format.ISODateTimeFormat;
 public class Storage {
 
 	private static File filePath = new File("filePath");
-	private static File userFile;
+	private static File userFile = new File("taskBomber.txt");
 	private static Storage storage = null;
 	
 	private Storage(){
@@ -134,9 +134,10 @@ public class Storage {
 		try{
 			File newPath = new File(path);
 			newPath.createNewFile();
-			write(read());
+			ArrayList<Task> content = read();
 			userFile.delete();
 			userFile = newPath;
+			write(content);
 			FileWriter fw = new FileWriter(filePath, false);
 			BufferedWriter buff = new BufferedWriter(fw);
 			buff.write(path);
