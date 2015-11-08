@@ -25,24 +25,32 @@ public class DeleteCommand extends Command{
 	@Override
 	public String execute() {
 		int index=0;
+		boolean found = false;
 		ArrayList<Task> taskList = mgr.getTaskList();
 		Task t;
 		if (isInteger(deleteInfo, 10)) { // delete by index
 			index = Integer.parseInt(deleteInfo)-1;
-			if(index>=taskList.size() || index<0){
-				return "invalid index";
+			if(index<taskList.size()  && index>=0){
+				found =true;
+				mgr.delete(index);		
+				return "task deleted";
 			}
-		} else {// delete by name
+			
+		}  
+		// delete by name
 			for (int i = 0; i < taskList.size(); i++) {
 				t = taskList.get(i);
 				if (t.getName().equals(deleteInfo)) {
 					index=i;
+					found = false;
 					break;
 				}
 			}
-		}
-		mgr.delete(index);
 		
+		if(found = false){
+			return "invalid command";
+		}
+		mgr.delete(index);		
 		return "task deleted";
 	}
 	
