@@ -24,12 +24,20 @@ public class TimeLine {
 		return timeline;
 	}
 	
+	/**
+	* This operation adds the task to its respective timeLine
+	* this operation maintain the Chronological order of timeline
+	*
+	* @param task to be added
+	*/
 	public void addToTL(Task t){
+		//event task and task with only start time will be added into startTimeLine
 		if(t.getStartTime() != null){
 			DateTime time = t.getStartTime();		
 			int index = findPositionStart(startTimeLine, time, 0, startTimeLine.size());
 			startTimeLine.add(index, t);			
 		}
+		//deadline task will be added to endTimeLine
 		else if(t.getEndTime() != null){
 			DateTime time = t.getEndTime();
 			int index = findPositionEnd(endTimeLine, time, 0, endTimeLine.size());
@@ -39,6 +47,12 @@ public class TimeLine {
 		}
 	}
 	
+	/**
+	* This operation find the position of the task in the startTimeline
+	*
+	* @param timeline, the time being searched, left index, right index.
+	* @return position
+	*/
 	public int findPositionStart(ArrayList<Task> timeLine, DateTime time, int left, int right){
 		if(right == 0){
 			return 0;
@@ -61,6 +75,12 @@ public class TimeLine {
 		}
 	}
 	
+	/**
+	* This operation find the position of the task in the endTimeline
+	*
+	* @param timeline, the time being searched, left index, right index.
+	* @return position
+	*/
 	public int findPositionEnd(ArrayList<Task> timeLine, DateTime time, int left, int right){
 		if(right == 0){
 			return 0;
@@ -83,6 +103,11 @@ public class TimeLine {
 		}
 	}
 	
+	/**
+	* This operation delete the specific task in timeline
+	*
+	* @param task to be deleted
+	*/
 	public void deleteFromTL(Task t){
 		if(t.getStartTime() != null){
 			DateTime time = t.getStartTime();
@@ -98,6 +123,10 @@ public class TimeLine {
 		}
 	}
 	
+	/* This operation delete the specific task in starttimeline
+	*
+	* @param timeline, time of the task, task name
+	*/
 	public void removeStart(ArrayList<Task> timeLine, DateTime time, String name){
 		int index1 = findPositionStart(timeLine, time, 0, timeLine.size()) - 1;
 		int index2 = index1 + 1;
@@ -116,6 +145,10 @@ public class TimeLine {
 		}
 	}
 	
+	/* This operation delete the specific task in endtimeline
+	*
+	* @param timeline, time of the task, task name
+	*/
 	public void removeEnd(ArrayList<Task> timeLine, DateTime time, String name){
 		int index1 = findPositionEnd(timeLine, time, 0, timeLine.size()) - 1;
 		int index2 = index1 + 1;
@@ -134,6 +167,9 @@ public class TimeLine {
 		}
 	}
 	
+	/* This operation clear all the timeline
+	*
+	*/
 	public void clear(){
 		startTimeLine.clear();
 		endTimeLine.clear();

@@ -25,6 +25,11 @@ public class PriorityTaskList {
 		return priorityList;
 	}
 	
+	/**
+	* This operation adds a specific task to priorityList
+	*
+	* @param task to be added
+	*/
 	public void addToPL(Task t){
 		if(t.getPriority() == null){
 			p4.add(t);
@@ -37,6 +42,11 @@ public class PriorityTaskList {
 		}
 	}
 	
+	/**
+	* This operation deletes a task from PriorityTaskList
+	*
+	* @param task to be deleted
+	*/
 	public void deleteFromPL(Task t){
 	    if(t.getPriority() == null){
 	    	for (int i = 0; i<p4.size(); i++){
@@ -69,6 +79,9 @@ public class PriorityTaskList {
 		}
 	}
 	
+	/* This operation clear all the timeline
+	*
+	*/
 	public void clear(){
 		p1.clear();
 		p2.clear();
