@@ -7,8 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,29 +14,18 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 //@@author A0133915H
 public class MainApp extends Application {
 	private Stage primaryStage;
-	private BorderPane rootLayout;
 
 	private static ObservableList<Task> taskList;
 	private static ObservableList<String> todayTaskList;
@@ -81,11 +68,10 @@ public class MainApp extends Application {
 			        imageView.setImage(image);
 	                imageView.setPreserveRatio(true);
 	                
-	                StackPane secondaryLayout = new StackPane();
-	                secondaryLayout.getChildren().add(imageView);
+	                ScrollPane secondaryLayout = new ScrollPane();
+	                secondaryLayout.setContent(imageView);
 	                 
-	                Scene secondScene = new Scene(secondaryLayout, 800, 800);
-	 
+	                Scene secondScene = new Scene(secondaryLayout, 750, 700);
 	                Stage secondStage = new Stage();
 	                secondStage.setTitle("Help");
 	                secondStage.setScene(secondScene);
@@ -124,6 +110,27 @@ public class MainApp extends Application {
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, null, e);
 		}
+	}
+	
+	public void basicHelp(){
+		Image image = new Image("Basic.PNG");
+        ImageView imageView = new ImageView();
+        imageView.setImage(image);
+        imageView.setPreserveRatio(true);
+        
+        ScrollPane secondaryLayout = new ScrollPane();
+        secondaryLayout.setContent(imageView);
+         
+        Scene secondScene = new Scene(secondaryLayout, 750, 700);
+        Stage secondStage = new Stage();
+        secondStage.setTitle("Help");
+        secondStage.setScene(secondScene);
+         
+        //Set position of second window, related to primary window.
+        secondStage.setX(primaryStage.getX() + 250);
+        secondStage.setY(primaryStage.getY() + 100);
+
+        secondStage.show();
 	}
 	
 	/**

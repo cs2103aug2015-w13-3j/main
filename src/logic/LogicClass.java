@@ -203,7 +203,7 @@ public class LogicClass {
 				} else if (update.get(2).equals("time")) {
 					// System.out.println("parse date" +
 					// DateParser.setDate(update.get(3)));
-					task.setEndTime(DateParser.setDate(update.get(3)));
+					//task.setEndTime(DateParser.setDate(update.get(3)));
 				}
 
 				newTask = new Task(task.getName());
