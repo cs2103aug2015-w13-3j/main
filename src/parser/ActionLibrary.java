@@ -16,42 +16,42 @@ public class ActionLibrary {
      * ====================================================================
      */
 
-    private static boolean isPreProcessed = false;
-    private static TreeMap<String, String> actionTree;
+    private boolean isPreProcessed = false;
+    private TreeMap<String, String> actionTree;
 
     /*
      * ====================================================================
      * Magic Constants
      * ====================================================================
      */
-    private static final String NOT_FOUND = "invalid input";
+    private final String NOT_FOUND = "invalid input";
 
-    private static final String[] CREATE_LIST = { "create", "add", "`a", "`c", "create", "`n", "new", "plus",
+    private final String[] CREATE_LIST = { "create", "add", "`a", "`c", "create", "`n", "new", "plus",
 						  "`p" };
 
-    private static final String[] UNDO_LIST = { "undo", "undo", "`un" };
+    private final String[] UNDO_LIST = { "undo", "undo", "`un" };
 
-    private static final String[] REDO_LIST = { "redo", "redo", "`re" };
+    private final String[] REDO_LIST = { "redo", "redo", "`re" };
 
-    private static final String[] UPDATE_LIST = { "update", "`c", "change", "`e", "edit", "`u", "update" };
+    private final String[] UPDATE_LIST = { "update", "`c", "change", "`e", "edit", "`u", "update" };
 
-    private static final String[] DELETE_LIST = { "delete", "bomb", "`b", "`del", "delete", "`rmv",
+    private final String[] DELETE_LIST = { "delete", "bomb", "`b", "`del", "delete", "`rmv",
 						  "remove" };
 
-    private static final String[] SEARCH_LIST = { "search", "`s", "search", "`f", "find", "`dis", "display",
+    private final String[] SEARCH_LIST = { "search", "`s", "search", "`f", "find", "`dis", "display",
 						  "`rd", "read", "`s", "show" };
 
-    private static final String[] SORT_LIST = { "sort", "sort", "`st" };
+    private final String[] SORT_LIST = { "sort", "sort", "`st" };
 
-    private static final String[] SET_PATH_LIST = { "set", "set", "setPath", "`se" };
+    private final String[] SET_PATH_LIST = { "set", "set", "setPath", "`se" };
 
-    private static final String[] MARK_LIST = { "mark", "`m" , "complete", "`cmp", "done", "`dn", "finished", "`fh"};
+    private final String[] MARK_LIST = { "mark", "`m" , "complete", "`cmp", "done", "`dn", "finished", "`fh"};
 
-    private static final String[] CLEAR_LIST = { "clear", "clear", "`clr", "reset", "`rst" };
+    private final String[] CLEAR_LIST = { "clear", "clear", "`clr", "reset", "`rst" };
 
-    private static final String[] EXIT_LIST = { "exit", "exit" };
+    private final String[] EXIT_LIST = { "exit", "exit" };
 
-    private static final String[][] ACTION_ARRAY = { CREATE_LIST, REDO_LIST, UNDO_LIST, UPDATE_LIST,
+    private final String[][] ACTION_ARRAY = { CREATE_LIST, REDO_LIST, UNDO_LIST, UPDATE_LIST,
 						     DELETE_LIST, SEARCH_LIST, SORT_LIST, SET_PATH_LIST,
 						     MARK_LIST, CLEAR_LIST, EXIT_LIST };
 
@@ -67,7 +67,7 @@ public class ActionLibrary {
      * 
      * @return if ActionLibrary have been processed
      */
-    protected static boolean preProcess() {
+    private boolean preProcess() {
 	if (!isPreProcessed) {
 	    actionTree = new TreeMap<String, String>();
 	    for (int i = 0; i < ACTION_ARRAY.length; i++) {
@@ -89,7 +89,7 @@ public class ActionLibrary {
      *            the word to be tested with ActionLibrary
      * @return the compiled word for the action, if not found, return NOT_FOUND
      */
-    protected static String find(String input) {
+    protected String find(String input) {
 	preProcess();
 	String result = actionTree.get(input.toLowerCase());
 	if (result == null) {

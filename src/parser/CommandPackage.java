@@ -42,17 +42,17 @@ public class CommandPackage {
 	updateSequence = new ArrayList<String>();
     }
 
-    public String setCommand(String cmd) {
+    protected String setCommand(String cmd) {
 	command = cmd;
 	return command;
     }
 
-    public String setPhrase(String text) {
+    protected String setPhrase(String text) {
 	phrase = text;
 	return phrase;
     }
 
-    public DatePackage setDates(ArrayList<DateTime> time, String condition) {
+    protected DatePackage setDates(ArrayList<DateTime> time, String condition) {
 	if (condition.equalsIgnoreCase("start")) {
 	    dates.setDate(time.get(0), null);
 	} else {
@@ -62,7 +62,7 @@ public class CommandPackage {
 
     }
 
-    public DatePackage setDates(ArrayList<DateTime> time) {
+    protected DatePackage setDates(ArrayList<DateTime> time) {
 	if (time.get(0).compareTo(time.get(1)) < 0) {
 	    dates.setDate(time.get(0), time.get(1));
 	} else {
@@ -71,12 +71,12 @@ public class CommandPackage {
 	return dates;
     }
 
-    public String setPriority(String priority) {
+    protected String setPriority(String priority) {
 	this.priority = priority;
 	return priority;
     }
 
-    public ArrayList<String> addUpdateSequence(String sequence) {
+    protected ArrayList<String> addUpdateSequence(String sequence) {
 	updateSequence.add(sequence);
 	return updateSequence;
 

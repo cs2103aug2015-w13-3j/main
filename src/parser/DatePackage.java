@@ -24,16 +24,16 @@ public class DatePackage {
 	end = null;
     }
 
-    public void setDate(DateTime front, DateTime back) {
+    protected void setDate(DateTime front, DateTime back) {
 	start = front;
 	end = back;
     }
 
-    public void setTimeFormat(boolean[] startFmt) {
+    protected void setTimeFormat(boolean[] startFmt) {
 	startTimeFormat = startFmt;
     }
 
-    public void setTimeFormat(boolean[] startFmt, boolean[] endFmt) {
+    protected void setTimeFormat(boolean[] startFmt, boolean[] endFmt) {
 	startTimeFormat = startFmt;
 	endTimeFormat = endFmt;
     }

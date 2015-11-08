@@ -18,18 +18,18 @@ public class TimeLibrary {
      * Magic Constants
      * ====================================================================
      */
-    private static final String START_TERM_0 = "starts";
-    private static final String START_TERM_1 = "from";
-    private static final String START_TERM_2 = "begins";
+    private final String START_TERM_0 = "starts";
+    private final String START_TERM_1 = "from";
+    private final String START_TERM_2 = "begins";
 
-    private static final String END_TERM_0 = "ends by";
-    private static final String END_TERM_1 = "to";
-    private static final String END_TERM_2 = "until";
+    private final String END_TERM_0 = "ends by";
+    private final String END_TERM_1 = "to";
+    private final String END_TERM_2 = "until";
 
-    private static ArrayList<String> startList = new ArrayList<String>(
+    private ArrayList<String> startList = new ArrayList<String>(
 	    Arrays.asList(START_TERM_0, START_TERM_1, START_TERM_2));
 
-    private static ArrayList<String> endList = new ArrayList<String>(
+    private ArrayList<String> endList = new ArrayList<String>(
 	    Arrays.asList(END_TERM_0, END_TERM_1, END_TERM_2));
 
     /*
@@ -45,7 +45,7 @@ public class TimeLibrary {
      *            the word to be tested with TimeLibrary
      * @return	a boolean if it matches a start referral
      */
-    public static boolean isStart(String input) {
+    protected boolean isStart(String input) {
 	return startList.contains(input.toLowerCase());
     }
     
@@ -57,7 +57,7 @@ public class TimeLibrary {
      *            the word to be tested with TimeLibrary
      * @return	a boolean if it matches a end referral
      */
-    public static boolean isEnd(String input) {
+    protected boolean isEnd(String input) {
 	return endList.contains(input.toLowerCase());
     }
 }
