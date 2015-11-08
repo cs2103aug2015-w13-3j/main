@@ -12,11 +12,14 @@ public class Task implements Comparable<Task> {
 	private DateTime endTime = null;
 	private Integer priority = null;
 	private Integer taskNum = null;
-	
+
+	//@author A0133949U
+
 	public Task(String name) {
 		this.name = name;
 	}
 
+	//@author A0133949U
 	public Task(String name, DateTime start, DateTime end, int pri) {
 		this.name = name;
 		this.startTime = start;
@@ -24,30 +27,37 @@ public class Task implements Comparable<Task> {
 		this.priority = pri;
 	}
 
+	//@author A0133949U
 	public String getName() {
 		return this.name;
 	}
 
+	//@author A0133949U
 	public DateTime getStartTime() {
 		return this.startTime;
 	}
 
+	//@author A0133949U
 	public DateTime getEndTime() {
 		return this.endTime;
 	}
 
+	//@author A0133949U
 	public Integer getPriority() {
 		return this.priority;
 	}
 
+	//@author A0133949U
 	public Integer getTaskNum() {
 		return this.taskNum;
 	}
 
+	//@author A0133949U
 	public void setStartTime(DateTime start) {
 		this.startTime = start;
 	}
 
+	//@author A0133949U
 	public void setEndTime(DateTime end) {
 		this.endTime = end;
 	}
@@ -63,14 +73,17 @@ public class Task implements Comparable<Task> {
 		}
 	}
 
+	//@author A0133949U
 	public void setTaskNumber(Integer taskNumber) {
 		this.taskNum = taskNumber;
 	}
 
+	//@author A0133949U
 	public void setTaskName(String name) {
 		this.name = name;
 	}
 
+	//@author A0133949U
 	public boolean containKeyword(String keyword) {
 		if (name.matches(".*\\b" + keyword + "\\b.*")) {
 			return true;
@@ -91,6 +104,7 @@ public class Task implements Comparable<Task> {
 	}
 
 	@Override
+	//@author A0133949U
 	public int compareTo(Task oTask) {
 		int result = this.name.compareToIgnoreCase(oTask.name);
 		if (result < 0)
@@ -103,6 +117,7 @@ public class Task implements Comparable<Task> {
 	}
 
 	@Override
+	//@author A0133949U
 	public String toString() {
 		return name;
 	}

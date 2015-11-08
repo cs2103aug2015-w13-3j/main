@@ -28,8 +28,11 @@ public class LogicClass {
 	static LogicClass theOne = null;
 
 	// constructor
+	//@author A0133949U
+
 	private LogicClass() {
 		taskList = storage.read();
+
 		for (int i = 0; i < taskList.size(); i++) {
 			Task task = taskList.get(i);
 			PriorityTaskList.addToPL(task);
@@ -38,13 +41,18 @@ public class LogicClass {
 		undoRedo = new UndoRedoOp(new ArrayList<Task>(taskList));
 	}
 
+
+	//@author A0133949U
+
 	public static LogicClass getInstance() {
+
 		if (theOne == null) {
 			theOne = new LogicClass();
 		}
 		return theOne;
 	}
 
+	//@author A0133949U
 	public static ArrayList<Task> getTaskList() {
 		if (isSearchOp == true) {
 			isSearchOp = false;
@@ -54,11 +62,13 @@ public class LogicClass {
 		return new ArrayList<Task>(taskList);
 	}
 
+	//@author A0133949U
 	public static ArrayList<Task> getTaskListForSearcher() {
 
 		return new ArrayList<Task>(taskList);
 	}
 
+	//@author A0133949U
 	public static ArrayList<String> getTodayTasks() {
 		ArrayList<String> todayTasks = new ArrayList<String>();
 		Task task = null;
@@ -82,13 +92,8 @@ public class LogicClass {
 		return todayTasks;
 	}
 
-	// These are the possible command types
-	enum COMMAND_TYPE {
-		CREATE, DELETE, CLEAR, EXIT, INVALID, SORT, SEARCH, UPDATE, REDO, UNDO, MARK, SET;
-	};
-
+	//@author A0133949U
 	public void executeCommand(CommandPackage commandPackage) {
-		// int taskIndex;
 		isSearchOp = false;
 
 		// System.out.("Get the command type string: " +
@@ -97,8 +102,7 @@ public class LogicClass {
 
 		commandTypeString = commandTypeString.toUpperCase();
 
-		COMMAND_TYPE commandType = COMMAND_TYPE.valueOf(commandTypeString);
-		// COMMAND_TYPE commandType = determineCommandType(commandTypeString);
+		CommandType commandType = CommandType.valueOf(commandTypeString);
 
 		switch (commandType) {
 		case CREATE:
@@ -168,14 +172,16 @@ public class LogicClass {
 		// undoRedo.addStateToUndo((ArrayList<Task>) taskList.clone());
 	}
 
+	//@author A0133949U
 	private String invalid() {
 		return "The command is invalid, please key in the valid command.";
 	}
 
+	//@author A0133949U
 	public boolean setPath(String path) {
 		return storage.setPath(path);
 	}
-
+    
 	public Task edit(CommandPackage commandInfo) {
 
 		ArrayList<String> update = commandInfo.getUpdateSequence();
@@ -219,6 +225,7 @@ public class LogicClass {
 	}
 
 	// To clear all content
+	//@author A0133949U
 	public void clear() {
 		taskList.clear();
 		PriorityTaskList.clear();
@@ -228,6 +235,7 @@ public class LogicClass {
 	}
 
 	// To delete certain message
+	//@author A0133949U
 	public Task delete(String string) {
 		Task task = null;
 
@@ -250,6 +258,7 @@ public class LogicClass {
 		return task;
 	}
 
+	//@author A0133949U
 	public Task mark(String string) {
 		Task task = null;
 		if (isInteger(string, 10)) { // delete by index
@@ -274,6 +283,7 @@ public class LogicClass {
 		return task;
 	}
 
+	//@author A0133949U
 	private boolean isInteger(String s, int radix) {
 		if (s.isEmpty())
 			return false;
@@ -290,6 +300,7 @@ public class LogicClass {
 		return true;
 	}
 
+	//@author A0133949U
 	public Task addTask(CommandPackage commandInfo) {
 
 		Task task = new Task(commandInfo.getPhrase());
@@ -318,6 +329,7 @@ public class LogicClass {
 
 	}
 
+	//@author A0133949U
 	public static boolean isTodayTask(Task t) {
 		if (t.getEndTime() == null && t.getStartTime() == null) {
 			return false;
@@ -353,6 +365,7 @@ public class LogicClass {
 		return false;
 	}
 
+	//@author A0133949U
 	public String sort(CommandPackage commandPackage) {
 		if (commandPackage.getPhrase().equals("name")) {
 			Collections.sort(taskList);
@@ -379,6 +392,7 @@ public class LogicClass {
 
 	}
 
+	//@author A0133949U
 	public ArrayList<Task> search(CommandPackage commandInfo) {
 		Task task = new Task(commandInfo.getPhrase());
 		if (commandInfo.startingTime() != null) {
@@ -400,45 +414,8 @@ public class LogicClass {
 		searchTaskList = new ArrayList<Task>(seacher.search(task));
 		return searchTaskList;
 
-		/**
-		 * String taskWithKeyword = ""; ArrayList<Task> taskContainKeyword = new
-		 * ArrayList<Task>(); for (Task task : taskList) { if
-		 * (task.containKeyword(taskWithKeyword)) {
-		 * taskContainKeyword.add(task); } } return taskWithKeyword.toString();
-		 */
 	}
 
-	/**
-	 * This operation determines which supported command type to perform
-	 *
-	 * @param commandTypeString
-	 *            is the first word of the user command
-	 */
 
-	/**
-	 * private static COMMAND_TYPE determineCommandType(String
-	 * commandTypeString) { if (commandTypeString == null) throw new Error(
-	 * "command type string cannot be null!");
-	 * 
-	 * if (commandTypeString.equalsIgnoreCase("create")) { return
-	 * COMMAND_TYPE.ADD; } else if
-	 * (commandTypeString.equalsIgnoreCase("delete")) { return
-	 * COMMAND_TYPE.DELETE; } else if
-	 * (commandTypeString.equalsIgnoreCase("update")) { return
-	 * COMMAND_TYPE.EDIT; } else if
-	 * (commandTypeString.equalsIgnoreCase("clear")) { return
-	 * COMMAND_TYPE.CLEAR; } else if
-	 * (commandTypeString.equalsIgnoreCase("exit")) { return COMMAND_TYPE.EXIT;
-	 * } else if (commandTypeString.equalsIgnoreCase("sort")) { return
-	 * COMMAND_TYPE.SORT; } else if
-	 * (commandTypeString.equalsIgnoreCase("search")) { return
-	 * COMMAND_TYPE.SEARCH; } else if (commandTypeString.equalsIgnoreCase(
-	 * "sort by start time")) { return COMMAND_TYPE.SORTBYSTARTTIME; } else if
-	 * (commandTypeString.equalsIgnoreCase("sort by deadline")) { return
-	 * COMMAND_TYPE.SORTBYDEADLINE; } else if
-	 * (commandTypeString.equalsIgnoreCase("undo")) { return COMMAND_TYPE.UNDO;
-	 * } else if (commandTypeString.equalsIgnoreCase("redo")) { return
-	 * COMMAND_TYPE.REDO; } else { return COMMAND_TYPE.INVALID; } }
-	 */
 
 }
