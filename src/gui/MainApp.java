@@ -4,6 +4,10 @@ import logic.LogicClass;
 import logic.Task;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -12,9 +16,23 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 //@@author A0133915H
@@ -30,12 +48,11 @@ public class MainApp extends Application {
 	public MainApp() {
 	}
 
-	 
 	public ObservableList<Task> getTaskData() {
 		ArrayList<Task> tasks = LogicClass.getTaskList();
 		for (int i = 0; i < tasks.size(); i++) {
 			System.out.println(tasks.get(i).getName());
-		} 
+		}
 		for (int i = 0; i < tasks.size(); i++) {
 			tasks.get(i).setTaskNumber(i + 1);
 		}
@@ -43,73 +60,72 @@ public class MainApp extends Application {
 		return taskList;
 	}
 
-	 
-	public ObservableList<String> getTodayTasks(){
+	public ObservableList<String> getTodayTasks() {
 		ArrayList<String> todayTasks = LogicClass.getTodayTasks();
 		todayTaskList = FXCollections.observableArrayList(todayTasks);
 		return todayTaskList;
 	}
-	
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			
+			Button btn = new Button();
+	        btn.setText("Help");
+	        btn.setOnAction(new EventHandler<ActionEvent>() {
+	            @Override
+	            public void handle(ActionEvent event) {
+	                 
+			        Image image = new Image("Basic.PNG");
+			        ImageView imageView = new ImageView();
+			        imageView.setImage(image);
+	                imageView.setPreserveRatio(true);
+	                
+	                StackPane secondaryLayout = new StackPane();
+	                secondaryLayout.getChildren().add(imageView);
+	                 
+	                Scene secondScene = new Scene(secondaryLayout, 800, 800);
+	 
+	                Stage secondStage = new Stage();
+	                secondStage.setTitle("Help");
+	                secondStage.setScene(secondScene);
+	                 
+	                //Set position of second window, related to primary window.
+	                secondStage.setX(primaryStage.getX() + 250);
+	                secondStage.setY(primaryStage.getY() + 100);
+	  
+	                secondStage.show();
+	            }
+	        });
+	        
+	        BorderPane rootLayout = new BorderPane();
+	        
+	        rootLayout.setTop(btn);
 			this.primaryStage = primaryStage;
 			this.primaryStage.setTitle("TaskBomber");
-
-			initRootLayout();
-			logger.log(Level.INFO, "RootLayout is initiated.");
-
-			showTaskBomberOverview();
-			logger.log(Level.INFO, "The view is generated.");
-		} catch (Exception e) {
-			System.out.println("cannot initiate the view.");
-		}
-	}
-
-	 
-	/**
-	 * Initializes the root layout.
-	 */
-	public void initRootLayout() {
-		try {
-			// Load root layout from fxml file.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("RootLayout.fxml"));
-			rootLayout = (BorderPane) loader.load();
-
-			// Show the scene containing the root layout.
-			Scene scene = new Scene(rootLayout);
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	 
-	/**
-	 * Shows the person overview inside the root layout.
-	 */
-	public void showTaskBomberOverview() {
-		try {
-			// Load person overview.
+			
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("TaskView.fxml"));
 			AnchorPane taskBomberOverview = (AnchorPane) loader.load();
 
 			// Set person overview into the center of root layout.
 			rootLayout.setCenter(taskBomberOverview);
-
 			TaskViewController controller = loader.getController();
-			
-			controller.setMainApp(this);
 
-		} catch (IOException e) {
-			e.printStackTrace();
+			controller.setMainApp(this);
+			logger.log(Level.INFO, "RootLayout is initiated.");
+			
+			Scene scene = new Scene(rootLayout);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+			
+			logger.log(Level.INFO, "The view is generated.");
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, null, e);
 		}
 	}
-
-	 
+	
 	/**
 	 * Returns the main stage.
 	 * 
@@ -120,7 +136,6 @@ public class MainApp extends Application {
 		return primaryStage;
 	}
 
-	 
 	public static void main(String[] args) {
 		launch(args);
 	}
