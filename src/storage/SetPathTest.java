@@ -12,9 +12,16 @@ public class SetPathTest {
 
 	@Test
 	public void test() {
-		ArrayList<Task> a = Storage.getInstance().read();
-		Storage.getInstance().setPath("Task_Bomber_.txt");
-		assertEquals(Storage.getInstance().read(), a);
+		
+		ArrayList<Task> a = new ArrayList<Task>();
+		Task t = new Task("test");
+		a.add(t);
+		Storage.getInstance().write(a);
+		Storage.getInstance().setPath("Task_Bomber.txt");
+		ArrayList<Task> b = Storage.getInstance().read();
+		System.out.println(a);
+		System.out.println(b);
+		assertEquals(b.get(0).getName(), a.get(0).getName());
 		
 	}
 
