@@ -19,7 +19,7 @@ public class Manager {
 	static Manager manager = null;
 	ArrayList<Task> archivedList;
 	Storage storage;
-    
+	
 	//constructor
     public Manager(){
     	taskList = new ArrayList<Task>();
@@ -29,6 +29,7 @@ public class Manager {
     	 searchTaskList = new ArrayList<Task>();
     	 archivedList = new ArrayList<Task>();
     	 storage = Storage.getInstance();
+    	 undoRedo = new UndoRedoOp(taskList);
     }
     
     public static Manager getInstance(){
@@ -47,6 +48,11 @@ public class Manager {
     
     public ArrayList<Task> getSearchList(){
     	return searchTaskList;
+    	
+    }
+    
+    public ArrayList<Task> getArichivedList(){
+    	return archivedList;
     	
     }
     
@@ -85,15 +91,18 @@ public class Manager {
     	switch(type){
     	case "name":
     		Collections.sort(taskList);
+    		break;
     	case "time":
     		taskList = new ArrayList<Task>(timeline.getStarttimeLine());
 			taskList.addAll(timeline.getEndtimeLine());
 			taskList.addAll(timeline.getFloattimeLine());
+			break;
     	case "priority":
     		taskList = new ArrayList<Task>(ptl.getP1());
 			taskList.addAll(ptl.getP2());
 			taskList.addAll(ptl.getP3());
 			taskList.addAll(ptl.getP4());
+			break;
     	}
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 		storage.write(taskList,archivedList);
@@ -101,7 +110,13 @@ public class Manager {
 	}
     
     public void search(Task task){
-    	searchTaskList = new ArrayList<Task>(seacher.search(task));
+    	System.out.println("name"+task.getName());
+    	if(task.getName().equals("done")){
+    		searchTaskList = new ArrayList<Task>(archivedList);
+    	}else{
+    		searchTaskList = new ArrayList<Task>(seacher.search(task));
+    	}
+    	
   	
     }
     
@@ -129,6 +144,7 @@ public class Manager {
     public Task mark(int index) { 
     	Task t = taskList.remove(index); 
     	archivedList.add(t);
+    	System.out.println("al"+archivedList.toString());
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 		ptl.deleteFromPL(t);;
 		timeline.deleteFromTL(t);
@@ -142,7 +158,11 @@ public class Manager {
     
     public void setTaskList(ArrayList<Task> tl){
     	taskList = tl;
+    	
     	undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
+    	//System.out.println(taskList.size());
+    	setptlAndTimeLine(taskList);
+    	
     	storage.write(taskList,archivedList);
     	
     }
