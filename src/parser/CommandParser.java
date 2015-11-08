@@ -18,7 +18,11 @@ public class CommandParser {
     private String START_TIME_SHORT = "`st";
     private String END_TIME_LONG = "`endTime";
     private String END_TIME_SHORT = "`et";
-
+    private DateParser parserForDate = new DateParser();
+    private TimeParser parserForTime = new TimeParser();
+    private ActionLibrary libraryForAction = new ActionLibrary();
+    private TimeLibrary libraryForTime = new TimeLibrary();
+    
     public CommandParser() {
 
     }
@@ -73,7 +77,7 @@ public class CommandParser {
 	    String sample;
 	    for (int i = 0; i < inputArr.size(); i++) {
 		sample = inputArr.get(i);
-		if (TimeParser.isValidSearchFormat(sample) || DateParser.isDate(sample)) {
+		if (parserForTime.isValidSearchFormat(sample) || parserForDate.isDate(sample)) {
 		    inputData.setDates(extractSearchDate());
 		}
 	    }
@@ -89,7 +93,7 @@ public class CommandParser {
      * private int searchDates() { int numberOfDates = countDate(); int
      * numberOfTime = countTime(); if (numberOfDates == 1) { ArrayList<DateTime>
      * dateArr = extractSearchDate(); } if (numberOfTime == 1) {
-     * TimeParser.searchTime();
+     * parserForTime.searchTime();
      * 
      * }
      * 
@@ -161,10 +165,10 @@ public class CommandParser {
 		dateArr = extractTime(dateArr);
 		System.out.println(dateArr.size() + "<<<");
 		for (int i = 0; i < inputArr.size(); i++) {
-		    if (TimeLibrary.isStart(inputArr.get(i))) {
+		    if (libraryForTime.isStart(inputArr.get(i))) {
 			inputData.setDates(dateArr, "start");
 			inputArr.remove(i);
-		    } else if (TimeLibrary.isEnd(inputArr.get(i))) {
+		    } else if (libraryForTime.isEnd(inputArr.get(i))) {
 			inputData.setDates(dateArr, "end");
 			inputArr.remove(i);
 		    } else {
@@ -179,10 +183,10 @@ public class CommandParser {
 		dateArr = extractTime();
 		for (int i = 0; i < inputArr.size(); i++) {
 		    System.out.println("date is  " + dateArr.get(0));
-		    if (TimeLibrary.isStart(inputArr.get(i))) {
+		    if (libraryForTime.isStart(inputArr.get(i))) {
 			inputData.setDates(dateArr, "start");
 			inputArr.remove(i);
-		    } else if (TimeLibrary.isEnd(inputArr.get(i))) {
+		    } else if (libraryForTime.isEnd(inputArr.get(i))) {
 			inputData.setDates(dateArr, "end");
 			inputArr.remove(i);
 		    } else {
@@ -224,12 +228,12 @@ public class CommandParser {
 	String date;
 	for (int i = 0; i < inputArr.size(); i++) {
 	    System.out.println("searching index " + i);
-	    if (DateParser.isDate(inputArr.get(i))) {
+	    if (parserForDate.isDate(inputArr.get(i))) {
 		date = inputArr.remove(i);
-		return DateParser.searchDate(date);
-	    } else if (TimeParser.isValidSearchFormat(inputArr.get(i))) {
+		return parserForDate.searchDate(date);
+	    } else if (parserForTime.isValidSearchFormat(inputArr.get(i))) {
 		date = inputArr.remove(i);
-		return TimeParser.searchTime(date);
+		return parserForTime.searchTime(date);
 	    }
 	}
 	return null;
@@ -245,11 +249,11 @@ public class CommandParser {
 	    if (test.contains("`")) {
 		test = test.substring(1);
 	    }
-	    if (DateParser.isDate(test)) {
+	    if (parserForDate.isDate(test)) {
 		String date = test;
 		index.add(i);
 		System.out.println("DATE IS " + date);
-		dateArr.add(DateParser.setDate(date));
+		dateArr.add(parserForDate.setDate(date));
 	    }
 	}
 	for (int i = index.size() - 1; 0 <= i; i--) {
@@ -270,14 +274,14 @@ public class CommandParser {
 	ArrayList<Integer> index = new ArrayList<Integer>();
 	for (int i = 0; i < inputArr.size(); i++) {
 	    System.out.println(i + ". TESTING IS " + inputArr.get(i));
-	    if (TimeParser.isTime(inputArr.get(i))) {
+	    if (parserForTime.isTime(inputArr.get(i))) {
 		System.out.println("TIME IS " + inputArr.get(i));
 		String time = inputArr.get(i);
 		DateTime oldDate = dateArr.get(count);
 		System.out.println("TIME IS " + time);
 		System.out.println("DATE IS  " + oldDate);
 		index.add(i);
-		DateTime newDate = TimeParser.setTime(oldDate, time);
+		DateTime newDate = parserForTime.setTime(oldDate, time);
 		System.out.println("NEW DATE IS  " + newDate);
 		newDateArr.add(newDate);
 		count++;
@@ -296,10 +300,10 @@ public class CommandParser {
 	ArrayList<Integer> index = new ArrayList<Integer>();
 	int count = 0;
 	for (int i = 0; i < inputArr.size(); i++) {
-	    if (TimeParser.isTime(inputArr.get(i))) {
+	    if (parserForTime.isTime(inputArr.get(i))) {
 		String time = inputArr.get(i);
 		index.add(i);
-		dateArr.add(TimeParser.setTime(null, time));
+		dateArr.add(parserForTime.setTime(null, time));
 		count++;
 	    }
 	}
@@ -314,7 +318,7 @@ public class CommandParser {
     private int countDate() {
 	int count = 0;
 	for (int i = 0; i < inputArr.size(); i++) {
-	    if (DateParser.isDate(inputArr.get(i))) {
+	    if (parserForDate.isDate(inputArr.get(i))) {
 		count++;
 	    }
 	}
@@ -324,7 +328,7 @@ public class CommandParser {
     private int countTime() {
 	int count = 0;
 	for (int i = 0; i < inputArr.size(); i++) {
-	    if (TimeParser.isTime(inputArr.get(i))) {
+	    if (parserForTime.isTime(inputArr.get(i))) {
 		count++;
 	    }
 	}
@@ -365,7 +369,7 @@ public class CommandParser {
     }
 
     private String callAction(String string) {
-	String result = ActionLibrary.find(string);
+	String result = libraryForAction.find(string);
 	return result;
     }
 
