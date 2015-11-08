@@ -220,7 +220,6 @@ public class LogicClass {
 				taskList.add(i, newTask);
 				break;
 			}
-
 		}
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 		return null;
