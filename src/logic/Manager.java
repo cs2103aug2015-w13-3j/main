@@ -160,7 +160,8 @@ public class Manager {
     	taskList = tl;
     	
     	undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
-    	System.out.println(taskList.size());
+    	//System.out.println(taskList.size());
+    	setptlAndTimeLine(taskList);
     	
     	storage.write(taskList,archivedList);
     	

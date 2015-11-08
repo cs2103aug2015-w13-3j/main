@@ -36,16 +36,19 @@ public class UpdateCommand extends Command{
 			task = taskList.get(i);
 			if (task.getName().equals(target)) {
 
-				if (update.get(2).equals("name")) {
+				if (update.get(2).equalsIgnoreCase("name")) {
 					if (update.get(3) != null) {
 						task.setTaskName(update.get(3));
 					}
 
-				} else if (update.get(2).equals("priority")) {
+				} else if (update.get(2).equals("#")) {
 					task.setPriority(update.get(3));
-				} else if (update.get(2).equals("time")) {
-					
-					task.setEndTime(DateParser.setDate(update.get(3)));
+				} else if (update.get(2).equalsIgnoreCase("startTime")) {
+					// System.out.println("parse date" +
+					// DateParser.setDate(update.get(3)));
+					task.setStartTime(commandInfo.startingTime());
+				} else if (update.get(2).equalsIgnoreCase("endTime")) {
+					task.setEndTime(commandInfo.endingTime());
 				}
 
 				newTask = new Task(task.getName());
