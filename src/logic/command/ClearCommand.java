@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import logic.Command;
 import logic.CommandType;
 import logic.Manager;
-import logic.ReturnPackage;
 import parser.CommandPackage;
 
 public class ClearCommand extends Command{

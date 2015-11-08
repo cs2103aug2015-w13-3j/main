@@ -34,7 +34,7 @@ public class Searcher {
 			}
 		}else{
 			if(target.getName() != null){
-				result = searchKeyword(target.getName(), LogicClass.getTaskListForSearcher());
+				result = searchKeyword(target.getName(), LogicClass.getInstance().getTaskListForSearcher());
 			}
 		}
 		return result;

@@ -2,23 +2,17 @@ package logic;
 
 //@@author A0133949U
 import storage.Storage;
-
 import java.util.ArrayList;
-import java.util.Collections;
-
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
-
 import logic.command.AddCommand;
 import logic.command.ClearCommand;
 import logic.command.DeleteCommand;
+import logic.command.MarkCommand;
 import logic.command.RedoCommand;
 import logic.command.SearchCommand;
 import logic.command.SortCommand;
 import logic.command.UndoCommand;
 import logic.command.UpdateCommand;
 import parser.CommandPackage;
-import parser.DateParser;
 
 public class LogicClass implements LogicInterface{
 	// This array will be used to store the messages
@@ -65,29 +59,6 @@ public class LogicClass implements LogicInterface{
 	
 	
 
-	//@author A0133949U
-	public static ArrayList<String> getTodayTasks() {
-		ArrayList<String> todayTasks = new ArrayList<String>();
-		Task task = null;
-		String taskString = "";
-
-		for (int i = 0; i < taskList.size(); i++) {
-			task = taskList.get(i);
-			if (isTodayTask(task) == true) {
-				taskString += task.getName() + " ";
-
-				if (task.getStartTime() != null) {
-					taskString += "from " + task.getStartTime();
-				}
-				if (task.getEndTime() != null) {
-					taskString += "to " + task.getEndTime();
-				}
-				todayTasks.add(taskString);
-				// System.out.println("taskString"+taskString);
-			}
-		}
-		return todayTasks;
-	}
 	
 
 	//@author A0133949U
@@ -137,9 +108,8 @@ public class LogicClass implements LogicInterface{
 
 		}
 		
-		ReturnPackage returnPackage = cmd.execute();
-		storage.write(taskList);
-		// undoRedo.addStateToUndo((ArrayList<Task>) taskList.clone());
+		String returnMsg = cmd.execute();
+		
 	}
 
 	//@author A0133949U
@@ -160,40 +130,40 @@ public class LogicClass implements LogicInterface{
 	}
 
 	//@author A0133949U
-	public static boolean isTodayTask(Task t) {
-		if (t.getEndTime() == null && t.getStartTime() == null) {
-			return false;
-		}
-
-		DateTime now = new DateTime();
-		LocalDate today = now.toLocalDate();
-		LocalDate tomorrow = today.plusDays(1);
-
-		DateTime startOfToday = today.toDateTimeAtStartOfDay(now.getZone());
-		DateTime startOfTomorrow = tomorrow.toDateTimeAtStartOfDay(now.getZone());
-
-		if (t.getEndTime() == null && t.getStartTime() == null) {
-			return false;
-		}
-
-		if (t.getEndTime() != null) {
-			if (t.getEndTime().isBefore(startOfToday)) {
-				return false;
-			}
-		}
-
-		if (t.getStartTime() != null) {
-			if (t.getEndTime().isBefore(startOfToday)) {
-				return false;
-			}
-		}
-
-		if (t.getStartTime() != null && t.getEndTime() != null && t.getStartTime().isAfter(startOfToday)
-				&& t.getEndTime().isBefore(startOfTomorrow)) {
-			return true;
-		}
-		return false;
-	}
+//	public static boolean isTodayTask(Task t) {
+//		if (t.getEndTime() == null && t.getStartTime() == null) {
+//			return false;
+//		}
+//
+//		DateTime now = new DateTime();
+//		LocalDate today = now.toLocalDate();
+//		LocalDate tomorrow = today.plusDays(1);
+//
+//		DateTime startOfToday = today.toDateTimeAtStartOfDay(now.getZone());
+//		DateTime startOfTomorrow = tomorrow.toDateTimeAtStartOfDay(now.getZone());
+//
+//		if (t.getEndTime() == null && t.getStartTime() == null) {
+//			return false;
+//		}
+//
+//		if (t.getEndTime() != null) {
+//			if (t.getEndTime().isBefore(startOfToday)) {
+//				return false;
+//			}
+//		}
+//
+//		if (t.getStartTime() != null) {
+//			if (t.getEndTime().isBefore(startOfToday)) {
+//				return false;
+//			}
+//		}
+//
+//		if (t.getStartTime() != null && t.getEndTime() != null && t.getStartTime().isAfter(startOfToday)
+//				&& t.getEndTime().isBefore(startOfTomorrow)) {
+//			return true;
+//		}
+//		return false;
+//	}
 
 
 
