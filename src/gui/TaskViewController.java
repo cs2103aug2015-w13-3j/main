@@ -97,25 +97,25 @@ public class TaskViewController {
 	}
 
 	private void downKeyEvent() {
-		if (poppedCommands.isEmpty()) {
-			txtCommandInput.clear();
-		} else {
-			txtCommandInput.clear();
-			String pastCommand = poppedCommands.pop();
-			pastCommands.push(pastCommand);
-			txtCommandInput.setText(pastCommand);
-		}
+//		if (poppedCommands.isEmpty()) {
+//			txtCommandInput.clear();
+//		} else {
+//			txtCommandInput.clear();
+//			String pastCommand = poppedCommands.pop();
+//			pastCommands.push(pastCommand);
+//			txtCommandInput.setText(pastCommand);
+//		}
 	}
 
 	private void upKeyEvent() {
-		if (pastCommands.isEmpty()) {
-			txtCommandInput.clear();
-		} else {
-			txtCommandInput.clear();
-			String pastCommand = pastCommands.pop();
-			poppedCommands.push(pastCommand);
-			txtCommandInput.setText(pastCommand);
-		}
+//		if (pastCommands.isEmpty()) {
+//			txtCommandInput.clear();
+//		} else {
+//			txtCommandInput.clear();
+//			String pastCommand = pastCommands.pop();
+//			poppedCommands.push(pastCommand);
+//			txtCommandInput.setText(pastCommand);
+//		}
 	}
 
 	private void enterKeyEvent() {
@@ -123,7 +123,7 @@ public class TaskViewController {
 			taskTableView.setItems(mainApp.getTaskData());
 		} else {
 			String input = txtCommandInput.getText();
-			pastCommands.push(input);
+			//pastCommands.push(input);
 			if (input.equalsIgnoreCase("exit")) {
 				mainApp.exit();
 			} else if (input.equalsIgnoreCase("help")) {
