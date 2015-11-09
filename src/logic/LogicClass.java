@@ -108,8 +108,7 @@ public class LogicClass implements LogicInterface{
 
 		}
 		
-		String returnMsg= cmd.execute();
-		
+		String returnMsg= cmd.execute();	
 		return returnMsg;
 		
 	}

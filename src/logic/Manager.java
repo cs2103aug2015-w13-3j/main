@@ -20,12 +20,12 @@ public class Manager {
     public Manager(){
     	taskList = new ArrayList<Task>();
     	timeline = TimeLine.getInstance();
-    	ptl = ptl.getInstance();
+    	ptl = PriorityTaskList.getInstance();
     	seacher = Searcher.getInstance();
     	searchTaskList = new ArrayList<Task>();
     	archivedList = new ArrayList<Task>();
     	storage = Storage.getInstance();
-    	undoRedo = new UndoRedoOp(taskList);
+    	undoRedo = UndoRedoOp.getInstance();
     }
     
     public static Manager getInstance(){
@@ -55,7 +55,8 @@ public class Manager {
     //functions
     public Task addToTaskList(Task task) {   	
 		taskList.add(task);
-		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
+		undoRedo.addStateToUndo(new ArrayList<Task>(taskList),
+				new ArrayList<Task>(archivedList));
 		ptl.addToPL(task);
 		timeline.addToTL(task);
 		storage.write(taskList,archivedList);

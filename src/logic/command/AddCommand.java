@@ -35,8 +35,8 @@ public class AddCommand extends Command {
 
 		if (commandInfo.getPriority() != null) {
 			String pri = commandInfo.getPriority().trim();
-			int priority = Integer.parseInt(pri);
 			
+			int priority = Integer.parseInt(pri);		
 			if(priority>3){
 				throw new InvalidCommandException
 				("Invalid priority.Priority is valid from 1 to 3");
