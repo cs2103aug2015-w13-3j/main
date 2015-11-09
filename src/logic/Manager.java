@@ -147,6 +147,9 @@ public class Manager {
     
     public boolean redo(){
     	ArrayList<ArrayList<Task>> lists = undoRedo.redo();
+    	if(lists==null){
+    		return false;
+    	}
     	assert(lists != null);
     	taskList = lists.get(0);
     	archivedList = lists.get(1);
@@ -165,6 +168,9 @@ public class Manager {
     
     public boolean undo(){
     	ArrayList<ArrayList<Task>> lists = undoRedo.undo();
+    	if(lists==null){
+    		return false;
+    	}
     	assert(lists != null);
 
     	taskList = new ArrayList<Task>(lists.get(0));
