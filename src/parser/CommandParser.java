@@ -77,7 +77,7 @@ public class CommandParser {
 
 	    inputData.setCommand(commandName);
 
-	    if (!isValidCommand(commandName) && isArrayEmptyAndInvalid()) {
+	    if (!isValidCommand(commandName) || isArrayEmptyAndInvalid()) {
 		return null;
 	    }
 	    if (isUpdateCommand(commandName)) {
@@ -154,30 +154,47 @@ public class CommandParser {
 	}
 
     }
-
-    private void dateProcess2(ArrayList<DateTime> dateArr, int i) {
-	if (libraryForTime.isStart(inputArr.get(i))) {
-	inputData.setDates(dateArr, "start");
-	inputArr.remove(i);
-	} else if (libraryForTime.isEnd(inputArr.get(i))) {
-	inputData.setDates(dateArr, "end");
-	inputArr.remove(i);
-	} else {
-	inputData.setDates(dateArr, "end");
-	}
-    }
-
+    
+    /**
+     * The main method processes input with
+     * 
+     * @param command
+     *            the set of words that users have typed into the command bar
+     * @return a CommandPackage for Logic component to process
+     */
     private void dateProcess1(ArrayList<DateTime> dateArr, int i) {
 	if (inputArr.get(i).equalsIgnoreCase("start")) {
-	inputData.setDates(dateArr, "start");
-	inputArr.remove(i);
+	    inputData.setDates(dateArr, "start");
+	    inputArr.remove(i);
 	} else if (inputArr.get(i).equalsIgnoreCase("end")) {
-	inputData.setDates(dateArr, "end");
-	inputArr.remove(i);
+	    inputData.setDates(dateArr, "end");
+	    inputArr.remove(i);
 	} else {
-	inputData.setDates(dateArr, "end");
+	    inputData.setDates(dateArr, "end");
 	}
     }
+    
+    /**
+     * The main method that MainApp will call to parse the string given by users
+     * and process the intructions that will be processed by Logic component.
+     * 
+     * @param command
+     *            the set of words that users have typed into the command bar
+     * @return a CommandPackage for Logic component to process
+     */
+    private void dateProcess2(ArrayList<DateTime> dateArr, int i) {
+	if (libraryForTime.isStart(inputArr.get(i))) {
+	    inputData.setDates(dateArr, "start");
+	    inputArr.remove(i);
+	} else if (libraryForTime.isEnd(inputArr.get(i))) {
+	    inputData.setDates(dateArr, "end");
+	    inputArr.remove(i);
+	} else {
+	    inputData.setDates(dateArr, "end");
+	}
+    }
+
+
 
     private ArrayList<DateTime> extractDate() {
 	ArrayList<DateTime> dateArr = new ArrayList<DateTime>();
@@ -263,6 +280,7 @@ public class CommandParser {
 	    }
 	}
     }
+
     private ArrayList<DateTime> extractSearchDate() {
 	String date;
 	for (int i = 0; i < inputArr.size(); i++) {
@@ -276,8 +294,6 @@ public class CommandParser {
 	}
 	return null;
     }
-
-
 
     private CommandPackage updateInput() {
 	String sequence = "";
@@ -344,7 +360,7 @@ public class CommandParser {
 	}
 	return inputArr;
     }
-    
+
     private int countDate() {
 	System.out.println("counting");
 	int count = 0;
