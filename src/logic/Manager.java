@@ -64,8 +64,9 @@ public class Manager {
     }
     
     //functions
-    public Task addToTaskList(Task task) {   	
-		taskList.add(task);
+    public Task addToTaskList(Task task) {   
+    	
+		taskList.add(0,task);
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList),
 				new ArrayList<Task>(archivedList));
 		ptl.addToPL(task);
