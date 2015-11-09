@@ -14,7 +14,7 @@ public class Testing {
 	public static void main(String[] args) throws InvalidCommandException {
 		Scanner sc = new Scanner(System.in);
 		LogicClass logic = LogicClass.getInstance();
-		CommandParser cmdParser = new CommandParser();
+		CommandParser cmdParser = CommandParser.getInstance();
 		while (true) {
 			System.out.println("Plz key in your command: ");
 			String input = sc.nextLine();
@@ -25,6 +25,7 @@ public class Testing {
 			for (int i = 0; i < taskList.size(); i++) {
 				System.out.println(i + ". " + taskList.get(i).getName());
 			}
+			sc.close();
 		}
 	}
 }
