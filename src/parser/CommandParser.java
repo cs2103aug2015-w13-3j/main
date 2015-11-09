@@ -97,10 +97,10 @@ public class CommandParser {
 	    }
 	    inputData.setPhrase(getPhrase());
 	    return inputData;
-	} catch (NullPointerException  e1) {
+	} catch (NullPointerException e1) {
 	    System.out.println("NULL POINTER ERRORS");
 	    return null;
-	} catch (StringIndexOutOfBoundsException  e2) {
+	} catch (StringIndexOutOfBoundsException e2) {
 	    System.out.println("StringIndexOutOfBoundsException");
 	    return null;
 	}
@@ -195,7 +195,7 @@ public class CommandParser {
 	if (isOne(numberOfDates)) {
 	    // System.out.println("++++++++");
 	    dateArr = extractDate();
-	    if (numberOfTime == 0) {
+	    if (isZero(numberOfTime)) {
 		// System.out.println(dateArr.size() + "<<<");
 		for (int i = 0; i < inputArr.size(); i++) {
 		    if (inputArr.get(i).equalsIgnoreCase("start")) {
@@ -208,7 +208,7 @@ public class CommandParser {
 			inputData.setDates(dateArr, "end");
 		    }
 		}
-	    } else if (isOne(numberOfDates)) {
+	    } else if (isOne(numberOfTime)) {
 		dateArr = extractTime(dateArr);
 		// System.out.println(dateArr.size() + "<<<");
 		for (int i = 0; i < inputArr.size(); i++) {
@@ -222,7 +222,16 @@ public class CommandParser {
 			inputData.setDates(dateArr, "end");
 		    }
 		}
+	    } else if (isTwo(numberOfTime)) {
+		dateArr.add(dateArr.get(0));
+		System.out.println("DATE ARR NEW size " + dateArr.get(0));
+		System.out.println("DATE ARR NEW size " + dateArr.get(1));
+		dateArr = extractTime(dateArr);
+		System.out.println("DATE ARR NEW size " + dateArr.get(0));
+		System.out.println("DATE ARR NEW size " + dateArr.get(1));
+		inputData.setDates(dateArr);
 	    }
+
 	} else {
 	    // System.out.println(" <<><><><><<><<<><>< ");
 	    if (isOne(numberOfTime)) {
@@ -261,6 +270,10 @@ public class CommandParser {
 
 	}
 
+    }
+
+    private boolean isZero(int numberOfTime) {
+	return numberOfTime == 0;
     }
 
     private boolean isTwo(int numberOfDates) {
