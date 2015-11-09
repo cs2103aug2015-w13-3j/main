@@ -16,6 +16,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.text.Text;
 
 //@@author A0133915H
 public class TaskViewController {
@@ -41,6 +42,8 @@ public class TaskViewController {
 	@FXML
 	private TableColumn<Task, String> priority;
 
+	@FXML
+	private Text feedback;
 	// Reference to the main application.
 	private MainApp mainApp;
 
@@ -112,10 +115,10 @@ public class TaskViewController {
 	}
 
 	private void enterKeyEvent() {
-		if (txtCommandInput.getText() == null || txtCommandInput.getText().isEmpty()) {
+		String input = txtCommandInput.getText();
+		if (input == null || input.isEmpty() || input.trim().length() == 0) {
 			taskTableView.setItems(mainApp.getTaskData());
 		} else {
-			String input = txtCommandInput.getText();
 			pastCommands.push(input);
 			if (input.equalsIgnoreCase("exit")) {
 				mainApp.exit();
@@ -152,7 +155,8 @@ public class TaskViewController {
 		logger.log(Level.INFO, "CommandParser parses the command.");
 		assert (cmdPack != null);
 		try{
-			String feedback = logic.executeCommand(cmdPack);
+			String result = logic.executeCommand(cmdPack);
+			feedback.setText(result);
 		}catch(Exception e){
 			
 		}
