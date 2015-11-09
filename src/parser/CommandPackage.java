@@ -3,9 +3,10 @@ package parser;
 import java.util.ArrayList;
 
 import org.joda.time.DateTime;
-//@@author A0122061B
+// @@author A0122061B
 
-//This program is the output class from the parsing program for the Logic Component to use to execute CRUD
+// This program is the output class from the parsing program for the Logic
+// Component to use to execute CRUD
 
 public class CommandPackage {
 
@@ -39,15 +40,13 @@ public class CommandPackage {
 	priority = null;
 	updateSequence = new ArrayList<String>();
     }
-    
-    
+
     /*
      * ====================================================================
      * Methods to build CommandPackage
      * ====================================================================
      */
-    
-    
+
     public String setCommand(String cmd) {
 	command = cmd;
 	return command;
@@ -58,9 +57,11 @@ public class CommandPackage {
 	return phrase;
     }
 
-    
-
     public DatePackage setDates(ArrayList<DateTime> time, String condition) {
+	if (time == null) {
+	    return null;
+	}
+
 	if (condition.equalsIgnoreCase("start")) {
 	    dates.setDate(time.get(0), null);
 	} else {
@@ -95,7 +96,7 @@ public class CommandPackage {
      * Accessors
      * ====================================================================
      */
-    
+
     public DatePackage getDate() {
 	return dates;
     }
