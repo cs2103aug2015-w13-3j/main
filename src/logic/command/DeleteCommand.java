@@ -72,9 +72,8 @@ public class DeleteCommand extends Command{
 			Task t;
 			if (isInteger(deleteInfo, 10)) { // delete by index
 				searchIndex = Integer.parseInt(deleteInfo)-1;
-				
-				
 				if(searchIndex<searchList.size()  && searchIndex>=0){
+					
 					found =true;
 					t= searchList.get(searchIndex);				
 					Task temp;
@@ -82,6 +81,8 @@ public class DeleteCommand extends Command{
 					for (int i = 0; i < taskList.size(); i++) {
 						temp = taskList.get(i);
 						if (temp.equals(t)) {
+							//System.out.print("here ");
+							found= true;
 							taskIndex=i;
 							break;
 						}
