@@ -28,12 +28,6 @@ public class Manager {
     	undoRedo = UndoRedoOp.getInstance();
     }
     
-    public static Manager getInstance(){
-		if(manager == null){
-			manager = new Manager();
-		}
-		return manager;
-	}
   
     
     public void initialize( ArrayList<Task> tl,  ArrayList<Task> al){
@@ -140,10 +134,11 @@ public class Manager {
 	}
     
     public void search(Task task){
-    	System.out.println("name"+task.getName());
+
     	if(task.getName().equals("done")){
     		searchTaskList = new ArrayList<Task>(archivedList);
     	}else{
+    		
     		searchTaskList = new ArrayList<Task>(seacher.search(task));
     	}
     	
@@ -171,9 +166,7 @@ public class Manager {
     public boolean undo(){
     	ArrayList<ArrayList<Task>> lists = undoRedo.undo();
     	assert(lists != null);
-    	if(lists.get(0)==null){
-    		System.out.println("lists.get0 is null");
-    	}
+
     	taskList = new ArrayList<Task>(lists.get(0));
     	archivedList = new ArrayList<Task>(lists.get(1));
     	
@@ -220,6 +213,12 @@ public class Manager {
 			timeline.addToTL(task);
 		}
     	storage.write(taskList,archivedList);
+    	
+    }
+    
+    // for testing only
+    public void addToSearchList(Task task){
+    	searchTaskList.add(task);
     	
     }
     

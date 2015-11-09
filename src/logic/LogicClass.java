@@ -20,14 +20,16 @@ public class LogicClass implements LogicInterface{
 
 	private static boolean isSearchOp = false;
 	Storage storage = Storage.getInstance();
-	Manager mgr= Manager.getInstance();	
+	Manager mgr;	
 	private String path = "";
 	static LogicClass theOne = null;
 
 	// constructor
 	private LogicClass() {
+		mgr= new Manager();
 		mgr.initialize(storage.read().get(0), 
 				storage.read().get(1));//taskList and archivedList respectively
+		
 	}
 
 	public static LogicClass getInstance() {
@@ -61,14 +63,15 @@ public class LogicClass implements LogicInterface{
 			cmd = new AddCommand(commandType,mgr,commandPackage);	
 			break;
 		case UPDATE:
-			
-			    cmd = new UpdateCommand(commandType,mgr,commandPackage);
-			
+			cmd = new UpdateCommand(commandType,mgr,commandPackage);
 			break;
 		case DELETE:
+			
 			if(isSearchOp==false){
+				
 				cmd = new DeleteCommand(commandType,mgr,commandPackage.getPhrase(),false);
 			}else{
+				
 				cmd = new DeleteCommand(commandType,mgr,commandPackage.getPhrase(),true);
 			}
 			

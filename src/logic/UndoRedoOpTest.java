@@ -12,8 +12,9 @@ import org.junit.Test;
 
 public class UndoRedoOpTest {
 
-	static ArrayList<Task> initial = new ArrayList<Task>();
-	static ArrayList<Task> initialArchived = new ArrayList<Task>();
+	private static ArrayList<Task> initial = new ArrayList<Task>();
+	private static ArrayList<Task> initialArchived = new ArrayList<Task>();
+	private static ArrayList<Task> initialSearch = new ArrayList<Task>();
 
 	/***************************************************************
 	 * Scripted testing & white-box testing 
@@ -24,6 +25,7 @@ public class UndoRedoOpTest {
 	public static void oneTimeSetUp() {
 		initial.clear();
 		initialArchived.clear();
+		initialSearch.clear();
 	}
 
 	@Before
@@ -35,12 +37,14 @@ public class UndoRedoOpTest {
 		initialArchived.add(new Task("Meeting tmr"));
 		initialArchived.add(new Task("SEP done"));
 		initialArchived.add(new Task("Movie with john yes"));
+		initialSearch.add(new Task("Meeting"));
 	}
 
 	@After
 	public void tearDown() {
 		initial.clear();
 		initialArchived.clear();
+		initialSearch.clear();
 	}
 
 	/**
@@ -51,13 +55,15 @@ public class UndoRedoOpTest {
 
 		UndoRedoOp op = UndoRedoOp.getInstance();
 
-		op.addStateToUndo(initial, initialArchived);
+		op.addStateToUndo(initial, initialArchived, initialSearch);
 
 		ArrayList<Task> status1 = new ArrayList<Task>();
 		ArrayList<Task> status1A = new ArrayList<Task>();
+		ArrayList<Task> status1S = new ArrayList<Task>();
 		ArrayList<Task> status2 = new ArrayList<Task>();
 		ArrayList<Task> status2A = new ArrayList<Task>();
-
+		ArrayList<Task> status2S = new ArrayList<Task>();
+		
 		status1.add(new Task("Meeting"));
 		status1.add(new Task("SEP"));
 		status1.add(new Task("Movie with john"));
@@ -68,6 +74,9 @@ public class UndoRedoOpTest {
 		status1A.add(new Task("Movie with john yes"));
 		status1A.add(new Task("Dinner with Tom"));
 
+		status1S.add(new Task("Meeting"));
+		status1S.add(new Task("Internship"));
+		
 		status2.add(new Task("Meeting"));
 		status2.add(new Task("SEP"));
 		status2.add(new Task("Movie with john"));
@@ -79,15 +88,22 @@ public class UndoRedoOpTest {
 		status2A.add(new Task("Movie with john yes"));
 		status2A.add(new Task("Dinner with Tom"));
 		status2A.add(new Task("Party"));
-
-		ArrayList<ArrayList<Task>> statusOne = new ArrayList<ArrayList<Task>>(op.addStateToUndo(status1, status1A));
-		assertEquals(2, statusOne.size());
+		
+		status2S.add(new Task("Meeting"));
+		status2S.add(new Task("Internship"));
+		status2S.add(new Task("Family Dinner"));
+		
+		ArrayList<ArrayList<Task>> statusOne = new ArrayList<ArrayList<Task>>(op.addStateToUndo(status1, status1A, status1S));
+		assertEquals(3, statusOne.size());
 
 		for (int i = 0; i < 4; i++) {
 			assertEquals(status1.get(i).getName(), (statusOne.get(0).get(i)).getName());
 			assertEquals(status1A.get(i).getName(), (statusOne.get(1).get(i)).getName());
 		}
 
+		for (int i = 0; i < 2; i++){
+			
+		}
 		ArrayList<ArrayList<Task>> statusTwo = new ArrayList<ArrayList<Task>>(op.addStateToUndo(status2, status2A));
 		assertEquals(2, statusTwo.size());
 
