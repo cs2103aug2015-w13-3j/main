@@ -124,6 +124,7 @@ public class TaskViewController {
 	private void enterKeyEvent() {
 		String input = txtCommandInput.getText();
 		if (input == null || input.isEmpty() || input.trim().length() == 0) {
+			logic.setIsSearchOp(false);
 			taskTableView.setItems(mainApp.getTaskData());
 		} else {
 			pastCommands.push(input);
@@ -154,7 +155,6 @@ public class TaskViewController {
 				String inputCommand = txtCommandInput.getText().trim();
 				logger.log(Level.INFO, "Here comes a command.");
 				execute(inputCommand);
-				txtCommandInput.clear();
 			}
 		}
 	}
