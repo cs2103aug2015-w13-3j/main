@@ -40,9 +40,7 @@ public class MainApp extends Application {
 	public ObservableList<Task> getTaskData() {
 		
 		ArrayList<Task> tasks = lc.getTaskList();
-		for (int i = 0; i < tasks.size(); i++) {
-			System.out.println(tasks.get(i).getName());
-		}
+		
 		for (int i = 0; i < tasks.size(); i++) {
 			tasks.get(i).setTaskNumber(i + 1);
 		}
