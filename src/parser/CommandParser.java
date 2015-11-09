@@ -132,11 +132,13 @@ public class CommandParser {
 			if (numberOfTime == 1) {
 			    dateArr = extractTime(dateArr);
 			}
-		    } else {
+		    } else if (numberOfTime == 1) {
 			System.out.println("extracing start time");
 			dateArr = extractTime();
+		    } else {
+			dateArr = null;
 		    }
-		    System.out.println(dateArr.size());
+		    //System.out.println(dateArr.size());
 		    inputData.setDates(dateArr, "start");
 		} else {
 		    if (word.equalsIgnoreCase(END_TIME_LONG) || word.equalsIgnoreCase(END_TIME_SHORT)) {
@@ -145,8 +147,10 @@ public class CommandParser {
 			    if (numberOfTime == 1) {
 				dateArr = extractTime(dateArr);
 			    }
-			} else {
+			} else if (numberOfTime == 1) {
 			    dateArr = extractTime();
+			} else {
+			    dateArr = null;
 			}
 			inputData.setDates(dateArr, "end");
 		    }
@@ -341,7 +345,7 @@ public class CommandParser {
 	String test;
 	for (int i = 0; i < inputArr.size(); i++) {
 	    test = inputArr.get(i);
-	    System.out.println("testing " + test + (test.contains("`")) );
+	    System.out.println("testing " + test + (test.contains("`")));
 	    if (test.contains("`")) {
 		test = test.substring(1);
 	    }
