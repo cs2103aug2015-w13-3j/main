@@ -50,13 +50,31 @@ public class TimeParser {
 							   DateTimeFormat.forPattern(TIME_FORMAT_7),
 							   DateTimeFormat.forPattern(TIME_FORMAT_8),
 							   DateTimeFormat.forPattern(TIME_FORMAT_9)));
+    private static TimeParser theOne = null;
+
+    /*
+     * ====================================================================
+     * Constructors
+     * ====================================================================
+     */
+
+    private TimeParser() {
+
+    }
+
+    protected static TimeParser getInstance() {
+
+	if (theOne == null) {
+	    theOne = new TimeParser();
+	}
+	return theOne;
+    }
     /*
      * ====================================================================
      * Execute methods for TimeParser
      * ====================================================================
      */
-    
-    
+
     /**
      * Sets the hours and minutes of an existing date
      *

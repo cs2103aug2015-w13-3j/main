@@ -19,10 +19,11 @@ public class CommandParser {
     public CommandPackage inputData;
     public String input;
 
-    private ActionLibrary libraryForAction = new ActionLibrary();
-    private DateParser parserForDate = new DateParser();
-    private TimeLibrary libraryForTime = new TimeLibrary();
-    private TimeParser parserForTime = new TimeParser();
+    private ActionLibrary libraryForAction;
+    private DateParser parserForDate;
+    private TimeLibrary libraryForTime;
+    private TimeParser parserForTime;
+    private BooleanChecker checker;
 
     /*
      * ====================================================================
@@ -30,13 +31,13 @@ public class CommandParser {
      * ====================================================================
      */
 
-    public String NOT_FOUND = "invalid input";
-    public String INVALID_PACKAGE = "invalid package";
+    private final String NOT_FOUND = "invalid input";
+    private final String INVALID_PACKAGE = "invalid package";
 
-    private String START_TIME_LONG = "`startTime";
-    private String START_TIME_SHORT = "`st";
-    private String END_TIME_LONG = "`endTime";
-    private String END_TIME_SHORT = "`et";
+    private final String START_TIME_LONG = "`startTime";
+    private final String START_TIME_SHORT = "`st";
+    private final String END_TIME_LONG = "`endTime";
+    private final String END_TIME_SHORT = "`et";
 
     /*
      * ====================================================================
@@ -45,6 +46,11 @@ public class CommandParser {
      */
 
     private CommandParser() {
+	libraryForAction = ActionLibrary.getInstance();
+	libraryForTime = TimeLibrary.getInstance();
+	parserForTime = TimeParser.getInstance();
+	checker = BooleanChecker.getInstance();
+	parserForDate = DateParser.getInstance();
 
     }
 
@@ -78,7 +84,7 @@ public class CommandParser {
      */
     public CommandPackage getCommandPackage(String command) {
 	input = command;
-	try {
+	 // try {
 	    inputData = new CommandPackage();
 	    String[] arr = input.split(" ");
 	    arrToArrayList(arr);
@@ -86,32 +92,33 @@ public class CommandParser {
 
 	    inputData.setCommand(commandName);
 	    System.out.println("name " + commandName);
-	    System.out.println((!isValidCommand(commandName)));
+	    System.out.println((!checker.isValidCommand(commandName)));
 	    System.out.println();
-	    if (!isValidCommand(commandName)) {
+	    if (!checker.isValidCommand(commandName)) {
 		return null;
-	    } else if (isOneCommandFormat(commandName) || isClearAllCommand(commandName)) {
+	    } else if (checker.isOneCommandFormat(commandName)
+		       || checker.isClearAllCommand(commandName, inputArr)) {
 		return inputData;
-	    } else if (isArrayEmptyAndInvalid()) {
+	    } else if (checker.isArrayEmptyAndInvalid(inputArr)) {
 		return null;
-	    } else if (isUpdateCommand(commandName)) {
+	    } else if (checker.isUpdateCommand(commandName)) {
 		return updateInput();
 	    } else {
 		String priority = findPriority();
 		inputData.setPriority(priority);
 	    }
-	    if (isCreateCommand(commandName)) {
+	    if (checker.isCreateCommand(commandName)) {
 		addDateTime();
-		if (isArrayEmptyAndInvalid()) {
+		if (checker.isArrayEmptyAndInvalid(inputArr)) {
 		    return null;
 		}
 	    }
-	    if (isSearchCommand(commandName)) {
+	    if (checker.isSearchCommand(commandName)) {
 		searchInput();
 	    }
 	    inputData.setPhrase(getPhrase());
 	    return inputData;
-
+/*-
 	} catch (NullPointerException e1) {
 	    System.out.println("NULL POINTER ERRORS");
 	    return null;
@@ -119,7 +126,10 @@ public class CommandParser {
 	} catch (StringIndexOutOfBoundsException e2) {
 	    System.out.println("StringIndexOutOfBoundsException");
 	    return null;
+	    
 	}
+	*/
+	    
     }
     /*
      * ====================================================================
@@ -141,37 +151,37 @@ public class CommandParser {
 	int numberOfDates = countDate();
 	int numberOfTime = countTime();
 	ArrayList<DateTime> dateArr;
-	if (isOne(numberOfDates)) {
+	if (checker.isOne(numberOfDates)) {
 	    dateArr = extractDate();
-	    if (isZero(numberOfTime)) {
+	    if (checker.isZero(numberOfTime)) {
 		for (int i = 0; i < inputArr.size(); i++) {
 		    dateProcess1(dateArr, i);
 		}
-	    } else if (isOne(numberOfTime)) {
+	    } else if (checker.isOne(numberOfTime)) {
 		dateArr = extractTime(dateArr);
 		for (int i = 0; i < inputArr.size(); i++) {
 		    dateProcess2(dateArr, i);
 		}
-	    } else if (isTwo(numberOfTime)) {
+	    } else if (checker.isTwo(numberOfTime)) {
 		dateArr.add(dateArr.get(0));
 		dateArr = extractTime(dateArr);
 		inputData.setDates(dateArr);
 	    }
 
 	} else {
-	    if (isOne(numberOfTime)) {
+	    if (checker.isOne(numberOfTime)) {
 		dateArr = extractTime();
 		for (int i = 0; i < inputArr.size(); i++) {
 		    dateProcess2(dateArr, i);
 		}
 	    }
-	    if (isTwo(numberOfDates)) {
+	    if (checker.isTwo(numberOfDates)) {
 		dateArr = extractTwoDate();
-		if (isTwo(numberOfTime)) {
+		if (checker.isTwo(numberOfTime)) {
 		    dateArr = extractTime(dateArr);
 		}
 		inputData.setDates(dateArr);
-	    } else if (isTwo(numberOfTime)) {
+	    } else if (checker.isTwo(numberOfTime)) {
 		ArrayList<DateTime> timeArr = extractTime();
 		inputData.setDates(timeArr);
 
@@ -274,7 +284,7 @@ public class CommandParser {
 		}
 		System.out.println("date" + inputArr.get(i));
 		index.add(i);
-		
+
 		if (i < inputArr.size() - 1) {
 		    if ((libraryForTime.isEnd(inputArr.get(i + 1))
 			 || libraryForTime.isStart(inputArr.get(i + 1)))
@@ -283,7 +293,7 @@ public class CommandParser {
 			System.out.println("after " + inputArr.get(i + 1));
 		    }
 		}
-		
+
 		dateArr.add(parserForDate.setDate(date));
 	    }
 	}
@@ -409,7 +419,7 @@ public class CommandParser {
 	    }
 	}
 	inputData.addUpdateSequence(sequence);
-	if (isDateUpdateSequence()) {
+	if (checker.isDateUpdateSequence(inputData)) {
 	    inputData.addUpdateSequence(inputData.getDate().toString());
 	}
 	return inputData;
@@ -419,12 +429,12 @@ public class CommandParser {
 	String sequence;
 	ArrayList<DateTime> dateArr;
 	sequence = "endTime";
-	if (isOne(numberOfDates)) {
+	if (checker.isOne(numberOfDates)) {
 	    dateArr = extractDate();
-	    if (isOne(numberOfTime)) {
+	    if (checker.isOne(numberOfTime)) {
 		dateArr = extractTime(dateArr);
 	    }
-	} else if (isOne(numberOfTime)) {
+	} else if (checker.isOne(numberOfTime)) {
 	    dateArr = extractTime();
 	} else if (inputArr.get(i + 1).equals("`delete") || inputArr.get(i + 1).equals("`remove")) {
 	    System.out.println("deleteing");
@@ -442,12 +452,12 @@ public class CommandParser {
 	String sequence;
 	ArrayList<DateTime> dateArr;
 	sequence = "startTime";
-	if (isOne(numberOfDates)) {
+	if (checker.isOne(numberOfDates)) {
 	    dateArr = extractDate();
-	    if (isOne(numberOfTime)) {
+	    if (checker.isOne(numberOfTime)) {
 		dateArr = extractTime(dateArr);
 	    }
-	} else if (isOne(numberOfTime)) {
+	} else if (checker.isOne(numberOfTime)) {
 	    System.out.println("extracing start time");
 	    dateArr = extractTime();
 	} else if (inputArr.get(i + 1).equals("`delete") || inputArr.get(i + 1).equals("`remove")) {
@@ -529,7 +539,7 @@ public class CommandParser {
     private boolean remove(String word) {
 	for (int i = 0; i < inputArr.size(); i++) {
 	    if (inputArr.get(i).equalsIgnoreCase(word)) {
-		remove(i);
+		inputArr.remove(i);
 	    }
 	}
 	return true;
@@ -540,56 +550,6 @@ public class CommandParser {
      * Boolean operations
      * ====================================================================
      */
-
-    private boolean isValidCommand(String command) {
-	return !command.equalsIgnoreCase(NOT_FOUND);
-    }
-
-    private boolean isOneCommandFormat(String commandName) {
-	return commandName.equalsIgnoreCase("undo") || commandName.equalsIgnoreCase("exit")
-	       || commandName.equalsIgnoreCase("redo");
-    }
-
-    private boolean isSearchCommand(String commandName) {
-	return commandName.equals("search");
-    }
-
-    private boolean isUpdateCommand(String commandName) {
-	return commandName.equals("update");
-    }
-
-    private boolean isCreateCommand(String commandName) {
-	return commandName.equals("create");
-    }
-
-    private boolean isClearAllCommand(String commandName) {
-	return commandName.equals("clear") && inputArr.size() == 0;
-    }
-
-    private boolean isArrayEmptyAndInvalid() {
-	return inputArr.size() == 0;
-    }
-
-    protected boolean remove(int index) {
-	inputArr.remove(index);
-	return true;
-    }
-
-    private boolean isDateUpdateSequence() {
-	return inputData.getUpdateSequence().size() < 4;
-    }
-
-    private boolean isZero(int numberOfTime) {
-	return numberOfTime == 0;
-    }
-
-    private boolean isTwo(int numberOfDates) {
-	return numberOfDates == 2;
-    }
-
-    private boolean isOne(int numberOfTime) {
-	return numberOfTime == 1;
-    }
 
     /*
      * ====================================================================
@@ -611,7 +571,9 @@ public class CommandParser {
     }
 
     private String callAction(String string) {
-	String result = libraryForAction.find(string);
+	String result;
+	System.out.println("string");
+	result = libraryForAction.find(string);
 	return result;
     }
 

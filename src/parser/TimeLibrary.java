@@ -34,7 +34,27 @@ public class TimeLibrary {
 
     private ArrayList<String> endList = new ArrayList<String>(
 	    Arrays.asList(END_TERM_0, END_TERM_1, END_TERM_2, END_TERM_3, END_TERM_4, END_TERM_5));
+   
+    private static TimeLibrary theOne = null;
+    
 
+    /*
+     * ====================================================================
+     * Constructors
+     * ====================================================================
+     */
+
+    private TimeLibrary() {
+
+    }
+    
+    protected static TimeLibrary getInstance() {
+
+	if (theOne == null) {
+	    theOne = new TimeLibrary();
+	}
+	return theOne;
+    }
     /*
      * ====================================================================
      * Execute methods for TimeLibrary

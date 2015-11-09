@@ -9,8 +9,11 @@ public class CommandParserDemo {
 	public static void main(String[] args) throws Exception {
 		CommandParser cmd = CommandParser.getInstance();
 		CommandPackage CPK;
+		
+		BooleanChecker asd = BooleanChecker.getInstance();
+		System.out.println(asd.isOne(0));
 		//System.out.println(cmd.getCommandPackage("").endingTime());
-		CPK = cmd.getCommandPackage("clear");
+		CPK = cmd.getCommandPackage("add something");
 		System.out.println("asdasd");
 		System.out.println("result of this = ");
 		System.out.println("result of this = " + CPK.getCommand());
