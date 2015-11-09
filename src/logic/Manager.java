@@ -77,17 +77,21 @@ public class Manager {
 
 	}
     
-    public Task delete(int taskIndex,int searchIndex,boolean inSearchStatus) { 
-    	if(inSearchStatus){
-    		searchTaskList.remove(searchIndex);
+    public Task delete(int taskIndex,int searchIndex,boolean inSearchStatus) {
+    	Task t=null;
+    	if(inSearchStatus || taskIndex == -1){
+    		t = searchTaskList.remove(searchIndex);
     	}
-    	Task t = taskList.remove(taskIndex);    	
-    	undoRedo.addStateToUndo(new ArrayList<Task>(taskList),
-    			new ArrayList<Task>(archivedList));
-		ptl.deleteFromPL(t);;
-		timeline.deleteFromTL(t);
-		storage.write(taskList,archivedList);
-		return t;
+    	if(taskIndex!=-1){
+    		t = taskList.remove(taskIndex);    	
+        	undoRedo.addStateToUndo(new ArrayList<Task>(taskList),
+        			new ArrayList<Task>(archivedList));
+    		ptl.deleteFromPL(t);;
+    		timeline.deleteFromTL(t);
+    		storage.write(taskList,archivedList);
+    		return t;
+    	}
+    	return t;
 
 	}
     
