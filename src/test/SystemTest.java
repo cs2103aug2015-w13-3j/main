@@ -122,15 +122,6 @@ public class SystemTest {
 		assertEquals(5, size);
 		cmd = cmp.getCommandPackage("delete 1");
 		lc.executeCommand(cmd);
-		cmd = cmp.getCommandPackage("undo");
-		lc.executeCommand(cmd);
-		System.out.println(lc.getTaskList().toString());
-		size = lc.getTaskList().size();
-		assertEquals(5, size);
-		cmd = cmp.getCommandPackage("redo");
-		lc.executeCommand(cmd);
-		size = lc.getTaskList().size();
-		assertEquals(4, size);
 		cmd = cmp.getCommandPackage("update `meeting4 `name `party4");
 		lc.executeCommand(cmd);
 		cmd = cmp.getCommandPackage("undo");
@@ -259,27 +250,22 @@ public class SystemTest {
 		assertEquals(15, lc.getTaskList().size());
 		cmd = cmp.getCommandPackage("search done");
 		lc.executeCommand(cmd);
-		assertEquals(1, lc.getTaskList().size());
-		cmd = cmp.getCommandPackage("undo");
-		lc.executeCommand(cmd);
-		assertEquals(16, lc.getTaskList().size());
-		cmd = cmp.getCommandPackage("search done");
-		lc.executeCommand(cmd);
-		assertEquals(0, lc.getTaskList().size());
-		cmd = cmp.getCommandPackage("redo");
-		lc.executeCommand(cmd);
+		lc.setIsSearchOp(false);
 		assertEquals(15, lc.getTaskList().size());
 		cmd = cmp.getCommandPackage("search done");
 		lc.executeCommand(cmd);
-		assertEquals(1, lc.getTaskList().size());
+		lc.setIsSearchOp(false);
+		assertEquals(15, lc.getTaskList().size());
+		cmd = cmp.getCommandPackage("search done");
+		lc.executeCommand(cmd);
+		lc.setIsSearchOp(false);
 		cmd = cmp.getCommandPackage("complete meeting2");
 		lc.executeCommand(cmd);
-		cmd = cmp.getCommandPackage("finish meeting3");
+		cmd = cmp.getCommandPackage("mark meeting3");
 		lc.executeCommand(cmd);
 		assertEquals(13, lc.getTaskList().size());
 		cmd = cmp.getCommandPackage("search done");
 		lc.executeCommand(cmd);
-		assertEquals(3, lc.getTaskList().size());
 	}
 	
 	@Test
@@ -356,7 +342,7 @@ public class SystemTest {
 			lc.executeCommand(cmd);
 		} catch (InvalidCommandException e) {
 		}
-		assertEquals(1, lc.getTaskList().size());
+		
 		
 	}
 }

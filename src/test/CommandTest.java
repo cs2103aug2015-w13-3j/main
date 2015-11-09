@@ -1,5 +1,5 @@
-//@@ A0133949U
-package logic.command;
+//@@author A0133949U
+package test;
 
 import static org.junit.Assert.*;
 
@@ -12,6 +12,15 @@ import logic.CommandType;
 import logic.Manager;
 import logic.Task;
 import logic.UndoRedoOp;
+import logic.command.AddCommand;
+import logic.command.ClearCommand;
+import logic.command.DeleteCommand;
+import logic.command.InvalidCommandException;
+import logic.command.MarkCommand;
+import logic.command.SearchCommand;
+import logic.command.SortCommand;
+import logic.command.UndoCommand;
+import logic.command.UpdateCommand;
 import parser.CommandPackage;
 import parser.CommandParser;
 
