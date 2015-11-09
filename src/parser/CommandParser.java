@@ -90,13 +90,11 @@ public class CommandParser {
 	    System.out.println();
 	    if (!isValidCommand(commandName)) {
 		return null;
-	    } else if (isOneCommandFormat(commandName)) {
+	    } else if (isOneCommandFormat(commandName) || isClearAllCommand(commandName)) {
 		return inputData;
-	    }
-	    if (isArrayEmptyAndInvalid()) {
+	    } else if (isArrayEmptyAndInvalid()) {
 		return null;
-	    }
-	    if (isUpdateCommand(commandName)) {
+	    } else if (isUpdateCommand(commandName)) {
 		return updateInput();
 	    } else {
 		String priority = findPriority();
@@ -129,6 +127,16 @@ public class CommandParser {
      * ====================================================================
      */
 
+    /**
+     * The main method processes input with only 1 date input and 0 time input
+     * and input into the CommandPackage
+     * 
+     * @param dateArr
+     *            an array of existing date format
+     * @param i
+     *            the index that is going to process the dateArr element
+     * @return the updated inputArr
+     */
     private void addDateTime() {
 	int numberOfDates = countDate();
 	int numberOfTime = countTime();
@@ -317,6 +325,11 @@ public class CommandParser {
 	return null;
     }
 
+    /*
+     * ====================================================================
+     * Parser For Update
+     * ====================================================================
+     */
     private CommandPackage updateInput() {
 	String sequence = "";
 	String word;
@@ -334,43 +347,10 @@ public class CommandParser {
 		    sequence = "";
 		    sequence = word.substring(1);
 		    if (word.equalsIgnoreCase(START_TIME_LONG) || word.equalsIgnoreCase(START_TIME_SHORT)) {
-			sequence = "startTime";
-			if (isOne(numberOfDates)) {
-			    dateArr = extractDate();
-			    if (isOne(numberOfTime)) {
-				dateArr = extractTime(dateArr);
-			    }
-			} else if (isOne(numberOfTime)) {
-			    System.out.println("extracing start time");
-			    dateArr = extractTime();
-			} else if (inputArr.get(i + 1).equals("`delete") || inputArr.get(i + 1).equals("`remove")) {
-			    System.out.println("deleteing");
-			    dateArr = null;
-			    inputData.addUpdateSequence(sequence);
-			    inputData.addUpdateSequence("delete");
-			} else {
-			    dateArr = null;
-			}
-			inputData.setDates(dateArr, "start");
+			sequence = updateStartDateParsing(numberOfDates, numberOfTime, i);
 		    } else {
 			if (word.equalsIgnoreCase(END_TIME_LONG) || word.equalsIgnoreCase(END_TIME_SHORT)) {
-			    sequence = "endTime";
-			    if (isOne(numberOfDates)) {
-				dateArr = extractDate();
-				if (isOne(numberOfTime)) {
-				    dateArr = extractTime(dateArr);
-				}
-			    } else if (isOne(numberOfTime)) {
-				dateArr = extractTime();
-			    } else if (inputArr.get(i + 1).equals("`delete") || inputArr.get(i + 1).equals("`remove")) {
-				System.out.println("deleteing");
-				dateArr = null;
-				inputData.addUpdateSequence(sequence);
-				inputData.addUpdateSequence("delete");
-			    } else {
-				dateArr = null;
-			    }
-			    inputData.setDates(dateArr, "end");
+			    sequence = updateEndDateParsing(numberOfDates, numberOfTime, i);
 			}
 		    }
 		}
@@ -382,11 +362,54 @@ public class CommandParser {
 	if (isDateUpdateSequence()) {
 	    inputData.addUpdateSequence(inputData.getDate().toString());
 	}
-	System.out.println("UPDATE " + inputData.getUpdateSequence().get(0));
-	System.out.println("UPDATE " + inputData.getUpdateSequence().get(1));
-	System.out.println("UPDATE " + inputData.getUpdateSequence().get(2));
-	System.out.println("UPDATE " + inputData.getUpdateSequence().get(3));
 	return inputData;
+    }
+
+    private String updateEndDateParsing(int numberOfDates, int numberOfTime, int i) {
+	String sequence;
+	ArrayList<DateTime> dateArr;
+	sequence = "endTime";
+	if (isOne(numberOfDates)) {
+	    dateArr = extractDate();
+	    if (isOne(numberOfTime)) {
+		dateArr = extractTime(dateArr);
+	    }
+	} else if (isOne(numberOfTime)) {
+	    dateArr = extractTime();
+	} else if (inputArr.get(i + 1).equals("`delete") || inputArr.get(i + 1).equals("`remove")) {
+	    System.out.println("deleteing");
+	    dateArr = null;
+	    inputData.addUpdateSequence(sequence);
+	    inputData.addUpdateSequence("delete");
+	} else {
+	    dateArr = null;
+	}
+	inputData.setDates(dateArr, "end");
+	return sequence;
+    }
+
+    private String updateStartDateParsing(int numberOfDates, int numberOfTime, int i) {
+	String sequence;
+	ArrayList<DateTime> dateArr;
+	sequence = "startTime";
+	if (isOne(numberOfDates)) {
+	    dateArr = extractDate();
+	    if (isOne(numberOfTime)) {
+		dateArr = extractTime(dateArr);
+	    }
+	} else if (isOne(numberOfTime)) {
+	    System.out.println("extracing start time");
+	    dateArr = extractTime();
+	} else if (inputArr.get(i + 1).equals("`delete") || inputArr.get(i + 1).equals("`remove")) {
+	    System.out.println("deleteing");
+	    dateArr = null;
+	    inputData.addUpdateSequence(sequence);
+	    inputData.addUpdateSequence("delete");
+	} else {
+	    dateArr = null;
+	}
+	inputData.setDates(dateArr, "start");
+	return sequence;
     }
 
     /*
@@ -480,9 +503,6 @@ public class CommandParser {
     private boolean isSearchCommand(String commandName) {
 	return commandName.equals("search");
     }
-    private boolean isCommand(String commandName) {
-	return commandName.equals("search");
-    }
 
     private boolean isUpdateCommand(String commandName) {
 	return commandName.equals("update");
@@ -490,6 +510,10 @@ public class CommandParser {
 
     private boolean isCreateCommand(String commandName) {
 	return commandName.equals("create");
+    }
+
+    private boolean isClearAllCommand(String commandName) {
+	return commandName.equals("clear") && inputArr.size() == 0;
     }
 
     private boolean isArrayEmptyAndInvalid() {
