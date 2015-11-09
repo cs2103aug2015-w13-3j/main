@@ -32,9 +32,9 @@ public class LogicClass implements LogicInterface{
 
 	// constructor
 	private LogicClass() {
-		mgr.setTaskList(storage.read().get(0));	
-		mgr.setArchivedList(storage.read().get(1));
-
+		
+		mgr.initialize(storage.read().get(0), 
+				storage.read().get(1));//taskList and archivedList respectively
 	}
 
 	public static LogicClass getInstance() {
@@ -71,7 +71,9 @@ public class LogicClass implements LogicInterface{
 
 		switch (commandType) {
 		case CREATE:
+			
 			cmd = new AddCommand(commandType,mgr,commandPackage);
+			
 			break;
 		case UPDATE:
 			cmd = new UpdateCommand(commandType,mgr,commandPackage);
