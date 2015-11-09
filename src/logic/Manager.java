@@ -143,8 +143,9 @@ public class Manager {
     	}
     	assert undoRedo.redo()!=null;
     	
-    	taskList = undoRedo.redo().get(0);
-    	archivedList = undoRedo.redo().get(1);
+    	ArrayList<ArrayList<Task>> lists = undoRedo.redo();
+    	taskList = lists.get(0);
+    	archivedList = lists.get(1);
     	
 		ptl.clear();
 		timeline.clear();
@@ -164,8 +165,9 @@ public class Manager {
     	}
     	assert undoRedo.undo()!=null;
     	
-    	taskList = new ArrayList<Task>(undoRedo.undo().get(0));
-    	archivedList = new ArrayList<Task>(undoRedo.undo().get(1));
+    	ArrayList<ArrayList<Task>> lists = undoRedo.redo();
+    	taskList = new ArrayList<Task>(lists.get(0));
+    	archivedList = new ArrayList<Task>(lists.get(1));
     	
 		ptl.clear();
 		timeline.clear();
