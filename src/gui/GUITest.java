@@ -14,16 +14,17 @@ import org.junit.Test;
 import org.testfx.api.FxToolkit;
 //import org.fxmisc.richtext.InlineCssTextArea;
 
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 //import com.sun.javafx.robot.FXRobot;
 //import com.sun.javafx.robot.FXRobotImage;
 
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
+import logic.Task;
 
 import org.testfx.api.FxRobot;
 import org.testfx.util.WaitForAsyncUtils;
@@ -31,7 +32,6 @@ import org.testfx.util.WaitForAsyncUtils;
 public class GUITest extends FxRobot{
 	
 	private static MainApp mainApp;
-	private static TaskViewController controller;
 	public static Stage primaryStage;
 	
 	//Setting up
@@ -49,7 +49,6 @@ public class GUITest extends FxRobot{
 	public void before() {
 		try {
 		mainApp = (MainApp)FxToolkit.setupApplication(MainApp.class);
-		controller = mainApp.getController();
 		WaitForAsyncUtils.waitFor(10, TimeUnit.SECONDS, primaryStage.showingProperty());
 		sleep(2000);
 		} catch (Exception e) {
@@ -76,6 +75,51 @@ public class GUITest extends FxRobot{
 		clickOn("#txtCommandInput").write("abcabc").push(KeyCode.ENTER);
 		assertTrue(feedback.getText().equals("Invalid command. Please type \"help\" for more instructions."));
 	}
+	
+	@Test
+	public void keyInvalidPriorityEnterTest(){
+		Text feedback = (Text) mainApp.getScene().lookup("#feedback");
+		clickOn("#txtCommandInput").write("add meeting #6").push(KeyCode.ENTER);
+		assertTrue(feedback.getText().equals("Invalid priority.Priority is valid from 1 to 3"));
+	}
+	
+	@Test
+	public void keyInvalidIndexDeleteEnterTest(){
+		Text feedback = (Text) mainApp.getScene().lookup("#feedback");
+		clickOn("#txtCommandInput").write("delete 100").push(KeyCode.ENTER);
+		assertTrue(feedback.getText().equals("Task not found"));
+	}
+	
+	@Test
+	public void keyInvalidNameDeleteEnterTest(){
+		Text feedback = (Text) mainApp.getScene().lookup("#feedback");
+		clickOn("#txtCommandInput").write("delete party").push(KeyCode.ENTER);
+		assertTrue(feedback.getText().equals("Task not found"));
+	}
+	
+	@Test
+	public void keyInvalidSearchDeleteEnterTest(){
+		Text feedback = (Text) mainApp.getScene().lookup("#feedback");
+		clickOn("#txtCommandInput").write("search meeting").push(KeyCode.ENTER);
+		clickOn("#txtCommandInput").write("delete party").push(KeyCode.ENTER);
+		assertTrue(feedback.getText().equals("Task not found in searched list. To return to full list,press Enter"));
+	}
+	
+	@Test
+	public void keyClearEnterTest(){
+		Text feedback = (Text) mainApp.getScene().lookup("#feedback");
+		clickOn("#txtCommandInput").write("clear").push(KeyCode.ENTER);
+		assertTrue(feedback.getText().equals("All tasks cleared"));
+	}
+
+	
+//	@Test
+//	public void tableViewContentTest(){
+//		TableView<Task> tableView = (TableView<Task>) mainApp.getScene().lookup("#taskTableView");
+//		clickOn("#txtCommandInput").push(KeyCode.ENTER);
+//		ObservableList<Task> expectedList = mainApp.getTaskData();
+//		assertTrue(tableView.getColumns().equals(expectedList));
+//	}
 	
 	
 }

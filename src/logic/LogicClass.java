@@ -17,17 +17,11 @@ import logic.command.UpdateCommand;
 import parser.CommandPackage;
 
 public class LogicClass implements LogicInterface{
-	// This array will be used to store the messages
 
-	private static ArrayList<Task> archivedList = new ArrayList<Task>();
 	private static boolean isSearchOp = false;
 	Storage storage = Storage.getInstance();
-
-	
-	Manager mgr= Manager.getInstance();
-	
+	Manager mgr= Manager.getInstance();	
 	private String path = "";
-
 	static LogicClass theOne = null;
 
 	// constructor
@@ -57,11 +51,7 @@ public class LogicClass implements LogicInterface{
 	}
 	
 	public String executeCommand(CommandPackage commandPackage) throws InvalidCommandException {
-		
-//		if(commandPackage==null){
-//			System.out.println("cp is null");
-//		}
-//		System.out.print("getCommand"+commandPackage.getCommand());
+		assert commandPackage!=null;
 		CommandType commandType = CommandType.valueOf(commandPackage.getCommand().toUpperCase());	
 		Command cmd = null;
 
@@ -113,7 +103,6 @@ public class LogicClass implements LogicInterface{
 		}
 		
 		String returnMsg= cmd.execute();
-		
 		return returnMsg;
 		
 	}
@@ -134,44 +123,4 @@ public class LogicClass implements LogicInterface{
 	public void setIsSearchOp(boolean tof){
 		isSearchOp=tof;
 	}
-
-	//@author A0133949U
-//	public static boolean isTodayTask(Task t) {
-//		if (t.getEndTime() == null && t.getStartTime() == null) {
-//			return false;
-//		}
-//
-//		DateTime now = new DateTime();
-//		LocalDate today = now.toLocalDate();
-//		LocalDate tomorrow = today.plusDays(1);
-//
-//		DateTime startOfToday = today.toDateTimeAtStartOfDay(now.getZone());
-//		DateTime startOfTomorrow = tomorrow.toDateTimeAtStartOfDay(now.getZone());
-//
-//		if (t.getEndTime() == null && t.getStartTime() == null) {
-//			return false;
-//		}
-//
-//		if (t.getEndTime() != null) {
-//			if (t.getEndTime().isBefore(startOfToday)) {
-//				return false;
-//			}
-//		}
-//
-//		if (t.getStartTime() != null) {
-//			if (t.getEndTime().isBefore(startOfToday)) {
-//				return false;
-//			}
-//		}
-//
-//		if (t.getStartTime() != null && t.getEndTime() != null && t.getStartTime().isAfter(startOfToday)
-//				&& t.getEndTime().isBefore(startOfTomorrow)) {
-//			return true;
-//		}
-//		return false;
-//	}
-
-
-
-
 }
