@@ -9,11 +9,13 @@ public class CommandParserDemo {
 	public static void main(String[] args) throws Exception {
 		CommandParser cmd = CommandParser.getInstance();
 		CommandPackage CPK;
-		System.out.println(cmd.getCommandPackage("").endingTime());
-		CPK = cmd.getCommandPackage("undo");
-		//System.out.println("Starting time " + CPK.getUpdateSequence().get(2));
+		//System.out.println(cmd.getCommandPackage("").endingTime());
+		CPK = cmd.getCommandPackage("abcd");
+		System.out.println("asdasd");
+		System.out.println("result of this = ");
+		System.out.println("result of this = " + CPK == null);
 		System.out.println();
-		System.out.println(cmd.getCommandPackage("").getPhrase().equals(""));
+		System.out.println(cmd.getCommandPackage("") == null);
 		CPK = cmd.getCommandPackage("plus something 10-oct");
 		String test = "11/22";
 		String test2 = "/33";

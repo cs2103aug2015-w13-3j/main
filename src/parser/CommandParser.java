@@ -85,8 +85,10 @@ public class CommandParser {
 	    String commandName = findAction();
 
 	    inputData.setCommand(commandName);
-	    //System.out.println("name " + commandName);
-	    if (!isValidCommand(commandName) && isArrayEmptyAndInvalid()) {
+	    System.out.println("name " + commandName);
+	    System.out.println((!isValidCommand(commandName)));
+	    System.out.println();
+	    if (!isValidCommand(commandName)) {
 		return null;
 	    } else if (isOneCommandFormat(commandName)) {
 		return inputData;
@@ -111,11 +113,11 @@ public class CommandParser {
 	    }
 	    inputData.setPhrase(getPhrase());
 	    return inputData;
-	    /*-
+	    
 	    } catch (NullPointerException e1) {
 	    System.out.println("NULL POINTER ERRORS");
 	    return null;
-	    */
+	    
 	} catch (StringIndexOutOfBoundsException e2) {
 	    System.out.println("StringIndexOutOfBoundsException");
 	    return null;
@@ -462,7 +464,7 @@ public class CommandParser {
      */
 
     private boolean isValidCommand(String command) {
-	return command != NOT_FOUND;
+	return !command.equalsIgnoreCase(NOT_FOUND);
     }
 
     private boolean isSearchCommand(String commandName) {
