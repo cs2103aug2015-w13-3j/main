@@ -77,8 +77,10 @@ public class CommandParser {
 
 	    inputData.setCommand(commandName);
 
-	    if (!isValidCommand(commandName) || isArrayEmptyAndInvalid()) {
+	    if (!isValidCommand(commandName) && isArrayEmptyAndInvalid()) {
 		return null;
+	    } else if (isOneCommandFormat(commandName)) {
+		return inputData;
 	    }
 	    if (isUpdateCommand(commandName)) {
 		return updateInput();
@@ -154,7 +156,7 @@ public class CommandParser {
 	}
 
     }
-    
+
     /**
      * The main method processes input with only 1 date input and 0 time input
      * 
@@ -162,7 +164,7 @@ public class CommandParser {
      *            the set of words that users have typed into the command bar
      * @return a CommandPackage for Logic component to process
      */
-    private ArrayList<DateTime>  dateProcess1(ArrayList<DateTime> dateArr, int i) {
+    private ArrayList<DateTime> dateProcess1(ArrayList<DateTime> dateArr, int i) {
 	if (inputArr.get(i).equalsIgnoreCase("start")) {
 	    inputData.setDates(dateArr, "start");
 	    inputArr.remove(i);
@@ -174,7 +176,7 @@ public class CommandParser {
 	}
 	return dateArr;
     }
-    
+
     /**
      * The main method processes input with only 1 date input and 1 time input
      * 
@@ -184,7 +186,7 @@ public class CommandParser {
      *            the index that is going to process the dateArr element
      * @return a CommandPackage for Logic component to process
      */
-    private ArrayList<DateTime>  dateProcess2(ArrayList<DateTime> dateArr, int i) {
+    private ArrayList<DateTime> dateProcess2(ArrayList<DateTime> dateArr, int i) {
 	if (libraryForTime.isStart(inputArr.get(i))) {
 	    inputData.setDates(dateArr, "start");
 	    inputArr.remove(i);
@@ -196,8 +198,6 @@ public class CommandParser {
 	}
 	return dateArr;
     }
-
-
 
     private ArrayList<DateTime> extractDate() {
 	ArrayList<DateTime> dateArr = new ArrayList<DateTime>();
@@ -309,6 +309,7 @@ public class CommandParser {
 	    word = inputArr.get(i);
 	    if (word.startsWith("`")) {
 		if (word.equalsIgnoreCase(START_TIME_LONG) || word.equalsIgnoreCase(START_TIME_SHORT)) {
+		    word = "`startTime";
 		    if (isOne(numberOfDates)) {
 			dateArr = extractDate();
 			if (isOne(numberOfTime)) {
@@ -323,6 +324,7 @@ public class CommandParser {
 		    inputData.setDates(dateArr, "start");
 		} else {
 		    if (word.equalsIgnoreCase(END_TIME_LONG) || word.equalsIgnoreCase(END_TIME_SHORT)) {
+			word = "`endTime";
 			if (isOne(numberOfDates)) {
 			    dateArr = extractDate();
 			    if (isOne(numberOfTime)) {
@@ -347,6 +349,7 @@ public class CommandParser {
 	if (isDateUpdateSequence()) {
 	    inputData.addUpdateSequence(inputData.getDate().toString());
 	}
+	System.out.println("UPDATE" + inputData.getUpdateSequence().get(2));
 	return inputData;
     }
 
@@ -468,6 +471,11 @@ public class CommandParser {
 
     private boolean isOne(int numberOfTime) {
 	return numberOfTime == 1;
+    }
+
+    private boolean isOneCommandFormat(String commandName) {
+	return commandName.equalsIgnoreCase("undo") || commandName.equalsIgnoreCase("clear")
+	       || commandName.equalsIgnoreCase("exit") || commandName.equalsIgnoreCase("redo");
     }
 
     /*
