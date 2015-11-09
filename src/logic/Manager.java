@@ -158,6 +158,7 @@ public class Manager {
     	assert(lists != null);
     	taskList = lists.get(0);
     	archivedList = lists.get(1);
+    	searchTaskList = lists.get(2);
     	
 		ptl.clear();
 		timeline.clear();
@@ -180,6 +181,7 @@ public class Manager {
 
     	taskList = new ArrayList<Task>(lists.get(0));
     	archivedList = new ArrayList<Task>(lists.get(1));
+    	searchTaskList = lists.get(2);
     	
 		ptl.clear();
 		timeline.clear();
