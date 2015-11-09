@@ -113,9 +113,11 @@ public class CommandParser {
 	    }
 	    inputData.setPhrase(getPhrase());
 	    return inputData;
+	    /*-
 	} catch (NullPointerException e1) {
 	    System.out.println("NULL POINTER ERRORS");
 	    return null;
+	    */
 	} catch (StringIndexOutOfBoundsException e2) {
 	    System.out.println("StringIndexOutOfBoundsException");
 	    return null;
@@ -342,6 +344,7 @@ public class CommandParser {
 			    System.out.println("extracing start time");
 			    dateArr = extractTime();
 			} else if (inputArr.get(i + 1).equals("`delete")) {
+			    System.out.println("deleteing");
 			    dateArr = null;
 			    inputData.addUpdateSequence("delete");
 			} else {
@@ -359,6 +362,7 @@ public class CommandParser {
 			    } else if (isOne(numberOfTime)) {
 				dateArr = extractTime();
 			    } else if (inputArr.get(i + 1).equals("`delete")) {
+				System.out.println("deleteing"); 
 				dateArr = null;
 				inputData.addUpdateSequence("delete");
 			    } else {
