@@ -2,12 +2,10 @@ package parser;
 
 import java.util.ArrayList;
 
-import logic.CommandType;
-
 import org.joda.time.DateTime;
 //@@author A0122061B
 
-//This program is the output class from the parsing program for Daxuan to use to execute CRUD
+//This program is the output class from the parsing program for the Logic Component to use to execute CRUD
 
 public class CommandPackage {
 
@@ -41,7 +39,15 @@ public class CommandPackage {
 	priority = null;
 	updateSequence = new ArrayList<String>();
     }
-
+    
+    
+    /*
+     * ====================================================================
+     * Methods to build CommandPackage
+     * ====================================================================
+     */
+    
+    
     public String setCommand(String cmd) {
 	command = cmd;
 	return command;
@@ -51,6 +57,8 @@ public class CommandPackage {
 	phrase = text;
 	return phrase;
     }
+
+    
 
     public DatePackage setDates(ArrayList<DateTime> time, String condition) {
 	if (condition.equalsIgnoreCase("start")) {
@@ -82,7 +90,12 @@ public class CommandPackage {
 
     }
 
-    // Accessors
+    /*
+     * ====================================================================
+     * Accessors
+     * ====================================================================
+     */
+    
     public DatePackage getDate() {
 	return dates;
     }
