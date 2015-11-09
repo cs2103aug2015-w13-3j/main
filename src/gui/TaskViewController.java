@@ -168,6 +168,7 @@ public class TaskViewController {
 		} else {
 			assert (cmdPack != null);
 			try {
+				System.out.println(input);
 				String result = logic.executeCommand(cmdPack);
 				feedback.setText(result);
 				txtCommandInput.clear();
