@@ -39,11 +39,12 @@ public class UpdateCommand extends Command{
 		
 		if(isInteger(target,10)==true){
 			targetIndex = Integer.parseInt(target)-1;
-			task = taskList.get(targetIndex);
+			
 		}
 		
 		if(targetIndex<taskList.size() &&  targetIndex>=0 ){
 			found=true;
+			task = taskList.get(targetIndex);
 		}else{ 
 			for (int i = 0; i < taskList.size(); i++) {
 				task = taskList.get(i);
@@ -71,7 +72,7 @@ public class UpdateCommand extends Command{
 				}
 				assert update.get(3)!=null;
 				newTask.setTaskName(update.get(3));
-				msg = "Task \""+target+"\" updated to \""+task.getName()+"\"";
+				msg = "Task \""+target+"\" updated to \""+ newTask.getName()+"\"";
 
 			} else if (update.get(2).equals("#") || 
 				update.get(2).equalsIgnoreCase("priority")) {
