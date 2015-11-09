@@ -26,6 +26,7 @@ public class AddCommand extends Command {
 	public String execute() throws InvalidCommandException{
 		
 		Task task = new Task(commandInfo.getPhrase());
+		
 		if (commandInfo.startingTime() != null) {
 			task.setStartTime(commandInfo.startingTime());
 		}
@@ -33,11 +34,11 @@ public class AddCommand extends Command {
 			task.setEndTime(commandInfo.endingTime());
 		}
 
-		if (commandInfo.getPriority() != null) {
+		if (commandInfo.getPriority() != null && commandInfo.getPriority() != "") {
 			String pri = commandInfo.getPriority().trim();
-			int priority = Integer.parseInt(pri);
 			
-			if(priority>3){
+			int priority = Integer.parseInt(pri);		
+			if(priority>3 || priority<=0){
 				throw new InvalidCommandException
 				("Invalid priority.Priority is valid from 1 to 3");
 			}
@@ -46,7 +47,8 @@ public class AddCommand extends Command {
 				task.setPriority(pri);
 			}
 		}
-
+		//System.out.println("here");
+		
 		mgr.addToTaskList(task);
 
 		return "Task Added: "+task.getName();
