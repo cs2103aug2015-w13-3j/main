@@ -93,6 +93,9 @@ public class CommandParser {
 	    } else if (isOneCommandFormat(commandName)) {
 		return inputData;
 	    }
+	    if (isArrayEmptyAndInvalid()) {
+		return null;
+	    }
 	    if (isUpdateCommand(commandName)) {
 		return updateInput();
 	    } else {
@@ -324,41 +327,47 @@ public class CommandParser {
 	    if (word.startsWith("`")) {
 		if (word.length() == 1) {
 		    inputArr.set(i, word + inputArr.get(i + 1));
-		}
-		inputData.addUpdateSequence(sequence);
-		sequence = "";
-		sequence = word.substring(1);
-		if (word.equalsIgnoreCase(START_TIME_LONG) || word.equalsIgnoreCase(START_TIME_SHORT)) {
-		    sequence = "startTime";
-		    if (isOne(numberOfDates)) {
-			dateArr = extractDate();
-			if (isOne(numberOfTime)) {
-			    dateArr = extractTime(dateArr);
-			}
-		    } else if (isOne(numberOfTime)) {
-			System.out.println("extracing start time");
-			dateArr = extractTime();
-		    } else {
-			dateArr = null;
-		    }
-		    inputData.setDates(dateArr, "start");
 		} else {
-		    if (word.equalsIgnoreCase(END_TIME_LONG) || word.equalsIgnoreCase(END_TIME_SHORT)) {
-			sequence = "endTime";
+		    inputData.addUpdateSequence(sequence);
+		    sequence = "";
+		    sequence = word.substring(1);
+		    if (word.equalsIgnoreCase(START_TIME_LONG) || word.equalsIgnoreCase(START_TIME_SHORT)) {
+			sequence = "startTime";
 			if (isOne(numberOfDates)) {
 			    dateArr = extractDate();
 			    if (isOne(numberOfTime)) {
 				dateArr = extractTime(dateArr);
 			    }
 			} else if (isOne(numberOfTime)) {
+			    System.out.println("extracing start time");
 			    dateArr = extractTime();
+			} else if (inputArr.get(i + 1).equals("`delete")) {
+			    dateArr = null;
+			    inputData.addUpdateSequence("delete");
 			} else {
 			    dateArr = null;
 			}
-			inputData.setDates(dateArr, "end");
+			inputData.setDates(dateArr, "start");
+		    } else {
+			if (word.equalsIgnoreCase(END_TIME_LONG) || word.equalsIgnoreCase(END_TIME_SHORT)) {
+			    sequence = "endTime";
+			    if (isOne(numberOfDates)) {
+				dateArr = extractDate();
+				if (isOne(numberOfTime)) {
+				    dateArr = extractTime(dateArr);
+				}
+			    } else if (isOne(numberOfTime)) {
+				dateArr = extractTime();
+			    } else if (inputArr.get(i + 1).equals("`delete")) {
+				dateArr = null;
+				inputData.addUpdateSequence("delete");
+			    } else {
+				dateArr = null;
+			    }
+			    inputData.setDates(dateArr, "end");
+			}
 		    }
 		}
-
 	    } else {
 		sequence = sequence + " " + word;
 	    }
