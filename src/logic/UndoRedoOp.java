@@ -27,10 +27,11 @@ public class UndoRedoOp {
 	}
 
 	public ArrayList<ArrayList<Task>> undo() {
-		System.out.println("undodododooddo");
+		
 		ArrayList<ArrayList<Task>> previousState = new ArrayList<ArrayList<Task>>();
 		
 		if(!undoStack.isEmpty() && archivedUndoStack.isEmpty()){
+			
 			undoStack.clear();
 			archivedUndoStack.clear();
 		}else if (undoStack.isEmpty() && !archivedUndoStack.isEmpty()){
@@ -39,7 +40,9 @@ public class UndoRedoOp {
 		}
 		// undoStack and archivedUndoStack should have the same length 
 		if (!undoStack.isEmpty() && !archivedUndoStack.isEmpty()) {
+			
 			ArrayList<Task> current = undoStack.pop();
+			
 			ArrayList<Task> currentArchived = undoStack.pop();
 
 			redoStack.push(new ArrayList<Task>(current));
@@ -47,6 +50,8 @@ public class UndoRedoOp {
 			
 			
 			if (!undoStack.isEmpty() && !archivedUndoStack.isEmpty()) {
+				System.out.println("undodododooddo");
+				
 				previousState.add(new ArrayList<Task>(undoStack.peek()));
 				previousState.add(new ArrayList<Task>(archivedUndoStack.peek()));
 				return previousState;

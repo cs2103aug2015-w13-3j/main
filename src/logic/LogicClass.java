@@ -32,7 +32,6 @@ public class LogicClass implements LogicInterface{
 
 	// constructor
 	private LogicClass() {
-		
 		mgr.initialize(storage.read().get(0), 
 				storage.read().get(1));//taskList and archivedList respectively
 	}
