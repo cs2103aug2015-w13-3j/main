@@ -64,8 +64,9 @@ public class Manager {
     }
     
     //functions
-    public Task addToTaskList(Task task) {   	
-		taskList.add(task);
+    public Task addToTaskList(Task task) {   
+    	
+		taskList.add(0,task);
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList),
 				new ArrayList<Task>(archivedList));
 		ptl.addToPL(task);
@@ -76,8 +77,11 @@ public class Manager {
 
 	}
     
-    public Task delete(int index) { 
-    	Task t = taskList.remove(index);    	
+    public Task delete(int taskIndex,int searchIndex,boolean inSearchStatus) { 
+    	if(inSearchStatus){
+    		searchTaskList.remove(searchIndex);
+    	}
+    	Task t = taskList.remove(taskIndex);    	
     	undoRedo.addStateToUndo(new ArrayList<Task>(taskList),
     			new ArrayList<Task>(archivedList));
 		ptl.deleteFromPL(t);;

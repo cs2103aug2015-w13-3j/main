@@ -45,22 +45,19 @@ public class LogicClass implements LogicInterface{
 	}
 
 	public ArrayList<Task> getTaskList(){
-
-		if(isSearchOp==true){
-			isSearchOp=false;
-			return mgr.getSearchList();
-		}
 		
+		if(isSearchOp==true){
+			return mgr.getSearchList();
+		}	
 		return mgr.getTaskList();
 	}
 	
-	public ArrayList<Task> getTaskListForSearcher(){
-		
+	public ArrayList<Task> getTaskListForSearcher(){	
 		return mgr.getTaskList();
 	}
 	
 	public String executeCommand(CommandPackage commandPackage) throws InvalidCommandException {
-		isSearchOp = false;
+		
 //		if(commandPackage==null){
 //			System.out.println("cp is null");
 //		}
@@ -70,15 +67,21 @@ public class LogicClass implements LogicInterface{
 
 		switch (commandType) {
 		case CREATE:
-			
-			cmd = new AddCommand(commandType,mgr,commandPackage);
-			
+			isSearchOp=false;
+			cmd = new AddCommand(commandType,mgr,commandPackage);	
 			break;
 		case UPDATE:
-			cmd = new UpdateCommand(commandType,mgr,commandPackage);
+			
+			    cmd = new UpdateCommand(commandType,mgr,commandPackage);
+			
 			break;
 		case DELETE:
-			cmd = new DeleteCommand(commandType,mgr,commandPackage.getPhrase());
+			if(isSearchOp==false){
+				cmd = new DeleteCommand(commandType,mgr,commandPackage.getPhrase(),false);
+			}else{
+				cmd = new DeleteCommand(commandType,mgr,commandPackage.getPhrase(),true);
+			}
+			
 			break;
 		case CLEAR:
 			cmd = new ClearCommand(commandType,mgr);
@@ -126,6 +129,10 @@ public class LogicClass implements LogicInterface{
 
 	public boolean setPathFirstTime(){
 		return storage.setPath(this.path);
+	}
+	
+	public void setIsSearchOp(boolean tof){
+		isSearchOp=tof;
 	}
 
 	//@author A0133949U
