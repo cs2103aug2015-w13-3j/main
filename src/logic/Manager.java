@@ -82,15 +82,20 @@ public class Manager {
     	if(inSearchStatus || taskIndex == -1){
     		t = searchTaskList.remove(searchIndex);
     	}
-    	if(taskIndex!=-1){
+    	
+    	if(taskIndex == -1){ //meaning in view-archived mode
+    		t = archivedList.remove(searchIndex);
+    		undoRedo.addStateToUndo(new ArrayList<Task>(taskList),
+        			new ArrayList<Task>(archivedList));
+    		
+    	}else{ //taskIndex != -1
     		t = taskList.remove(taskIndex);    	
         	undoRedo.addStateToUndo(new ArrayList<Task>(taskList),
         			new ArrayList<Task>(archivedList));
     		ptl.deleteFromPL(t);;
     		timeline.deleteFromTL(t);
-    		storage.write(taskList,archivedList);
-    		return t;
     	}
+    	storage.write(taskList,archivedList);
     	return t;
 
 	}
@@ -166,6 +171,9 @@ public class Manager {
     public boolean undo(){
     	ArrayList<ArrayList<Task>> lists = undoRedo.undo();
     	assert(lists != null);
+    	if(lists.get(0)==null){
+    		System.out.println("lists.get0 is null");
+    	}
     	taskList = new ArrayList<Task>(lists.get(0));
     	archivedList = new ArrayList<Task>(lists.get(1));
     	
