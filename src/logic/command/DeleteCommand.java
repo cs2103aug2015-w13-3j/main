@@ -23,7 +23,7 @@ public class DeleteCommand extends Command{
 	}
 
 	@Override
-	public String execute() {
+	public String execute() throws InvalidCommandException{
 		int index=0;
 		boolean found = false;
 		ArrayList<Task> taskList = mgr.getTaskList();
@@ -48,7 +48,7 @@ public class DeleteCommand extends Command{
 		}
 		
 		if(found == false){
-			return "Invalid command";
+			throw new InvalidCommandException("Task not found");
 		}
 		
 		t= mgr.delete(index);		

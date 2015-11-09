@@ -24,7 +24,7 @@ public class UpdateCommand extends Command{
 	}
 
 	@Override
-	public String execute() {
+	public String execute() throws InvalidCommandException{
 		
 		ArrayList<String> update = commandInfo.getUpdateSequence();
 		String target = update.get(1);
@@ -44,12 +44,12 @@ public class UpdateCommand extends Command{
 					}
 
 				} else if (update.get(2).equals("#") || 
-						update.get(2).equalsIgnoreCase("priority")) {
+					update.get(2).equalsIgnoreCase("priority")) {
 					task.setPriority(update.get(3));
+					
 				} else if (update.get(2).equalsIgnoreCase("startTime")) {
-					// System.out.println("parse date" +
-					// DateParser.setDate(update.get(3)));
 					task.setStartTime(commandInfo.startingTime());
+					
 				} else if (update.get(2).equalsIgnoreCase("endTime")) {
 					task.setEndTime(commandInfo.endingTime());
 				}

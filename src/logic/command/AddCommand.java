@@ -9,7 +9,7 @@ import logic.Manager;
 import logic.Task;
 import parser.CommandPackage;
 
-public class AddCommand extends Command{
+public class AddCommand extends Command {
 	CommandType ct;
 	Manager mgr;
 	CommandPackage commandInfo;
@@ -23,7 +23,7 @@ public class AddCommand extends Command{
 	}
 
 	@Override
-	public String execute() {
+	public String execute() throws InvalidCommandException{
 		
 		Task task = new Task(commandInfo.getPhrase());
 		if (commandInfo.startingTime() != null) {
@@ -35,6 +35,13 @@ public class AddCommand extends Command{
 
 		if (commandInfo.getPriority() != null) {
 			String pri = commandInfo.getPriority().trim();
+			int priority = Integer.parseInt(pri);
+			
+			if(priority>3){
+				throw new InvalidCommandException
+				("Invalid priority.Priority is valid from 1 to 3");
+			}
+			
 			if (pri != null && pri != "") {
 				task.setPriority(pri);
 			}
