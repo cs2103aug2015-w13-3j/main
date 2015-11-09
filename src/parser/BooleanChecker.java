@@ -1,7 +1,7 @@
 package parser;
 
 import java.util.ArrayList;
-
+//@@author A0122061B
 public class BooleanChecker {
 
     /*
