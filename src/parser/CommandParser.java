@@ -156,13 +156,13 @@ public class CommandParser {
     }
     
     /**
-     * The main method processes input with
+     * The main method processes input with only 1 date input and 0 time input
      * 
      * @param command
      *            the set of words that users have typed into the command bar
      * @return a CommandPackage for Logic component to process
      */
-    private void dateProcess1(ArrayList<DateTime> dateArr, int i) {
+    private ArrayList<DateTime>  dateProcess1(ArrayList<DateTime> dateArr, int i) {
 	if (inputArr.get(i).equalsIgnoreCase("start")) {
 	    inputData.setDates(dateArr, "start");
 	    inputArr.remove(i);
@@ -172,17 +172,19 @@ public class CommandParser {
 	} else {
 	    inputData.setDates(dateArr, "end");
 	}
+	return dateArr;
     }
     
     /**
-     * The main method that MainApp will call to parse the string given by users
-     * and process the intructions that will be processed by Logic component.
+     * The main method processes input with only 1 date input and 1 time input
      * 
      * @param command
      *            the set of words that users have typed into the command bar
+     * @param i
+     *            the index that is going to process the dateArr element
      * @return a CommandPackage for Logic component to process
      */
-    private void dateProcess2(ArrayList<DateTime> dateArr, int i) {
+    private ArrayList<DateTime>  dateProcess2(ArrayList<DateTime> dateArr, int i) {
 	if (libraryForTime.isStart(inputArr.get(i))) {
 	    inputData.setDates(dateArr, "start");
 	    inputArr.remove(i);
@@ -192,6 +194,7 @@ public class CommandParser {
 	} else {
 	    inputData.setDates(dateArr, "end");
 	}
+	return dateArr;
     }
 
 
