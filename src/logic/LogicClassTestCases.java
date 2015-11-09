@@ -13,11 +13,13 @@ public class LogicClassTestCases {
 	Manager mgr = Manager.getInstance();
 	
 	@Test
-	public void TestAdd() {
+	public void TestExecuteCommand() {
+		ArrayList<DateTime>;
 		
-        CommandPackage commandPackage = new CommandPackage();
-        commandPackage.setCommand("add");
-        commandPackage.setPhrase("meeting");
+        CommandPackage cp = new CommandPackage();
+		cp.setCommand("add");
+		cp.setPhrase("meeting");
+		cp.setDates();
         Task t = new Task("meeting");
         CommandType ct = CommandType.valueOf("ADD");
 		Command cmd = new AddCommand(ct,mgr,commandPackage);
