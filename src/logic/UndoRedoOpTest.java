@@ -25,6 +25,7 @@ public class UndoRedoOpTest {
 
 	@Before
 	public void setUp() {
+		//stub for testing the undo and redo functions 
 		initial.add(new Task("Meeting"));
 		initial.add(new Task("SEP"));
 		initial.add(new Task("Movie with john"));
@@ -39,6 +40,9 @@ public class UndoRedoOpTest {
 		initialArchived.clear();
 	}
 
+	/**
+	 * Test for undo function
+	 */
 	@Test
 	public void undoTest() {
 
@@ -109,33 +113,36 @@ public class UndoRedoOpTest {
 
 	}
 
-	// @Test
-	// public void redoTest() {
-	// UndoRedoOp op = UndoRedoOp.getInstance();
-	//
-	// ArrayList<Task> status1 = new ArrayList<Task>();
-	// status1.add(new Task("Meeting"));
-	// status1.add(new Task("SEP"));
-	// status1.add(new Task("Movie with john"));
-	// status1.add(new Task("Dinner with bf"));
-	// expected.add(new Task("Dinner with bf"));
-	//
-	// for (int i = 0; i < 4; i++) {
-	// assertEquals(expected.get(i).getName(),
-	// op.addStateToUndo(status1).get(i).getName());
-	// }
-	//
-	// expected.remove(3);
-	//
-	// for (int i = 0; i < 3; i++) {
-	// assertEquals(expected.get(i).getName(), op.undo().get(i).getName());
-	// }
-	//
-	// expected.add(new Task("Dinner with bf"));
-	//
-	// for (int i = 0; i < 4; i++) {
-	// assertEquals(expected.get(i).getName(), op.redo().get(i).getName());
-	// }
-	// }
+	/**
+	 * Test for redo function
+	 */
+//	 @Test
+//	 public void redoTest() {
+//	 UndoRedoOp op = UndoRedoOp.getInstance();
+//	
+//	 ArrayList<Task> status1 = new ArrayList<Task>();
+//	 status1.add(new Task("Meeting"));
+//	 status1.add(new Task("SEP"));
+//	 status1.add(new Task("Movie with john"));
+//	 status1.add(new Task("Dinner with bf"));
+//	 expected.add(new Task("Dinner with bf"));
+//	
+//	 for (int i = 0; i < 4; i++) {
+//	 assertEquals(expected.get(i).getName(),
+//	 op.addStateToUndo(status1).get(i).getName());
+//	 }
+//	
+//	 expected.remove(3);
+//	
+//	 for (int i = 0; i < 3; i++) {
+//	 assertEquals(expected.get(i).getName(), op.undo().get(i).getName());
+//	 }
+//	
+//	 expected.add(new Task("Dinner with bf"));
+//	
+//	 for (int i = 0; i < 4; i++) {
+//	 assertEquals(expected.get(i).getName(), op.redo().get(i).getName());
+//	 }
+//	 }
 
 }
