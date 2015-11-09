@@ -94,7 +94,7 @@ public class Storage {
 				taskInfo[3] = null;
 			}
 			if (taskInfo[3] != null && taskInfo[3] != "") {
-				;
+				
 				taskToRead.setPriority(Integer.parseInt(taskInfo[3]));
 			}
 			if(done == false){
