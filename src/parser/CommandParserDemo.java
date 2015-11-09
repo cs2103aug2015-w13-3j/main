@@ -28,6 +28,8 @@ public class CommandParserDemo {
 		String test3 = "44/";
 		String[] test4 = test3.split("/");
 		System.out.println(test4.length);
+		CommandPackage cPK3 = cmdP.getCommandPackage("Invalid Input");
+		System.out.println(cPK3);
 		
 
 

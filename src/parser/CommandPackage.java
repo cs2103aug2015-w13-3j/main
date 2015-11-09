@@ -27,12 +27,6 @@ public class CommandPackage {
      * Constructors
      * ====================================================================
      */
-    public CommandPackage(String cmd, String taskName) {
-	command = cmd;
-	phrase = taskName;
-	dates = new DatePackage();
-	priority = null;
-    }
 
     public CommandPackage() {
 	command = "";

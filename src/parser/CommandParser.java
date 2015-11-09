@@ -52,11 +52,6 @@ public class CommandParser {
 
     }
 
-    private CommandParser(String command) {
-	input = command;
-	String[] arr = input.split(" ");
-	arrToArrayList(arr);
-    }
 
     public static CommandParser getInstance() {
 
@@ -154,7 +149,7 @@ public class CommandParser {
 	    if (checker.isZero(numberOfTime)) {
 		for (int i = 0; i < inputArr.size(); i++) {
 		    dateProcess1(dateArr, i);
-		}
+		} 
 	    } else if (checker.isOne(numberOfTime)) {
 		dateArr = extractTime(dateArr);
 		for (int i = 0; i < inputArr.size(); i++) {
@@ -380,7 +375,7 @@ public class CommandParser {
 		return parserForTime.searchTime(date);
 	    }
 	}
-	return null;
+	return null; 
     }
 
     /*
@@ -536,9 +531,14 @@ public class CommandParser {
     private boolean remove(String word) {
 	for (int i = 0; i < inputArr.size(); i++) {
 	    if (inputArr.get(i).equalsIgnoreCase(word)) {
-		inputArr.remove(i);
+		remove(i);
 	    }
 	}
+	return true;
+    }
+    
+    public boolean remove(int index) {
+	inputArr.remove(index);
 	return true;
     }
 
@@ -566,6 +566,8 @@ public class CommandParser {
 	}
 
     }
+
+
 
     public String callAction(String string) {
 	String result;
