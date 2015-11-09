@@ -38,18 +38,19 @@ public class DeleteCommand extends Command{
 			
 		}  
 		// delete by name
-			for (int i = 0; i < taskList.size(); i++) {
-				t = taskList.get(i);
-				if (t.getName().equals(deleteInfo)) {
-					index=i;
-					found = false;
-					break;
-				}
+		for (int i = 0; i < taskList.size(); i++) {
+			t = taskList.get(i);
+			if (t.getName().equals(deleteInfo)) {
+				index=i;
+				found = true;
+				break;
 			}
+		}
 		
-		if(found = false){
+		if(found == false){
 			return "invalid command";
 		}
+		
 		mgr.delete(index);		
 		return "task deleted";
 	}

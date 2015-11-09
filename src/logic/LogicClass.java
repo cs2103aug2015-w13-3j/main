@@ -56,7 +56,7 @@ public class LogicClass implements LogicInterface{
 		return mgr.getTaskList();
 	}
 	
-	public void executeCommand(CommandPackage commandPackage) {
+	public String executeCommand(CommandPackage commandPackage) {
 		isSearchOp = false;
 //		if(commandPackage==null){
 //			System.out.println("cp is null");
@@ -100,11 +100,12 @@ public class LogicClass implements LogicInterface{
 		case EXIT:
 			System.exit(0);
 		default:
-			invalid();
+			return invalid();
 
 		}
 		
 		String returnMsg = cmd.execute();
+		return returnMsg;
 		
 	}
 
