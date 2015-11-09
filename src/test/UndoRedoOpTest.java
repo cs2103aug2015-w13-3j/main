@@ -1,5 +1,5 @@
 //@@author A0133915H
-package logic;
+package test;
 
 import static org.junit.Assert.*;
 
@@ -9,6 +9,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import logic.Task;
+import logic.UndoRedoOp;
 
 public class UndoRedoOpTest {
 

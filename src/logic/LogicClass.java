@@ -16,20 +16,21 @@ import logic.command.UndoCommand;
 import logic.command.UpdateCommand;
 import parser.CommandPackage;
 
-public class LogicClass implements LogicInterface{
+public class LogicClass implements LogicInterface {
 
 	private static boolean isSearchOp = false;
 	Storage storage = Storage.getInstance();
-	Manager mgr;	
-	private String path = "";
+	Manager mgr;
 	static LogicClass theOne = null;
 
 	// constructor
 	private LogicClass() {
-		mgr= new Manager();
-		mgr.initialize(storage.read().get(0), 
-				storage.read().get(1));//taskList and archivedList respectively
-		
+		mgr = new Manager();
+		mgr.initialize(storage.read().get(0), storage.read().get(1));// taskList
+																		// and
+																		// archivedList
+																		// respectively
+
 	}
 
 	public static LogicClass getInstance() {
@@ -40,63 +41,63 @@ public class LogicClass implements LogicInterface{
 		return theOne;
 	}
 
-	public ArrayList<Task> getTaskList(){
-		
-		if(isSearchOp==true){
+	public ArrayList<Task> getTaskList() {
+
+		if (isSearchOp == true) {
 			return mgr.getSearchList();
-		}	
+		}
 		return mgr.getTaskList();
 	}
-	
-	public ArrayList<Task> getTaskListForSearcher(){	
+
+	public ArrayList<Task> getTaskListForSearcher() {
 		return mgr.getTaskList();
 	}
-	
+
 	public String executeCommand(CommandPackage commandPackage) throws InvalidCommandException {
-		assert commandPackage!=null;
-		CommandType commandType = CommandType.valueOf(commandPackage.getCommand().toUpperCase());	
+		assert commandPackage != null;
+		CommandType commandType = CommandType.valueOf(commandPackage.getCommand().toUpperCase());
 		Command cmd = null;
 
 		switch (commandType) {
 		case CREATE:
-			isSearchOp=false;
-			cmd = new AddCommand(commandType,mgr,commandPackage);	
+			isSearchOp = false;
+			cmd = new AddCommand(commandType, mgr, commandPackage);
 			break;
 		case UPDATE:
-			cmd = new UpdateCommand(commandType,mgr,commandPackage);
+			cmd = new UpdateCommand(commandType, mgr, commandPackage);
 			break;
 		case DELETE:
-			
-			if(isSearchOp==false){
-				
-				cmd = new DeleteCommand(commandType,mgr,commandPackage.getPhrase(),false);
-			}else{
-				
-				cmd = new DeleteCommand(commandType,mgr,commandPackage.getPhrase(),true);
+
+			if (isSearchOp == false) {
+
+				cmd = new DeleteCommand(commandType, mgr, commandPackage.getPhrase(), false);
+			} else {
+
+				cmd = new DeleteCommand(commandType, mgr, commandPackage.getPhrase(), true);
 			}
-			
+
 			break;
 		case CLEAR:
-			cmd = new ClearCommand(commandType,mgr);
+			cmd = new ClearCommand(commandType, mgr);
 			break;
 		case SORT:
-			cmd = new SortCommand(commandType,mgr,commandPackage);
+			cmd = new SortCommand(commandType, mgr, commandPackage);
 			break;
 		case SEARCH:
 			isSearchOp = true;
-			cmd = new SearchCommand(commandType,mgr,commandPackage);
-			break;	
+			cmd = new SearchCommand(commandType, mgr, commandPackage);
+			break;
 		case REDO:
-			cmd = new RedoCommand(commandType,mgr);
+			cmd = new RedoCommand(commandType, mgr);
 			break;
 		case UNDO:
-			cmd = new UndoCommand(commandType,mgr);
+			cmd = new UndoCommand(commandType, mgr);
 			break;
 		case MARK:
-			cmd = new MarkCommand(commandType,mgr,commandPackage.getPhrase());
+			cmd = new MarkCommand(commandType, mgr, commandPackage.getPhrase());
 			break;
 		case SET:
-			cmd = new SetCommand(commandType,mgr,commandPackage.getPhrase());
+			cmd = new SetCommand(commandType, mgr, commandPackage.getPhrase());
 			break;
 		case EXIT:
 			System.exit(0);
@@ -104,10 +105,10 @@ public class LogicClass implements LogicInterface{
 			return invalid();
 
 		}
-		
-		String returnMsg= cmd.execute();
+
+		String returnMsg = cmd.execute();
 		return returnMsg;
-		
+
 	}
 
 	private String invalid() {
@@ -118,12 +119,7 @@ public class LogicClass implements LogicInterface{
 		return storage.setPath(path);
 	}
 
-
-	public boolean setPathFirstTime(){
-		return storage.setPath(this.path);
-	}
-	
-	public void setIsSearchOp(boolean tof){
-		isSearchOp=tof;
+	public void setIsSearchOp(boolean tof) {
+		isSearchOp = tof;
 	}
 }
