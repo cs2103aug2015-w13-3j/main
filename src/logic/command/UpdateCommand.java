@@ -45,6 +45,14 @@ public class UpdateCommand extends Command{
 
 				} else if (update.get(2).equals("#") || 
 					update.get(2).equalsIgnoreCase("priority")) {
+					
+					int priority = Integer.parseInt(update.get(3));	
+					
+					if(priority>3 || priority<=0){
+						throw new InvalidCommandException
+						("Invalid priority.Priority is valid from 1 to 3");
+					}
+					
 					task.setPriority(update.get(3));
 					
 				} else if (update.get(2).equalsIgnoreCase("startTime")) {
@@ -52,18 +60,22 @@ public class UpdateCommand extends Command{
 					
 				} else if (update.get(2).equalsIgnoreCase("endTime")) {
 					task.setEndTime(commandInfo.endingTime());
+					
+				} else{
+					throw new InvalidCommandException("Invalid update type. You can"
+							+ "update name/priority/startTime/endTime");
 				}
 
 				newTask = new Task(task.getName());
 				newTask.setStartTime(task.getStartTime());
 				newTask.setEndTime(task.getEndTime());
+				
 				if (task.getPriority() != null) {
 					newTask.setPriority(task.getPriority().toString());
 				}
 
-				taskList.remove(i);
-				taskList.add(i, newTask);
-				mgr.setTaskList(taskList);
+				mgr.update(i, newTask);
+				
 				return "Task "+task.getName()+" updated";
 				
 			}
