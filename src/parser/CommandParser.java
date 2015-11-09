@@ -32,8 +32,6 @@ public class CommandParser {
      */
 
     private final String NOT_FOUND = "invalid input";
-    private final String INVALID_PACKAGE = "invalid package";
-
     private final String START_TIME_LONG = "`startTime";
     private final String START_TIME_SHORT = "`st";
     private final String END_TIME_LONG = "`endTime";
@@ -147,7 +145,7 @@ public class CommandParser {
      *            the index that is going to process the dateArr element
      * @return the updated inputArr
      */
-    private void addDateTime() {
+    private DatePackage addDateTime() {
 	int numberOfDates = countDate();
 	int numberOfTime = countTime();
 	ArrayList<DateTime> dateArr;
@@ -188,7 +186,7 @@ public class CommandParser {
 	    }
 
 	}
-
+	return inputData.getDate();
     }
 
     /**
@@ -393,7 +391,6 @@ public class CommandParser {
     private CommandPackage updateInput() {
 	String sequence = "";
 	String word;
-	ArrayList<DateTime> dateArr;
 	int numberOfDates = countDate();
 	int numberOfTime = countTime();
 	System.out.println(numberOfTime);
@@ -478,7 +475,7 @@ public class CommandParser {
      * ====================================================================
      */
 
-    private ArrayList<String> arrToArrayList(String[] arr) {
+    public ArrayList<String> arrToArrayList(String[] arr) {
 	inputArr = new ArrayList<String>();
 	for (int i = 0; i < arr.length; i++) {
 	    inputArr.add(arr[i]);
@@ -570,7 +567,7 @@ public class CommandParser {
 
     }
 
-    private String callAction(String string) {
+    public String callAction(String string) {
 	String result;
 	System.out.println("string");
 	result = libraryForAction.find(string);

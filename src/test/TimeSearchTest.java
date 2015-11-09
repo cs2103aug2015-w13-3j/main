@@ -1,9 +1,13 @@
-package logic;
+package test;
 
 import static org.junit.Assert.*;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
+
+import logic.Searcher;
+import logic.Task;
+import logic.TimeLine;
 
 //@@author A0133948W
 public class TimeSearchTest {

@@ -1,4 +1,4 @@
-package storage;
+package test;
 
 import static org.junit.Assert.*;
 
@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import logic.Task;
+import storage.Storage;
 //@@author A0133948W
 public class SetPathTest {
 

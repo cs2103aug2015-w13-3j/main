@@ -1,4 +1,4 @@
-package storage;
+package test;
 
 import static org.junit.Assert.*;
 
@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 import org.junit.Test;
 
 import logic.Task;
+import storage.Storage;
 //@@author A0133948W
 public class ReadAndWriteTest {
 
