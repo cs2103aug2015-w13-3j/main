@@ -71,7 +71,8 @@ public class Storage {
 		boolean done = false;
 		ArrayList<Task> taskList = new ArrayList<Task>();
 		ArrayList<Task> doneList = new ArrayList<Task>();
-		while ((content = buff.readLine()) != null) {
+		while ((content = buff.readLine()) != null && content.trim().length() != 0) {
+			
 		    if(content.equals("done:")){
 		    	done = true;
 		    	continue;
