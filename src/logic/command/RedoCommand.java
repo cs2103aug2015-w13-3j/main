@@ -20,7 +20,7 @@ public class RedoCommand extends Command{
 	@Override
 	public String execute() {
 		mgr.redo();
-		return "redo previous operation";
+		return "Redo previous operation";
 	}
 
 }

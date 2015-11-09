@@ -30,12 +30,14 @@ public class UpdateCommand extends Command{
 		String target = update.get(1);
 		Task task;
 		Task newTask;
+		boolean found=false;
 		ArrayList<Task> taskList = mgr.getTaskList();
 
 		for (int i = 0; i < taskList.size(); i++) {
 			task = taskList.get(i);
 			if (task.getName().equals(target)) {
-
+                found=true;
+                
 				if (update.get(2).equalsIgnoreCase("name")) {
 					if (update.get(3) != null) {
 						task.setTaskName(update.get(3));
@@ -62,12 +64,14 @@ public class UpdateCommand extends Command{
 				taskList.remove(i);
 				taskList.add(i, newTask);
 				mgr.setTaskList(taskList);
-				break;
+				return "Task "+task.getName()+" updated";
+				
 			}
 
 		}
 		
-		return "task updated";
+		return "Task not Found";
+		
 	}
 
 }

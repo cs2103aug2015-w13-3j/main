@@ -39,9 +39,9 @@ public class MarkCommand extends Command{
 				}
 			}
 		}
-		mgr.mark(index);
+		t= mgr.mark(index);
 		
-		return "task done";
+		return "Task done: " + t.getName();
 	}
 	
 	private boolean isInteger(String s, int radix) {

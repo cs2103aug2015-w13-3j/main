@@ -25,9 +25,9 @@ public class SetCommand extends Command{
 	@Override
 	public String execute() {
 		if(mgr.setPath(pathInfo)){
-			return "path set to"+ pathInfo;
+			return "Path set to"+ pathInfo;
 		}else{
-			return "invalid path";
+			return "Invalid path";
 			
 		}
 	}

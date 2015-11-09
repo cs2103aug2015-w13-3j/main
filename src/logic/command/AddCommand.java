@@ -42,7 +42,7 @@ public class AddCommand extends Command{
 
 		mgr.addToTaskList(task);
 
-		return "added";
+		return "Task Added: "+task.getName();
 	}
 
 }

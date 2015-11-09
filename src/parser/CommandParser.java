@@ -8,20 +8,42 @@ import org.joda.time.DateTime;
 //@@author A0122061B
 
 public class CommandParser {
+    
+    /*
+     * ====================================================================
+     * Attributes/Variables
+     * ====================================================================
+     */
 
-    public String NOT_FOUND = "invalid input";
-    public String INVALID_PACKAGE = "invalid package";
-    public String input;
     public ArrayList<String> inputArr;
     public CommandPackage inputData;
+    public String input;
+    private ActionLibrary libraryForAction = new ActionLibrary();
+    private DateParser parserForDate = new DateParser();
+    private TimeLibrary libraryForTime = new TimeLibrary();
+    private TimeParser parserForTime = new TimeParser();
+    
+    /*
+     * ====================================================================
+     * Magic Constants
+     * ====================================================================
+     */
+    
+    public String NOT_FOUND = "invalid input";
+    public String INVALID_PACKAGE = "invalid package";
+
     private String START_TIME_LONG = "`startTime";
     private String START_TIME_SHORT = "`st";
     private String END_TIME_LONG = "`endTime";
     private String END_TIME_SHORT = "`et";
-    private DateParser parserForDate = new DateParser();
-    private TimeParser parserForTime = new TimeParser();
-    private ActionLibrary libraryForAction = new ActionLibrary();
-    private TimeLibrary libraryForTime = new TimeLibrary();
+
+    
+    /*
+     * ====================================================================
+     * Constructors
+     * 
+     * ====================================================================
+     */
     
     public CommandParser() {
 
@@ -35,6 +57,8 @@ public class CommandParser {
 	    inputArr.add(arr[i]);
 	}
     }
+    
+    
 
     public CommandPackage getCommandPackage(String command) {
 
@@ -89,18 +113,7 @@ public class CommandParser {
 	return inputData;
     }
 
-    /*
-     * private int searchDates() { int numberOfDates = countDate(); int
-     * numberOfTime = countTime(); if (numberOfDates == 1) { ArrayList<DateTime>
-     * dateArr = extractSearchDate(); } if (numberOfTime == 1) {
-     * parserForTime.searchTime();
-     * 
-     * }
-     * 
-     * return 0;
-     * 
-     * }
-     */
+
     private CommandPackage updateInput() {
 	String sequence = "";
 	String word;
