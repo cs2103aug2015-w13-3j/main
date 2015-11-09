@@ -12,7 +12,7 @@ public class ActionLibrary {
 
     /*
      * ====================================================================
-     * ATTRIBUTES
+     * Attributes/Variables
      * ====================================================================
      */
 
@@ -83,7 +83,7 @@ public class ActionLibrary {
     /**
      * Searches if input given matches an existing action command from the
      * library
-     * 
+     *
      * @param input
      *            the word to be tested with ActionLibrary
      * @return the compiled word for the action, if not found, return NOT_FOUND

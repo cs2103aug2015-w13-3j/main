@@ -3,54 +3,87 @@ package logic;
 import java.util.ArrayList;
 import java.util.Stack;
 
-
+//@@author A0133915H
 public class UndoRedoOp {
 
 	private Stack<ArrayList<Task>> undoStack = null;
 	private Stack<ArrayList<Task>> redoStack = null;
-	private ArrayList<Task> initialState = null;
-	private ArrayList<Task> currentState = null;
-	
-	//@author A0133915H
-	public UndoRedoOp(ArrayList<Task> initialState){
+	private Stack<ArrayList<Task>> archivedUndoStack = null;
+	private Stack<ArrayList<Task>> archivedRedoStack = null;
+	//private ArrayList<ArrayList<Task>> initialList = null;
+
+	public UndoRedoOp(ArrayList<ArrayList<Task>> initialState) {
 		undoStack = new Stack<ArrayList<Task>>();
 		redoStack = new Stack<ArrayList<Task>>();
-		this.initialState = new ArrayList<Task>(initialState);
-		this.currentState = new ArrayList<Task>(initialState);
-		//undoStack.push(this.initialState);
+		archivedUndoStack = new Stack<ArrayList<Task>>();
+		archivedRedoStack = new Stack<ArrayList<Task>>();
+		//initialList = new ArrayList<ArrayList<Task>>(initialState);
 	}
-	
-	//@author A0133915H
-	public ArrayList<Task> undo(){
-		if(!undoStack.isEmpty()){
+
+	public ArrayList<ArrayList<Task>> undo() {
+		ArrayList<ArrayList<Task>> previousState = new ArrayList<ArrayList<Task>>();
+		
+		if(!undoStack.isEmpty() && archivedUndoStack.isEmpty()){
+			undoStack.clear();
+			archivedUndoStack.clear();
+		}else if (undoStack.isEmpty() && !archivedUndoStack.isEmpty()){
+			undoStack.clear();
+			archivedUndoStack.clear();
+		}
+		// undoStack and archivedUndoStack should have the same length 
+		if (!undoStack.isEmpty() && !archivedUndoStack.isEmpty()) {
 			ArrayList<Task> current = undoStack.pop();
+			ArrayList<Task> currentArchived = undoStack.pop();
+
 			redoStack.push(new ArrayList<Task>(current));
+			archivedRedoStack.push(new ArrayList<Task>(currentArchived));
 			
-			if(!undoStack.isEmpty()){
-				return undoStack.peek();
-			}else{
-				return initialState;
+			
+			if (!undoStack.isEmpty() && !archivedUndoStack.isEmpty()) {
+				previousState.add(new ArrayList<Task>(undoStack.peek()));
+				previousState.add(new ArrayList<Task>(archivedUndoStack.peek()));
+				return previousState;
+			} else {
+				return null;
 			}
 		}
-		return initialState;
+		return null;
 	}
-	
-	//@author A0133915H
-	public ArrayList<Task> redo(){
-		if(!redoStack.isEmpty()){
-			ArrayList<Task> previousState = redoStack.pop();
-			undoStack.push(new ArrayList<Task>(previousState));
+
+	public ArrayList<ArrayList<Task>> redo() {
+		ArrayList<ArrayList<Task>> previousState = new ArrayList<ArrayList<Task>>();
+		
+		if(!redoStack.isEmpty() && archivedRedoStack.isEmpty()){
+			redoStack.clear();
+			archivedRedoStack.clear();
+		}else if (redoStack.isEmpty() && !archivedRedoStack.isEmpty()){
+			redoStack.clear();
+			archivedRedoStack.clear();
+		}
+		
+		if (!redoStack.isEmpty() && !archivedRedoStack.isEmpty()) {
+			ArrayList<Task> previousFromRedo = new ArrayList<Task>(redoStack.pop());
+			ArrayList<Task> previousFromAchivedRedo = new ArrayList<Task>(archivedRedoStack.pop());
+			previousState.add(previousFromRedo);
+			previousState.add(previousFromAchivedRedo);
+			undoStack.push(previousFromRedo);
+			archivedUndoStack.push(previousFromAchivedRedo);
 			return previousState;
 		}
-		return currentState;
+		return null;
 	}
-	
-	//@author A0133915H
-	public ArrayList<Task> addStateToUndo(ArrayList<Task> recentState){
-		assert(recentState != null);
+
+	public ArrayList<ArrayList<Task>> addStateToUndo(ArrayList<Task> recentState, ArrayList<Task> archivedList) {
+		assert (recentState != null);
+		assert (archivedList != null);
 		undoStack.push(new ArrayList<Task>(recentState));
+		archivedUndoStack.push(new ArrayList<Task>(archivedList));
 		redoStack.clear();
-		currentState = new ArrayList<Task>(recentState);
-		return currentState;
+		archivedRedoStack.clear();
+		ArrayList<ArrayList<Task>> currentList = new ArrayList<ArrayList<Task>>();
+		currentList.add(new ArrayList<Task>(recentState));
+		currentList.add(new ArrayList<Task>(archivedList));
+		// return for Junit test
+		return currentList;
 	}
 }
