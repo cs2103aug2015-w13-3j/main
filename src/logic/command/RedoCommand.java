@@ -18,9 +18,12 @@ public class RedoCommand extends Command{
 	}
 
 	@Override
-	public String execute() {
-		mgr.redo();
-		return "Redo previous operation";
+	public String execute() throws InvalidCommandException{
+		if(mgr.redo()){
+		    return "Redo previous operation";
+		}else{
+			throw new InvalidCommandException("No operation to redo");
+		}
 	}
 
 }

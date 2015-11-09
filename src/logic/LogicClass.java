@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import logic.command.AddCommand;
 import logic.command.ClearCommand;
 import logic.command.DeleteCommand;
+import logic.command.InvalidCommandException;
 import logic.command.MarkCommand;
 import logic.command.RedoCommand;
 import logic.command.SearchCommand;
@@ -59,7 +60,7 @@ public class LogicClass implements LogicInterface{
 		return mgr.getTaskList();
 	}
 	
-	public String executeCommand(CommandPackage commandPackage) {
+	public String executeCommand(CommandPackage commandPackage) throws InvalidCommandException {
 		isSearchOp = false;
 //		if(commandPackage==null){
 //			System.out.println("cp is null");
@@ -107,7 +108,8 @@ public class LogicClass implements LogicInterface{
 
 		}
 		
-		String returnMsg = cmd.execute();
+		String returnMsg= cmd.execute();
+		
 		return returnMsg;
 		
 	}

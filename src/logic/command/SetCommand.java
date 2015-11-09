@@ -23,11 +23,11 @@ public class SetCommand extends Command{
 	}
 
 	@Override
-	public String execute() {
+	public String execute() throws InvalidCommandException{
 		if(mgr.setPath(pathInfo)){
 			return "Path set to"+ pathInfo;
 		}else{
-			return "Invalid path";
+			throw new InvalidCommandException("Invalid path");
 			
 		}
 	}

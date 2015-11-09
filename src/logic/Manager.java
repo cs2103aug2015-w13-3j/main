@@ -122,8 +122,11 @@ public class Manager {
   	
     }
     
-    public void redo(){
+    public boolean redo(){
     	taskList = undoRedo.redo();
+    	if(taskList == null){
+    		return false;
+    	}
 		ptl.clear();
 		timeline.clear();
 		for (int i = 0; i < taskList.size(); i++) {
@@ -132,15 +135,19 @@ public class Manager {
 			timeline.addToTL(task);
 		}
 		storage.write(taskList,archivedList);
-  	
+  	    return true;
     }
     
-    public void undo(){
+    public boolean undo(){
+    	if(undoRedo.undo()==null){
+    		return false;
+    	}
     	taskList = new ArrayList<Task>(undoRedo.undo());
 		ptl.clear();
 		timeline.clear();
 		setptlAndTimeLine(taskList);
 		storage.write(taskList,archivedList);
+		return true;
     }
     
     public boolean setPath(String pathInfo){
