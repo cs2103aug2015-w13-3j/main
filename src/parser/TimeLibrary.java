@@ -16,9 +16,9 @@ public class TimeLibrary {
      * Magic Constants
      * ====================================================================
      */
-    private final String START_TERM_0 = "starts";
+    private final String START_TERM_0 = "start";
     private final String START_TERM_1 = "from";
-    private final String START_TERM_2 = "begins";
+    private final String START_TERM_2 = "begin";
 
     private final String END_TERM_0 = "ends by";
     private final String END_TERM_1 = "to";
