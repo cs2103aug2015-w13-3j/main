@@ -66,9 +66,12 @@ public class LogicClass implements LogicInterface{
 			
 			break;
 		case DELETE:
+			
 			if(isSearchOp==false){
+				
 				cmd = new DeleteCommand(commandType,mgr,commandPackage.getPhrase(),false);
 			}else{
+				
 				cmd = new DeleteCommand(commandType,mgr,commandPackage.getPhrase(),true);
 			}
 			

@@ -55,7 +55,8 @@ public class DeleteCommand extends Command{
 			}
 			
 			if(found == false){
-				throw new InvalidCommandException(" ");
+				System.out.println("im here!!!!");
+				throw new InvalidCommandException("Task not found");
 			}
 			
 			t= mgr.delete(index,searchIndex,false);		
