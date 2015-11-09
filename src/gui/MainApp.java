@@ -28,7 +28,6 @@ public class MainApp extends Application {
 	private Stage primaryStage;
 
 	private static ObservableList<Task> taskList;
-	private static ObservableList<String> todayTaskList;
 	LogicClass lc = LogicClass.getInstance();
 
 	private static Logger logger = Logger.getLogger("MainApp");
@@ -48,12 +47,6 @@ public class MainApp extends Application {
 		taskList = FXCollections.observableArrayList(tasks);
 		return taskList;
 	}
-
-//	public ObservableList<String> getTodayTasks() {
-//		ArrayList<String> todayTasks = lc.getTodayTasks();
-//		todayTaskList = FXCollections.observableArrayList(todayTasks);
-//		return todayTaskList;
-//	}
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -97,7 +90,7 @@ public class MainApp extends Application {
 	}
 
 	public void indexHelp() {
-		Image image = new Image("gui/help/Index.TIF");
+		Image image = new Image("gui/help/Index.PNG");
 		ImageView imageView = new ImageView();
 		imageView.setImage(image);
 		imageView.setPreserveRatio(true);
@@ -119,7 +112,7 @@ public class MainApp extends Application {
 	}
 
 	public void sos() {
-		Image image = new Image("gui/help/SOS.TIF");
+		Image image = new Image("gui/help/SOS.PNG");
 		ImageView imageView = new ImageView();
 		imageView.setImage(image);
 		imageView.setPreserveRatio(true);
@@ -142,7 +135,7 @@ public class MainApp extends Application {
 	}
 
 	public void basic() {
-		Image image = new Image("gui/help/Basic.TIF");
+		Image image = new Image("gui/help/Basic.PNG");
 		ImageView imageView = new ImageView();
 		imageView.setImage(image);
 		imageView.setPreserveRatio(true);
@@ -165,7 +158,7 @@ public class MainApp extends Application {
 	}
 	
 	public void advance() {
-		Image image = new Image("gui/help/Advance.TIF");
+		Image image = new Image("gui/help/Advance.PNG");
 		ImageView imageView = new ImageView();
 		imageView.setImage(image);
 		imageView.setPreserveRatio(true);
@@ -188,7 +181,7 @@ public class MainApp extends Application {
 	}
 
 	public void shortForm() {
-		Image image = new Image("gui/help/Shortcut.TIF");
+		Image image = new Image("gui/help/Shortcut.PNG");
 		ImageView imageView = new ImageView();
 		imageView.setImage(image);
 		imageView.setPreserveRatio(true);
@@ -211,7 +204,7 @@ public class MainApp extends Application {
 	}
 	
 	public void credit() {
-		Image image = new Image("gui/help/Credit.TIF");
+		Image image = new Image("gui/help/Credits.PNG");
 		ImageView imageView = new ImageView();
 		imageView.setImage(image);
 		imageView.setPreserveRatio(true);
