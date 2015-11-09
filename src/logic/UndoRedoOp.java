@@ -27,6 +27,7 @@ public class UndoRedoOp {
 	}
 
 	public ArrayList<ArrayList<Task>> undo() {
+		System.out.println("undodododooddo");
 		ArrayList<ArrayList<Task>> previousState = new ArrayList<ArrayList<Task>>();
 		
 		if(!undoStack.isEmpty() && archivedUndoStack.isEmpty()){
