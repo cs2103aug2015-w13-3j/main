@@ -166,7 +166,7 @@ public class CommandParser {
 		}
 	    }
 	    if (isTwo(numberOfDates)) {
-		dateArr = extractDate();
+		dateArr = extractTwoDate();
 		if (isTwo(numberOfTime)) {
 		    dateArr = extractTime(dateArr);
 		}
@@ -192,10 +192,10 @@ public class CommandParser {
      * @return the updated inputArr
      */
     private ArrayList<String> dateProcess1(ArrayList<DateTime> dateArr, int i) {
-	if (inputArr.get(i).equalsIgnoreCase("start")) {
+	if (libraryForTime.isStart(inputArr.get(i))) {
 	    inputData.setDates(dateArr, "start");
 	    inputArr.remove(i);
-	} else if (inputArr.get(i).equalsIgnoreCase("end")) {
+	} else if (libraryForTime.isEnd(inputArr.get(i))) {
 	    inputData.setDates(dateArr, "end");
 	    inputArr.remove(i);
 	} else {
@@ -238,7 +238,11 @@ public class CommandParser {
 	    }
 	    if (parserForDate.isDate(test)) {
 		String date = test;
+
 		index.add(i);
+		if (i < inputArr.size() - 1) {
+
+		}
 		dateArr.add(parserForDate.setDate(date));
 	    }
 	}
@@ -247,6 +251,52 @@ public class CommandParser {
 	    inputArr.remove(indexToRemove);
 	}
 	return dateArr;
+    }
+
+    private ArrayList<DateTime> extractTwoDate() {
+	ArrayList<DateTime> dateArr = new ArrayList<DateTime>();
+	ArrayList<Integer> index = new ArrayList<Integer>();
+	String test;
+	for (int i = 0; i < inputArr.size(); i++) {
+	    test = inputArr.get(i);
+	    if (test.contains("`")) {
+		test = test.substring(1);
+	    }
+	    if (parserForDate.isDate(test)) {
+		String date = test;
+		if (i >= 0) {
+		    if ((libraryForTime.isEnd(inputArr.get(i - 1))
+			 || libraryForTime.isStart(inputArr.get(i - 1)))
+			&& !(index.contains(i - 1))) {
+			index.add(i - 1);
+			System.out.println("before " + inputArr.get(i - 1));
+		    }
+		}
+		System.out.println("date" + inputArr.get(i));
+		index.add(i);
+		
+		if (i < inputArr.size() - 1) {
+		    if ((libraryForTime.isEnd(inputArr.get(i + 1))
+			 || libraryForTime.isStart(inputArr.get(i + 1)))
+			&& !(index.contains(i + 1))) {
+			index.add(i + 1);
+			System.out.println("after " + inputArr.get(i + 1));
+		    }
+		}
+		
+		dateArr.add(parserForDate.setDate(date));
+	    }
+	}
+	for (
+
+	int i = index.size() - 1; 0 <= i; i--)
+
+	{
+	    int indexToRemove = index.get(i);
+	    inputArr.remove(indexToRemove);
+	}
+	return dateArr;
+
     }
 
     private ArrayList<DateTime> extractTime(ArrayList<DateTime> dateArr) {
