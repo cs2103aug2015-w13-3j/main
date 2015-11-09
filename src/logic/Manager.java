@@ -200,6 +200,7 @@ public class Manager {
 		taskList.add(index,newTask);
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList),
     			new ArrayList<Task>(archivedList));
+		storage.write(taskList,archivedList);
     }
     
     public void setptlAndTimeLine(ArrayList<Task> tl){

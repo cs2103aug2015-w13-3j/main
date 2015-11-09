@@ -31,6 +31,7 @@ public class UpdateCommand extends Command{
 		Task task;
 		Task newTask;
 		boolean found=false;
+		String msg="";
 		ArrayList<Task> taskList = mgr.getTaskList();
 
 		for (int i = 0; i < taskList.size(); i++) {
@@ -42,7 +43,9 @@ public class UpdateCommand extends Command{
 					if (update.get(3) != null) {
 						task.setTaskName(update.get(3));
 					}
+					msg = "Task \""+target+"\" updated to \""+task.getName()+"\"";
 
+					
 				} else if (update.get(2).equals("#") || 
 					update.get(2).equalsIgnoreCase("priority")) {
 					
@@ -52,14 +55,19 @@ public class UpdateCommand extends Command{
 						throw new InvalidCommandException
 						("Invalid priority.Priority is valid from 1 to 3");
 					}
-					
 					task.setPriority(update.get(3));
+					
+					msg = "Task \""+target+"\" priority updated to \""+priority+"\"";
 					
 				} else if (update.get(2).equalsIgnoreCase("startTime")) {
 					task.setStartTime(commandInfo.startingTime());
+					msg = "Task \""+target+"\" start time updated to \""
+					+commandInfo.startingTime().toString()+"\"";
 					
 				} else if (update.get(2).equalsIgnoreCase("endTime")) {
 					task.setEndTime(commandInfo.endingTime());
+					msg = "Task \""+target+"\" end time updated to \""
+							+commandInfo.endingTime().toString()+"\"";
 					
 				} else{
 					throw new InvalidCommandException("Invalid update type. You can"
@@ -76,7 +84,7 @@ public class UpdateCommand extends Command{
 
 				mgr.update(i, newTask);
 				
-				return "Task "+task.getName()+" updated";
+				return msg;
 				
 			}
 
