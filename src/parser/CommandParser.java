@@ -113,11 +113,11 @@ public class CommandParser {
 	    }
 	    inputData.setPhrase(getPhrase());
 	    return inputData;
-	    
-	    } catch (NullPointerException e1) {
+
+	} catch (NullPointerException e1) {
 	    System.out.println("NULL POINTER ERRORS");
 	    return null;
-	    
+
 	} catch (StringIndexOutOfBoundsException e2) {
 	    System.out.println("StringIndexOutOfBoundsException");
 	    return null;
@@ -343,9 +343,10 @@ public class CommandParser {
 			} else if (isOne(numberOfTime)) {
 			    System.out.println("extracing start time");
 			    dateArr = extractTime();
-			} else if (inputArr.get(i + 1).equals("`delete")) {
+			} else if (inputArr.get(i + 1).equals("`delete") || inputArr.get(i + 1).equals("`remove")) {
 			    System.out.println("deleteing");
 			    dateArr = null;
+			    inputData.addUpdateSequence(sequence);
 			    inputData.addUpdateSequence("delete");
 			} else {
 			    dateArr = null;
@@ -361,9 +362,10 @@ public class CommandParser {
 				}
 			    } else if (isOne(numberOfTime)) {
 				dateArr = extractTime();
-			    } else if (inputArr.get(i + 1).equals("`delete")) {
+			    } else if (inputArr.get(i + 1).equals("`delete") || inputArr.get(i + 1).equals("`remove")) {
 				System.out.println("deleteing");
 				dateArr = null;
+				inputData.addUpdateSequence(sequence);
 				inputData.addUpdateSequence("delete");
 			    } else {
 				dateArr = null;
@@ -380,7 +382,10 @@ public class CommandParser {
 	if (isDateUpdateSequence()) {
 	    inputData.addUpdateSequence(inputData.getDate().toString());
 	}
-	System.out.println("UPDATE" + inputData.getUpdateSequence().get(2));
+	System.out.println("UPDATE " + inputData.getUpdateSequence().get(0));
+	System.out.println("UPDATE " + inputData.getUpdateSequence().get(1));
+	System.out.println("UPDATE " + inputData.getUpdateSequence().get(2));
+	System.out.println("UPDATE " + inputData.getUpdateSequence().get(3));
 	return inputData;
     }
 
@@ -467,7 +472,15 @@ public class CommandParser {
 	return !command.equalsIgnoreCase(NOT_FOUND);
     }
 
+    private boolean isOneCommandFormat(String commandName) {
+	return commandName.equalsIgnoreCase("undo") || commandName.equalsIgnoreCase("exit")
+	       || commandName.equalsIgnoreCase("redo");
+    }
+
     private boolean isSearchCommand(String commandName) {
+	return commandName.equals("search");
+    }
+    private boolean isCommand(String commandName) {
 	return commandName.equals("search");
     }
 
@@ -502,11 +515,6 @@ public class CommandParser {
 
     private boolean isOne(int numberOfTime) {
 	return numberOfTime == 1;
-    }
-
-    private boolean isOneCommandFormat(String commandName) {
-	return commandName.equalsIgnoreCase("undo") || commandName.equalsIgnoreCase("clear")
-	       || commandName.equalsIgnoreCase("exit") || commandName.equalsIgnoreCase("redo");
     }
 
     /*
