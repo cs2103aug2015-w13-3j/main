@@ -64,7 +64,7 @@ public class TaskViewController {
 	 */
 	public TaskViewController() {
 		logic = LogicClass.getInstance();
-		cmdParser = new CommandParser();
+		cmdParser = CommandParser.getInstance();
 	}
 
 	@FXML

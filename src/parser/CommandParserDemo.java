@@ -7,7 +7,7 @@ package parser;
 public class CommandParserDemo {
 
 	public static void main(String[] args) throws Exception {
-		CommandParser cmd = new CommandParser();
+		CommandParser cmd = CommandParser.getInstance();
 		CommandPackage CPK;
 		System.out.println(cmd.getCommandPackage("").endingTime());
 		CPK = cmd.getCommandPackage("add something 25-dec 9pm 10pm");
