@@ -26,13 +26,15 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 	private Stage primaryStage;
-
-	private static ObservableList<Task> taskList;
-	LogicClass lc = LogicClass.getInstance();
-
+	private Scene scene;
+	private TaskViewController controller; 
+	private LogicClass lc;
+	
+	private static ObservableList<Task> taskList;	
 	private static Logger logger = Logger.getLogger("MainApp");
 
 	public MainApp() {
+		lc = LogicClass.getInstance();
 	}
 
 	public ObservableList<Task> getTaskData() {
@@ -73,12 +75,12 @@ public class MainApp extends Application {
 
 			// Set person overview into the center of root layout.
 			rootLayout.setCenter(taskBomberOverview);
-			TaskViewController controller = loader.getController();
+			controller = loader.getController();
 
 			controller.setMainApp(this);
 			logger.log(Level.INFO, "RootLayout is initiated.");
 
-			Scene scene = new Scene(rootLayout);
+			scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 
@@ -245,4 +247,11 @@ public class MainApp extends Application {
 		launch(args);
 	}
 
+	public TaskViewController getController(){
+		return controller;
+	}
+	
+	public Scene getScene(){
+		return scene;
+	}
 }

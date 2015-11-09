@@ -25,6 +25,7 @@ public class TaskViewController {
 	private final KeyCombination crtlZ = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN);
 	private final KeyCombination crtlY = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN);
 	private final String invalidMsg = "Invalid command. Please type \"help\" for more instructions.";
+	
 	private static Stack<String> pastCommands = new Stack<String>();
 	private static Stack<String> poppedCommands = new Stack<String>();
 
@@ -47,12 +48,13 @@ public class TaskViewController {
 
 	@FXML
 	private Text feedback;
+	
 	// Reference to the main application.
 	private MainApp mainApp;
 
-	private LogicClass logic = LogicClass.getInstance();
+	private LogicClass logic;
 
-	CommandParser cmdParser = new CommandParser();
+	private CommandParser cmdParser;
 
 	private static Logger logger = Logger.getLogger("TaskViewController");
 
@@ -61,6 +63,8 @@ public class TaskViewController {
 	 * method.
 	 */
 	public TaskViewController() {
+		logic = LogicClass.getInstance();
+		cmdParser = CommandParser.getInstance();
 	}
 
 	@FXML
