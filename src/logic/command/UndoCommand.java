@@ -14,7 +14,6 @@ public class UndoCommand extends Command{
 		super(ct);
 		this.ct= ct;
 		this.mgr=manager;	
-		
 	}
 
 	@Override
