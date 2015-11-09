@@ -264,20 +264,145 @@ public class CommandTest {
 		
         assertTrue(msg.equals(CorrectMsg));
         
-        
-        
-        CorrectMsg="No operation to undo";
-        try {
-			msg= cmd.execute();
+	}
+	
+	@Test
+	public void TestSortCommand() {
+		Manager mgr = new Manager();
+		String msg="";
+		String CorrectMsg="Sorted by name";
+		
+		CommandPackage cp = cmdp.getCommandPackage("add party 9pm #3");		
+        CommandType ct = CommandType.valueOf("CREATE");
+        Command cmd = new AddCommand(ct,mgr,cp);
+		try {
+			cmd.execute();
 			
+		} catch (InvalidCommandException e) {
+			
+			e.printStackTrace();
+		}
+		
+		cp = cmdp.getCommandPackage("add go home 11pm #1");		
+        ct = CommandType.valueOf("CREATE");
+        cmd = new AddCommand(ct,mgr,cp);
+		try {
+			cmd.execute();
+			
+		} catch (InvalidCommandException e) {
+			e.printStackTrace();
+		}
+		
+        cp = cmdp.getCommandPackage("Sort name");		
+        ct = CommandType.valueOf("SORT");
+	    cmd = new SortCommand(ct,mgr,cp);
+		try {
+			msg= cmd.execute();
 			
 		} catch (InvalidCommandException e) {
 			
 			msg= e.getMessage();
 		}
-        System.out.println("huray"+msg);
+		CorrectMsg="Sorted by name";
+		System.out.println("herere"+msg);
         assertTrue(msg.equals(CorrectMsg));
+        
+        cp = cmdp.getCommandPackage("Sort time");		
+        ct = CommandType.valueOf("SORT");
+	    cmd = new SortCommand(ct,mgr,cp);
+		try {
+			msg= cmd.execute();
+			
+		} catch (InvalidCommandException e) {
+			
+			msg= e.getMessage();
+		}
+		CorrectMsg="Sorted by time";
+        assertTrue(msg.equals(CorrectMsg));
+        
+        
+        cp = cmdp.getCommandPackage("Sort priority");		
+        ct = CommandType.valueOf("SORT");
+	    cmd = new SortCommand(ct,mgr,cp);
+		try {
+			msg= cmd.execute();
+			
+		} catch (InvalidCommandException e) {
+			
+			msg= e.getMessage();
+		}
+		CorrectMsg="Sorted by priority";
+        assertTrue(msg.equals(CorrectMsg));
+        
+        cp = cmdp.getCommandPackage("Sort blabla");		
+        ct = CommandType.valueOf("SORT");
+	    cmd = new SortCommand(ct,mgr,cp);
+		try {
+			msg= cmd.execute();
+			
+		} catch (InvalidCommandException e) {
+			
+			msg= e.getMessage();
+		}
+		CorrectMsg="Invalid sorting type";
+        assertTrue(msg.equals(CorrectMsg));
+        
+	}
+	
+	@Test
+	public void TestUpdateCommand() {
+		Manager mgr = new Manager();
+		String msg="";
+		String CorrectMsg="";
 		
+		CommandPackage cp = cmdp.getCommandPackage("add party 9pm #3");		
+        CommandType ct = CommandType.valueOf("CREATE");
+        Command cmd = new AddCommand(ct,mgr,cp);
+		try {
+			cmd.execute();
+			
+		} catch (InvalidCommandException e) {
+			
+			e.printStackTrace();
+		}
+
+        cp = cmdp.getCommandPackage("update `party `endtime `10pm");		
+        ct = CommandType.valueOf("UPDATE");
+	    cmd = new UpdateCommand(ct,mgr,cp);
+		try {
+			msg= cmd.execute();
+		} catch (InvalidCommandException e) {
+			msg= e.getMessage();
+		}
+		
+		CorrectMsg="Task \"party\" end time updated";
+        assertTrue(msg.equals(CorrectMsg));
+        
+        cp = cmdp.getCommandPackage("update `party `# `2");		
+        ct = CommandType.valueOf("UPDATE");
+	    cmd = new UpdateCommand(ct,mgr,cp);
+		try {
+			msg= cmd.execute();
+		} catch (InvalidCommandException e) {
+			msg= e.getMessage();
+		}
+		
+		CorrectMsg="Task \"party\" priority updated to \"2\"";
+        assertTrue(msg.equals(CorrectMsg));
+        
+        cp = cmdp.getCommandPackage("update `party `name `home");		
+        ct = CommandType.valueOf("UPDATE");
+	    cmd = new UpdateCommand(ct,mgr,cp);
+		try {
+			msg= cmd.execute();
+		} catch (InvalidCommandException e) {
+			msg= e.getMessage();
+		}
+		
+		CorrectMsg="Task \"party\" updated to \"home\"";
+		System.out.println("herere"+msg);
+        assertTrue(msg.equals(CorrectMsg));
+        
         
 	}
 

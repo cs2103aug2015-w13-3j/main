@@ -20,6 +20,10 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 
+/**********************************************************
+ * This is our GUI basic view controller.
+ *
+ */
 public class TaskViewController {
 
 	private final KeyCombination crtlZ = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN);
@@ -53,7 +57,6 @@ public class TaskViewController {
 	private MainApp mainApp;
 
 	private LogicClass logic;
-
 	private CommandParser cmdParser;
 
 	private static Logger logger = Logger.getLogger("TaskViewController");
@@ -78,6 +81,7 @@ public class TaskViewController {
 	}
 
 	public void enterCommand(KeyEvent event) {
+		//Different keyboard action will invoke different actions
 		if (event.getCode() == KeyCode.ENTER) {
 			enterKeyEvent();
 		} else if (event.getCode() == KeyCode.UP) {
@@ -91,14 +95,23 @@ public class TaskViewController {
 		}
 	}
 
+	/**
+	 * Shortcut Ctrl + Y for Redo
+	 */
 	private void controlYKeyEvent() {
 		execute("redo");
 	}
 
+	/**
+	 * Shortcut Ctrl + Z for Undo
+	 */
 	private void controlZKeyEvent() {
 		execute("undo");
 	}
 
+	/**
+	 * Shortcut down key for go to next key-in command
+	 */
 	private void downKeyEvent() {
 		if (poppedCommands.isEmpty()) {
 			txtCommandInput.clear();
@@ -110,6 +123,9 @@ public class TaskViewController {
 		}
 	}
 
+	/**
+	 * Shortcut down key for go back to previous key-in command
+	 */
 	private void upKeyEvent() {
 		if (pastCommands.isEmpty()) {
 			txtCommandInput.clear();
@@ -121,13 +137,19 @@ public class TaskViewController {
 		}
 	}
 
+	/**
+	 * Main actions invoked by key "Enter"
+	 */
 	private void enterKeyEvent() {
 		String input = txtCommandInput.getText();
+		//If the input is empty, return to the normal task list.
 		if (input == null || input.isEmpty() || input.trim().length() == 0) {
 			logic.setIsSearchOp(false);
 			taskTableView.setItems(mainApp.getTaskData());
 		} else {
+			//for command stack
 			pastCommands.push(input);
+			//Differentiate different command types.Handle help windows here.
 			if (input.equalsIgnoreCase("exit")) {
 				mainApp.exit();
 				txtCommandInput.clear();
@@ -152,6 +174,7 @@ public class TaskViewController {
 				mainApp.credit();
 				txtCommandInput.clear();
 			} else {
+				//if the command does not belong to any commands above, pass it to the parser and logic
 				String inputCommand = txtCommandInput.getText().trim();
 				logger.log(Level.INFO, "Here comes a command.");
 				execute(inputCommand);
@@ -159,6 +182,10 @@ public class TaskViewController {
 		}
 	}
 
+	/**
+	 * This is the method to pass the package from parser to the logic for execution.
+	 * @param input User's input string
+	 */
 	private void execute(String input) {
 		CommandPackage cmdPack = cmdParser.getCommandPackage(input);
 		logger.log(Level.INFO, "CommandParser parses the command.");

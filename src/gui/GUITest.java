@@ -63,6 +63,13 @@ public class GUITest extends FxRobot {
 		clickOn("#txtCommandInput").write("add meeting 9-Nov-2016").push(KeyCode.ENTER);
 		assertTrue(commandInput.getText().equals(""));
 	}
+	
+//	@Test
+//	public void keyInvalidIndexDeleteEnterTest() {
+//		Text feedback = (Text) mainApp.getScene().lookup("#feedback");
+//		clickOn("#txtCommandInput").write("delete 100").push(KeyCode.ENTER);
+//		assertTrue(feedback.getText().equals("Task not found"));
+//	}
 
 	@Test
 	public void keyInvalidEnterTest() {
@@ -77,19 +84,19 @@ public class GUITest extends FxRobot {
 		clickOn("#txtCommandInput").write("add meeting #6").push(KeyCode.ENTER);
 		assertTrue(feedback.getText().equals("Invalid priority.Priority is valid from 1 to 3"));
 	}
-
-	@Test
-	public void keyInvalidIndexDeleteEnterTest() {
-		Text feedback = (Text) mainApp.getScene().lookup("#feedback");
-		clickOn("#txtCommandInput").write("delete 100").push(KeyCode.ENTER);
-		assertTrue(feedback.getText().equals("Task not found"));
-	}
-
+	
 	@Test
 	public void keyInvalidNameDeleteEnterTest() {
 		Text feedback = (Text) mainApp.getScene().lookup("#feedback");
 		clickOn("#txtCommandInput").write("delete party").push(KeyCode.ENTER);
 		assertTrue(feedback.getText().equals("Task not found"));
+	}
+
+	@Test
+	public void keySearchEnterTest() {
+		Text feedback = (Text) mainApp.getScene().lookup("#feedback");
+		clickOn("#txtCommandInput").write("search meeting").push(KeyCode.ENTER);
+		assertTrue(feedback.getText().equals("Search completed. To go back, press Enter"));
 	}
 
 //	 @Test
