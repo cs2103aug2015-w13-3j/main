@@ -1,3 +1,4 @@
+//@@author A0133915H
 package gui;
 
 import static org.junit.Assert.*;
@@ -11,23 +12,19 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
-//import org.fxmisc.richtext.InlineCssTextArea;
 
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-
-//import com.sun.javafx.robot.FXRobot;
-//import com.sun.javafx.robot.FXRobotImage;
-
 import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import logic.Task;
 
 import org.testfx.api.FxRobot;
 import org.testfx.util.WaitForAsyncUtils;
 
+/***********************************************************
+ * This is the simple automated GUI test.
+ *
+ **********************************************************/
 public class GUITest extends FxRobot {
 
 	private static MainApp mainApp;
@@ -41,7 +38,6 @@ public class GUITest extends FxRobot {
 
 	@AfterClass
 	public static void tearDownClass() {
-
 	}
 
 	@Before
@@ -96,14 +92,14 @@ public class GUITest extends FxRobot {
 		assertTrue(feedback.getText().equals("Task not found"));
 	}
 
-//	@Test
-//	public void keyInvalidSearchDeleteEnterTest() {
-//		Text feedback = (Text) mainApp.getScene().lookup("#feedback");
-//		clickOn("#txtCommandInput").write("add meeting").push(KeyCode.ENTER);
-//		clickOn("#txtCommandInput").write("search meeting").push(KeyCode.ENTER);
-//		clickOn("#txtCommandInput").write("delete party").push(KeyCode.ENTER);
-//		assertTrue(feedback.getText().equals("Task not found in searched list. To return to full list,press Enter"));
-//	}
+//	 @Test
+//	 public void keyInvalidSearchDeleteEnterTest() {
+//	 Text feedback = (Text) mainApp.getScene().lookup("#feedback");
+//	 clickOn("#txtCommandInput").write("add meeting").push(KeyCode.ENTER);
+//	 clickOn("#txtCommandInput").write("search meeting").push(KeyCode.ENTER);
+//	 clickOn("#txtCommandInput").write("delete party").push(KeyCode.ENTER);
+//	 assertTrue(feedback.getText().equals("Task not found in searched list. To return to full list,press Enter"));
+//	 }
 
 	@Test
 	public void keyClearEnterTest() {

@@ -17,8 +17,8 @@ public class UndoRedoOpTest {
 	private static ArrayList<Task> initialSearch = new ArrayList<Task>();
 
 	/***************************************************************
-	 * Scripted testing & white-box testing 
-	 * This test is only for the undo/redo function 
+	 * Scripted testing & white-box testing This test is only for the undo/redo
+	 * function
 	 ***************************************************************/
 
 	@BeforeClass
@@ -63,7 +63,7 @@ public class UndoRedoOpTest {
 		ArrayList<Task> status2 = new ArrayList<Task>();
 		ArrayList<Task> status2A = new ArrayList<Task>();
 		ArrayList<Task> status2S = new ArrayList<Task>();
-		
+
 		status1.add(new Task("Meeting"));
 		status1.add(new Task("SEP"));
 		status1.add(new Task("Movie with john"));
@@ -76,7 +76,7 @@ public class UndoRedoOpTest {
 
 		status1S.add(new Task("Meeting"));
 		status1S.add(new Task("Internship"));
-		
+
 		status2.add(new Task("Meeting"));
 		status2.add(new Task("SEP"));
 		status2.add(new Task("Movie with john"));
@@ -88,12 +88,13 @@ public class UndoRedoOpTest {
 		status2A.add(new Task("Movie with john yes"));
 		status2A.add(new Task("Dinner with Tom"));
 		status2A.add(new Task("Party"));
-		
+
 		status2S.add(new Task("Meeting"));
 		status2S.add(new Task("Internship"));
 		status2S.add(new Task("Family Dinner"));
-		
-		ArrayList<ArrayList<Task>> statusOne = new ArrayList<ArrayList<Task>>(op.addStateToUndo(status1, status1A, status1S));
+
+		ArrayList<ArrayList<Task>> statusOne = new ArrayList<ArrayList<Task>>(
+				op.addStateToUndo(status1, status1A, status1S));
 		assertEquals(3, statusOne.size());
 
 		for (int i = 0; i < 4; i++) {
@@ -101,33 +102,46 @@ public class UndoRedoOpTest {
 			assertEquals(status1A.get(i).getName(), (statusOne.get(1).get(i)).getName());
 		}
 
-		for (int i = 0; i < 2; i++){
-			
+		for (int i = 0; i < 2; i++) {
+			assertEquals(status1S.get(i).getName(), (statusOne.get(2).get(i)).getName());
 		}
-		ArrayList<ArrayList<Task>> statusTwo = new ArrayList<ArrayList<Task>>(op.addStateToUndo(status2, status2A));
-		assertEquals(2, statusTwo.size());
+
+		ArrayList<ArrayList<Task>> statusTwo = new ArrayList<ArrayList<Task>>(
+				op.addStateToUndo(status2, status2A, status2S));
+		assertEquals(3, statusTwo.size());
 
 		for (int i = 0; i < 5; i++) {
 			assertEquals(status2.get(i).getName(), (statusTwo.get(0).get(i)).getName());
 			assertEquals(status2A.get(i).getName(), (statusTwo.get(1).get(i)).getName());
 		}
 
+		for (int i = 0; i < 3; i++) {
+			assertEquals(status2S.get(i).getName(), (statusTwo.get(2).get(i)).getName());
+		}
+
 		ArrayList<ArrayList<Task>> statusThree = op.undo();
-		assertEquals(2, statusThree.size());
+		assertEquals(3, statusThree.size());
 
 		for (int i = 0; i < 4; i++) {
 			assertEquals(status1.get(i).getName(), statusThree.get(0).get(i).getName());
 			assertEquals(status1A.get(i).getName(), statusThree.get(1).get(i).getName());
 		}
 
+		for (int i = 0; i < 2; i++) {
+			assertEquals(status1S.get(i).getName(), (statusOne.get(2).get(i)).getName());
+		}
+
 		ArrayList<ArrayList<Task>> statusFour = op.undo();
-		assertEquals(2, statusFour.size());
+		assertEquals(3, statusFour.size());
 
 		for (int i = 0; i < 3; i++) {
 			assertEquals(initial.get(i).getName(), statusFour.get(0).get(i).getName());
 			assertEquals(initialArchived.get(i).getName(), statusFour.get(1).get(i).getName());
 		}
 
+		for (int i = 0; i < 1; i++) {
+			assertEquals(initialSearch.get(i).getName(), statusFour.get(2).get(i).getName());
+		}
 	}
 
 	/**
@@ -137,12 +151,14 @@ public class UndoRedoOpTest {
 	public void redoTest() {
 		UndoRedoOp op = UndoRedoOp.getInstance();
 
-		op.addStateToUndo(initial, initialArchived);
+		op.addStateToUndo(initial, initialArchived, initialSearch);
 
 		ArrayList<Task> status1 = new ArrayList<Task>();
 		ArrayList<Task> status1A = new ArrayList<Task>();
+		ArrayList<Task> status1S = new ArrayList<Task>();
 		ArrayList<Task> status2 = new ArrayList<Task>();
 		ArrayList<Task> status2A = new ArrayList<Task>();
+		ArrayList<Task> status2S = new ArrayList<Task>();
 
 		status1.add(new Task("Meeting"));
 		status1.add(new Task("SEP"));
@@ -154,6 +170,9 @@ public class UndoRedoOpTest {
 		status1A.add(new Task("Movie with john yes"));
 		status1A.add(new Task("Dinner with Tom haha"));
 
+		status1S.add(new Task("Meeting"));
+		status1S.add(new Task("Internship"));
+
 		status2.add(new Task("Meeting"));
 		status2.add(new Task("SEP"));
 		status2.add(new Task("Movie with john"));
@@ -166,66 +185,102 @@ public class UndoRedoOpTest {
 		status2A.add(new Task("Dinner with Tom"));
 		status2A.add(new Task("Party"));
 
-		ArrayList<ArrayList<Task>> statusOne = op.addStateToUndo(status1, status1A);
+		status2S.add(new Task("Meeting"));
+		status2S.add(new Task("Internship"));
+		status2S.add(new Task("Family Dinner"));
+
+		ArrayList<ArrayList<Task>> statusOne = op.addStateToUndo(status1, status1A, status1S);
 
 		for (int i = 0; i < 4; i++) {
 			assertEquals(status1.get(i).getName(), statusOne.get(0).get(i).getName());
 			assertEquals(status1A.get(i).getName(), statusOne.get(1).get(i).getName());
 		}
 
-		ArrayList<ArrayList<Task>> statusTwo = op.addStateToUndo(status2, status2A);
+		for (int i = 0; i < 2; i++) {
+			assertEquals(status1S.get(i).getName(), statusOne.get(2).get(i).getName());
+		}
+
+		ArrayList<ArrayList<Task>> statusTwo = op.addStateToUndo(status2, status2A, status2S);
 
 		for (int i = 0; i < 5; i++) {
 			assertEquals(status2.get(i).getName(), statusTwo.get(0).get(i).getName());
 			assertEquals(status2A.get(i).getName(), statusTwo.get(1).get(i).getName());
 		}
 
+		for (int i = 0; i < 3; i++) {
+			assertEquals(status2S.get(i).getName(), statusTwo.get(2).get(i).getName());
+		}
+
 		ArrayList<ArrayList<Task>> statusThree = op.undo();
-		assertEquals(2, statusThree.size());
+		assertEquals(3, statusThree.size());
 
 		for (int i = 0; i < 4; i++) {
 			assertEquals(status1.get(i).getName(), statusThree.get(0).get(i).getName());
 			assertEquals(status1A.get(i).getName(), statusThree.get(1).get(i).getName());
 		}
 
+		for (int i = 0; i < 2; i++) {
+			assertEquals(status1S.get(i).getName(), statusThree.get(2).get(i).getName());
+		}
+
 		ArrayList<ArrayList<Task>> statusFour = op.redo();
-		assertEquals(2, statusFour.size());
+		assertEquals(3, statusFour.size());
 
 		for (int i = 0; i < 5; i++) {
 			assertEquals(status2.get(i).getName(), statusFour.get(0).get(i).getName());
 			assertEquals(status2A.get(i).getName(), statusFour.get(1).get(i).getName());
 		}
 
+		for (int i = 0; i < 3; i++) {
+			assertEquals(status2S.get(i).getName(), statusTwo.get(2).get(i).getName());
+		}
+
 		ArrayList<ArrayList<Task>> statusFive = op.undo();
-		assertEquals(2, statusFive.size());
+		assertEquals(3, statusFive.size());
 
 		for (int i = 0; i < 4; i++) {
 			assertEquals(status1.get(i).getName(), statusFive.get(0).get(i).getName());
 			assertEquals(status1A.get(i).getName(), statusFive.get(1).get(i).getName());
 		}
 
+		for (int i = 0; i < 2; i++) {
+			assertEquals(status1S.get(i).getName(), statusThree.get(2).get(i).getName());
+		}
+		
 		ArrayList<ArrayList<Task>> statusSix = op.undo();
-		assertEquals(2, statusSix.size());
+		assertEquals(3, statusSix.size());
 
 		for (int i = 0; i < 3; i++) {
 			assertEquals(initial.get(i).getName(), statusSix.get(0).get(i).getName());
 			assertEquals(initialArchived.get(i).getName(), statusSix.get(1).get(i).getName());
 		}
 
+		for (int i = 0; i < 1; i++) {
+			assertEquals(initialSearch.get(i).getName(), statusFour.get(2).get(i).getName());
+		}
+		
 		ArrayList<ArrayList<Task>> statusSeven = op.redo();
-		assertEquals(2, statusSeven.size());
+		assertEquals(3, statusSeven.size());
 
 		for (int i = 0; i < 4; i++) {
 			assertEquals(status1.get(i).getName(), statusSeven.get(0).get(i).getName());
 			assertEquals(status1A.get(i).getName(), statusSeven.get(1).get(i).getName());
 		}
 
+		for (int i = 0; i < 2; i++) {
+			assertEquals(status1S.get(i).getName(), statusThree.get(2).get(i).getName());
+		}
+		
 		ArrayList<ArrayList<Task>> statusEight = op.redo();
-		assertEquals(2, statusEight.size());
+		assertEquals(3, statusEight.size());
 
 		for (int i = 0; i < 5; i++) {
 			assertEquals(status2.get(i).getName(), statusEight.get(0).get(i).getName());
 			assertEquals(status2A.get(i).getName(), statusEight.get(1).get(i).getName());
+		}
+		
+		for (int i = 0; i < 3; i++) {
+			assertEquals(status2S.get(i).getName(), statusTwo.get(2).get(i).getName());
 		}
 	}
 }
