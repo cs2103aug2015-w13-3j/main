@@ -60,6 +60,9 @@ public class UpdateCommand extends Command{
 					msg = "Task \""+target+"\" priority updated to \""+priority+"\"";
 					
 				} else if (update.get(2).equalsIgnoreCase("startTime")) {
+					if(commandInfo.startingTime()==null){
+						
+					}
 					task.setStartTime(commandInfo.startingTime());
 					msg = "Task \""+target+"\" start time updated to \""
 					+commandInfo.startingTime().toString()+"\"";

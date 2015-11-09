@@ -12,13 +12,11 @@ public class Task implements Comparable<Task> {
 	private Integer priority = null;
 	private Integer taskNum = null;
 
-	//@author A0133949U
 
 	public Task(String name) {
 		this.name = name;
 	}
 
-	//@author A0133949U
 	public Task(String name, DateTime start, DateTime end, int pri) {
 		this.name = name;
 		this.startTime = start;
@@ -26,42 +24,35 @@ public class Task implements Comparable<Task> {
 		this.priority = pri;
 	}
 
-	//@author A0133949U
 	public String getName() {
 		return this.name;
 	}
 
-	//@author A0133949U
+
 	public DateTime getStartTime() {
 		return this.startTime;
 	}
 
-	//@author A0133949U
 	public DateTime getEndTime() {
 		return this.endTime;
 	}
 
-	//@author A0133949U
 	public Integer getPriority() {
 		return this.priority;
 	}
 
-	//@author A0133949U
 	public Integer getTaskNum() {
 		return this.taskNum;
 	}
 
-	//@author A0133949U
 	public void setStartTime(DateTime start) {
 		this.startTime = start;
 	}
 
-	//@author A0133949U
 	public void setEndTime(DateTime end) {
 		this.endTime = end;
 	}
 
-	//@@author A0133915H
 	public void setPriority(String pri) {
 		if (pri == null) {
 			System.out.println("Oh no the priority is null");
@@ -72,38 +63,17 @@ public class Task implements Comparable<Task> {
 		}
 	}
 
-	//@author A0133949U
 	public void setTaskNumber(Integer taskNumber) {
 		this.taskNum = taskNumber;
 	}
 
-	//@author A0133949U
+
 	public void setTaskName(String name) {
 		this.name = name;
 	}
 
-	//@author A0133949U
-	public boolean containKeyword(String keyword) {
-		if (name.matches(".*\\b" + keyword + "\\b.*")) {
-			return true;
-		} else if (startTime.toString().matches(".*\\b" + keyword + "\\b.*")) {
-			return true;
-		} else if (endTime.toString().matches(".*\\b" + keyword + "\\b.*")) {
-			return true;
-			// } else if (deadline.toString().matches(".*\\b" + keyword +
-			// "\\b.*")) {
-			// return true;
-			// } else if (location.matches(".*\\b" + keyword + "\\b.*")) {
-			// return true;
-			// } else if (description.matches(".*\\b" + keyword + "\\b.*")) {
-			// return true;
-		} else {
-			return false;
-		}
-	}
 
 	@Override
-	//@author A0133949U
 	public int compareTo(Task oTask) {
 		int result = this.name.compareToIgnoreCase(oTask.name);
 		if (result < 0)
@@ -116,11 +86,11 @@ public class Task implements Comparable<Task> {
 	}
 
 	@Override
-	//@author A0133949U
 	public String toString() {
 		return name;
 	}
 
+	//@@author A0133915H
 	public StringProperty taskNameProperty() {
 		return new SimpleStringProperty(this.name);
 	}
