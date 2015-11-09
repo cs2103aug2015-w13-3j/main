@@ -174,7 +174,7 @@ public class TaskViewController {
 				taskTableView.setItems(mainApp.getTaskData());
 				logger.log(Level.INFO, "Update the table view.");
 			} catch (InvalidCommandException e) {
-				feedback.setText(invalidMsg);
+				feedback.setText(e.getMessage());
 			}
 		}
 	}

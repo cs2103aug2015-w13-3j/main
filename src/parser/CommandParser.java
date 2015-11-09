@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import org.joda.time.DateTime;
 
-import logic.LogicClass;
-
 // @@author A0122061B
 
 public class CommandParser {
@@ -87,11 +85,16 @@ public class CommandParser {
 	    String commandName = findAction();
 
 	    inputData.setCommand(commandName);
-
-	    if (!isValidCommand(commandName) && isArrayEmptyAndInvalid()) {
+	    System.out.println("name " + commandName);
+	    System.out.println((!isValidCommand(commandName)));
+	    System.out.println();
+	    if (!isValidCommand(commandName)) {
 		return null;
 	    } else if (isOneCommandFormat(commandName)) {
 		return inputData;
+	    }
+	    if (isArrayEmptyAndInvalid()) {
+		return null;
 	    }
 	    if (isUpdateCommand(commandName)) {
 		return updateInput();
@@ -110,9 +113,11 @@ public class CommandParser {
 	    }
 	    inputData.setPhrase(getPhrase());
 	    return inputData;
-	} catch (NullPointerException e1) {
+	    
+	    } catch (NullPointerException e1) {
 	    System.out.println("NULL POINTER ERRORS");
 	    return null;
+	    
 	} catch (StringIndexOutOfBoundsException e2) {
 	    System.out.println("StringIndexOutOfBoundsException");
 	    return null;
@@ -324,41 +329,49 @@ public class CommandParser {
 	    if (word.startsWith("`")) {
 		if (word.length() == 1) {
 		    inputArr.set(i, word + inputArr.get(i + 1));
-		}
-		inputData.addUpdateSequence(sequence);
-		sequence = "";
-		sequence = word.substring(1);
-		if (word.equalsIgnoreCase(START_TIME_LONG) || word.equalsIgnoreCase(START_TIME_SHORT)) {
-		    sequence = "startTime";
-		    if (isOne(numberOfDates)) {
-			dateArr = extractDate();
-			if (isOne(numberOfTime)) {
-			    dateArr = extractTime(dateArr);
-			}
-		    } else if (isOne(numberOfTime)) {
-			System.out.println("extracing start time");
-			dateArr = extractTime();
-		    } else {
-			dateArr = null;
-		    }
-		    inputData.setDates(dateArr, "start");
 		} else {
-		    if (word.equalsIgnoreCase(END_TIME_LONG) || word.equalsIgnoreCase(END_TIME_SHORT)) {
-			sequence = "endTime";
+		    inputData.addUpdateSequence(sequence);
+		    sequence = "";
+		    sequence = word.substring(1);
+		    if (word.equalsIgnoreCase(START_TIME_LONG) || word.equalsIgnoreCase(START_TIME_SHORT)) {
+			sequence = "startTime";
 			if (isOne(numberOfDates)) {
 			    dateArr = extractDate();
 			    if (isOne(numberOfTime)) {
 				dateArr = extractTime(dateArr);
 			    }
 			} else if (isOne(numberOfTime)) {
+			    System.out.println("extracing start time");
 			    dateArr = extractTime();
+			} else if (inputArr.get(i + 1).equals("`delete")) {
+			    System.out.println("deleteing");
+			    dateArr = null;
+			    inputData.addUpdateSequence("delete");
 			} else {
 			    dateArr = null;
 			}
-			inputData.setDates(dateArr, "end");
+			inputData.setDates(dateArr, "start");
+		    } else {
+			if (word.equalsIgnoreCase(END_TIME_LONG) || word.equalsIgnoreCase(END_TIME_SHORT)) {
+			    sequence = "endTime";
+			    if (isOne(numberOfDates)) {
+				dateArr = extractDate();
+				if (isOne(numberOfTime)) {
+				    dateArr = extractTime(dateArr);
+				}
+			    } else if (isOne(numberOfTime)) {
+				dateArr = extractTime();
+			    } else if (inputArr.get(i + 1).equals("`delete")) {
+				System.out.println("deleteing");
+				dateArr = null;
+				inputData.addUpdateSequence("delete");
+			    } else {
+				dateArr = null;
+			    }
+			    inputData.setDates(dateArr, "end");
+			}
 		    }
 		}
-
 	    } else {
 		sequence = sequence + " " + word;
 	    }
@@ -451,7 +464,7 @@ public class CommandParser {
      */
 
     private boolean isValidCommand(String command) {
-	return command != NOT_FOUND;
+	return !command.equalsIgnoreCase(NOT_FOUND);
     }
 
     private boolean isSearchCommand(String commandName) {

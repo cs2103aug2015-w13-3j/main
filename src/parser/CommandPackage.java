@@ -53,6 +53,9 @@ public class CommandPackage {
     }
 
     public DatePackage setDates(ArrayList<DateTime> time, String condition) {
+	if (time == null) {
+	    return null;
+	}
 	if (condition.equalsIgnoreCase("start")) {
 	    dates.setDate(time.get(0), null);
 	} else {
