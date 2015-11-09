@@ -21,6 +21,8 @@ public class DateParser {
      * Magic Constants
      * ====================================================================
      */
+    
+    private static DateParser theOne = null;
     // format -1 : invalid format
     private final int INVALID_FORMAT_TYPE = -1;
 
@@ -70,7 +72,7 @@ public class DateParser {
     private final int FORMAT_TYPE_2_INDEX = 12;
     private final int FORMAT_TYPE_3_INDEX = 20;
 
-    private ArrayList<DateTimeFormatter> dateFormats =
+    private final ArrayList<DateTimeFormatter> dateFormats =
 	    new ArrayList<DateTimeFormatter>(Arrays.asList(DateTimeFormat.forPattern(DATE_FORMAT_0),
 							   DateTimeFormat.forPattern(DATE_FORMAT_1),
 							   DateTimeFormat.forPattern(DATE_FORMAT_2),
@@ -92,7 +94,23 @@ public class DateParser {
 							   DateTimeFormat.forPattern(DATE_FORMAT_17),
 							   DateTimeFormat.forPattern(DATE_FORMAT_18),
 							   DateTimeFormat.forPattern(DATE_FORMAT_19)));
+    /*
+     * ====================================================================
+     * Constructors
+     * ====================================================================
+     */
+    
+    private DateParser() {
+    }
+    public static DateParser getInstance() {
 
+	if (theOne == null) {
+	    theOne = new DateParser();
+	}
+	return theOne;
+    }
+
+  
     /*
      * ====================================================================
      * Methods to execute DateParser

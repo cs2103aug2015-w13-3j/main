@@ -15,7 +15,7 @@ public class ActionLibrary {
      * Attributes/Variables
      * ====================================================================
      */
-
+    private static ActionLibrary theOne = null;
     private boolean isPreProcessed = false;
     private TreeMap<String, String> actionTree;
 
@@ -54,6 +54,23 @@ public class ActionLibrary {
 					      SEARCH_LIST, SORT_LIST, SET_PATH_LIST, MARK_LIST, CLEAR_LIST,
 					      EXIT_LIST };
 
+    
+    /*
+     * ====================================================================
+     * Constructors
+     * ====================================================================
+     */
+
+    private ActionLibrary() {
+	
+    }
+    public static ActionLibrary getInstance() {
+	System.out.println("library processed");
+	if (theOne == null) {
+	    theOne = new ActionLibrary();
+	}
+	return theOne;
+    }
     /*
      * ====================================================================
      * Execute methods for ActionLibrary
@@ -90,6 +107,7 @@ public class ActionLibrary {
      */
 
     protected String find(String input) {
+	System.out.println("library entered");
 	preProcess();
 	String result = actionTree.get(input.toLowerCase());
 	if (result == null) {
