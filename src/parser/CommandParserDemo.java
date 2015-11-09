@@ -1,5 +1,6 @@
 package parser;
 
+import java.util.ArrayList;
 
 //@@author A0122061B
 
@@ -14,10 +15,12 @@ public class CommandParserDemo {
 		System.out.println(asd.isOne(0));
 		//System.out.println(cmd.getCommandPackage("").endingTime());
 		CPK = cmd.getCommandPackage("add something");
-		System.out.println("asdasd");
-		System.out.println("result of this = ");
-		System.out.println("result of this = " + CPK.getCommand());
-		System.out.println();
+		CommandParser cmdP = CommandParser.getInstance();
+		CommandPackage cPK1 = cmdP.getCommandPackage("search meeting 10-oct #1");
+		System.out.println(cPK1.startingTime());
+		System.out.println("+++++++");
+		boolean test1 = cPK1.getCommand().equals("create");
+		System.out.println("test is = " + test1);
 		System.out.println(cmd.getCommandPackage("") == null);
 		CPK = cmd.getCommandPackage("plus something 10-oct");
 		String test = "11/22";
@@ -25,6 +28,9 @@ public class CommandParserDemo {
 		String test3 = "44/";
 		String[] test4 = test3.split("/");
 		System.out.println(test4.length);
+		
+
+
 		//System.out.println(test.contains("as"));
 	}
 }

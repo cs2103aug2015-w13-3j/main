@@ -29,7 +29,7 @@ public class DeleteCommand extends Command{
 	@Override
 	public String execute() throws InvalidCommandException{
 		
-		if(inSearchStatus==false){
+		if(inSearchStatus==false){ 
 			int index=0;
 			int searchIndex=-1;
 			boolean found = false;
