@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import org.joda.time.DateTime;
 
-import logic.LogicClass;
-
 // @@author A0122061B
 
 public class CommandParser {
@@ -87,7 +85,7 @@ public class CommandParser {
 	    String commandName = findAction();
 
 	    inputData.setCommand(commandName);
-
+	    //System.out.println("name " + commandName);
 	    if (!isValidCommand(commandName) && isArrayEmptyAndInvalid()) {
 		return null;
 	    } else if (isOneCommandFormat(commandName)) {
@@ -114,7 +112,7 @@ public class CommandParser {
 	    inputData.setPhrase(getPhrase());
 	    return inputData;
 	    /*-
-	} catch (NullPointerException e1) {
+	    } catch (NullPointerException e1) {
 	    System.out.println("NULL POINTER ERRORS");
 	    return null;
 	    */
@@ -362,7 +360,7 @@ public class CommandParser {
 			    } else if (isOne(numberOfTime)) {
 				dateArr = extractTime();
 			    } else if (inputArr.get(i + 1).equals("`delete")) {
-				System.out.println("deleteing"); 
+				System.out.println("deleteing");
 				dateArr = null;
 				inputData.addUpdateSequence("delete");
 			    } else {
