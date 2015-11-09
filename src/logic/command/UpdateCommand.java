@@ -14,6 +14,7 @@ public class UpdateCommand extends Command{
 	CommandType ct;
 	Manager mgr;
 	CommandPackage commandInfo;
+	boolean inSearchStatus;
 
 	public UpdateCommand(CommandType ct,Manager manager,CommandPackage cp) {
 		super(ct);
@@ -52,6 +53,7 @@ public class UpdateCommand extends Command{
 					int priority = Integer.parseInt(update.get(3));	
 					
 					if(priority>3 || priority<=0){
+						
 						throw new InvalidCommandException
 						("Invalid priority.Priority is valid from 1 to 3");
 					}
