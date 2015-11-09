@@ -32,8 +32,8 @@ public class DeleteCommand extends Command{
 			index = Integer.parseInt(deleteInfo)-1;
 			if(index<taskList.size()  && index>=0){
 				found =true;
-				mgr.delete(index);		
-				return "task deleted";
+				t= mgr.delete(index);		
+				return "Task deleted: "+t.getName();
 			}
 			
 		}  
@@ -48,11 +48,11 @@ public class DeleteCommand extends Command{
 		}
 		
 		if(found == false){
-			return "invalid command";
+			return "Invalid command";
 		}
 		
-		mgr.delete(index);		
-		return "task deleted";
+		t= mgr.delete(index);		
+		return "Task deleted: "+t.getName();
 	}
 	
 	private boolean isInteger(String s, int radix) {

@@ -44,7 +44,7 @@ public class SearchCommand extends Command{
 
         mgr.search(task);
 		
-		return "search completed";
+		return "Search completed";
 	}
 
 }

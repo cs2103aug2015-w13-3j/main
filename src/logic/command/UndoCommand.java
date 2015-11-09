@@ -20,7 +20,7 @@ public class UndoCommand extends Command{
 	@Override
 	public String execute() {
 		mgr.undo();
-		return "undo previous operation";
+		return "Undo previous operation";
 	}
 
 }
