@@ -159,19 +159,19 @@ public class TaskViewController {
 		CommandPackage cmdPack = cmdParser.getCommandPackage(input);
 		logger.log(Level.INFO, "CommandParser parses the command.");
 		if (cmdPack == null) {
-			System.out.println(input);
+			System.out.println("input: "+ input);
 			feedback.setText(invalidMsg);
 		} else {
 			assert (cmdPack != null);
 			try {
 				String result = logic.executeCommand(cmdPack);
 				feedback.setText(result);
+				txtCommandInput.clear();
+				taskTableView.setItems(mainApp.getTaskData());
+				logger.log(Level.INFO, "Update the table view.");
 			} catch (InvalidCommandException e) {
 				feedback.setText(invalidMsg);
 			}
-			taskTableView.setItems(mainApp.getTaskData());
-			logger.log(Level.INFO, "Update the table view.");
-			txtCommandInput.clear();
 		}
 	}
 
