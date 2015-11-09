@@ -342,7 +342,7 @@ public class SystemTest {
 			lc.executeCommand(cmd);
 		} catch (InvalidCommandException e) {
 		}
-		assertEquals(1, lc.getTaskList().size());
+		
 		
 	}
 }
