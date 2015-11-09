@@ -1,77 +1,220 @@
-//package logic;
-//
-//import static org.junit.Assert.*;
-//import parser.CommandPackage;
-//import parser.CommandParser;
-//
-//import org.junit.Test;
-////@@author A0133948W
-//public class SystemTest {
-//	LogicClass lc = LogicClass.getInstance();
-//	
-//	@Test
-//	public void test1() {
-//		//test: add, update, delete
-//		CommandParser cmp = new CommandParser();
-//		CommandPackage cmd = cmp.getCommandPackage("add meeting 9-Oct");
-//		lc.executeCommand(cmd);
-//		int size = lc.getTaskList().size();
-//		assertEquals(lc.getTaskList().get(0).getName(), "meeting");
-//		cmd = cmp.getCommandPackage("update `meeting `name `party");
-//		lc.executeCommand(cmd);
-//		assertEquals(lc.getTaskList().get(0).getName(), "party");
-//		cmd = cmp.getCommandPackage("delete party");
-//		lc.executeCommand(cmd);
-//		assertEquals(lc.getTaskList().size(), size - 1);
-//	}
-//	
-//	@Test
-//	public void test2() {
-//		//test: clear, undo, redo
-//		CommandParser cmp = new CommandParser();
-//		CommandPackage cmd = cmp.getCommandPackage("clear");
-//
-//		lc.executeCommand(cmd);
-//		int size = lc.getTaskList().size();
-//		assertEquals(0, size);
-//		cmd = cmp.getCommandPackage("add meeting 9-Oct");
-//		lc.executeCommand(cmd);
-//		cmd = cmp.getCommandPackage("undo");
-//		lc.executeCommand(cmd);
-//		size = lc.getTaskList().size();
-//		assertEquals(0, size);
-//		cmd = cmp.getCommandPackage("redo");
-//		lc.executeCommand(cmd);
-//		size = lc.getTaskList().size();
-//		assertEquals(1, size);
-//	}
-//	
-//	@Test
-//	public void test3() {
-//		//test: sort, search
-//		CommandParser cmp = new CommandParser();
-//		CommandPackage cmd = cmp.getCommandPackage("add party 8-Oct #3");
-//		lc.executeCommand(cmd);
-//		cmd = cmp.getCommandPackage("add meeting 9-Oct #2");
-//		lc.executeCommand(cmd);
-//		cmd = cmp.getCommandPackage("sort name");
-//		lc.executeCommand(cmd);
-//		assertEquals("meeting", lc.getTaskList().get(0).getName());
-//		cmd = cmp.getCommandPackage("sort time");
-//		lc.executeCommand(cmd);
-//		assertEquals("party", lc.getTaskList().get(0).getName());
-//		cmd = cmp.getCommandPackage("sort priority");
-//		lc.executeCommand(cmd);
-//		assertEquals("meeting", lc.getTaskList().get(0).getName());
-//		cmd = cmp.getCommandPackage("search meeting");
-//		lc.executeCommand(cmd);
-//		assertEquals("meeting", lc.getTaskList().get(0).getName());
-//		cmd = cmp.getCommandPackage("search 8-Oct");
-//		lc.executeCommand(cmd);
-//		assertEquals("party", lc.getTaskList().get(0).getName());
-//		cmd = cmp.getCommandPackage("search #2");
-//		lc.executeCommand(cmd);
-//		assertEquals("meeting", lc.getTaskList().get(0).getName());	
-//	}
-//
-//}
+package logic;
+
+import static org.junit.Assert.*;
+
+import org.joda.time.DateTime;
+
+import parser.CommandPackage;
+import parser.CommandParser;
+
+import org.junit.Test;
+
+import logic.command.InvalidCommandException;
+//@@author A0133948W
+public class SystemTest {
+	LogicClass lc = LogicClass.getInstance();
+	
+	@Test
+	public void test1() throws InvalidCommandException {
+		//test: clear, add, update, delete
+		CommandParser cmp = new CommandParser();
+		CommandPackage cmd = cmp.getCommandPackage("clear");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting1 9-Oct");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting2 1am");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting3 9pm 10pm");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting4 9-Dec 10-Dec");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting5 start 11-Oct");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting6");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting7 tomorrow");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting8 Sunday");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting9 #1");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting10 10pm #3");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("create meeting11 10pm #3");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("`a meeting12 10pm #3");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting13 10pm #3");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting14 30/11/2015 #3");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting15 30.11.2015 #3");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add \"meeting16 tomorrow\"");
+		lc.executeCommand(cmd);
+		assertEquals(16,lc.getTaskList().size());
+		cmd = cmp.getCommandPackage("update `meeting1 `name `party1");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("update `meeting2 `# `2");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("update `meeting3 `priority `3");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("update `meeting4 `starttime `9pm");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("update `meeting5 `endtime `10pm");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("edit `meeting6 `name `party6");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("`e `meeting7 `starttime `9.10.2016");
+		lc.executeCommand(cmd);
+		assertEquals(16, lc.getTaskList().size());
+		cmd = cmp.getCommandPackage("delete party1");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("delete 1");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("delete meeting2");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("bomb meeting3");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("remove meeting4");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("`b meeting5");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("`rmv party6");
+		lc.executeCommand(cmd);
+		assertEquals(9, lc.getTaskList().size());
+	}
+	
+	@Test
+	public void test2() throws InvalidCommandException {
+		//test: undo, redo
+		CommandParser cmp = new CommandParser();
+		CommandPackage cmd = cmp.getCommandPackage("clear");
+		lc.executeCommand(cmd);
+		int size = lc.getTaskList().size();
+		assertEquals(0, size);
+		cmd = cmp.getCommandPackage("add meeting1 9-Oct");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting2 1am");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting3 9pm 10pm");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting4 9-Dec 10-Dec #3");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting5 start 11-Oct");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("undo");
+		lc.executeCommand(cmd);
+		lc.executeCommand(cmd);
+		lc.executeCommand(cmd);
+		lc.executeCommand(cmd);
+		lc.executeCommand(cmd);
+		size = lc.getTaskList().size();
+		assertEquals(0, size);
+		cmd = cmp.getCommandPackage("redo");
+		lc.executeCommand(cmd);
+		lc.executeCommand(cmd);
+		lc.executeCommand(cmd);
+		lc.executeCommand(cmd);
+		lc.executeCommand(cmd);
+		size = lc.getTaskList().size();
+		assertEquals(5, size);
+		cmd = cmp.getCommandPackage("delete 1");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("undo");
+		lc.executeCommand(cmd);
+		size = lc.getTaskList().size();
+		assertEquals(5, size);
+		cmd = cmp.getCommandPackage("redo");
+		lc.executeCommand(cmd);
+		size = lc.getTaskList().size();
+		assertEquals(4, size);
+		cmd = cmp.getCommandPackage("update `meeting4 `name `party4");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("undo");
+		lc.executeCommand(cmd);
+		assertEquals("meeting4", lc.getTaskList().get(0).getName());
+		cmd = cmp.getCommandPackage("update `meeting4 `# `1");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("undo");
+		lc.executeCommand(cmd);
+		assertEquals(new Integer(3), lc.getTaskList().get(0).getPriority());
+		cmd = cmp.getCommandPackage("update `meeting4 `starttime `8-Dec");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("undo");
+		lc.executeCommand(cmd);
+		assertEquals(0, lc.getTaskList().get(0).getStartTime().compareTo(new DateTime(2015,12,9,0,0)));
+	}
+	
+	@Test
+	public void test3() throws InvalidCommandException {
+		//test: sort, search
+		CommandParser cmp = new CommandParser();
+		CommandPackage cmd = cmp.getCommandPackage("clear");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting1 9-Oct");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting2 1am");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting3 9pm 10pm");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting4 9-Dec 10-Dec");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting5 start 11-Oct");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting6");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting7 tomorrow");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting8 Sunday");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting9 #1");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting10 10pm #3");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("create meeting11 10pm #3");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("`a meeting12 10pm #3");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting13 10pm #3");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting14 30/11/2015 #3");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add meeting15 30.11.2015 #3");
+		lc.executeCommand(cmd);
+		cmd = cmp.getCommandPackage("add \"meeting16 tomorrow\"");
+		lc.executeCommand(cmd);
+		assertEquals(16,lc.getTaskList().size());
+		cmd = cmp.getCommandPackage("sort name");
+		lc.executeCommand(cmd);
+		assertEquals("meeting1", lc.getTaskList().get(1).getName());
+		cmd = cmp.getCommandPackage("sort time");
+		lc.executeCommand(cmd);
+		assertEquals("meeting3", lc.getTaskList().get(0).getName());
+		cmd = cmp.getCommandPackage("sort priority");
+		lc.executeCommand(cmd);
+		assertEquals("meeting9", lc.getTaskList().get(0).getName());
+		cmd = cmp.getCommandPackage("search meeting");
+		lc.executeCommand(cmd);
+		assertEquals(16, lc.getTaskList().size());
+		cmd = cmp.getCommandPackage("find meeting11");
+		lc.executeCommand(cmd);
+		assertEquals(1, lc.getTaskList().size());
+		cmd = cmp.getCommandPackage("`s meeting2");
+		lc.executeCommand(cmd);
+		assertEquals(1, lc.getTaskList().size());
+		cmd = cmp.getCommandPackage("search #2");
+		lc.executeCommand(cmd);
+		assertEquals(0, lc.getTaskList().size());
+		cmd = cmp.getCommandPackage("search #3");
+		lc.executeCommand(cmd);
+		assertEquals(6, lc.getTaskList().size());
+		cmd = cmp.getCommandPackage("search 9-Dec");
+		lc.executeCommand(cmd);
+		assertEquals(1, lc.getTaskList().size());
+		cmd = cmp.getCommandPackage("search today");
+		lc.executeCommand(cmd);
+		assertEquals(5, lc.getTaskList().size());
+	}
+
+}

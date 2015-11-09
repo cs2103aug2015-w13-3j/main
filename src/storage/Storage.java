@@ -111,7 +111,8 @@ public class Storage {
 	/**
 	* This operation open the file and start to write into it
 	*
-	* @param ongoing tasklist and 'done' tasklist.
+	* @param ongoing tasklist 
+	* @param 'done' tasklist.
 	*/
 	public void write(ArrayList<Task> taskList, ArrayList<Task> doneList) {
 		try {
@@ -134,7 +135,9 @@ public class Storage {
 	/**
 	* This operation open the file and start to write into it
 	*
-	* @param a list of tasks to be written and previous content
+	* @param a list of tasks to be written
+	* @param previous content which contains tasks has been read
+	* @return content containing tasks information to be written to local file
 	*/
 	private String writeTasks(ArrayList<Task> taskList, String content) {
 		Task taskToWrite;
