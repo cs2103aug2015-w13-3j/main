@@ -37,18 +37,26 @@ public class UndoRedoOp {
 			undoStack.clear();
 			archivedUndoStack.clear();
 		}
+		
+		
 		// undoStack and archivedUndoStack should have the same length 
 		if (!undoStack.isEmpty() && !archivedUndoStack.isEmpty()) {
 			ArrayList<Task> current = undoStack.pop();
-			ArrayList<Task> currentArchived = undoStack.pop();
+			ArrayList<Task> currentArchived = archivedUndoStack.pop();
 
+			System.out.println("current:" + current.size());
+			System.out.println("currentArchived:" + currentArchived.size());
+			
 			redoStack.push(new ArrayList<Task>(current));
 			archivedRedoStack.push(new ArrayList<Task>(currentArchived));
 			
 			
 			if (!undoStack.isEmpty() && !archivedUndoStack.isEmpty()) {
+				System.out.println("I am crazy~");
 				previousState.add(new ArrayList<Task>(undoStack.peek()));
+				System.out.println("I am a big bugggggg" + previousState.get(0).size());
 				previousState.add(new ArrayList<Task>(archivedUndoStack.peek()));
+				System.out.println("I am a big bugggggg" + previousState.get(1).size());
 				return previousState;
 			} else {
 				return null;
@@ -83,8 +91,13 @@ public class UndoRedoOp {
 	public ArrayList<ArrayList<Task>> addStateToUndo(ArrayList<Task> recentState, ArrayList<Task> archivedList) {
 		assert (recentState != null);
 		assert (archivedList != null);
+		System.out.println("i am going to die" + recentState.size());
+		System.out.println("I want to die" + archivedList.size());
 		undoStack.push(new ArrayList<Task>(recentState));
 		archivedUndoStack.push(new ArrayList<Task>(archivedList));
+		System.out.println("undoStack Size" + undoStack.size());
+		System.out.println("ArchivedUndoStack Size" + archivedUndoStack.size());
+		
 		redoStack.clear();
 		archivedRedoStack.clear();
 		ArrayList<ArrayList<Task>> currentList = new ArrayList<ArrayList<Task>>();
