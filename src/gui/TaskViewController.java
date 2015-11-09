@@ -2,6 +2,7 @@
 package gui;
 
 import logic.*;
+import logic.command.InvalidCommandException;
 import parser.CommandPackage;
 import parser.CommandParser;
 
@@ -23,8 +24,10 @@ public class TaskViewController {
 
 	private final KeyCombination crtlZ = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN);
 	private final KeyCombination crtlY = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN);
+	private final String invalidMsg = "Invalid command. Please type \"help\" for more instructions.";
 	private static Stack<String> pastCommands = new Stack<String>();
 	private static Stack<String> poppedCommands = new Stack<String>();
+
 
 	@FXML
 	private TextField txtCommandInput;
@@ -122,46 +125,54 @@ public class TaskViewController {
 			pastCommands.push(input);
 			if (input.equalsIgnoreCase("exit")) {
 				mainApp.exit();
+				txtCommandInput.clear();
 			} else if (input.equalsIgnoreCase("help")) {
 				mainApp.indexHelp();
+				txtCommandInput.clear();
 			} else if (input.equalsIgnoreCase("sos")) {
 				mainApp.sos();
-			} else if (input.equalsIgnoreCase("basic")
-					|| input.equalsIgnoreCase("`hb")) {
+				txtCommandInput.clear();
+			} else if (input.equalsIgnoreCase("basic") || input.equalsIgnoreCase("`hb")) {
 				mainApp.basic();
-			} else if (input.equalsIgnoreCase("advance")
-					|| input.equalsIgnoreCase("`ha")) {
+				txtCommandInput.clear();
+			} else if (input.equalsIgnoreCase("advance") || input.equalsIgnoreCase("`ha")) {
 				mainApp.advance();
-			} else if (input.equalsIgnoreCase("shortcut")
-					|| input.equalsIgnoreCase("shortcuts")
-					|| input.equalsIgnoreCase("shortform")
-					|| input.equalsIgnoreCase("shortforms")
+				txtCommandInput.clear();
+			} else if (input.equalsIgnoreCase("shortcut") || input.equalsIgnoreCase("shortcuts")
+					|| input.equalsIgnoreCase("shortform") || input.equalsIgnoreCase("shortforms")
 					|| input.equalsIgnoreCase("`sc")) {
 				mainApp.shortForm();
-			} else if (input.equalsIgnoreCase("credit")
-					|| input.equalsIgnoreCase("`cd")) {
+				txtCommandInput.clear();
+			} else if (input.equalsIgnoreCase("credit") || input.equalsIgnoreCase("`cd")) {
 				mainApp.credit();
+				txtCommandInput.clear();
 			} else {
 				String inputCommand = txtCommandInput.getText().trim();
 				logger.log(Level.INFO, "Here comes a command.");
 				execute(inputCommand);
+				txtCommandInput.clear();
 			}
-			txtCommandInput.clear();
 		}
 	}
 
 	private void execute(String input) {
 		CommandPackage cmdPack = cmdParser.getCommandPackage(input);
 		logger.log(Level.INFO, "CommandParser parses the command.");
-		assert (cmdPack != null);
-		try{
-			String result = logic.executeCommand(cmdPack);
-			feedback.setText(result);
-		}catch(Exception e){
-			
+		if (cmdPack == null) {
+			System.out.println("input: "+ input);
+			feedback.setText(invalidMsg);
+		} else {
+			assert (cmdPack != null);
+			try {
+				String result = logic.executeCommand(cmdPack);
+				feedback.setText(result);
+				txtCommandInput.clear();
+				taskTableView.setItems(mainApp.getTaskData());
+				logger.log(Level.INFO, "Update the table view.");
+			} catch (InvalidCommandException e) {
+				feedback.setText(invalidMsg);
+			}
 		}
-		taskTableView.setItems(mainApp.getTaskData());
-		logger.log(Level.INFO, "Update the table view.");
 	}
 
 	/**

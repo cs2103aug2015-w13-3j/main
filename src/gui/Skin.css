@@ -18,7 +18,7 @@
     -fx-font-weight: bold;
     -fx-font-family: "Bree Serif", BreeSerif;
     -fx-text-fill: black;
-    -fx-opacity:1;
+    -fx-opacity:1.0;
 }
 
 
@@ -64,6 +64,7 @@
         transparent;
     -fx-border-insets: 0.0 10.0 1.0 0.0;
     -fx-text-fill: #ef4136;
+	-fx-font-family: "Bree Serif", BreeSerif;
 }
 
 .table-view:focused .table-row-cell:filled:focused:selected {
