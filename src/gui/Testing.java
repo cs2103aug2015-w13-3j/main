@@ -5,12 +5,13 @@ import java.util.Scanner;
 
 import logic.LogicClass;
 import logic.Task;
+import logic.command.InvalidCommandException;
 import parser.CommandPackage;
 import parser.CommandParser;
 import storage.Storage;
 
 public class Testing {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InvalidCommandException {
 		Scanner sc = new Scanner(System.in);
 		LogicClass logic = LogicClass.getInstance();
 		CommandParser cmdParser = new CommandParser();

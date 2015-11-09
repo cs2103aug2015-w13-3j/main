@@ -8,3 +8,4 @@
 /SortCommand.class
 /UndoCommand.class
 /UpdateCommand.class
+/InvalidCommandException.class
