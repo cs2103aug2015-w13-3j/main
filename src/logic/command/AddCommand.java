@@ -41,9 +41,8 @@ public class AddCommand extends Command {
 				("Invalid priority.Priority is valid from 1 to 3");
 			}
 			
-			if (pri != null && pri != "") {
-				task.setPriority(pri);
-			}
+			task.setPriority(priority);
+			
 		}
 		//System.out.println("here");
 		

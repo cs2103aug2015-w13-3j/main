@@ -24,7 +24,7 @@ public class SearchCommand extends Command{
 	}
 
 	@Override
-	public String execute() {
+	public String execute() throws InvalidCommandException{
 		
 		Task task = new Task(commandInfo.getPhrase());
 		if (commandInfo.startingTime() != null) {
@@ -38,7 +38,13 @@ public class SearchCommand extends Command{
 		String pri = commandInfo.getPriority().trim();
 
 		if (pri != null && pri != "") {
-			task.setPriority(pri);
+			int priority = Integer.parseInt(pri);
+			
+			if(priority>3 || priority<=0){
+				throw new InvalidCommandException
+				("Invalid priority.Priority is valid from 1 to 3");
+			}
+			task.setPriority(priority);
 		}
 
         mgr.search(task);
