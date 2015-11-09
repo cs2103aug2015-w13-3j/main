@@ -34,8 +34,9 @@ public class Manager {
     	taskList = tl;
         setptlAndTimeLine(taskList);
         archivedList = al;
+       
     	undoRedo.addStateToUndo(new ArrayList<Task>(taskList),
-    			new ArrayList<Task>(archivedList));
+    			new ArrayList<Task>(archivedList),new ArrayList<Task>(searchTaskList));
     	storage.write(taskList,archivedList);
     	
     }
@@ -62,7 +63,7 @@ public class Manager {
     	
 		taskList.add(0,task);
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList),
-				new ArrayList<Task>(archivedList));
+				new ArrayList<Task>(archivedList),new ArrayList<Task>(searchTaskList));
 		ptl.addToPL(task);
 		timeline.addToTL(task);
 		storage.write(taskList,archivedList);
@@ -79,16 +80,17 @@ public class Manager {
     	
     	if(taskIndex == -1){ //meaning in view-archived mode
     		t = archivedList.remove(searchIndex);
-    		undoRedo.addStateToUndo(new ArrayList<Task>(taskList),
-        			new ArrayList<Task>(archivedList));
+    		
     		
     	}else{ //taskIndex != -1
     		t = taskList.remove(taskIndex);    	
-        	undoRedo.addStateToUndo(new ArrayList<Task>(taskList),
-        			new ArrayList<Task>(archivedList));
+        	
     		ptl.deleteFromPL(t);;
     		timeline.deleteFromTL(t);
     	}
+    	
+    	undoRedo.addStateToUndo(new ArrayList<Task>(taskList),
+    			new ArrayList<Task>(archivedList),new ArrayList<Task>(searchTaskList));
     	storage.write(taskList,archivedList);
     	return t;
 
@@ -99,7 +101,7 @@ public class Manager {
 		ptl.clear();
 		timeline.clear();
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList),
-    			new ArrayList<Task>(archivedList));
+    			new ArrayList<Task>(archivedList),new ArrayList<Task>(searchTaskList));
 		storage.write(taskList,archivedList);
 
     }
@@ -128,7 +130,7 @@ public class Manager {
 			break;
     	}
     	undoRedo.addStateToUndo(new ArrayList<Task>(taskList),
-    			new ArrayList<Task>(archivedList));
+    			new ArrayList<Task>(archivedList),new ArrayList<Task>(searchTaskList));
 		storage.write(taskList,archivedList);
 
 	}
@@ -141,6 +143,9 @@ public class Manager {
     		
     		searchTaskList = new ArrayList<Task>(seacher.search(task));
     	}
+    	
+    	undoRedo.addStateToUndo(new ArrayList<Task>(taskList),
+    			new ArrayList<Task>(archivedList),new ArrayList<Task>(searchTaskList));
     	
   	
     }
@@ -196,7 +201,7 @@ public class Manager {
     	archivedList.add(t);
     	System.out.println("al"+archivedList.toString());
     	undoRedo.addStateToUndo(new ArrayList<Task>(taskList),
-    			new ArrayList<Task>(archivedList));
+    			new ArrayList<Task>(archivedList),new ArrayList<Task>(searchTaskList));
 		ptl.deleteFromPL(t);;
 		timeline.deleteFromTL(t);
 		storage.write(taskList,archivedList);
@@ -208,7 +213,7 @@ public class Manager {
     	taskList.remove(index);
 		taskList.add(index,newTask);
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList),
-    			new ArrayList<Task>(archivedList));
+    			new ArrayList<Task>(archivedList),new ArrayList<Task>(searchTaskList));
 		storage.write(taskList,archivedList);
     }
     
