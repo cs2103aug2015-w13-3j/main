@@ -1,3 +1,4 @@
+//@@author A0133915H
 package gui;
 
 import java.util.ArrayList;
@@ -8,8 +9,12 @@ import logic.Task;
 import logic.command.InvalidCommandException;
 import parser.CommandPackage;
 import parser.CommandParser;
-import storage.Storage;
 
+/************************************************************************
+ * This is a simple test for the whole system, but not automated. 
+ * @author susumei
+ *
+ ************************************************************************/
 public class Testing {
 	public static void main(String[] args) throws InvalidCommandException {
 		Scanner sc = new Scanner(System.in);

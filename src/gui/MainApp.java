@@ -24,6 +24,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+/**************************************************************
+ * This is the main GUI class
+ * 
+ *************************************************************/
 public class MainApp extends Application {
 	private Stage primaryStage;
 	private Scene scene;
@@ -52,6 +56,10 @@ public class MainApp extends Application {
 	public void start(Stage primaryStage) {
 		try {
 
+			/**
+			 * It is a "help" button, in case users need help but they do not which to approach. 
+			 * It initial a action which opens a new window showing the help index.
+			 */
 			Button btn = new Button();
 			btn.setText("Help");
 			btn.setOnAction(new EventHandler<ActionEvent>() {
@@ -60,13 +68,15 @@ public class MainApp extends Application {
 					indexHelp();
 				}
 			});
-
+			
 			BorderPane rootLayout = new BorderPane();
-
 			rootLayout.setTop(btn);
+			
+			//set up the primary Stage.
 			this.primaryStage = primaryStage;
 			this.primaryStage.setTitle("TaskBomber");
 
+			//Load the fxml file of the basic view
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("TaskView.fxml"));
 			AnchorPane taskBomberOverview = (AnchorPane) loader.load();
@@ -76,7 +86,6 @@ public class MainApp extends Application {
 			controller = loader.getController();
 
 			controller.setMainApp(this);
-			logger.log(Level.INFO, "RootLayout is initiated.");
 
 			scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
@@ -89,6 +98,9 @@ public class MainApp extends Application {
 		}
 	}
 
+	/**
+	 * This is a method to show the help sheet.
+	 */
 	public void indexHelp() {
 		Image image = new Image("gui/help/Index.PNG");
 		ImageView imageView = new ImageView();
@@ -111,6 +123,9 @@ public class MainApp extends Application {
 		secondStage.show();
 	}
 
+	/**
+	 * This is a method to show the "sos" form.
+	 */
 	public void sos() {
 		Image image = new Image("gui/help/SOS.PNG");
 		ImageView imageView = new ImageView();
@@ -134,6 +149,9 @@ public class MainApp extends Application {
 		thirdStage.show();
 	}
 
+	/**
+	 * This is the method to show the basic command foramt.
+	 */
 	public void basic() {
 		Image image = new Image("gui/help/Basic.PNG");
 		ImageView imageView = new ImageView();
@@ -157,6 +175,9 @@ public class MainApp extends Application {
 		fourthStage.show();
 	}
 	
+	/**
+	 * This is a method to show the advance command format.
+	 */
 	public void advance() {
 		Image image = new Image("gui/help/Advance.PNG");
 		ImageView imageView = new ImageView();
@@ -180,6 +201,9 @@ public class MainApp extends Application {
 		fifthStage.show();
 	}
 
+	/**
+	 * This is the method to show the shortcut form.
+	 */
 	public void shortForm() {
 		Image image = new Image("gui/help/Shortcut.PNG");
 		ImageView imageView = new ImageView();
@@ -203,6 +227,9 @@ public class MainApp extends Application {
 		sixthStage.show();
 	}
 	
+	/**
+	 * This is a method to load a new window showing a picture of our team.
+	 */
 	public void credit() {
 		Image image = new Image("gui/help/Credits.PNG");
 		ImageView imageView = new ImageView();
@@ -241,14 +268,24 @@ public class MainApp extends Application {
 		return primaryStage;
 	}
 
+	/**
+	 * launch the view
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
 
+	/**
+	 * For testing
+	 */
 	public TaskViewController getController(){
 		return controller;
 	}
 	
+	/**
+	 * For testing
+	 */
 	public Scene getScene(){
 		return scene;
 	}
