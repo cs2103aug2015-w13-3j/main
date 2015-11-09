@@ -37,56 +37,80 @@ public class UpdateCommand extends Command{
 
 		for (int i = 0; i < taskList.size(); i++) {
 			task = taskList.get(i);
-			if (task.getName().equals(target)) {
+
+			if (task.getName().equals(target)) { // found the task to be updated
                 found=true;
+                newTask= copyOf(task);
                 
 				if (update.get(2).equalsIgnoreCase("name")) {
-					if (update.get(3) != null) {
-						task.setTaskName(update.get(3));
+					if (update.get(3) == null) {
+						throw new InvalidCommandException("What's the new name?");
 					}
+					
+					assert update.get(3)!=null;
+					newTask.setTaskName(update.get(3));
+					
 					msg = "Task \""+target+"\" updated to \""+task.getName()+"\"";
 
-					
 				} else if (update.get(2).equals("#") || 
 					update.get(2).equalsIgnoreCase("priority")) {
-					
-					int priority = Integer.parseInt(update.get(3));	
-					
-					if(priority>3 || priority<=0){
-						
-						throw new InvalidCommandException
-						("Invalid priority.Priority is valid from 1 to 3");
+					System.out.println("update p: "+update.get(3));
+					if (update.get(3) == null) {
+						throw new InvalidCommandException("What's the new priority?");
 					}
-					task.setPriority(update.get(3));
 					
-					msg = "Task \""+target+"\" priority updated to \""+priority+"\"";
-					
+					if (update.get(3).equals("remove") || update.get(3).equals("delete")) {
+						newTask.setPriority(null);
+						msg = "priority removed";
+						
+					}else if(!isInteger(update.get(3),10)){
+						throw new InvalidCommandException("Priority should be an integer");
+						
+					}else if(isInteger(update.get(3),10)){
+						int priority = Integer.parseInt(update.get(3));	
+						
+						if(priority>3 || priority<=0){		
+							throw new InvalidCommandException
+							("Invalid priority.Priority is valid from 1 to 3");
+						}
+						
+						newTask.setPriority(priority);
+						msg = "Task \""+target+"\" priority updated to \""+priority+"\"";
+					}
+
 				} else if (update.get(2).equalsIgnoreCase("startTime")) {
-					if(commandInfo.startingTime()==null){
-						
+					
+					if (update.get(3) == null) {
+						throw new InvalidCommandException("What's the new start time?");
 					}
-					task.setStartTime(commandInfo.startingTime());
-					msg = "Task \""+target+"\" start time updated to \""
-					+commandInfo.startingTime().toString()+"\"";
+					if (update.get(3) == "remove" || update.get(3)=="delete") {
+						newTask.setStartTime(null);;
+						msg = "priority removed";
+					}else{
+						newTask.setStartTime(commandInfo.startingTime());
+						msg = "Task \""+target+"\" start time updated";
+					}
+					
 					
 				} else if (update.get(2).equalsIgnoreCase("endTime")) {
-					task.setEndTime(commandInfo.endingTime());
-					msg = "Task \""+target+"\" end time updated to \""
-							+commandInfo.endingTime().toString()+"\"";
+					if (update.get(3) == null) {
+						throw new InvalidCommandException("What's the new end time?");
+					}
+					if (update.get(3) == "remove" || update.get(3)=="delete") {
+						newTask.setEndTime(null);
+						msg = "priority removed";
+					}else{
+						newTask.setEndTime(commandInfo.endingTime());
+						msg = "Task \""+target+"\" end time updated";
+					}
+					
 					
 				} else{
 					throw new InvalidCommandException("Invalid update type. You can"
 							+ "update name/priority/startTime/endTime");
 				}
 
-				newTask = new Task(task.getName());
-				newTask.setStartTime(task.getStartTime());
-				newTask.setEndTime(task.getEndTime());
-				
-				if (task.getPriority() != null) {
-					newTask.setPriority(task.getPriority().toString());
-				}
-
+				System.out.print(newTask.toString());
 				mgr.update(i, newTask);
 				
 				return msg;
@@ -97,6 +121,40 @@ public class UpdateCommand extends Command{
 		
 		return "Task not Found";
 		
+	}
+	
+	private boolean isInteger(String s, int radix) {
+		if (s.isEmpty())
+			return false;
+		for (int i = 0; i < s.length(); i++) {
+			if (i == 0 && s.charAt(i) == '-') {
+				if (s.length() == 1)
+					return false;
+				else
+					continue;
+			}
+			if (Character.digit(s.charAt(i), radix) < 0)
+				return false;
+		}
+		return true;
+	}
+	
+	private Task copyOf(Task target){
+		Task newTask = new Task(target.getName());
+		
+		if (target.getStartTime() != null) {
+			newTask.setStartTime(target.getStartTime());;
+		}
+		
+		if (target.getEndTime() != null) {
+			newTask.setEndTime(target.getEndTime());;
+		}
+		
+		if (target.getPriority() != null) {
+			newTask.setPriority(target.getPriority());
+		}
+		
+		return newTask;
 	}
 
 }

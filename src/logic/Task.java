@@ -53,14 +53,11 @@ public class Task implements Comparable<Task> {
 		this.endTime = end;
 	}
 
-	public void setPriority(String pri) {
-		if (pri == null) {
-			System.out.println("Oh no the priority is null");
-		}
-		if (pri != null && pri != "") {
-			// System.out.println("The priority should not be null here");
-			this.priority = Integer.parseInt(pri);
-		}
+	public void setPriority(Integer pri) {
+        assert pri<=3;
+        assert pri>0;
+		this.priority = pri;
+		
 	}
 
 	public void setTaskNumber(Integer taskNumber) {
