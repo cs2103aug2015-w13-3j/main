@@ -1,3 +1,4 @@
+//@@author A0133915H
 package gui;
 
 import logic.*;
@@ -18,7 +19,6 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 
-//@@author A0133915H
 public class TaskViewController {
 
 	private final KeyCombination crtlZ = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN);

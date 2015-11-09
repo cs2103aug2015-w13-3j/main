@@ -1,23 +1,29 @@
+//@@author A0133915H
 package logic;
 
 import java.util.ArrayList;
 import java.util.Stack;
 
-//@@author A0133915H
 public class UndoRedoOp {
 
 	private Stack<ArrayList<Task>> undoStack = null;
 	private Stack<ArrayList<Task>> redoStack = null;
 	private Stack<ArrayList<Task>> archivedUndoStack = null;
 	private Stack<ArrayList<Task>> archivedRedoStack = null;
-	//private ArrayList<ArrayList<Task>> initialList = null;
-
-	public UndoRedoOp(ArrayList<ArrayList<Task>> initialState) {
+	static UndoRedoOp theOne = null;
+	
+	private UndoRedoOp() {
 		undoStack = new Stack<ArrayList<Task>>();
 		redoStack = new Stack<ArrayList<Task>>();
 		archivedUndoStack = new Stack<ArrayList<Task>>();
 		archivedRedoStack = new Stack<ArrayList<Task>>();
-		//initialList = new ArrayList<ArrayList<Task>>(initialState);
+	}
+	
+	public static UndoRedoOp getInstance(){
+		if(theOne == null){
+			theOne = new UndoRedoOp();
+		}
+		return theOne;
 	}
 
 	public ArrayList<ArrayList<Task>> undo() {
