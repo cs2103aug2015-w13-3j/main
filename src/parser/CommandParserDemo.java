@@ -10,8 +10,8 @@ public class CommandParserDemo {
 		CommandParser cmd = new CommandParser();
 		CommandPackage CPK;
 		System.out.println(cmd.getCommandPackage("").endingTime());
-		CPK = cmd.getCommandPackage("update `someting `starttime `10-oct");
-		System.out.println("Phrase is " + CPK.getPhrase());
+		CPK = cmd.getCommandPackage("update `someting  `10-oct");
+		System.out.println(CPK == null);
 		System.out.println();
 		System.out.println(cmd.getCommandPackage("").getPhrase().equals(""));
 		CPK = cmd.getCommandPackage("plus something 10-oct");

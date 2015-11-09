@@ -69,33 +69,41 @@ public class CommandParser {
      */
     public CommandPackage getCommandPackage(String command) {
 	input = command;
-	inputData = new CommandPackage();
-	String[] arr = input.split(" ");
-	arrToArrayList(arr);
-	String commandName = findAction();
+	try {
+	    inputData = new CommandPackage();
+	    String[] arr = input.split(" ");
+	    arrToArrayList(arr);
+	    String commandName = findAction();
 
-	inputData.setCommand(commandName);
+	    inputData.setCommand(commandName);
 
-	if (!isValidCommand(commandName) && (inputArr.size() == 0)) {
-	    return null;
-	}
-	if (commandName.equals("update")) {
-	    return updateInput();
-	} else {
-	    String priority = findPriority();
-	    inputData.setPriority(priority);
-	}
-	if (commandName.equals("create")) {
-	    addDateTime();
-	    if (inputArr.size() == 0) {
+	    if (!isValidCommand(commandName) && (inputArr.size() == 0)) {
 		return null;
 	    }
+	    if (commandName.equals("update")) {
+		return updateInput();
+	    } else {
+		String priority = findPriority();
+		inputData.setPriority(priority);
+	    }
+	    if (commandName.equals("create")) {
+		addDateTime();
+		if (inputArr.size() == 0) {
+		    return null;
+		}
+	    }
+	    if (commandName.equals("search")) {
+		searchInput();
+	    }
+	    inputData.setPhrase(getPhrase());
+	    return inputData;
+	} catch (NullPointerException  e1) {
+	    System.out.println("NULL POINTER ERRORS");
+	    return null;
+	} catch (StringIndexOutOfBoundsException  e2) {
+	    System.out.println("StringIndexOutOfBoundsException");
+	    return null;
 	}
-	if (commandName.equals("search")) {
-	    searchInput();
-	}
-	inputData.setPhrase(getPhrase());
-	return inputData;
     }
 
     private void searchInput() {
@@ -138,7 +146,7 @@ public class CommandParser {
 		    } else {
 			dateArr = null;
 		    }
-		    //System.out.println(dateArr.size());
+		    // System.out.println(dateArr.size());
 		    inputData.setDates(dateArr, "start");
 		} else {
 		    if (word.equalsIgnoreCase(END_TIME_LONG) || word.equalsIgnoreCase(END_TIME_SHORT)) {
