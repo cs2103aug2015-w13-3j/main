@@ -137,14 +137,11 @@ public class Manager {
   	
     }
     
-    public boolean redo(){
-    	if(undoRedo.redo() == null){
-    		return false;
-    	}
-    	assert undoRedo.redo()!=null;
-    	
-    	taskList = undoRedo.redo().get(0);
-    	archivedList = undoRedo.redo().get(1);
+    public boolean redo(){    	
+    	ArrayList<ArrayList<Task>> lists = undoRedo.redo();
+    	assert(lists != null);
+    	taskList = lists.get(0);
+    	archivedList = lists.get(1);
     	
 		ptl.clear();
 		timeline.clear();
@@ -159,14 +156,10 @@ public class Manager {
     }
     
     public boolean undo(){
-    	if(undoRedo.undo()==null){
-    		return false;
-    	}
-    	assert undoRedo.undo()!=null;
-    	
-    	taskList = new ArrayList<Task>(undoRedo.undo().get(0));
-    	archivedList = new ArrayList<Task>(undoRedo.undo().get(1));
-    	
+    	ArrayList<ArrayList<Task>> lists = undoRedo.undo();
+    	assert(lists != null);
+    	taskList = new ArrayList<Task>(lists.get(0));
+    	archivedList = new ArrayList<Task>(lists.get(1));
 		ptl.clear();
 		timeline.clear();
 		setptlAndTimeLine(taskList);
