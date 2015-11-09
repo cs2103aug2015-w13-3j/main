@@ -16,6 +16,7 @@
          <font>
             <Font name="Apple SD Gothic Neo Regular" size="18.0" />
          </font></Label>
+      <ScrollPane layoutX="28.0" layoutY="119.0" prefHeight="465.0" prefWidth="1198.0">
       <TableView fx:id="taskTableView" layoutX="28.0" layoutY="117.0" prefHeight="465.0" prefWidth="1199.0">
         <columns>
           <TableColumn fx:id="taskNumberColumn" prefWidth="68.0" text="#" />
@@ -25,6 +26,7 @@
             <TableColumn fx:id="priority" prefWidth="187.73876953125" text="Priority" />
         </columns>
       </TableView>
+      </ScrollPane>
       <ImageView fitHeight="519.0" fitWidth="1205.0" layoutX="25.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" />
       <Text fx:id="feedback" layoutX="29.0" layoutY="634.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This is the feedback for the operation." wrappingWidth="1199.6738948822021">
          <font>

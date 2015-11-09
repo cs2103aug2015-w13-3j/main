@@ -20,7 +20,7 @@ public class ReadAndWriteTest {
 			Task t1 = new Task("test" + i);
 			t1.setStartTime(new DateTime(2016,i,1,1,1));
 			t1.setEndTime(new DateTime(2016,i+1,1,1,1));
-			t1.setPriority("1");
+			t1.setPriority(1);
 			a.add(t1);
 		}
 		storage.read();

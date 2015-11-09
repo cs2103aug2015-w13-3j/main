@@ -13,6 +13,7 @@ public class CommandParser {
      * Attributes/Variables
      * ====================================================================
      */
+    private static CommandParser theOne = null;
 
     public ArrayList<String> inputArr;
     public CommandPackage inputData;
@@ -43,14 +44,22 @@ public class CommandParser {
      * ====================================================================
      */
 
-    public CommandParser() {
+    private CommandParser() {
 
     }
 
-    public CommandParser(String command) {
+    private CommandParser(String command) {
 	input = command;
 	String[] arr = input.split(" ");
 	arrToArrayList(arr);
+    }
+
+    public static CommandParser getInstance() {
+
+	if (theOne == null) {
+	    theOne = new CommandParser();
+	}
+	return theOne;
     }
 
     /*
@@ -76,11 +85,14 @@ public class CommandParser {
 	    String commandName = findAction();
 
 	    inputData.setCommand(commandName);
-
+	    //System.out.println("name " + commandName);
 	    if (!isValidCommand(commandName) && isArrayEmptyAndInvalid()) {
 		return null;
 	    } else if (isOneCommandFormat(commandName)) {
 		return inputData;
+	    }
+	    if (isArrayEmptyAndInvalid()) {
+		return null;
 	    }
 	    if (isUpdateCommand(commandName)) {
 		return updateInput();
@@ -99,9 +111,11 @@ public class CommandParser {
 	    }
 	    inputData.setPhrase(getPhrase());
 	    return inputData;
-	} catch (NullPointerException e1) {
+	    /*-
+	    } catch (NullPointerException e1) {
 	    System.out.println("NULL POINTER ERRORS");
 	    return null;
+	    */
 	} catch (StringIndexOutOfBoundsException e2) {
 	    System.out.println("StringIndexOutOfBoundsException");
 	    return null;
@@ -311,40 +325,51 @@ public class CommandParser {
 	for (int i = 0; i < inputArr.size(); i++) {
 	    word = inputArr.get(i);
 	    if (word.startsWith("`")) {
-		inputData.addUpdateSequence(sequence);
-		sequence = "";
-		sequence = word.substring(1);
-		if (word.equalsIgnoreCase(START_TIME_LONG) || word.equalsIgnoreCase(START_TIME_SHORT)) {
-		    sequence = "startTime";
-		    if (isOne(numberOfDates)) {
-			dateArr = extractDate();
-			if (isOne(numberOfTime)) {
-			    dateArr = extractTime(dateArr);
-			}
-		    } else if (isOne(numberOfTime)) {
-			System.out.println("extracing start time");
-			dateArr = extractTime();
-		    } else {
-			dateArr = null;
-		    }
-		    inputData.setDates(dateArr, "start");
+		if (word.length() == 1) {
+		    inputArr.set(i, word + inputArr.get(i + 1));
 		} else {
-		    if (word.equalsIgnoreCase(END_TIME_LONG) || word.equalsIgnoreCase(END_TIME_SHORT)) {
-			sequence = "endTime";
+		    inputData.addUpdateSequence(sequence);
+		    sequence = "";
+		    sequence = word.substring(1);
+		    if (word.equalsIgnoreCase(START_TIME_LONG) || word.equalsIgnoreCase(START_TIME_SHORT)) {
+			sequence = "startTime";
 			if (isOne(numberOfDates)) {
 			    dateArr = extractDate();
 			    if (isOne(numberOfTime)) {
 				dateArr = extractTime(dateArr);
 			    }
 			} else if (isOne(numberOfTime)) {
+			    System.out.println("extracing start time");
 			    dateArr = extractTime();
+			} else if (inputArr.get(i + 1).equals("`delete")) {
+			    System.out.println("deleteing");
+			    dateArr = null;
+			    inputData.addUpdateSequence("delete");
 			} else {
 			    dateArr = null;
 			}
-			inputData.setDates(dateArr, "end");
+			inputData.setDates(dateArr, "start");
+		    } else {
+			if (word.equalsIgnoreCase(END_TIME_LONG) || word.equalsIgnoreCase(END_TIME_SHORT)) {
+			    sequence = "endTime";
+			    if (isOne(numberOfDates)) {
+				dateArr = extractDate();
+				if (isOne(numberOfTime)) {
+				    dateArr = extractTime(dateArr);
+				}
+			    } else if (isOne(numberOfTime)) {
+				dateArr = extractTime();
+			    } else if (inputArr.get(i + 1).equals("`delete")) {
+				System.out.println("deleteing");
+				dateArr = null;
+				inputData.addUpdateSequence("delete");
+			    } else {
+				dateArr = null;
+			    }
+			    inputData.setDates(dateArr, "end");
+			}
 		    }
 		}
-
 	    } else {
 		sequence = sequence + " " + word;
 	    }
