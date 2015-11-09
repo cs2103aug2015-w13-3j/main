@@ -41,7 +41,8 @@ public class UpdateCommand extends Command{
 						task.setTaskName(update.get(3));
 					}
 
-				} else if (update.get(2).equals("#")) {
+				} else if (update.get(2).equals("#") || 
+						update.get(2).equalsIgnoreCase("priority")) {
 					task.setPriority(update.get(3));
 				} else if (update.get(2).equalsIgnoreCase("startTime")) {
 					// System.out.println("parse date" +
