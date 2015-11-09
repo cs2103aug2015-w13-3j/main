@@ -3,7 +3,6 @@ package gui;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -15,9 +14,7 @@ import org.junit.Test;
 import org.testfx.api.FxToolkit;
 //import org.fxmisc.richtext.InlineCssTextArea;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
@@ -35,7 +32,6 @@ import org.testfx.util.WaitForAsyncUtils;
 public class GUITest extends FxRobot{
 	
 	private static MainApp mainApp;
-	private static TaskViewController controller;
 	public static Stage primaryStage;
 	
 	//Setting up
@@ -53,7 +49,6 @@ public class GUITest extends FxRobot{
 	public void before() {
 		try {
 		mainApp = (MainApp)FxToolkit.setupApplication(MainApp.class);
-		controller = mainApp.getController();
 		WaitForAsyncUtils.waitFor(10, TimeUnit.SECONDS, primaryStage.showingProperty());
 		sleep(2000);
 		} catch (Exception e) {
@@ -103,17 +98,28 @@ public class GUITest extends FxRobot{
 	}
 	
 	@Test
+	public void keyInvalidSearchDeleteEnterTest(){
+		Text feedback = (Text) mainApp.getScene().lookup("#feedback");
+		clickOn("#txtCommandInput").write("search meeting").push(KeyCode.ENTER);
+		clickOn("#txtCommandInput").write("delete party").push(KeyCode.ENTER);
+		assertTrue(feedback.getText().equals("Task not found in searched list. To return to full list,press Enter"));
+	}
+	
+	@Test
 	public void keyClearEnterTest(){
 		Text feedback = (Text) mainApp.getScene().lookup("#feedback");
 		clickOn("#txtCommandInput").write("clear").push(KeyCode.ENTER);
 		assertTrue(feedback.getText().equals("All tasks cleared"));
 	}
+
 	
-	@Test
-	public void tableViewContentTest(){
-		ObservableList<Task> expectedList = mainApp.getTaskData();
-		TableView<Task> tableView = (TableView) mainApp.getScene().lookup("#taskTableView");
-		clickOn("#txtCommandInput").push(KeyCode.ENTER);
-		assertTrue(tableView.getColumns().equals(expectedList));
-	}
+//	@Test
+//	public void tableViewContentTest(){
+//		TableView<Task> tableView = (TableView<Task>) mainApp.getScene().lookup("#taskTableView");
+//		clickOn("#txtCommandInput").push(KeyCode.ENTER);
+//		ObservableList<Task> expectedList = mainApp.getTaskData();
+//		assertTrue(tableView.getColumns().equals(expectedList));
+//	}
+	
+	
 }
