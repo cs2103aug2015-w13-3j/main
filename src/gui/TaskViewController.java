@@ -4,13 +4,11 @@ import logic.*;
 import parser.CommandPackage;
 import parser.CommandParser;
 
-import java.util.ArrayList;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -42,11 +40,6 @@ public class TaskViewController {
 	private TableColumn<Task, String> endTimeColumn;
 	@FXML
 	private TableColumn<Task, String> priority;
-
-	@FXML
-	private ListView<String> todayTasksView;
-
-	ArrayList<String> todayTasks = new ArrayList<String>();
 
 	// Reference to the main application.
 	private MainApp mainApp;
@@ -158,7 +151,11 @@ public class TaskViewController {
 		CommandPackage cmdPack = cmdParser.getCommandPackage(input);
 		logger.log(Level.INFO, "CommandParser parses the command.");
 		assert (cmdPack != null);
-		logic.executeCommand(cmdPack);
+		try{
+			String feedback = logic.executeCommand(cmdPack);
+		}catch(Exception e){
+			
+		}
 		taskTableView.setItems(mainApp.getTaskData());
 		logger.log(Level.INFO, "Update the table view.");
 	}
