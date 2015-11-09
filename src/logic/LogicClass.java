@@ -9,6 +9,7 @@ import logic.command.DeleteCommand;
 import logic.command.MarkCommand;
 import logic.command.RedoCommand;
 import logic.command.SearchCommand;
+import logic.command.SetCommand;
 import logic.command.SortCommand;
 import logic.command.UndoCommand;
 import logic.command.UpdateCommand;
@@ -45,8 +46,10 @@ public class LogicClass implements LogicInterface{
 
 	public ArrayList<Task> getTaskList(){
 
-		if(isSearchOp==true)
+		if(isSearchOp==true){
+			isSearchOp=false;
 			return mgr.getSearchList();
+		}
 		
 		return mgr.getTaskList();
 	}
@@ -56,7 +59,7 @@ public class LogicClass implements LogicInterface{
 		return mgr.getTaskList();
 	}
 	
-	public void executeCommand(CommandPackage commandPackage) {
+	public String executeCommand(CommandPackage commandPackage) {
 		isSearchOp = false;
 //		if(commandPackage==null){
 //			System.out.println("cp is null");
@@ -95,31 +98,28 @@ public class LogicClass implements LogicInterface{
 			cmd = new MarkCommand(commandType,mgr,commandPackage.getPhrase());
 			break;
 		case SET:
-			setPath(commandPackage.getPhrase());
+			cmd = new SetCommand(commandType,mgr,commandPackage.getPhrase());
 			break;
 		case EXIT:
 			System.exit(0);
 		default:
-			invalid();
+			return invalid();
 
 		}
 		
 		String returnMsg = cmd.execute();
+		return returnMsg;
 		
 	}
 
-	//@author A0133949U
 	private String invalid() {
-		return "The command is invalid, please key in the valid command.";
+		return "The command is invalid, type in help to see help sheet.";
 	}
 
-	//@author A0133949U
 	public boolean setPath(String path) {
 		return storage.setPath(path);
 	}
 
-
-	//@author A0133949U
 
 	public boolean setPathFirstTime(){
 		return storage.setPath(this.path);

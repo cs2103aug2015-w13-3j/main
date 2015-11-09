@@ -24,7 +24,7 @@ public class ClearCommand extends Command{
 
 		mgr.clear();
 
-		return "all tasks cleared";
+		return "All tasks cleared";
 	}
 
 }

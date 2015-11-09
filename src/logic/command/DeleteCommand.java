@@ -32,26 +32,27 @@ public class DeleteCommand extends Command{
 			index = Integer.parseInt(deleteInfo)-1;
 			if(index<taskList.size()  && index>=0){
 				found =true;
-				mgr.delete(index);		
-				return "task deleted";
+				t= mgr.delete(index);		
+				return "Task deleted: "+t.getName();
 			}
 			
 		}  
 		// delete by name
-			for (int i = 0; i < taskList.size(); i++) {
-				t = taskList.get(i);
-				if (t.getName().equals(deleteInfo)) {
-					index=i;
-					found = false;
-					break;
-				}
+		for (int i = 0; i < taskList.size(); i++) {
+			t = taskList.get(i);
+			if (t.getName().equals(deleteInfo)) {
+				index=i;
+				found = true;
+				break;
 			}
-		
-		if(found = false){
-			return "invalid command";
 		}
-		mgr.delete(index);		
-		return "task deleted";
+		
+		if(found == false){
+			return "Invalid command";
+		}
+		
+		t= mgr.delete(index);		
+		return "Task deleted: "+t.getName();
 	}
 	
 	private boolean isInteger(String s, int radix) {

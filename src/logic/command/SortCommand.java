@@ -29,18 +29,18 @@ public class SortCommand extends Command{
 		
 		if (commandInfo.getPhrase().equals("name")) {
 			mgr.sort("name");
-			return "sorted by name";
+			return "Sorted by name";
 			
 		} else if (commandInfo.getPhrase().equals("time")) {
 			mgr.sort("time");
-			return "sorted by time";
+			return "Sorted by time";
 			
 		} else if (commandInfo.getPhrase().equals("priority")) {
 			mgr.sort("priority");
-			return "sorted by priority";
+			return "Sorted by priority";
 
 		} else {
-			return "invalid sorting type";
+			return "Invalid sorting type";
 		}
 	}
 

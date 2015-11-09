@@ -25,8 +25,7 @@ public class SearchCommand extends Command{
 
 	@Override
 	public String execute() {
-		
-		
+
 		
 		Task task = new Task(commandInfo.getPhrase());
 		if (commandInfo.startingTime() != null) {
@@ -45,7 +44,7 @@ public class SearchCommand extends Command{
 
         mgr.search(task);
 		
-		return "search completed";
+		return "Search completed";
 	}
 
 }
