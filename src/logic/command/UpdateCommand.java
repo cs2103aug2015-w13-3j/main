@@ -29,7 +29,7 @@ public class UpdateCommand extends Command{
 		
 		ArrayList<String> update = commandInfo.getUpdateSequence();
 		String target = update.get(1);
-		Task task;
+		Task task=null;
 		Task newTask;
 		boolean found=false;
 		String msg="";
@@ -39,6 +39,7 @@ public class UpdateCommand extends Command{
 		
 		if(isInteger(target,10)==true){
 			targetIndex = Integer.parseInt(target)-1;
+			task = taskList.get(targetIndex);
 		}
 		
 		if(targetIndex<taskList.size() &&  targetIndex>=0 ){
@@ -54,7 +55,7 @@ public class UpdateCommand extends Command{
 			}
 		}
 		
-		task = taskList.get(targetIndex);
+		
 		
 		if(found == false){
 			

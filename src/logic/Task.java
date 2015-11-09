@@ -91,7 +91,8 @@ public class Task implements Comparable<Task> {
 	public StringProperty taskNameProperty() {
 		return new SimpleStringProperty(this.name);
 	}
-
+	
+	//@@author A0133915H
 	public StringProperty startTimeProperty() {
 		// System.out.println("startTime: " + startTime);
 		StringProperty result;
@@ -114,7 +115,8 @@ public class Task implements Comparable<Task> {
 		}
 		return result;
 	}
-
+	
+	//@@author A0133915H
 	public StringProperty endTimeProperty() {
 		// System.out.println("endTime: " + endTime);
 		StringProperty result;
@@ -137,6 +139,7 @@ public class Task implements Comparable<Task> {
 		return result;
 	}
 
+	//@@author A0133915H
 	public StringProperty priorityProperty() {
 		if (this.priority == null) {
 			return new SimpleStringProperty("");

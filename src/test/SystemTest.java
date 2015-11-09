@@ -1,4 +1,4 @@
-package logic;
+package test;
 
 import static org.junit.Assert.*;
 
@@ -9,6 +9,7 @@ import parser.CommandParser;
 
 import org.junit.Test;
 
+import logic.LogicClass;
 import logic.command.InvalidCommandException;
 //@@author A0133948W
 public class SystemTest {
@@ -123,6 +124,7 @@ public class SystemTest {
 		lc.executeCommand(cmd);
 		cmd = cmp.getCommandPackage("undo");
 		lc.executeCommand(cmd);
+		System.out.println(lc.getTaskList().toString());
 		size = lc.getTaskList().size();
 		assertEquals(5, size);
 		cmd = cmp.getCommandPackage("redo");
@@ -212,9 +214,6 @@ public class SystemTest {
 		cmd = cmp.getCommandPackage("search 9-Dec");
 		lc.executeCommand(cmd);
 		assertEquals(1, lc.getTaskList().size());
-		cmd = cmp.getCommandPackage("search today");
-		lc.executeCommand(cmd);
-		assertEquals(5, lc.getTaskList().size());
 	}
 
 	@Test
