@@ -17,6 +17,12 @@ public class Searcher {
 		return searcher;	
 	}
 	
+	/**
+	* This operation extracts the information and search for matching task
+	*
+	* @param a task structure which captures search information
+	* @return a list of tasks matching search query 
+	*/
 	public ArrayList<Task> search(Task target){
 		ArrayList<Task> result = new ArrayList<Task>();
 		if(target.getStartTime() != null){
@@ -38,8 +44,15 @@ public class Searcher {
 			}
 		}
 		return result;
-
 	}
+	
+	/**
+	* This operation search for keyword on the given sample
+	*
+	* @param a keyword for sample
+	* @param sample for searching on
+	* @return a list of tasks matching search query 
+	*/
 	public ArrayList<Task> searchKeyword(String key, ArrayList<Task> sample){
 		int i, j;
 		String[] keywords = key.split(" ");
@@ -59,6 +72,13 @@ public class Searcher {
 		return sampleCopy;		
 	}
 
+	/**
+	* This operation search for tasks with given priority
+	* this operation is for search query solely for priority
+	*
+	* @param priority value to search
+	* @return a list of tasks matching search query 
+	*/
 	public ArrayList<Task> searchPriority(int priority){
 		ArrayList<Task> result = new ArrayList<Task>();
 		if(priority == 1){
@@ -71,6 +91,14 @@ public class Searcher {
 		return result;
 	}
 	
+	/**
+	* This operation search for tasks with given priority on a given sample
+	* this operation is for compound search query
+	*
+	* @param priority value to search
+	* @param a sample to search on
+	* @return a list of tasks matching search query 
+	*/
 	public ArrayList<Task> searchPriorityFrom(int priority, ArrayList<Task> sample){
 		int i;
 		Task target;
@@ -84,6 +112,13 @@ public class Searcher {
 		return sample;		
 	}
 	
+	/**
+	* This operation search for tasks whose dates fall in given range
+	*
+	* @param start point of searching range
+	* @param end point of searching range
+	* @return a list of tasks matching search query 
+	*/
 	public ArrayList<Task> searchDate(DateTime start, DateTime end){
 		ArrayList<Task> result1 = new ArrayList<Task>(TimeLine.getInstance().getStarttimeLine());
 		ArrayList<Task> result2 = new ArrayList<Task>(TimeLine.getInstance().getEndtimeLine());

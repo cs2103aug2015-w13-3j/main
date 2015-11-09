@@ -34,7 +34,7 @@ public class TimeSearchTest {
 		TimeLine.getInstance().clear();
 		TimeLine.getInstance().addToTL(c);
 		TimeLine.getInstance().addToTL(d);
-		assertEquals("D",Searcher.getInstance().searchDate(new DateTime(2014,1,3,1,1), new DateTime(2014,1,3,1,2)).get(0).getName());
+		assertEquals("D",Searcher.getInstance().searchDate(new DateTime(2014,1,3,1,1), new DateTime(2014,1,3,2,1)).get(0).getName());
 	}
 	
 	public void test3() {
