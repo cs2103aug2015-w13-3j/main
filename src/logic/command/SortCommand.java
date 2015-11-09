@@ -25,7 +25,7 @@ public class SortCommand extends Command{
 	}
 
 	@Override
-	public String execute() {
+	public String execute() throws InvalidCommandException{
 		
 		if (commandInfo.getPhrase().equals("name")) {
 			mgr.sort("name");
@@ -40,7 +40,7 @@ public class SortCommand extends Command{
 			return "Sorted by priority";
 
 		} else {
-			return "Invalid sorting type";
+			throw new  InvalidCommandException("Invalid sorting type");
 		}
 	}
 

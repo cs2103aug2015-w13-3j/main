@@ -18,9 +18,12 @@ public class UndoCommand extends Command{
 	}
 
 	@Override
-	public String execute() {
-		mgr.undo();
-		return "Undo previous operation";
+	public String execute() throws InvalidCommandException{
+		if(mgr.undo()){
+		    return "Undo previous operation";
+		}else{
+			throw new InvalidCommandException("No operation to undo");
+		}
 	}
 
 }

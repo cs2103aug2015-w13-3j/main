@@ -1,3 +1,4 @@
+//@@author A0133915H
 package gui;
 
 import logic.LogicClass;
@@ -23,7 +24,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-//@@author A0133915H
 public class MainApp extends Application {
 	private Stage primaryStage;
 

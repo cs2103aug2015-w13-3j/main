@@ -23,24 +23,41 @@ public class MarkCommand extends Command{
 	}
 
 	@Override
-	public String execute() {
+	/**
+	 * execute mark command and return a string of message
+	 * @return     return message
+	 * @throws InvalidCommandException  If command is invalid.
+	 */
+	public String execute() throws InvalidCommandException{
 		int index=0;
 		ArrayList<Task> taskList = mgr.getTaskList();
 		Task t;
-		if (isInteger(markInfo, 10)) { // mark by index
+		boolean found =false;
+		
+		if (isInteger(markInfo, 10)) { // delete by index
 			index = Integer.parseInt(markInfo)-1;
+			if(index<taskList.size()  && index>=0){
+				found =true;
+				t= mgr.mark(index);		
+				return "Task done: "+t.getName();
+			}
 			
-		} else {// mark by name
-			for (int i = 0; i < taskList.size(); i++) {
-				t = taskList.get(i);
-				if (t.getName().equals(markInfo)) {
-					index=i;
-					break;
-				}
+		}  
+		// delete by name
+		for (int i = 0; i < taskList.size(); i++) {
+			t = taskList.get(i);
+			if (t.getName().equals(markInfo)) {
+				index=i;
+				found = true;
+				break;
 			}
 		}
-		t= mgr.mark(index);
 		
+		if(found == false){
+			throw new InvalidCommandException("Task not found");
+		}
+		
+		t= mgr.mark(index);
 		return "Task done: " + t.getName();
 	}
 	

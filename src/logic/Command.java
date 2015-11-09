@@ -1,6 +1,8 @@
 //@@author A0133949U
 package logic;
 
+import logic.command.InvalidCommandException;
+
 public abstract class Command {
 	private CommandType ct;
 	
@@ -8,6 +10,6 @@ public abstract class Command {
 		this.ct = ct;
 	}
 	
-	public abstract String execute();
+	public abstract String execute() throws InvalidCommandException;
 	
 }
