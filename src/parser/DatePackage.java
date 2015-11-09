@@ -5,6 +5,11 @@ import org.joda.time.DateTime;
 //@author A0122061B
 
 public class DatePackage {
+    /*
+     * ====================================================================
+     * ATTRIBUTES
+     * ====================================================================
+     */
     private DateTime start;
     boolean hasStartTime = false, hasStartMinute = false;
     boolean hasEndTime = false, hasEndMinute = false;
@@ -12,33 +17,51 @@ public class DatePackage {
     boolean[] endTimeFormat = { hasEndTime, hasEndMinute };
     private DateTime end;
 
-    // Constructor
+    /*
+     * ====================================================================
+     * Constructors
+     * ====================================================================
+     */
     public DatePackage() {
 	start = null;
 	end = null;
     }
 
-    // Set Dates
-    public void setDate(DateTime front) {
+    /**
+     * sets the day to the first attribute
+     *
+     * @param front
+     *            a DateTime to be added as a start.
+     * @return the actual date with the time of the task
+     */
+    public DateTime setDate(DateTime front) {
 	start = front;
 	end = null;
+	return start;
     }
 
-    protected void setDate(DateTime front, DateTime back) {
+    protected DateTime setDate(DateTime front, DateTime back) {
 	start = front;
 	end = back;
+	return end;
     }
 
-    protected void setTimeFormat(boolean[] startFmt) {
+    protected int setTimeFormat(boolean[] startFmt) {
 	startTimeFormat = startFmt;
+	return startFmt.length;
     }
 
-    protected void setTimeFormat(boolean[] startFmt, boolean[] endFmt) {
+    protected int setTimeFormat(boolean[] startFmt, boolean[] endFmt) {
 	startTimeFormat = startFmt;
 	endTimeFormat = endFmt;
+	return endFmt.length;
     }
 
-    // Accessors
+    /*
+     * ====================================================================
+     * Accessors
+     * ====================================================================
+     */
     public DateTime startingTime() {
 	return start;
     }

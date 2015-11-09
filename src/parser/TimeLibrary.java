@@ -55,7 +55,7 @@ public class TimeLibrary {
      * 
      * @param input
      *            the word to be tested with TimeLibrary
-     * @return	a boolean if it matches a end referral
+     * @return a boolean if it matches a end referral
      */
     protected boolean isEnd(String input) {
 	return endList.contains(input.toLowerCase());
