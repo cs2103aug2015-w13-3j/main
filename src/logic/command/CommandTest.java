@@ -244,9 +244,11 @@ public class CommandTest {
 		
 		ArrayList<Task> recentState= new ArrayList<Task>();
 		ArrayList<Task> archivedList= new ArrayList<Task>();
+		ArrayList<ArrayList<Task>> current= new ArrayList<ArrayList<Task>>();
 		recentState.add(t);
 		recentState.add(tDone);
-		undoRedo.addStateToUndo(recentState, archivedList);
+		current= undoRedo.addStateToUndo(recentState, archivedList);
+		System.out.println(current.get(0).toString());
 		
         CommandPackage cp = cmdp.getCommandPackage("Undo");		
         CommandType ct = CommandType.valueOf("UNDO");
@@ -261,7 +263,7 @@ public class CommandTest {
 		
         assertTrue(msg.equals(CorrectMsg));
         
-        System.out.println("");
+        
         
         CorrectMsg="No operation to undo";
         try {
