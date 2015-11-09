@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.joda.time.DateTime;
 
+import logic.LogicClass;
+
 // @@author A0122061B
 
 public class CommandParser {
@@ -13,6 +15,7 @@ public class CommandParser {
      * Attributes/Variables
      * ====================================================================
      */
+    private static CommandParser theOne = null;
 
     public ArrayList<String> inputArr;
     public CommandPackage inputData;
@@ -43,14 +46,22 @@ public class CommandParser {
      * ====================================================================
      */
 
-    public CommandParser() {
+    private CommandParser() {
 
     }
 
-    public CommandParser(String command) {
+    private CommandParser(String command) {
 	input = command;
 	String[] arr = input.split(" ");
 	arrToArrayList(arr);
+    }
+
+    public static CommandParser getInstance() {
+
+	if (theOne == null) {
+	    theOne = new CommandParser();
+	}
+	return theOne;
     }
 
     /*
@@ -311,6 +322,9 @@ public class CommandParser {
 	for (int i = 0; i < inputArr.size(); i++) {
 	    word = inputArr.get(i);
 	    if (word.startsWith("`")) {
+		if (word.length() == 1) {
+		    inputArr.set(i, word + inputArr.get(i + 1));
+		}
 		inputData.addUpdateSequence(sequence);
 		sequence = "";
 		sequence = word.substring(1);
