@@ -10,10 +10,10 @@ public class CommandParserDemo {
 		CommandParser cmd = CommandParser.getInstance();
 		CommandPackage CPK;
 		//System.out.println(cmd.getCommandPackage("").endingTime());
-		CPK = cmd.getCommandPackage("update `a `st `asd");
+		CPK = cmd.getCommandPackage("clear");
 		System.out.println("asdasd");
 		System.out.println("result of this = ");
-		System.out.println("result of this = " + CPK.getPhrase());
+		System.out.println("result of this = " + CPK.getCommand());
 		System.out.println();
 		System.out.println(cmd.getCommandPackage("") == null);
 		CPK = cmd.getCommandPackage("plus something 10-oct");
