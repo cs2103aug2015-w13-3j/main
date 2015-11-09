@@ -5,7 +5,6 @@ import org.joda.time.DateTime;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-//@@author A0133915H
 public class Task implements Comparable<Task> {
 	private String name;
 	private DateTime startTime = null;
