@@ -99,6 +99,12 @@ public class Manager {
 			taskList.addAll(ptl.getP3());
 			taskList.addAll(ptl.getP4());
 			break;
+    	case "#":
+    		taskList = new ArrayList<Task>(ptl.getP1());
+			taskList.addAll(ptl.getP2());
+			taskList.addAll(ptl.getP3());
+			taskList.addAll(ptl.getP4());
+			break;
     	}
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList));
 		storage.write(taskList,archivedList);
