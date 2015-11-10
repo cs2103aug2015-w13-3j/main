@@ -3,7 +3,7 @@ package parser;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-//@author A0122061B
+//@@author A0122061B
 
 /**
  * This class stores all the refering time that users can input to be processed
