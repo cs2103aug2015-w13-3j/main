@@ -37,6 +37,8 @@ public class UpdateCommand extends Command{
 		int targetIndex=-1;
 		String updateType="";
 		
+		System.out.println("update sequnce: "+update.toString());
+		
 		if(isInteger(target,10)==true){
 			targetIndex = Integer.parseInt(target)-1;
 			
@@ -133,7 +135,7 @@ public class UpdateCommand extends Command{
 				
 				
 			} else{
-				throw new InvalidCommandException("Invalid update type. You can"
+				throw new InvalidCommandException("Invalid update type. You can "
 						+ "update name/priority/startTime/endTime");
 			}
 

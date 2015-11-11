@@ -212,8 +212,12 @@ public class Manager {
 	}
     
     public void update(int index, Task newTask){ 	
-    	taskList.remove(index);
+    	Task t=taskList.remove(index);
 		taskList.add(index,newTask);
+		ptl.deleteFromPL(t);
+		timeline.deleteFromTL(t);
+		ptl.addToPL(newTask);
+		timeline.addToTL(newTask);
 		undoRedo.addStateToUndo(new ArrayList<Task>(taskList),
     			new ArrayList<Task>(archivedList),new ArrayList<Task>(searchTaskList));
 		storage.write(taskList,archivedList);
