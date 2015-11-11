@@ -1,7 +1,7 @@
 package parser;
 
 import java.util.ArrayList;
-
+//@@author A0122061B
 public class BooleanChecker {
 
     /*
@@ -23,7 +23,7 @@ public class BooleanChecker {
 
     }
     
-    protected static BooleanChecker getInstance() {
+    public static BooleanChecker getInstance() {
 
 	if (theOne == null) {
 	    theOne = new BooleanChecker();
@@ -35,53 +35,49 @@ public class BooleanChecker {
      * Methods
      * ====================================================================
      */
-    protected boolean isValidCommand(String command) {
+    public boolean isValidCommand(String command) {
 	return !command.equalsIgnoreCase(NOT_FOUND);
     }
 
-    protected boolean isOneCommandFormat(String commandName) {
+    public boolean isOneCommandFormat(String commandName) {
 	return commandName.equalsIgnoreCase("undo") || commandName.equalsIgnoreCase("exit")
 	       || commandName.equalsIgnoreCase("redo");
     }
 
-    protected boolean isSearchCommand(String commandName) {
+    public boolean isSearchCommand(String commandName) {
 	return commandName.equals("search");
     }
 
-    protected boolean isUpdateCommand(String commandName) {
+    public boolean isUpdateCommand(String commandName) {
 	return commandName.equals("update");
     }
 
-    protected boolean isCreateCommand(String commandName) {
+    public boolean isCreateCommand(String commandName) {
 	return commandName.equals("create");
     }
 
-    protected boolean isClearAllCommand(String commandName, ArrayList<String> inputArr) {
+    public boolean isClearAllCommand(String commandName, ArrayList<String> inputArr) {
 	return commandName.equals("clear") && inputArr.size() == 0;
     }
 
-    protected boolean isArrayEmptyAndInvalid(ArrayList<String> inputArr) {
+    public boolean isArrayEmptyAndInvalid(ArrayList<String> inputArr) {
 	return inputArr.size() == 0;
     }
 
-    protected boolean remove(int index, ArrayList<String> inputArr) {
-	inputArr.remove(index);
-	return true;
-    }
 
-    protected boolean isDateUpdateSequence(CommandPackage inputData) {
+    public boolean isDateUpdateSequence(CommandPackage inputData) {
 	return inputData.getUpdateSequence().size() < 4;
     }
 
-    protected boolean isZero(int numberOfTime) {
+    public boolean isZero(int numberOfTime) {
 	return numberOfTime == 0;
     }
 
-    protected boolean isTwo(int numberOfDates) {
+    public boolean isTwo(int numberOfDates) {
 	return numberOfDates == 2;
     }
 
-    protected boolean isOne(int numberOfTime) {
+    public boolean isOne(int numberOfTime) {
 	return numberOfTime == 1;
     }
 

@@ -63,7 +63,7 @@ public class UndoRedoOp {
 			searchRedoStack.push(new ArrayList<Task>(currentSearch));
 
 			if (!undoStack.isEmpty() && !archivedUndoStack.isEmpty() && !searchUndoStack.isEmpty()) {
-				System.out.println("herereeee"+ searchUndoStack.toString());
+				System.out.println("undoStack"+ searchUndoStack.toString());
 				previousState.add(new ArrayList<Task>(undoStack.peek()));
 				previousState.add(new ArrayList<Task>(archivedUndoStack.peek()));
 				previousState.add(new ArrayList<Task>(searchUndoStack.peek()));

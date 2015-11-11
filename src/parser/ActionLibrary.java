@@ -2,7 +2,7 @@ package parser;
 
 import java.util.TreeMap;
 
-//@author A0122061B
+//@@author A0122061B
 
 /**
  * This class stores all the possible actions that users can input to be

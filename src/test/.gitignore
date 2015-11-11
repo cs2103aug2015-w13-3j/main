@@ -1,7 +1,3 @@
-/CommandParserTest.class
-/SystemTest.class
-/TimeSearchTest.class
-/ReadAndWriteTest.class
-/SetPathTest.class
-/UndoRedoOpTest.class
 /LogicClassTest.class
+/UndoRedoOpTest.class
+/CommandTest.class
